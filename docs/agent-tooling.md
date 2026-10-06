@@ -78,6 +78,22 @@ non-default profile from the default account (`~/.claude`, `~/.codex`):
 Provisioning is idempotent and runs when an account is added, when one is selected, and at host
 boot for the selected accounts (`usage/account-provisioning.ts`).
 
+## Discovering Superset CLI commands
+
+Agent-facing text (`AGENTS.md`, skills, prompts) should point agents at `superset schema`, not at
+`--help`. It prints every command, option and argument as JSON, so an agent reads exact names and
+types with `jq` instead of parsing help text. Keep `--help` for text a human reads.
+
+```bash
+superset schema | jq -c '[.commands[].path]'
+superset schema | jq '.commands[] | select(.path==["terminals"]) | .commands[] | {path, options: [.options[].name]}'
+superset schema | jq -e '.commands[] | select(.path==["feedback"])' >/dev/null && echo supported
+```
+
+Each command carries `path`, `description`, `options`, `args` and nested `commands`; the top level
+also has `globalOptions`. For a command that exists only in this worktree, read the from-source CLI:
+`bun run --cwd packages/cli dev schema 2>/dev/null | jq ...`.
+
 ## Testing the CLI and skills against the dev app
 
 The dev desktop app is local-first: it registers its host service under a
