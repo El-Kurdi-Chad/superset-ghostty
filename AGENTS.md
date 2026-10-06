@@ -137,8 +137,15 @@ of scattering across the project. `ws list --local --tag SOME_TAG` filters to th
 `ws update WORKSPACE_ID --tag ...` retags (`--clear-tags` ungroups). Automation-created workspaces
 are tagged `automation` by default and collect in an "automation" folder.
 
-`superset <command> --help` covers the rest (tasks, automations, hosts, settings). Pass `--json` for
-parsable output; it's on by default under agent environments.
+`superset schema` prints every command, option and argument as JSON; read it with `jq` to learn the
+rest (tasks, automations, hosts, settings) or to check a command exists, instead of parsing
+`--help` text:
+
+```bash
+superset schema | jq '.commands[] | select(.path==["terminals"]) | .commands[] | {path, options: [.options[].name]}'
+```
+
+Pass `--json` for parsable output; it's on by default under agent environments.
 
 ## Internationalization
 

@@ -144,7 +144,7 @@ Never submit anything before the user explicitly picks 1 or 2. Loop on edits.
 ## 4. Submit
 
 **Private path:**
-- If `superset feedback --help` exits 0, submit via stdin (note: `--body-file=-` with the equals sign; a space-separated `-` is rejected by the parser):
+- If `superset schema | jq -e '.commands[] | select(.path==["feedback"])'` exits 0, submit via stdin (note: `--body-file=-` with the equals sign; a space-separated `-` is rejected by the parser):
   ```bash
   superset feedback submit --type <bug|feature|general> --title "..." --body-file=- <<'EOF'
   <drafted report>
