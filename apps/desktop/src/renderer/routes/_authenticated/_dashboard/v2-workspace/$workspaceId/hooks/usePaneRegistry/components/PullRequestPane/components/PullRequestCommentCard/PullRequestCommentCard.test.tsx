@@ -40,9 +40,18 @@ const comment = {
 	isResolved: false,
 };
 describe("review cards", () => {
+	test("folds to a row that names the author, the file and its state", () => {
+		const view = renderCard({ comment: { ...comment, isResolved: true } });
+		const row = view.getByRole("button", { name: /Expand/ });
+		expect(row.textContent).toContain("reviewer");
+		expect(row.textContent).toContain("src/app.ts:42");
+		expect(row.textContent).toContain("Resolved");
+		expect(view.queryByText(/Keep the/)).toBeNull();
+	});
 	test("renders the full comment body without making it a navigation button", () => {
 		const onOpenInDiff = mock(() => {});
 		const view = renderCard({ comment, onOpenInDiff });
+		fireEvent.click(view.getByRole("button", { name: /Expand/ }));
 		const body = view.getByText(/Keep the/);
 		expect(body.textContent).toBe("Keep the selected line visible.");
 		expect(view.getByText("selected line").tagName).toBe("STRONG");
@@ -63,7 +72,8 @@ describe("review cards", () => {
 			comment: { ...comment, diffSide },
 			onOpenInDiff,
 		});
-		fireEvent.click(view.getByRole("button", { name: /src\/app.ts/ }));
+		fireEvent.click(view.getByRole("button", { name: /Expand/ }));
+		fireEvent.click(view.getByRole("button", { name: /^src\/app\.ts/ }));
 		expect(onOpenInDiff).toHaveBeenCalledWith(
 			"src/app.ts",
 			42,

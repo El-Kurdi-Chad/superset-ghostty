@@ -27,6 +27,7 @@ export function PullRequestDetailContent({
 	repoFullName,
 	detail,
 	children,
+	threadCount,
 	summaryAside,
 	commentTarget = null,
 }: {
@@ -44,6 +45,7 @@ export function PullRequestDetailContent({
 		refetch: () => unknown;
 	};
 	children?: ReactNode;
+	threadCount?: number;
 	summaryAside?: ReactNode;
 	/** Where a conversation comment posts; null hides the composer. */
 	commentTarget?: PullRequestCommentTarget | null;
@@ -88,6 +90,7 @@ export function PullRequestDetailContent({
 					<PullRequestSummaryContent
 						data={detail.data}
 						commentTarget={commentTarget}
+						threadCount={threadCount}
 						aside={summaryAside}
 					>
 						{children}

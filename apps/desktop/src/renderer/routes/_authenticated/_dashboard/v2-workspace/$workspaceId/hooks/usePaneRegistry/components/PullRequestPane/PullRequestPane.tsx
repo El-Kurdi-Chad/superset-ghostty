@@ -118,6 +118,7 @@ export function PullRequestPane({
 				hostUrl={workspaceHostUrl}
 				hostId={workspace.hostId}
 				commentTarget={commentTarget}
+				threadCount={isLinkedPR ? comments.length : 0}
 				summaryAside={
 					isLinkedPR ? (
 						<PullRequestEvidence

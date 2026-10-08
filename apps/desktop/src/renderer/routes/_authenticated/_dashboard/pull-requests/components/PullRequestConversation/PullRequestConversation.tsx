@@ -1,74 +1,101 @@
-import { Trans } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
+import { ArrowUpRight } from "lucide-react";
+import { type ReactNode, useMemo } from "react";
+import type {
+	PullRequestDetail,
+	PullRequestDetailComment,
+} from "../../hooks/usePullRequestDetail";
 import {
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
-} from "@superset/ui/collapsible";
-import { cn } from "@superset/ui/utils";
-import { ChevronDown } from "lucide-react";
-import { useMemo, useState } from "react";
-import type { PullRequestDetail } from "../../hooks/usePullRequestDetail";
+	type PullRequestCommentTarget,
+	PullRequestConversationComposer,
+} from "../PullRequestConversationComposer";
 import { PullRequestConversationComment } from "./components/PullRequestConversationComment";
+
+/** GitHub files a review for every batch of inline comments; one with no
+ *  body and no verdict is only that container, not something to read. */
+function isEmptyReviewShell(comment: PullRequestDetailComment): boolean {
+	return (
+		comment.kind === "review" &&
+		comment.body.trim() === "" &&
+		comment.reviewState !== "APPROVED" &&
+		comment.reviewState !== "CHANGES_REQUESTED"
+	);
+}
 
 interface PullRequestConversationProps {
 	data: PullRequestDetail;
+	/** Where a new comment posts; null hides the composer. */
+	commentTarget: PullRequestCommentTarget | null;
+	/** Review-thread rows the host adds after the conversation. */
+	children?: ReactNode;
+	/** How many rows `children` holds, for the heading count. */
+	threadCount?: number;
 }
 
 /**
- * The pull request's comments and reviews, oldest first, under a
- * hairline-topped heading that folds; the last two start open. Older hosts
- * and the cloud route send no comments, so the section is absent there.
+ * The Comments section: conversation comments and reviews oldest first as
+ * folded rows, the host's review threads after them, and the composer last.
+ * Older hosts and the cloud route send no comments, so without threads or a
+ * composer there is nothing to show.
  */
 export function PullRequestConversation({
 	data,
+	commentTarget,
+	children,
+	threadCount = 0,
 }: PullRequestConversationProps) {
-	const [open, setOpen] = useState(true);
+	const { t } = useLingui();
 	const comments = useMemo(
 		() =>
-			[...(data.comments ?? [])].sort((left, right) =>
-				left.createdAt.localeCompare(right.createdAt),
-			),
+			(data.comments ?? [])
+				.filter((comment) => !isEmptyReviewShell(comment))
+				.sort((left, right) => left.createdAt.localeCompare(right.createdAt)),
 		[data.comments],
 	);
-	if (data.comments === undefined) return null;
+	if (data.comments === undefined && !children && !commentTarget) return null;
+	const total = comments.length + threadCount;
 	return (
-		<Collapsible
-			open={open}
-			onOpenChange={setOpen}
-			className="border-t border-border/60"
-		>
-			<CollapsibleTrigger className="flex w-full items-center gap-1.5 py-3 text-left text-[15px] font-medium">
-				<span>
+		<section className="min-w-0" data-pr-comments>
+			<div className="flex h-10 items-center gap-2">
+				<h2 className="text-sm font-medium">
 					<Trans>Comments</Trans>
-				</span>
-				<ChevronDown
-					className={cn(
-						"size-3.5 text-muted-foreground transition-transform",
-						open && "rotate-180",
-					)}
-				/>
-				<span className="text-xs tabular-nums text-muted-foreground">
-					{comments.length}
-				</span>
-			</CollapsibleTrigger>
-			<CollapsibleContent>
-				<div>
-					{comments.length === 0 ? (
-						<p className="py-4 text-center text-sm text-muted-foreground">
-							<Trans>No comments</Trans>
-						</p>
-					) : (
-						comments.map((comment, index) => (
-							<PullRequestConversationComment
-								key={comment.id}
-								comment={comment}
-								prUrl={data.url}
-								defaultOpen={index >= comments.length - 2}
-							/>
-						))
-					)}
+				</h2>
+				{data.comments !== undefined || threadCount > 0 ? (
+					<span className="rounded-md bg-muted px-1.5 py-0.5 text-[11px] font-medium tabular-nums text-muted-foreground">
+						{total}
+					</span>
+				) : null}
+				<a
+					href={data.url}
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label={t({ message: "Open on GitHub" })}
+					className="ml-auto flex size-6 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+				>
+					<ArrowUpRight className="size-4" />
+				</a>
+			</div>
+			<div className="space-y-1.5">
+				{comments.map((comment, index) => (
+					<PullRequestConversationComment
+						key={comment.id}
+						comment={comment}
+						prUrl={data.url}
+						defaultOpen={comments.length <= 2 && index === comments.length - 1}
+					/>
+				))}
+				{children}
+				{total === 0 && data.comments !== undefined ? (
+					<p className="py-3 text-center text-sm text-muted-foreground">
+						<Trans>No comments</Trans>
+					</p>
+				) : null}
+			</div>
+			{commentTarget ? (
+				<div className="mt-3">
+					<PullRequestConversationComposer target={commentTarget} />
 				</div>
-			</CollapsibleContent>
-		</Collapsible>
+			) : null}
+		</section>
 	);
 }

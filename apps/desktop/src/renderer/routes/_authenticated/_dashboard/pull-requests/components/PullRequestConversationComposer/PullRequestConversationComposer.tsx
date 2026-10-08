@@ -18,7 +18,7 @@ interface PullRequestConversationComposerProps {
 	target: PullRequestCommentTarget;
 }
 
-/** The "Leave a comment" pill under the conversation. Posts as the gh user;
+/** The "Leave a comment" card at the end of the Comments section. Posts as the gh user;
  *  Enter sends, Shift+Enter breaks a line (comments accept markdown). */
 export function PullRequestConversationComposer({
 	target,
@@ -59,15 +59,9 @@ export function PullRequestConversationComposer({
 	};
 	const placeholder = t({ message: "Leave a comment" });
 	return (
-		<div className="flex items-center gap-2 rounded-3xl border border-border/60 bg-background py-1 pl-3 pr-1.5 shadow-sm">
-			<span
-				className="flex size-5 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground"
-				title={t({ message: "Commenting as your GitHub account" })}
-			>
-				<FaGithub className="size-3" />
-			</span>
+		<div className="rounded-xl border border-border/60 bg-background shadow-sm">
 			<textarea
-				rows={Math.min(6, body.split("\n").length)}
+				rows={Math.max(3, Math.min(8, body.split("\n").length))}
 				value={body}
 				disabled={post.isPending}
 				placeholder={placeholder}
@@ -83,17 +77,25 @@ export function PullRequestConversationComposer({
 						submit();
 					}
 				}}
-				className="min-w-0 flex-1 resize-none bg-transparent py-1.5 text-sm outline-none placeholder:text-muted-foreground disabled:opacity-60"
+				className="block w-full resize-none bg-transparent px-3 pt-3 text-sm outline-none placeholder:text-muted-foreground disabled:opacity-60"
 			/>
-			<button
-				type="button"
-				disabled={!canSubmit}
-				aria-label={t({ message: "Post comment" })}
-				onClick={submit}
-				className="flex size-7 shrink-0 items-center justify-center self-end rounded-full bg-primary text-primary-foreground transition-opacity disabled:opacity-35"
-			>
-				<ArrowUp strokeWidth={2.25} className="size-4" />
-			</button>
+			<div className="flex items-center justify-end gap-1.5 px-2 pb-2">
+				<span
+					className="mr-auto flex items-center gap-1.5 pl-1 text-[11px] text-muted-foreground"
+					title={t({ message: "Commenting as your GitHub account" })}
+				>
+					<FaGithub className="size-3" />
+				</span>
+				<button
+					type="button"
+					disabled={!canSubmit}
+					aria-label={t({ message: "Post comment" })}
+					onClick={submit}
+					className="flex size-7 shrink-0 items-center justify-center rounded-md border border-border/60 bg-muted/60 text-foreground transition-colors hover:bg-muted disabled:opacity-40"
+				>
+					<ArrowUp strokeWidth={2.25} className="size-4" />
+				</button>
+			</div>
 		</div>
 	);
 }
