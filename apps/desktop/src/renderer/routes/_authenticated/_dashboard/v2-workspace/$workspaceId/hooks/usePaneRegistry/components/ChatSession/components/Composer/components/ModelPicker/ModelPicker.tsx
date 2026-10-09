@@ -148,15 +148,6 @@ export function ModelPicker({
 			controls.at(next < 0 ? -1 : 0)?.focus();
 		}
 	};
-	// Hovering a row moves menu focus to it; typing must still reach the search.
-	const sendTypingToSearch = (event: KeyboardEvent<HTMLDivElement>) => {
-		const search = searchRef.current;
-		if (!search || event.target === search) return;
-		if (event.key.length !== 1 || event.key === " ") return;
-		if (event.metaKey || event.ctrlKey || event.altKey) return;
-		event.stopPropagation();
-		search.focus();
-	};
 
 	return (
 		<div className="flex min-w-0 items-center gap-0.5">
@@ -205,7 +196,6 @@ export function ModelPicker({
 						MENU_PANEL_CLASS,
 						"flex w-[296px] flex-col overflow-hidden p-0",
 					)}
-					onKeyDownCapture={sendTypingToSearch}
 					side="top"
 				>
 					{showsModels ? (
