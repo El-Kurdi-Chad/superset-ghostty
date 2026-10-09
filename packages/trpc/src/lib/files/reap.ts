@@ -34,7 +34,7 @@ export async function detachAll({
 /**
  * Deletes the files among `fileIds` that no attachment references anymore,
  * bytes included. Objects go before rows: a crash in between leaves a row
- * pointing at nothing, which the next reap of that file repairs, whereas the
+ * pointing at nothing, which the daily `sweepOrphanFiles` removes, whereas the
  * opposite order strands bytes nothing can name again.
  */
 export async function reapOrphanFiles(fileIds: string[]): Promise<void> {
