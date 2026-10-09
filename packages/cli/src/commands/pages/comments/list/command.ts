@@ -115,5 +115,5 @@ function indent(text: string, prefix: string): string {
 }
 
 function printable(text: string): string {
-	return text.replace(/[\u0000-\u001f\u007f-\u009f]/g, "");
+	return text.replace(/\p{Cc}/gu, "");
 }
