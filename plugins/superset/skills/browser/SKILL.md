@@ -38,9 +38,10 @@ the pane verbs already cover those.
 
 ## Establish the control surface
 
-1. Run `superset schema | jq -r '.commands[] | select(.path==["browser"]) | .commands[].path[1]'`
+1. Run `superset schema 2>/dev/null | jq -re '.commands[] | select(.path==["browser"]) | .commands[].path[1]' || superset browser --help`
    and require `list`, `open`, `navigate`, `screenshot`, `eval`, `console`, and
-   `cdp`. If absent, run `superset update`
+   `cdp`. The `--help` fallback covers a CLI older than 1.34.0 (no `schema`) and
+   a machine without `jq`. If the verbs are absent, run `superset update`
    and recheck. The app-bundled CLI (`~/.superset/bin/superset`) updates only
    with the desktop app, so if it lacks `browser`, updating the app is the fix;
    check `type -a superset` for another install before giving up.

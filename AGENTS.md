@@ -138,8 +138,9 @@ of scattering across the project. `ws list --local --tag SOME_TAG` filters to th
 are tagged `automation` by default and collect in an "automation" folder.
 
 `superset schema` prints every command, option and argument as JSON; read it with `jq` to learn the
-rest (tasks, automations, hosts, settings) or to check a command exists, instead of parsing
-`--help` text:
+rest (tasks, automations, hosts, settings) instead of parsing `--help` text. To check only that a
+command exists, the exit code of `superset <command> --help` is enough. Details and the version
+caveat: `docs/agent-tooling.md`.
 
 ```bash
 superset schema | jq '.commands[] | select(.path==["terminals"]) | .commands[] | {path, options: [.options[].name]}'
