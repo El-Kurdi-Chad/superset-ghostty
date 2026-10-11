@@ -42,7 +42,7 @@ export function createClosedChatBatches<TChat>(
 			const batch = settle(id);
 			if (!batch) return;
 			actions.hide(batch.id);
-			for (const chat of batch.chats) actions.restore(chat);
+			for (const chat of [...batch.chats].reverse()) actions.restore(chat);
 		},
 		expire(id: string) {
 			const batch = settle(id);

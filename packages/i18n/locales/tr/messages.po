@@ -13743,9 +13743,6 @@ msgstr "Kapatılan sekmeyi yeniden aç"
 msgid "Reopen PR"
 msgstr "PR'ı yeniden aç"
 
-msgid "Reopen the chats you just closed"
-msgstr "Az önce kapattığınız sohbetleri yeniden açın"
-
 msgid "Reopen thread"
 msgstr "Konuyu yeniden aç"
 
@@ -14047,9 +14044,6 @@ msgstr "Planı geri yükle"
 
 msgid "restore the agent defaults"
 msgstr "ajan varsayılanlarını geri yükleme"
-
-msgid "Restore the workspace you just archived"
-msgstr "Az önce arşivlediğiniz çalışma alanını geri yükle"
 
 msgid "Restore this version?"
 msgstr "Bu sürüm geri yüklensin mi?"
@@ -18106,11 +18100,8 @@ msgstr "Sürüyor"
 msgid "Undo"
 msgstr "Geri al"
 
-msgid "Undo Archive"
-msgstr "Arşivlemeyi geri al"
-
-msgid "Undo Closed Chats"
-msgstr "Kapatılan sohbetleri geri al"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "Son arşivlenen çalışma alanını veya kapatılan sohbetleri geri al"
 
 msgid "Ungroup"
 msgstr "Gruptan çıkar"

@@ -13743,9 +13743,6 @@ msgstr "重新開啟已關閉的分頁"
 msgid "Reopen PR"
 msgstr "重新開啟PR"
 
-msgid "Reopen the chats you just closed"
-msgstr "重新開啟剛剛關閉的聊天"
-
 msgid "Reopen thread"
 msgstr "重新開啟討論串"
 
@@ -14047,9 +14044,6 @@ msgstr "恢復方案"
 
 msgid "restore the agent defaults"
 msgstr "恢復代理程式預設設定"
-
-msgid "Restore the workspace you just archived"
-msgstr "還原剛剛歸檔的工作區"
 
 msgid "Restore this version?"
 msgstr "恢復這個版本？"
@@ -18106,11 +18100,8 @@ msgstr "進行中"
 msgid "Undo"
 msgstr "撤銷"
 
-msgid "Undo Archive"
-msgstr "復原歸檔"
-
-msgid "Undo Closed Chats"
-msgstr "復原已關閉的聊天"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "復原上次歸檔的工作區或關閉的聊天"
 
 msgid "Ungroup"
 msgstr "取消群組"

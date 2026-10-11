@@ -13743,9 +13743,6 @@ msgstr "Znovu otevřít zavřenou kartu"
 msgid "Reopen PR"
 msgstr "Znovu otevřít PR"
 
-msgid "Reopen the chats you just closed"
-msgstr "Znovu otevřít právě zavřené chaty"
-
 msgid "Reopen thread"
 msgstr "Znovu otevřít vlákno"
 
@@ -14047,9 +14044,6 @@ msgstr "Obnovit tarif"
 
 msgid "restore the agent defaults"
 msgstr "obnovit výchozí nastavení agenta"
-
-msgid "Restore the workspace you just archived"
-msgstr "Obnovit pracovní prostor, který jste právě archivovali"
 
 msgid "Restore this version?"
 msgstr "Obnovit tuto verzi?"
@@ -18106,11 +18100,8 @@ msgstr "Probíhá"
 msgid "Undo"
 msgstr "Zpět"
 
-msgid "Undo Archive"
-msgstr "Vrátit archivaci"
-
-msgid "Undo Closed Chats"
-msgstr "Vrátit zavření chatů"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "Vrátit poslední archivaci pracovního prostoru nebo zavření chatů"
 
 msgid "Ungroup"
 msgstr "Zrušit skupinu"

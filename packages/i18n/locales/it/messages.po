@@ -13743,9 +13743,6 @@ msgstr "Riapri la scheda chiusa"
 msgid "Reopen PR"
 msgstr "Riapri la PR"
 
-msgid "Reopen the chats you just closed"
-msgstr "Riapri le chat appena chiuse"
-
 msgid "Reopen thread"
 msgstr "Riapri il thread"
 
@@ -14047,9 +14044,6 @@ msgstr "Ripristina il piano"
 
 msgid "restore the agent defaults"
 msgstr "ripristinare i valori predefiniti degli agenti"
-
-msgid "Restore the workspace you just archived"
-msgstr "Ripristina il workspace appena archiviato"
 
 msgid "Restore this version?"
 msgstr "Ripristinare questa versione?"
@@ -18106,11 +18100,8 @@ msgstr "In corso"
 msgid "Undo"
 msgstr "Annulla"
 
-msgid "Undo Archive"
-msgstr "Annulla archiviazione"
-
-msgid "Undo Closed Chats"
-msgstr "Annulla chiusura chat"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "Annulla l'ultima archiviazione del workspace o la chiusura delle chat"
 
 msgid "Ungroup"
 msgstr "Rimuovi dal gruppo"

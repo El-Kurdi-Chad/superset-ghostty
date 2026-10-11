@@ -13743,9 +13743,6 @@ msgstr "Mở lại tab vừa đóng"
 msgid "Reopen PR"
 msgstr "Mở lại PR"
 
-msgid "Reopen the chats you just closed"
-msgstr "Mở lại các cuộc trò chuyện bạn vừa đóng"
-
 msgid "Reopen thread"
 msgstr "Mở lại luồng"
 
@@ -14047,9 +14044,6 @@ msgstr "Khôi phục gói"
 
 msgid "restore the agent defaults"
 msgstr "khôi phục mặc định của agent"
-
-msgid "Restore the workspace you just archived"
-msgstr "Khôi phục không gian làm việc bạn vừa lưu trữ"
 
 msgid "Restore this version?"
 msgstr "Khôi phục phiên bản này?"
@@ -18106,11 +18100,8 @@ msgstr "Đang diễn ra"
 msgid "Undo"
 msgstr "Hoàn tác"
 
-msgid "Undo Archive"
-msgstr "Hoàn tác lưu trữ"
-
-msgid "Undo Closed Chats"
-msgstr "Hoàn tác đóng cuộc trò chuyện"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "Hoàn tác lần lưu trữ workspace hoặc đóng cuộc trò chuyện gần nhất"
 
 msgid "Ungroup"
 msgstr "Bỏ nhóm"

@@ -13743,9 +13743,6 @@ msgstr "閉じたタブを再度開く"
 msgid "Reopen PR"
 msgstr "PRを再オープン"
 
-msgid "Reopen the chats you just closed"
-msgstr "閉じたばかりのチャットを再度開きます"
-
 msgid "Reopen thread"
 msgstr "スレッドを再開"
 
@@ -14047,9 +14044,6 @@ msgstr "プランを復元"
 
 msgid "restore the agent defaults"
 msgstr "エージェントの既定値を復元する"
-
-msgid "Restore the workspace you just archived"
-msgstr "アーカイブしたばかりのワークスペースを復元する"
 
 msgid "Restore this version?"
 msgstr "このバージョンを復元しますか?"
@@ -18106,11 +18100,8 @@ msgstr "進行中"
 msgid "Undo"
 msgstr "取り消す"
 
-msgid "Undo Archive"
-msgstr "アーカイブを元に戻す"
-
-msgid "Undo Closed Chats"
-msgstr "閉じたチャットを元に戻す"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "直前のワークスペースのアーカイブまたはチャットのクローズを元に戻す"
 
 msgid "Ungroup"
 msgstr "グループ解除"

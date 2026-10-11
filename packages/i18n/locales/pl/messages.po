@@ -13743,9 +13743,6 @@ msgstr "Otwórz ponownie zamkniętą kartę"
 msgid "Reopen PR"
 msgstr "Otwórz PR ponownie"
 
-msgid "Reopen the chats you just closed"
-msgstr "Otwórz ponownie właśnie zamknięte czaty"
-
 msgid "Reopen thread"
 msgstr "Otwórz wątek ponownie"
 
@@ -14047,9 +14044,6 @@ msgstr "Przywróć plan"
 
 msgid "restore the agent defaults"
 msgstr "przywrócić domyślnych ustawień agenta"
-
-msgid "Restore the workspace you just archived"
-msgstr "Przywróć właśnie zarchiwizowany obszar roboczy"
 
 msgid "Restore this version?"
 msgstr "Przywrócić tę wersję?"
@@ -18106,11 +18100,8 @@ msgstr "W toku"
 msgid "Undo"
 msgstr "Cofnij"
 
-msgid "Undo Archive"
-msgstr "Cofnij archiwizację"
-
-msgid "Undo Closed Chats"
-msgstr "Cofnij zamknięcie czatów"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "Cofnij ostatnią archiwizację obszaru roboczego lub zamknięcie czatów"
 
 msgid "Ungroup"
 msgstr "Rozgrupuj"

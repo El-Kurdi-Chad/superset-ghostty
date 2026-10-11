@@ -4,7 +4,7 @@ import { Button } from "@superset/ui/button";
 import { Kbd, KbdGroup } from "@superset/ui/kbd";
 import { MessageSquareIcon } from "lucide-react";
 import { useEffect, useRef } from "react";
-import { useHotkey } from "renderer/hotkeys";
+import { useHotkeyDisplay } from "renderer/hotkeys";
 
 export function ChatClosedToast({
 	titles,
@@ -17,10 +17,7 @@ export function ChatClosedToast({
 }) {
 	const { t } = useLingui();
 	const countdownRef = useRef<HTMLDivElement>(null);
-	const { keys } = useHotkey("REOPEN_CLOSED_CHATS", onUndo, {
-		enableOnFormTags: false,
-		enableOnContentEditable: false,
-	});
+	const { keys } = useHotkeyDisplay("UNDO");
 
 	useEffect(() => {
 		const bar = countdownRef.current;

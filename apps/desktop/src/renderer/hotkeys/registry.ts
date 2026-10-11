@@ -242,16 +242,16 @@ export const HOTKEYS_REGISTRY = {
 			message: "Close or delete the current workspace",
 		}),
 	},
-	UNDO_ARCHIVE_WORKSPACE: {
+	UNDO: {
 		key: {
 			mac: L("meta+z"),
 			windows: L("ctrl+z"),
 			linux: L("ctrl+z"),
 		},
-		label: msg({ message: "Undo Archive" }),
+		label: msg({ message: "Undo" }),
 		category: "Workspace",
 		description: msg({
-			message: "Restore the workspace you just archived",
+			message: "Undo the last archived workspace or closed chats",
 		}),
 	},
 	NEW_WORKSPACE: {
@@ -558,18 +558,6 @@ export const HOTKEYS_REGISTRY = {
 		},
 		label: msg({ message: "Reopen Closed Tab" }),
 		category: "Layout",
-	},
-	REOPEN_CLOSED_CHATS: {
-		key: {
-			mac: L("meta+z"),
-			windows: L("ctrl+z"),
-			linux: L("ctrl+z"),
-		},
-		label: msg({ message: "Undo Closed Chats" }),
-		category: "Layout",
-		description: msg({
-			message: "Reopen the chats you just closed",
-		}),
 	},
 	NEW_BROWSER: {
 		key: {

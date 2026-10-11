@@ -13743,9 +13743,6 @@ msgstr "Buka Lagi Tab yang Ditutup"
 msgid "Reopen PR"
 msgstr "Buka Lagi PR"
 
-msgid "Reopen the chats you just closed"
-msgstr "Buka kembali chat yang baru saja Anda tutup"
-
 msgid "Reopen thread"
 msgstr "Buka lagi thread"
 
@@ -14047,9 +14044,6 @@ msgstr "Pulihkan paket"
 
 msgid "restore the agent defaults"
 msgstr "memulihkan setelan bawaan agen"
-
-msgid "Restore the workspace you just archived"
-msgstr "Pulihkan ruang kerja yang baru saja Anda arsipkan"
 
 msgid "Restore this version?"
 msgstr "Pulihkan versi ini?"
@@ -18106,11 +18100,8 @@ msgstr "Sedang berjalan"
 msgid "Undo"
 msgstr "Undo"
 
-msgid "Undo Archive"
-msgstr "Batalkan arsip"
-
-msgid "Undo Closed Chats"
-msgstr "Batalkan penutupan chat"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "Batalkan workspace terakhir yang diarsipkan atau chat yang ditutup"
 
 msgid "Ungroup"
 msgstr "Keluarkan dari grup"

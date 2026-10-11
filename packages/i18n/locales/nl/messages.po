@@ -13743,9 +13743,6 @@ msgstr "Gesloten tabblad heropenen"
 msgid "Reopen PR"
 msgstr "PR heropenen"
 
-msgid "Reopen the chats you just closed"
-msgstr "De chats die je net hebt gesloten opnieuw openen"
-
 msgid "Reopen thread"
 msgstr "Thread heropenen"
 
@@ -14047,9 +14044,6 @@ msgstr "Plan herstellen"
 
 msgid "restore the agent defaults"
 msgstr "de standaardwaarden van de agent herstellen"
-
-msgid "Restore the workspace you just archived"
-msgstr "De werkruimte herstellen die je net hebt gearchiveerd"
 
 msgid "Restore this version?"
 msgstr "Deze versie herstellen?"
@@ -18106,11 +18100,8 @@ msgstr "Gaande"
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-msgid "Undo Archive"
-msgstr "Archiveren ongedaan maken"
-
-msgid "Undo Closed Chats"
-msgstr "Sluiten van chats ongedaan maken"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "Laatst gearchiveerde werkruimte of gesloten chats ongedaan maken"
 
 msgid "Ungroup"
 msgstr "Groepering opheffen"

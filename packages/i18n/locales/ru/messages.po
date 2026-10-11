@@ -13743,9 +13743,6 @@ msgstr "Открыть заново закрытую вкладку"
 msgid "Reopen PR"
 msgstr "Открыть PR заново"
 
-msgid "Reopen the chats you just closed"
-msgstr "Снова открыть только что закрытые чаты"
-
 msgid "Reopen thread"
 msgstr "Снова открыть ветку"
 
@@ -14047,9 +14044,6 @@ msgstr "Восстановить тариф"
 
 msgid "restore the agent defaults"
 msgstr "восстановить настройки агента по умолчанию"
-
-msgid "Restore the workspace you just archived"
-msgstr "Восстановить только что заархивированное рабочее пространство"
 
 msgid "Restore this version?"
 msgstr "Восстановить эту версию?"
@@ -18106,11 +18100,8 @@ msgstr "Идёт"
 msgid "Undo"
 msgstr "Отменить"
 
-msgid "Undo Archive"
-msgstr "Отменить архивацию"
-
-msgid "Undo Closed Chats"
-msgstr "Отменить закрытие чатов"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "Отменить последнюю архивацию рабочей области или закрытие чатов"
 
 msgid "Ungroup"
 msgstr "Убрать из группы"

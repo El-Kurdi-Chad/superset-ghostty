@@ -35,7 +35,7 @@ describe("createClosedChatBatches", () => {
 		expect(log).toEqual(["hide t1", "restore a"]);
 	});
 
-	it("merges a close into the pending batch and replaces its toast", () => {
+	it("merges a close into the pending batch and restores it newest first", () => {
 		const { batches, log, shown } = setup();
 		batches.add("a");
 		batches.add("b");
@@ -46,7 +46,7 @@ describe("createClosedChatBatches", () => {
 		]);
 		expect(log).toEqual(["hide t1"]);
 		batches.undo("t2");
-		expect(log).toEqual(["hide t1", "hide t2", "restore a", "restore b"]);
+		expect(log).toEqual(["hide t1", "hide t2", "restore b", "restore a"]);
 	});
 
 	it("stops the pending batch on flush and does nothing when none is pending", () => {

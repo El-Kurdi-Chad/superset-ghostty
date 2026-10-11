@@ -13743,9 +13743,6 @@ msgstr "Reabrir aba fechada"
 msgid "Reopen PR"
 msgstr "Reabrir PR"
 
-msgid "Reopen the chats you just closed"
-msgstr "Reabrir os chats que você acabou de fechar"
-
 msgid "Reopen thread"
 msgstr "Reabrir thread"
 
@@ -14047,9 +14044,6 @@ msgstr "Restaurar plano"
 
 msgid "restore the agent defaults"
 msgstr "restaurar os padrões do agente"
-
-msgid "Restore the workspace you just archived"
-msgstr "Restaurar a área de trabalho que você acabou de arquivar"
 
 msgid "Restore this version?"
 msgstr "Restaurar esta versão?"
@@ -18106,11 +18100,8 @@ msgstr "Em curso"
 msgid "Undo"
 msgstr "Desfazer"
 
-msgid "Undo Archive"
-msgstr "Desfazer arquivamento"
-
-msgid "Undo Closed Chats"
-msgstr "Desfazer fechamento de chats"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "Desfazer a última área de trabalho arquivada ou os chats fechados"
 
 msgid "Ungroup"
 msgstr "Desagrupar"

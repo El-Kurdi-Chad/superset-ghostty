@@ -13743,9 +13743,6 @@ msgstr "重新打开已关闭的标签页"
 msgid "Reopen PR"
 msgstr "重新打开PR"
 
-msgid "Reopen the chats you just closed"
-msgstr "重新打开刚刚关闭的聊天"
-
 msgid "Reopen thread"
 msgstr "重新打开讨论串"
 
@@ -14047,9 +14044,6 @@ msgstr "恢复方案"
 
 msgid "restore the agent defaults"
 msgstr "恢复智能体默认设置"
-
-msgid "Restore the workspace you just archived"
-msgstr "恢复刚刚归档的工作区"
 
 msgid "Restore this version?"
 msgstr "恢复这个版本？"
@@ -18106,11 +18100,8 @@ msgstr "进行中"
 msgid "Undo"
 msgstr "撤销"
 
-msgid "Undo Archive"
-msgstr "撤销归档"
-
-msgid "Undo Closed Chats"
-msgstr "撤销关闭的聊天"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "撤销上次归档的工作区或关闭的聊天"
 
 msgid "Ungroup"
 msgstr "取消分组"

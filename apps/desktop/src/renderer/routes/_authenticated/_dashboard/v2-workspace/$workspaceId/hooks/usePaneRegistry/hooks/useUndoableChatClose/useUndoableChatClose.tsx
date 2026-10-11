@@ -1,7 +1,8 @@
 import { useLingui } from "@lingui/react/macro";
-import type { Pane, WorkspaceStore } from "@superset/panes";
+import type { Pane, Tab, WorkspaceStore } from "@superset/panes";
 import { toast } from "@superset/ui/sonner";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useUndoStack } from "renderer/stores/undo-stack";
 import type { StoreApi } from "zustand/vanilla";
 import type { ChatPaneData, PaneViewerData } from "../../../../types";
 import {
@@ -19,6 +20,7 @@ const UNDO_WINDOW_MS = 10_000;
 
 interface ClosedChat {
 	pane: Pane<PaneViewerData>;
+	slot: { tab: Tab<PaneViewerData>; index: number } | null;
 	sessionId: string;
 	title: string;
 	reopen: () => void;
@@ -34,56 +36,92 @@ export function useUndoableChatClose({
 	stopChat: (sessionId: string) => Promise<boolean>;
 }): (pane: Pane<PaneViewerData>) => void {
 	const { t } = useLingui();
-	const latest = useRef({ workspaceId, store, stopChat });
-	latest.current = { workspaceId, store, stopChat };
+	const latest = useRef({ workspaceId, store, stopChat, t });
+	latest.current = { workspaceId, store, stopChat, t };
+	const previousTabs = useRef(store.getState().tabs);
 
-	const [batches] = useState(() =>
-		createClosedChatBatches<ClosedChat>({
-			show: ({ id, chats }) =>
+	useEffect(
+		() =>
+			store.subscribe((_state, previous) => {
+				previousTabs.current = previous.tabs;
+			}),
+		[store],
+	);
+
+	const [batches] = useState(() => {
+		const stopSession = (sessionId: string) =>
+			void latest.current.stopChat(sessionId).then((stopped) => {
+				if (!stopped) {
+					toast.error(latest.current.t({ message: "Couldn't stop the chat" }));
+				}
+			});
+		const { push, remove } = useUndoStack.getState();
+		const closed = createClosedChatBatches<ClosedChat>({
+			show: ({ id, chats }) => {
+				push({ id, undo: () => closed.undo(id) });
 				toast.custom(
 					() => (
 						<ChatClosedToast
 							durationMs={UNDO_WINDOW_MS}
-							onUndo={() => batches.undo(id)}
+							onUndo={() => closed.undo(id)}
 							titles={chats.map((chat) => chat.title)}
 						/>
 					),
 					{
 						id,
 						duration: UNDO_WINDOW_MS,
-						onAutoClose: () => batches.expire(id),
-						onDismiss: () => batches.expire(id),
+						onAutoClose: () => {
+							remove(id);
+							closed.expire(id);
+						},
+						onDismiss: () => {
+							remove(id);
+							closed.expire(id);
+						},
 					},
-				),
-			hide: (id) => toast.dismiss(id),
+				);
+			},
+			hide: (id) => {
+				remove(id);
+				toast.dismiss(id);
+			},
 			restore: (chat) => {
 				chat.reopen();
-				latest.current.store.getState().addTab({ panes: [chat.pane] });
+				const state = latest.current.store.getState();
+				if (chat.slot) state.insertTab(chat.slot);
+				else state.addTab({ panes: [chat.pane] });
 			},
-			stop: (chat) => void latest.current.stopChat(chat.sessionId),
+			stop: (chat) => stopSession(chat.sessionId),
 			persist: (chats) =>
 				setPendingChatStops(
 					latest.current.workspaceId,
 					chats.map((chat) => chat.sessionId),
 				),
-		}),
-	);
+		});
+		return { closed, stopSession };
+	});
 
 	useEffect(() => {
 		for (const sessionId of takePendingChatStops(workspaceId)) {
-			void latest.current.stopChat(sessionId);
+			batches.stopSession(sessionId);
 		}
-	}, [workspaceId]);
+	}, [workspaceId, batches]);
 
-	useEffect(() => () => batches.flush(), [batches]);
+	useEffect(() => () => batches.closed.flush(), [batches]);
 
 	return useCallback(
 		(pane) => {
 			const data = pane.data as ChatPaneData;
 			const { sessionId } = data;
 			if (!sessionId || isChatSessionClosed(sessionId)) return;
-			batches.add({
+			const index = previousTabs.current.findIndex(
+				(tab) => tab.panes[pane.id] !== undefined,
+			);
+			const tab = previousTabs.current[index];
+			batches.closed.add({
 				pane,
+				slot:
+					tab && Object.keys(tab.panes).length === 1 ? { tab, index } : null,
 				sessionId,
 				title: pane.titleOverride ?? data.chatTitle ?? t({ message: "Chat" }),
 				reopen: markChatSessionClosed(sessionId),

@@ -13743,9 +13743,6 @@ msgstr "Geschlossenen Tab wieder öffnen"
 msgid "Reopen PR"
 msgstr "PR wieder öffnen"
 
-msgid "Reopen the chats you just closed"
-msgstr "Die gerade geschlossenen Chats wieder öffnen"
-
 msgid "Reopen thread"
 msgstr "Thread wieder öffnen"
 
@@ -14047,9 +14044,6 @@ msgstr "Tarif wiederherstellen"
 
 msgid "restore the agent defaults"
 msgstr "die Agenten-Standardwerte wiederherstellen"
-
-msgid "Restore the workspace you just archived"
-msgstr "Den gerade archivierten Arbeitsbereich wiederherstellen"
 
 msgid "Restore this version?"
 msgstr "Diese Version wiederherstellen?"
@@ -18106,11 +18100,8 @@ msgstr "Läuft"
 msgid "Undo"
 msgstr "Rückgängig"
 
-msgid "Undo Archive"
-msgstr "Archivierung rückgängig machen"
-
-msgid "Undo Closed Chats"
-msgstr "Schließen von Chats rückgängig machen"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "Letzte Archivierung eines Arbeitsbereichs oder geschlossene Chats rückgängig machen"
 
 msgid "Ungroup"
 msgstr "Gruppierung aufheben"

@@ -13743,9 +13743,6 @@ msgstr "Rouvrir l'onglet fermé"
 msgid "Reopen PR"
 msgstr "Rouvrir la PR"
 
-msgid "Reopen the chats you just closed"
-msgstr "Rouvrir les chats que vous venez de fermer"
-
 msgid "Reopen thread"
 msgstr "Rouvrir le fil"
 
@@ -14047,9 +14044,6 @@ msgstr "Rétablir le forfait"
 
 msgid "restore the agent defaults"
 msgstr "restaurer les valeurs par défaut de l'agent"
-
-msgid "Restore the workspace you just archived"
-msgstr "Restaurer l'espace de travail que vous venez d'archiver"
 
 msgid "Restore this version?"
 msgstr "Restaurer cette version ?"
@@ -18106,11 +18100,8 @@ msgstr "En cours"
 msgid "Undo"
 msgstr "Annuler"
 
-msgid "Undo Archive"
-msgstr "Annuler l'archivage"
-
-msgid "Undo Closed Chats"
-msgstr "Annuler la fermeture des chats"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "Annuler le dernier espace de travail archivé ou les chats fermés"
 
 msgid "Ungroup"
 msgstr "Dégrouper"

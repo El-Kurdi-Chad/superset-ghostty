@@ -13743,9 +13743,6 @@ msgstr "닫은 탭 다시 열기"
 msgid "Reopen PR"
 msgstr "PR 다시 열기"
 
-msgid "Reopen the chats you just closed"
-msgstr "방금 닫은 채팅을 다시 엽니다"
-
 msgid "Reopen thread"
 msgstr "스레드 다시 열기"
 
@@ -14047,9 +14044,6 @@ msgstr "플랜 복원"
 
 msgid "restore the agent defaults"
 msgstr "에이전트 기본값을 복원할"
-
-msgid "Restore the workspace you just archived"
-msgstr "방금 보관한 워크스페이스를 복원합니다"
 
 msgid "Restore this version?"
 msgstr "이 버전을 복원할까요?"
@@ -18106,11 +18100,8 @@ msgstr "진행 중"
 msgid "Undo"
 msgstr "실행 취소"
 
-msgid "Undo Archive"
-msgstr "보관 실행 취소"
-
-msgid "Undo Closed Chats"
-msgstr "닫은 채팅 실행 취소"
+msgid "Undo the last archived workspace or closed chats"
+msgstr "마지막 워크스페이스 보관 또는 채팅 닫기를 실행 취소"
 
 msgid "Ungroup"
 msgstr "그룹 해제"
