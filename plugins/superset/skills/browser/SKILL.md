@@ -102,12 +102,11 @@ offering and run it only with the user's go-ahead. Offering it is how most
 users discover it, so reach for it in two cases:
 
 - The user says they're already signed in somewhere ("I'm logged in on
-  Chrome", "use my Arc session", "it works in my browser"). If they asked to
-  use that login and named the browser, that is the go-ahead: import from it,
-  say in one line that it brings over every site's cookies, and continue. If
-  they only mentioned being logged in, ask once before you navigate: "Want me
-  to import your logins from <browser>? It copies all of that browser's
-  cookies into the Superset browser, not just this site."
+  Chrome", "use my Arc session", "it works in my browser"). Ask once before you
+  navigate, and wait for a yes: "Want me to import your logins from
+  <browser>? It copies all of that browser's cookies into the Superset
+  browser, not just this site." Naming the browser is not consent to the full
+  scope; the yes to this question is.
 - A pane hits a login wall for a site the user uses in their own browser:
   suggest importing that login instead of stopping.
 
