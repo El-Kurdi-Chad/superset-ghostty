@@ -56,6 +56,9 @@ export function useCommentPreview({
 	const openTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const suppressFocusOpen = useRef(false);
+	// While the count or the panel holds keyboard focus, the pointer leaving
+	// must not hide the panel: that would leave focus on an invisible link.
+	const keyboardFocus = useRef(false);
 	const touchOnly = useMemo(
 		() => window.matchMedia("(hover: none)").matches,
 		[],
@@ -109,8 +112,15 @@ export function useCommentPreview({
 		try {
 			keyboard = event.target.matches(":focus-visible");
 		} catch {}
-		if (keyboard) openNow();
+		if (!keyboard) return;
+		keyboardFocus.current = true;
+		openNow();
 	};
+
+	const isTrigger = (node: EventTarget | null) =>
+		node instanceof HTMLElement &&
+		(node === countRef.current ||
+			node.id === countRef.current?.getAttribute("aria-describedby"));
 
 	return {
 		open,
@@ -118,12 +128,13 @@ export function useCommentPreview({
 		countRef,
 		cardProps: {
 			onPointerLeave: (event) => {
-				if (event.pointerType === "touch") return;
+				if (event.pointerType === "touch" || keyboardFocus.current) return;
 				closeNow();
 			},
 			onKeyDown: (event) => {
 				if (event.key !== "Escape" || !open) return;
 				event.preventDefault();
+				keyboardFocus.current = false;
 				closeNow();
 				suppressFocusOpen.current = true;
 				countRef.current?.focus();
@@ -131,7 +142,14 @@ export function useCommentPreview({
 			},
 			onBlur: (event) => {
 				const next = event.relatedTarget;
-				if (!(next instanceof Node) || !event.currentTarget.contains(next))
+				if (isTrigger(next)) return;
+				const wasKeyboard = keyboardFocus.current;
+				keyboardFocus.current = false;
+				if (
+					wasKeyboard ||
+					!(next instanceof Node) ||
+					!event.currentTarget.contains(next)
+				)
 					closeNow();
 			},
 		},
@@ -147,7 +165,7 @@ export function useCommentPreview({
 			onPointerLeave: (event) => {
 				if (event.pointerType === "touch") return;
 				cancelOpenTimer();
-				if (open) scheduleClose();
+				if (open && !keyboardFocus.current) scheduleClose();
 			},
 			onFocus: onTriggerFocus,
 			onClick: (event) => {
@@ -164,7 +182,7 @@ export function useCommentPreview({
 			},
 			onPointerLeave: (event) => {
 				if (event.pointerType === "touch") return;
-				if (open) scheduleClose();
+				if (open && !keyboardFocus.current) scheduleClose();
 			},
 			onFocus: onTriggerFocus,
 		},
