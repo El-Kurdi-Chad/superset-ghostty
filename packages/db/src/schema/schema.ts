@@ -2247,6 +2247,33 @@ export type InsertPageComment = typeof pageComments.$inferInsert;
 export type SelectPageComment = typeof pageComments.$inferSelect;
 
 /**
+ * The viewer's read watermark for a page's comments: everything on the page
+ * created at or before `lastSeenAt` counts as seen by that user. One row per
+ * (user, page), advanced whenever they view the page's comments.
+ */
+export const pageCommentReads = pgTable(
+	"page_comment_reads",
+	{
+		userId: uuid("user_id")
+			.notNull()
+			.references(() => users.id, { onDelete: "cascade" }),
+		pageId: uuid("page_id")
+			.notNull()
+			.references(() => pages.id, { onDelete: "cascade" }),
+		lastSeenAt: timestamp("last_seen_at", { withTimezone: true })
+			.notNull()
+			.defaultNow(),
+	},
+	(table) => [
+		primaryKey({ columns: [table.userId, table.pageId] }),
+		index("page_comment_reads_page_id_idx").on(table.pageId),
+	],
+);
+
+export type InsertPageCommentRead = typeof pageCommentReads.$inferInsert;
+export type SelectPageCommentRead = typeof pageCommentReads.$inferSelect;
+
+/**
  * A person's own agent sign-in, used when they start a cloud workspace. The
  * credential belongs to the person rather than an organization, so one row
  * serves every organization they work in and it leaves with the account.
