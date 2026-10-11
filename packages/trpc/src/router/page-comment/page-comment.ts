@@ -10,7 +10,7 @@ import {
 	workspacePages,
 } from "@superset/db/schema";
 import { TRPCError, type TRPCRouterRecord } from "@trpc/server";
-import { and, asc, eq, isNotNull, isNull, or } from "drizzle-orm";
+import { and, asc, eq, isNotNull, isNull, or, sql } from "drizzle-orm";
 import { protectedProcedure, userError } from "../../trpc";
 import { assertPageReadable } from "../page/access";
 import { requireActiveOrgMembership } from "../utils/active-org";
@@ -169,12 +169,17 @@ export const pageCommentRouter = {
 			await loadReadablePage({ pageId: input.pageId, organizationId, userId });
 
 			const now = new Date();
+			const seenThrough =
+				input.seenThrough && input.seenThrough < now ? input.seenThrough : now;
 			await db
 				.insert(pageCommentReads)
-				.values({ userId, pageId: input.pageId, lastSeenAt: now })
+				.values({ userId, pageId: input.pageId, lastSeenAt: seenThrough })
 				.onConflictDoUpdate({
 					target: [pageCommentReads.userId, pageCommentReads.pageId],
-					set: { lastSeenAt: now },
+					// Two calls can land out of order; the watermark only moves forward.
+					set: {
+						lastSeenAt: sql`greatest(${pageCommentReads.lastSeenAt}, excluded.last_seen_at)`,
+					},
 				});
 
 			return { pageId: input.pageId };

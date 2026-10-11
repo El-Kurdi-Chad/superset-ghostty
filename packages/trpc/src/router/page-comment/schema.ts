@@ -68,6 +68,12 @@ export const replyPageCommentSchema = z.object({
 
 export const markReadPageCommentsSchema = z.object({
 	pageId: z.string().uuid(),
+	/**
+	 * The newest comment the caller actually rendered. The watermark moves to
+	 * it rather than to the server clock, so a reply that landed after the
+	 * caller fetched its list stays unread. Absent, the server time is used.
+	 */
+	seenThrough: z.coerce.date().optional(),
 });
 
 export const editPageCommentSchema = z.object({
