@@ -47,13 +47,14 @@ async function install(
 	yes: boolean,
 ): Promise<{ bin: string; installed: boolean }> {
 	const wanted = env.VERSION === "0.0.0-dev" ? null : env.VERSION;
-	if (facts.bin && (!wanted || facts.version === wanted)) {
+	if (facts.bin && facts.hostRuntime && (!wanted || facts.version === wanted)) {
 		p.log.info(`Superset CLI ${facts.version ?? ""} found at ${facts.bin}`);
 		return { bin: facts.bin, installed: false };
 	}
-	const action = facts.bin
-		? `Update the Superset CLI on ${ssh.target} from ${facts.version ?? "an unknown version"} to ${wanted}?`
-		: `Install the Superset CLI${wanted ? ` ${wanted}` : ""} on ${ssh.target} (into ~/superset)?`;
+	const action =
+		facts.bin && facts.hostRuntime
+			? `Update the Superset CLI on ${ssh.target} from ${facts.version ?? "an unknown version"} to ${wanted}?`
+			: `Install the Superset CLI${wanted ? ` ${wanted}` : ""} on ${ssh.target} (into ~/superset)?`;
 	if (!(await confirmStep(action, yes))) {
 		throw new CLIError("Cancelled", "The host needs the Superset CLI to run.");
 	}
@@ -68,7 +69,7 @@ async function install(
 script=$(mktemp)
 trap 'rm -f "$script"' EXIT
 curl -fsSL ${INSTALL_URL} -o "$script"
-SUPERSET_VERSION=${tag} sh "$script"`);
+SUPERSET_HOME="$HOME/superset" SUPERSET_VERSION=${tag} sh "$script"`);
 	if (exitCode !== 0) {
 		throw new CLIError(`Installing the Superset CLI on ${ssh.target} failed`);
 	}
@@ -88,11 +89,21 @@ async function signIn({
 	organizationId: string;
 	keyName: string;
 }): Promise<"signed-in" | "kept"> {
-	const whoami = await ssh.run(`${shellQuote(bin)} auth whoami --json`);
+	const [whoami, me] = await Promise.all([
+		ssh.run(`${shellQuote(bin)} auth whoami --json`),
+		api.user.me.query(),
+	]);
 	if (whoami.exitCode === 0) {
-		p.log.info(`Already signed in on ${ssh.target}`);
-		return "kept";
+		const remote = parseWhoami(whoami.stdout);
+		if (remote?.userId === me.id && remote.organizationId === organizationId) {
+			p.log.info(`Already signed in on ${ssh.target}`);
+			return "kept";
+		}
+		p.log.info(
+			`${ssh.target} is signed in as another account or organization; signing it in as you`,
+		);
 	}
+	await revokeKeysNamed(api, keyName);
 	const { key } = await api.apiKey.create.mutate({ name: keyName });
 	const login = await ssh.run(
 		`${shellQuote(bin)} auth login --api-key=- --organization ${shellQuote(organizationId)} --json`,
@@ -107,6 +118,16 @@ async function signIn({
 	}
 	p.log.success(`Signed in on ${ssh.target} with the API key "${keyName}"`);
 	return "signed-in";
+}
+
+function parseWhoami(
+	output: string,
+): { userId?: string; organizationId?: string } | null {
+	try {
+		return JSON.parse(output);
+	} catch {
+		return null;
+	}
 }
 
 async function enableLinger(ssh: SshSession, yes: boolean): Promise<void> {
@@ -156,7 +177,11 @@ async function startHost({
 				`No systemd user session on ${ssh.target}, so the host runs as a plain background process and does not survive a reboot.`,
 			);
 		}
-		if (updated) await ssh.run(`${shellQuote(bin)} stop`);
+		if (updated) {
+			await ssh.run(
+				`${shellQuote(bin)} stop --org ${shellQuote(organizationId)}`,
+			);
+		}
 		const started = await ssh.run(
 			`${shellQuote(bin)} start --daemon --org ${shellQuote(organizationId)} --json`,
 		);
@@ -262,6 +287,8 @@ export default command({
 			if (facts.system === "Linux") {
 				const problem = machineIdProblem(facts.machineId);
 				if (problem) throw new CLIError(problem, MACHINE_ID_FIX);
+			} else if (!facts.machineId) {
+				throw new CLIError(`Could not read the hardware UUID of ${target}`);
 			}
 			const hostId = hostIdFromMachineId(facts.machineId);
 			if (hostId === getHostId()) {
@@ -288,7 +315,7 @@ export default command({
 				target: platform.target,
 				bin,
 				organizationId: organization.id,
-				updated: installed,
+				updated: installed || credential === "signed-in",
 				noService: options.service === false,
 				yes,
 			});

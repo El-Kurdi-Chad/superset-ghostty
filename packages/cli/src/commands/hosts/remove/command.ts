@@ -1,7 +1,8 @@
 import * as p from "@clack/prompts";
-import { boolean, CLIError, positional } from "@superset/cli-framework";
-import { hostIdFromMachineId } from "@superset/shared/host-info";
+import { boolean, CLIError, positional, string } from "@superset/cli-framework";
+import { getHostId, hostIdFromMachineId } from "@superset/shared/host-info";
 import { command } from "../../../lib/command";
+import { resolveOrganizationFromContext } from "../../../lib/resolve-org";
 import { shellQuote } from "../../../lib/shell-quote";
 import {
 	hostKeyName,
@@ -21,10 +22,18 @@ export default command({
 			.desc("SSH destination the host was added with"),
 	],
 	options: {
+		org: string().desc(
+			"Organization the host was added to (id, slug, or name); defaults to active",
+		),
 		yes: boolean().desc("Skip the confirmation prompt"),
 	},
 	run: async ({ ctx, args, options }) => {
 		const target = args.target as string;
+		const organization = await resolveOrganizationFromContext(
+			ctx.api,
+			ctx.config.organizationId,
+			options.org,
+		);
 		p.intro(`superset hosts remove ${target}`);
 		const ssh = await SshSession.open(target);
 		try {
@@ -36,7 +45,16 @@ export default command({
 				);
 			}
 			const facts = parseProbe(probe.stdout);
+			if (!facts.machineId) {
+				throw new CLIError(`Could not read the machine id of ${target}`);
+			}
 			const hostId = hostIdFromMachineId(facts.machineId);
+			if (hostId === getHostId()) {
+				throw new CLIError(
+					`${target} is this machine`,
+					"Stop the host here with: superset stop",
+				);
+			}
 
 			if (!options.yes) {
 				if (!process.stdin.isTTY) {
@@ -52,27 +70,39 @@ export default command({
 				}
 			}
 
-			const uninstall = await ssh.run(uninstallServiceScript(facts.bin));
+			const uninstall = await ssh.run(uninstallServiceScript());
 			const removed = [...uninstall.stdout.matchAll(/removed=(\w+)/g)].map(
 				(match) => match[1],
 			);
 			if (facts.bin) {
-				await ssh.run(
-					`${shellQuote(facts.bin)} stop --terminals >/dev/null 2>&1; ${shellQuote(facts.bin)} auth logout >/dev/null 2>&1`,
+				const stop = await ssh.run(
+					`${shellQuote(facts.bin)} stop --terminals --org ${shellQuote(organization.id)}`,
 				);
+				if (stop.exitCode !== 0) {
+					throw new CLIError(
+						`Stopping the host on ${target} failed`,
+						stop.stderr.trim() || stop.stdout.trim(),
+					);
+				}
 			}
+
 			const revoked = await revokeKeysNamed(
 				ctx.api,
 				hostKeyName(facts.hostname, hostId),
 			);
+			if (revoked > 0 && facts.bin) {
+				await ssh.run(`${shellQuote(facts.bin)} auth logout`);
+			}
 
 			p.log.success(
 				[
 					removed.length > 0
 						? `Removed the ${removed.join(" and ")} service`
 						: "No service was installed",
-					"stopped the host and signed it out",
-					revoked > 0 ? "revoked its API key" : "found no API key to revoke",
+					"stopped the host and its terminals",
+					revoked > 0
+						? "revoked its API key and signed it out"
+						: "found no API key from hosts add, so left its sign-in alone",
 				].join("; "),
 			);
 			p.outro(

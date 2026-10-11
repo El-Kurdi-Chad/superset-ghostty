@@ -17,11 +17,9 @@ interface ServiceInput {
 export function systemdUnit({ binPath, organizationId }: ServiceInput): string {
 	return `[Unit]
 Description=Superset host
-After=network-online.target
-Wants=network-online.target
 
 [Service]
-ExecStart=${binPath} start --org ${organizationId}
+ExecStart=${systemdWord(binPath)} start --org ${systemdWord(organizationId)}
 Restart=on-failure
 RestartSec=5
 KillMode=process
@@ -29,6 +27,11 @@ KillMode=process
 [Install]
 WantedBy=default.target
 `;
+}
+
+/** One systemd command-line word: quoted, with `%` specifiers escaped. */
+function systemdWord(value: string): string {
+	return `"${value.replaceAll("\\", "\\\\").replaceAll('"', '\\"').replaceAll("%", "%%")}"`;
 }
 
 function xmlEscape(value: string): string {
@@ -108,7 +111,7 @@ systemctl --user enable ${SYSTEMD_UNIT} >/dev/null 2>&1
 if systemctl --user is-active --quiet ${SYSTEMD_UNIT}; then
 	if [ "$changed" = yes ]; then systemctl --user restart ${SYSTEMD_UNIT}; echo action=restarted; else echo action=unchanged; fi
 else
-	"$bin" stop >/dev/null 2>&1 || true
+	"$bin" stop --org ${shellQuote(organizationId)} >/dev/null 2>&1 || true
 	systemctl --user start ${SYSTEMD_UNIT}
 	echo action=started
 fi
@@ -122,7 +125,7 @@ if launchctl print "$domain/${LAUNCHD_LABEL}" >/dev/null 2>&1; then
 		echo action=restarted
 	else echo action=unchanged; fi
 else
-	"$bin" stop >/dev/null 2>&1 || true
+	"$bin" stop --org ${shellQuote(organizationId)} >/dev/null 2>&1 || true
 	launchctl bootstrap "$domain" "$file"
 	echo action=started
 fi
@@ -130,7 +133,7 @@ fi
 }
 
 /** Stops and deletes whichever service `installServiceScript` set up. */
-export function uninstallServiceScript(binPath: string | null): string {
+export function uninstallServiceScript(): string {
 	return `systemd=${SYSTEMD_FILE}
 if [ -f "$systemd" ]; then
 	systemctl --user disable --now ${SYSTEMD_UNIT} >/dev/null 2>&1 || true
@@ -145,6 +148,5 @@ if [ -f "$launchd" ]; then
 	rm -f "$launchd"
 	echo removed=launchd
 fi
-${binPath ? `${shellQuote(binPath)} stop >/dev/null 2>&1 || true` : ""}
 `;
 }

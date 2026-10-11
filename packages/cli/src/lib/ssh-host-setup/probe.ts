@@ -17,7 +17,10 @@ for candidate in "$HOME/superset/bin/superset" "$(command -v superset 2>/dev/nul
 	if [ -n "$candidate" ] && [ -x "$candidate" ]; then bin="$candidate"; break; fi
 done
 echo "bin=$bin"
-if [ -n "$bin" ]; then echo "version=$("$bin" --version 2>/dev/null | head -n 1)"; fi
+if [ -n "$bin" ]; then
+	echo "version=$("$bin" --version 2>/dev/null | head -n 1)"
+	if [ -x "$(dirname "$bin")/superset-host" ]; then echo "hostRuntime=yes"; fi
+fi
 if command -v curl >/dev/null 2>&1; then echo "curl=yes"; fi
 if command -v systemctl >/dev/null 2>&1 && systemctl --user show-environment >/dev/null 2>&1; then echo "systemd=yes"; fi
 if command -v loginctl >/dev/null 2>&1; then echo "linger=$(loginctl show-user "$(id -un)" -p Linger --value 2>/dev/null)"; fi
@@ -37,6 +40,8 @@ export interface RemoteFacts {
 	hostname: string;
 	bin: string | null;
 	version: string | null;
+	/** False for the desktop app's bundled CLI, which cannot run a host. */
+	hostRuntime: boolean;
 	curl: boolean;
 	systemd: boolean;
 	linger: boolean | null;
@@ -67,6 +72,7 @@ export function parseProbe(output: string): RemoteFacts {
 		hostname: get("hostname"),
 		bin: get("bin") || null,
 		version: get("version").match(/\d+\.\d+\.\d+\S*/)?.[0] ?? null,
+		hostRuntime: get("hostRuntime") === "yes",
 		curl: get("curl") === "yes",
 		systemd: get("systemd") === "yes",
 		linger: linger === "yes" ? true : linger === "no" ? false : null,

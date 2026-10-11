@@ -47,7 +47,7 @@ describe("service files", () => {
 	test("the systemd unit runs start in the foreground and keeps terminals on restart", () => {
 		const unit = systemdUnit(input);
 		expect(unit).toContain(
-			"ExecStart=/home/me/superset/bin/superset start --org org-1",
+			'ExecStart="/home/me/superset/bin/superset" start --org "org-1"',
 		);
 		expect(unit).toContain("KillMode=process");
 		expect(unit).not.toContain("--daemon");
@@ -77,4 +77,12 @@ describe("parseProbe", () => {
 		);
 		expect(mac.machineId).toBe("1234-ABCD");
 	});
+});
+
+test("the systemd unit keeps a path with spaces and % as one word", () => {
+	const unit = systemdUnit({
+		binPath: "/home/Jo Doe/100%/superset",
+		organizationId: "org-1",
+	});
+	expect(unit).toContain('ExecStart="/home/Jo Doe/100%%/superset" start');
 });
