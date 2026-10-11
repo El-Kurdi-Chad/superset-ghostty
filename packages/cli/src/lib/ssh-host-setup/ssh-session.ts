@@ -90,11 +90,14 @@ export class SshSession {
 		return { exitCode, stdout, stderr };
 	}
 
-	/** Runs a script with the remote output shown live, and a TTY when asked. */
+	/**
+	 * Runs a script with the remote output shown live on stderr, keeping
+	 * stdout for this command's result, and a TTY when asked.
+	 */
 	async stream(script: string, { tty = false } = {}): Promise<number> {
 		const child = Bun.spawn(this.args(tty, script), {
 			stdin: tty ? "inherit" : "ignore",
-			stdout: "inherit",
+			stdout: 2,
 			stderr: "inherit",
 		});
 		return child.exited;

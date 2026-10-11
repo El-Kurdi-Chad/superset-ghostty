@@ -14,7 +14,10 @@ import {
 	MACHINE_ID_FIX,
 	machineIdProblem,
 } from "../../../lib/ssh-host-setup/machine-id";
-import { checkPlatform } from "../../../lib/ssh-host-setup/platform";
+import {
+	checkPlatform,
+	type HostTarget,
+} from "../../../lib/ssh-host-setup/platform";
 import {
 	PROBE_SCRIPT,
 	parseProbe,
@@ -129,6 +132,7 @@ async function enableLinger(ssh: SshSession, yes: boolean): Promise<void> {
 async function startHost({
 	ssh,
 	facts,
+	target,
 	bin,
 	organizationId,
 	updated,
@@ -137,15 +141,14 @@ async function startHost({
 }: {
 	ssh: SshSession;
 	facts: RemoteFacts;
+	target: HostTarget;
 	bin: string;
 	organizationId: string;
 	updated: boolean;
 	noService: boolean;
 	yes: boolean;
 }): Promise<"systemd" | "launchd" | "daemon"> {
-	const kind = serviceKind(
-		facts.system === "Darwin" ? "darwin-x64" : "linux-x64",
-	);
+	const kind = serviceKind(target);
 	const canService = kind === "launchd" || facts.systemd;
 	if (noService || !canService) {
 		if (!noService) {
@@ -153,6 +156,7 @@ async function startHost({
 				`No systemd user session on ${ssh.target}, so the host runs as a plain background process and does not survive a reboot.`,
 			);
 		}
+		if (updated) await ssh.run(`${shellQuote(bin)} stop`);
 		const started = await ssh.run(
 			`${shellQuote(bin)} start --daemon --org ${shellQuote(organizationId)} --json`,
 		);
@@ -281,6 +285,7 @@ export default command({
 			const runAs = await startHost({
 				ssh,
 				facts,
+				target: platform.target,
 				bin,
 				organizationId: organization.id,
 				updated: installed,
@@ -308,9 +313,13 @@ export default command({
 				name = options.name;
 			}
 
-			if (facts.gh === "signed-out" || facts.gh === null) {
+			if (facts.gh === null) {
 				p.log.warn(
-					`GitHub CLI is ${facts.gh === null ? "not installed" : "not signed in"} on ${target}; private repos will not clone there. Sign in with: ssh -t ${target} gh auth login`,
+					`GitHub CLI is not installed on ${target}, so private repos will not clone there. Install gh, then run: ssh -t ${target} gh auth login`,
+				);
+			} else if (facts.gh === "signed-out") {
+				p.log.warn(
+					`GitHub CLI is not signed in on ${target}, so private repos will not clone there. Run: ssh -t ${target} gh auth login`,
 				);
 			}
 			p.outro(
