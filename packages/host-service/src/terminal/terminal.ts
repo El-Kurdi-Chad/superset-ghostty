@@ -39,7 +39,11 @@ import { isProcessAlive, readPtyDaemonManifest } from "../daemon/manifest.ts";
 import type { HostDb } from "../db/index.ts";
 import { projects, terminalSessions, workspaces } from "../db/schema.ts";
 import type { EventBus } from "../events/index.ts";
-import { portManager } from "../ports/port-manager.ts";
+import { chatPortTerminalIds, portManager } from "../ports/port-manager.ts";
+import {
+	getPathState,
+	inaccessiblePathMessage,
+} from "../runtime/path-state/index.ts";
 import { issueAttributionToken } from "../terminal-agents/attribution-token.ts";
 import { sweepAgentBindingsAfterDaemonLoss } from "../terminal-agents/daemon-loss-sweep.ts";
 import { terminalHarnessSession } from "../terminal-agents/harness-session-ref.ts";
@@ -59,7 +63,7 @@ import {
 	onDaemonDisconnect,
 } from "./daemon-client-singleton.ts";
 import {
-	buildV2TerminalEnv,
+	buildHostLaunchEnv,
 	getShellLaunchArgs,
 	getTerminalBaseEnv,
 	resolveLaunchShell,
@@ -876,6 +880,8 @@ export type TerminalSessionErrorKind =
 	| "WORKSPACE_NOT_FOUND"
 	/** The workspace row exists but its worktree is gone from disk. */
 	| "WORKTREE_GONE"
+	/** The worktree exists but this process may not read it (OS privacy controls). */
+	| "WORKTREE_INACCESSIBLE"
 	/**
 	 * The daemon could not be reached (stalled, restarting, bootstrap
 	 * pending). The supervisor heals these and the session may still come up
@@ -2789,7 +2795,8 @@ async function disposeSessionUnlocked(
 		closePromise = closeDaemonSessionById(terminalId, "SIGHUP");
 	}
 
-	portManager.unregisterSession(terminalId);
+	if (!chatPortTerminalIds.has(terminalId))
+		portManager.unregisterSession(terminalId);
 
 	const closeResult = closePromise
 		? await closePromise
@@ -3044,7 +3051,14 @@ async function createTerminalSessionUnlocked({
 	if (!workspace) {
 		return { kind: "WORKSPACE_NOT_FOUND", error: "Workspace not found" };
 	}
-	if (!existsSync(workspace.worktreePath)) {
+	const worktreeState = getPathState(workspace.worktreePath);
+	if (worktreeState === "inaccessible") {
+		return {
+			kind: "WORKTREE_INACCESSIBLE",
+			error: inaccessiblePathMessage(workspace.worktreePath),
+		};
+	}
+	if (worktreeState === "missing") {
 		return {
 			kind: "WORKTREE_GONE",
 			error: `Workspace worktree no longer exists: ${workspace.worktreePath}`,
@@ -3090,21 +3104,13 @@ async function createTerminalSessionUnlocked({
 	const shell = resolveLaunchShell(baseEnv);
 	const shellArgs = getShellLaunchArgs({ shell, supersetHomeDir });
 	const ptyEnv = {
-		...buildV2TerminalEnv({
-			baseEnv,
-			shell,
-			supersetHomeDir,
-			organizationId: process.env.ORGANIZATION_ID || "",
+		...buildHostLaunchEnv({
 			themeType,
 			cwd,
 			terminalId,
 			workspaceId,
 			workspacePath: workspace.worktreePath,
 			rootPath,
-			supersetEnv:
-				process.env.NODE_ENV === "development" ? "development" : "production",
-			agentHookPort: process.env.SUPERSET_AGENT_HOOK_PORT || "",
-			agentHookVersion: process.env.SUPERSET_AGENT_HOOK_VERSION || "",
 			hostAgentHookUrl: getHostAgentHookUrl(),
 		}),
 		// Usage-tab default account: provider CLIs typed or preset-launched in
@@ -3431,7 +3437,8 @@ async function createTerminalSessionUnlocked({
 				session.exitSignal = signal ?? 0;
 				const occurredAt = Date.now();
 
-				portManager.unregisterSession(terminalId);
+				if (!chatPortTerminalIds.has(terminalId))
+					portManager.unregisterSession(terminalId);
 
 				db.update(terminalSessions)
 					.set({ status: "exited", endedAt: occurredAt })

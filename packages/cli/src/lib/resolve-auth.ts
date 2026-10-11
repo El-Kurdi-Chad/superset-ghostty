@@ -2,13 +2,15 @@ import { CLIError } from "@superset/cli-framework";
 import { type ApiClient, createApiClient } from "./api-client";
 import { refreshAccessToken } from "./auth";
 import {
+	AUTH_REFRESH_LEEWAY_MS,
 	readConfig,
 	resolveOrganizationId,
 	type SupersetConfig,
 	writeConfig,
 } from "./config";
+import { readHostApiToken } from "./host-api-token";
 
-export type AuthSource = "override" | "config" | "oauth" | "sandbox";
+export type AuthSource = "override" | "host" | "config" | "oauth" | "sandbox";
 
 export type ResolvedAuth = {
 	config: SupersetConfig;
@@ -17,10 +19,9 @@ export type ResolvedAuth = {
 	authSource: AuthSource;
 };
 
-const REFRESH_LEEWAY_MS = 5 * 60 * 1000;
-
 export async function resolveAuth(
 	apiKeyOption: string | undefined,
+	{ useHostToken = true }: { useHostToken?: boolean } = {},
 ): Promise<ResolvedAuth> {
 	let config = readConfig();
 
@@ -30,16 +31,21 @@ export async function resolveAuth(
 		apiKeyOption?.trim() || process.env.SUPERSET_API_KEY?.trim();
 	let bearer: string | undefined;
 	let authSource: AuthSource;
+	const hostToken =
+		!overrideKey && useHostToken ? await readHostApiToken() : null;
 
 	if (overrideKey) {
 		bearer = overrideKey;
 		authSource = "override";
+	} else if (hostToken) {
+		bearer = hostToken;
+		authSource = "host";
 	} else if (config.apiKey?.trim()) {
 		bearer = config.apiKey.trim();
 		authSource = "config";
 	} else if (config.auth) {
 		const auth = config.auth;
-		if (auth.expiresAt - REFRESH_LEEWAY_MS < Date.now()) {
+		if (auth.expiresAt - AUTH_REFRESH_LEEWAY_MS < Date.now()) {
 			if (!auth.refreshToken) {
 				throw new CLIError("Session expired", "Run: superset auth login");
 			}

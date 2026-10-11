@@ -6,6 +6,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { and, eq } from "drizzle-orm";
 import superjson from "superjson";
 import { formatError, userError } from "./i18n-error";
+import { hasAdminAccess } from "./lib/admin-access";
 import { posthog } from "./lib/analytics";
 import {
 	SANDBOX_ALLOWED_PROCEDURES,
@@ -175,6 +176,7 @@ export const protectedProcedure = t.procedure
 	.use(async ({ ctx, next }) => {
 		const sessionOrgId = ctx.session.session.activeOrganizationId ?? null;
 		const headerOrgId = ctx.headers.get(ORGANIZATION_HEADER)?.trim() || null;
+		assertInBoxOrganization(ctx.sandboxCaller, headerOrgId);
 
 		let activeOrganizationId = sessionOrgId;
 		if (headerOrgId && headerOrgId !== sessionOrgId) {
@@ -184,7 +186,9 @@ export const protectedProcedure = t.procedure
 					eq(members.organizationId, headerOrgId),
 				),
 			});
-			if (!membership) throw notAMemberOfOrganization(headerOrgId);
+			if (!membership) {
+				throw notAMemberOfOrganization(headerOrgId, ctx.session.user.email);
+			}
 			activeOrganizationId = headerOrgId;
 		}
 
@@ -196,24 +200,58 @@ export const protectedProcedure = t.procedure
  * SUPERSET_ORGANIZATION_ID, or the organization it last logged into), so the
  * id in this error is usually one the caller never typed. Saying where it
  * came from is what turns "not a member" into something actionable.
+ *
+ * A Superset terminal sets SUPERSET_ORGANIZATION_ID to its workspace's
+ * organization. A CLI there that cannot use the app's account (an older host,
+ * or SUPERSET_API_KEY set) and holds another account's login fails here.
  */
-function notAMemberOfOrganization(organizationId: string): TRPCError {
+function notAMemberOfOrganization(
+	organizationId: string,
+	signedInAs?: string,
+): TRPCError {
+	const account = signedInAs ? ` (signed in as ${signedInAs})` : "";
 	return new TRPCError({
 		code: "FORBIDDEN",
-		message: `Not a member of organization ${organizationId}, which was asked for in the x-superset-organization-id header`,
+		message: `Not a member of organization ${organizationId}, which was asked for in the x-superset-organization-id header${account}. Run \`superset auth login\` with an account in that organization, or unset SUPERSET_API_KEY if it names another account.`,
 	});
 }
+
+/** A box's credential is its creator's, but it acts in the box's organization only. */
+function assertInBoxOrganization(
+	sandboxCaller: SandboxCaller | null,
+	organizationId: string | null,
+) {
+	if (
+		sandboxCaller &&
+		organizationId &&
+		organizationId !== sandboxCaller.organizationId
+	) {
+		throw new TRPCError({
+			code: "FORBIDDEN",
+			message: `A cloud workspace can only act in its own organization, not ${organizationId}`,
+		});
+	}
+}
+
+const inBoxOrganization = (
+	sandboxCaller: SandboxCaller | null,
+	organizationIds: string[],
+) =>
+	sandboxCaller
+		? organizationIds.filter((id) => id === sandboxCaller.organizationId)
+		: organizationIds;
 
 function resolveActiveOrganizationId(
 	organizationIds: string[],
 	requestedOrganizationId: string | null,
+	signedInAs?: string,
 ): string | null {
 	if (!requestedOrganizationId) {
 		return organizationIds[0] ?? null;
 	}
 
 	if (!organizationIds.includes(requestedOrganizationId)) {
-		throw notAMemberOfOrganization(requestedOrganizationId);
+		throw notAMemberOfOrganization(requestedOrganizationId, signedInAs);
 	}
 
 	return requestedOrganizationId;
@@ -227,6 +265,7 @@ export const jwtProcedure = t.procedure
 			? authHeader.slice(7)
 			: null;
 		const headerOrgId = ctx.headers.get(ORGANIZATION_HEADER)?.trim() || null;
+		assertInBoxOrganization(ctx.sandboxCaller, headerOrgId);
 
 		if (bearer) {
 			try {
@@ -234,11 +273,14 @@ export const jwtProcedure = t.procedure
 					body: { token: bearer },
 				});
 				if (payload?.sub) {
-					const organizationIds = Array.isArray(payload.organizationIds)
-						? payload.organizationIds.filter(
-								(id): id is string => typeof id === "string",
-							)
-						: [];
+					const organizationIds = inBoxOrganization(
+						ctx.sandboxCaller,
+						Array.isArray(payload.organizationIds)
+							? payload.organizationIds.filter(
+									(id): id is string => typeof id === "string",
+								)
+							: [],
+					);
 					return next({
 						ctx: {
 							userId: payload.sub,
@@ -265,13 +307,20 @@ export const jwtProcedure = t.procedure
 				where: eq(members.userId, userId),
 				columns: { organizationId: true },
 			});
-			const organizationIds = memberRows.map((row) => row.organizationId);
+			const organizationIds = inBoxOrganization(
+				ctx.sandboxCaller,
+				memberRows.map((row) => row.organizationId),
+			);
 			return next({
 				ctx: {
 					userId,
 					organizationIds,
 					activeOrganizationId: headerOrgId
-						? resolveActiveOrganizationId(organizationIds, headerOrgId)
+						? resolveActiveOrganizationId(
+								organizationIds,
+								headerOrgId,
+								ctx.session.user.email,
+							)
 						: (ctx.session.session.activeOrganizationId ??
 							organizationIds[0] ??
 							null),
@@ -292,10 +341,10 @@ export const jwtProcedure = t.procedure
 	});
 
 export const adminProcedure = protectedProcedure.use(async ({ ctx, next }) => {
-	if (!ctx.session.user.email.endsWith(COMPANY.EMAIL_DOMAIN)) {
+	if (!hasAdminAccess(ctx.session.user)) {
 		throw new TRPCError({
 			code: "FORBIDDEN",
-			message: `Admin access requires ${COMPANY.EMAIL_DOMAIN} email.`,
+			message: `Admin access requires a verified ${COMPANY.EMAIL_DOMAIN} email.`,
 		});
 	}
 

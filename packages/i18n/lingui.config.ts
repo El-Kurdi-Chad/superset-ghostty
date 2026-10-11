@@ -34,7 +34,6 @@ export default defineConfig({
 				"<rootDir>/../../apps/desktop/src",
 				"<rootDir>/../../apps/web/src",
 				"<rootDir>/../../apps/marketing/src",
-				"<rootDir>/../../apps/admin/src",
 				"<rootDir>/../../apps/docs/src",
 				"<rootDir>/../../apps/mobile/app",
 				"<rootDir>/../../apps/mobile/screens",
@@ -47,7 +46,11 @@ export default defineConfig({
 				"<rootDir>/../../packages/shared/src",
 				"<rootDir>/src",
 			],
-			exclude: ["**/node_modules/**", "**/*.test.*", "**/*.stories.*"],
+			exclude: [
+				"<rootDir>/../../**/node_modules/**",
+				"<rootDir>/../../**/*.test.*",
+				"<rootDir>/../../**/*.stories.*",
+			],
 		},
 	],
 });

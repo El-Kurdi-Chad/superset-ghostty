@@ -39,13 +39,14 @@ export function useMentionSources(
 	const providersRef = useRef(providers);
 	providersRef.current = providers;
 
-	// Load static sources at mount and refresh them each time the menu opens;
-	// cached entries stay visible while fresh ones load.
+	// Load static sources at mount, each time the menu opens, and whenever the
+	// providers change while it is open; cached entries stay visible while
+	// fresh ones load.
 	// biome-ignore lint/correctness/useExhaustiveDependencies: staticEntries gates the initial mount load only
 	useEffect(() => {
 		if (!menuOpen && Object.keys(staticEntries).length > 0) return;
 		const controller = new AbortController();
-		for (const provider of providersRef.current) {
+		for (const provider of providers) {
 			if (provider.source.kind !== "static") continue;
 			Promise.resolve(provider.source.load(controller.signal))
 				.then((entries) => {
@@ -58,7 +59,7 @@ export function useMentionSources(
 				.catch(() => {});
 		}
 		return () => controller.abort();
-	}, [menuOpen]);
+	}, [menuOpen, providers]);
 
 	// Search sources fire per keystroke; aborting the previous request replaces
 	// debouncing.
@@ -89,7 +90,17 @@ export function useMentionSources(
 						[provider.id]: false,
 					}));
 				})
-				.catch(() => {});
+				.catch(() => {
+					if (controller.signal.aborted) return;
+					setSearchEntries((previous) => ({
+						...previous,
+						[provider.id]: [],
+					}));
+					setSearchPending((previous) => ({
+						...previous,
+						[provider.id]: false,
+					}));
+				});
 		}
 		return () => controller.abort();
 	}, [menuOpen, query]);

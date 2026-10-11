@@ -8,6 +8,7 @@ import {
 	test,
 } from "bun:test";
 import {
+	chmodSync,
 	existsSync,
 	mkdirSync,
 	mkdtempSync,
@@ -17,13 +18,16 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import simpleGit, { type SimpleGit } from "simple-git";
+import { type SimpleGit, simpleGit } from "simple-git";
+import { createUserSimpleGit } from "../../../../runtime/git/simple-git";
 import {
+	adoptLocalRepo,
 	cloneRepoInto,
 	cloneTemplateInto,
 	initEmptyRepo,
 	initLocalRepoInPlace,
 	resolveLocalRepo,
+	tryRevParseGitRoot,
 } from "./resolve-repo";
 
 /**
@@ -185,6 +189,60 @@ describe("resolveLocalRepo", () => {
 		);
 	});
 
+	test.skipIf(process.getuid?.() === 0)(
+		"reports a path it cannot read as a permission error, not as missing",
+		async () => {
+			const locked = join(workRoot, "locked");
+			const repo = join(locked, "repo");
+			await initRepoAt(repo);
+			chmodSync(locked, 0o000);
+			try {
+				await expect(resolveLocalRepo(repo)).rejects.toThrow(
+					/does not have permission to read/,
+				);
+			} finally {
+				chmodSync(locked, 0o755);
+			}
+		},
+	);
+
+	test.skipIf(process.getuid?.() === 0)(
+		"reports a repo it can stat but not read as a permission error",
+		async () => {
+			const repo = join(workRoot, "unreadable");
+			await initRepoAt(repo);
+			chmodSync(repo, 0o000);
+			try {
+				await expect(resolveLocalRepo(repo)).rejects.toThrow(
+					/does not have permission to read/,
+				);
+				await expect(tryRevParseGitRoot(repo)).rejects.toThrow(
+					/does not have permission to read/,
+				);
+			} finally {
+				chmodSync(repo, 0o755);
+			}
+		},
+	);
+
+	test.skipIf(process.getuid?.() === 0)(
+		"reports a folder inside an unreadable repo as a permission error",
+		async () => {
+			const repo = join(workRoot, "blocked-parent");
+			await initRepoAt(repo);
+			const sub = join(repo, "src");
+			mkdirSync(sub);
+			chmodSync(join(repo, ".git"), 0o000);
+			try {
+				await expect(tryRevParseGitRoot(sub)).rejects.toThrow(
+					`does not have permission to read ${repo}`,
+				);
+			} finally {
+				chmodSync(join(repo, ".git"), 0o755);
+			}
+		},
+	);
+
 	test("rejects a path that points at a file", async () => {
 		const file = join(workRoot, "a-file.txt");
 		writeFileSync(file, "hello");
@@ -201,6 +259,58 @@ describe("resolveLocalRepo", () => {
 		await expect(resolveLocalRepo(plain)).rejects.toThrow(
 			/Not a git repository/,
 		);
+	});
+
+	// Regression: `git worktree add ... HEAD` fails outright against a
+	// zero-commit repo ("fatal: not a valid object name: 'HEAD'") because
+	// HEAD is unborn — see resolve-start-point.ts. resolveLocalRepo is
+	// read-only (it also backs the "detect import candidates" preview
+	// query), so it must never fix this up itself — that's adoptLocalRepo's
+	// job, below.
+	test("is read-only: leaves a zero-commit repo's HEAD unborn", async () => {
+		const repo = join(workRoot, "unborn-default");
+		await initRepoAt(repo);
+
+		await resolveLocalRepo(repo);
+
+		// simple-git's chain object is a thenable, not a Promise —
+		// `expect().rejects` won't unwrap it, so catch manually.
+		let rejected = false;
+		try {
+			await simpleGit(repo).raw(["rev-parse", "--verify", "HEAD"]);
+		} catch {
+			rejected = true;
+		}
+		expect(rejected).toBe(true);
+	});
+});
+
+// ── adoptLocalRepo ──────────────────────────────────────────────────
+
+describe("adoptLocalRepo", () => {
+	test("seeds an initial commit when HEAD is unborn", async () => {
+		const repo = join(workRoot, "unborn-ensured");
+		await initRepoAt(repo);
+
+		const resolved = await adoptLocalRepo(repo);
+
+		expect(eqRealpath(resolved.repoPath, repo)).toBe(true);
+		const head = (
+			await simpleGit(repo).raw(["rev-parse", "--verify", "HEAD"])
+		).trim();
+		expect(head).toMatch(/^[0-9a-f]{40}$/);
+	});
+
+	test("is a no-op when the repo already has commits", async () => {
+		const repo = join(workRoot, "already-committed");
+		const git = await initRepoAt(repo);
+		await seedCommit(git);
+		const before = (await git.raw(["rev-parse", "HEAD"])).trim();
+
+		await adoptLocalRepo(repo);
+
+		const after = (await git.raw(["rev-parse", "HEAD"])).trim();
+		expect(after).toBe(before);
 	});
 });
 
@@ -275,6 +385,23 @@ describe("initLocalRepoInPlace", () => {
 
 		expect(eqRealpath(resolved.repoPath, repo)).toBe(true);
 		// Resolved the existing repo rather than re-initializing / re-committing.
+		expect(await commitCount(repo)).toBe(1);
+	});
+
+	test("seeds an initial commit when adopting an existing repo with zero commits", async () => {
+		const repo = join(workRoot, "already-but-unborn");
+		await initRepoAt(repo);
+		let rejected = false;
+		try {
+			await simpleGit(repo).raw(["rev-parse", "--verify", "HEAD"]);
+		} catch {
+			rejected = true;
+		}
+		expect(rejected).toBe(true);
+
+		const resolved = await initLocalRepoInPlace(repo);
+
+		expect(eqRealpath(resolved.repoPath, repo)).toBe(true);
 		expect(await commitCount(repo)).toBe(1);
 	});
 
@@ -353,7 +480,7 @@ describe("scaffolding commits bypass user git hooks", () => {
 	test("fixture sanity: the rejecting hooks abort a plain commit", async () => {
 		const repo = join(workRoot, "hooked");
 		mkdirSync(repo);
-		const git = simpleGit(repo);
+		const git = createUserSimpleGit(repo);
 		await git.init();
 
 		// simple-git's chain object is a thenable, not a Promise —
@@ -389,7 +516,7 @@ describe("scaffolding commits bypass user git hooks", () => {
 		// Seed the template fixture without the rejecting hooks in effect —
 		// only the code under test may exercise the bypass path.
 		process.env.GIT_CONFIG_GLOBAL = identityConfig;
-		const templateGit = simpleGit(template);
+		const templateGit = createUserSimpleGit(template);
 		await templateGit.init();
 		await templateGit.add(".");
 		await templateGit.raw(["commit", "-m", "seed"]);
@@ -437,7 +564,7 @@ describe("scaffolding commits bypass user commit signing", () => {
 	test("fixture sanity: the unusable signing key aborts a plain commit", async () => {
 		const repo = join(workRoot, "signed");
 		mkdirSync(repo);
-		const git = simpleGit(repo);
+		const git = createUserSimpleGit(repo);
 		await git.init();
 
 		// simple-git's chain object is a thenable, not a Promise —
@@ -475,7 +602,7 @@ describe("scaffolding commits bypass user commit signing", () => {
 		// Seed the template fixture without required signing in effect —
 		// only the code under test may exercise the bypass path.
 		process.env.GIT_CONFIG_GLOBAL = identityConfig;
-		const templateGit = simpleGit(template);
+		const templateGit = createUserSimpleGit(template);
 		await templateGit.init();
 		await templateGit.add(".");
 		await templateGit.raw(["commit", "-m", "seed"]);
@@ -535,6 +662,13 @@ describe("cloneRepoInto", () => {
 		expect(eqRealpath(resolved.repoPath, join(parentDir, "source-repo"))).toBe(
 			true,
 		);
+	});
+
+	test("a cancelled clone rejects and leaves no target directory behind", async () => {
+		await expect(
+			cloneRepoInto(source, parentDir, undefined, AbortSignal.abort()),
+		).rejects.toThrow(/Failed to clone repository/);
+		expect(existsSync(join(parentDir, "source-repo"))).toBe(false);
 	});
 
 	test("throws when the URL normalizes to no usable segment", async () => {
