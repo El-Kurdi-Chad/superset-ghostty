@@ -30,7 +30,6 @@ import { DaemonAutoUpdateFailureDialog } from "renderer/routes/_authenticated/co
 import { DiffThemeSync } from "renderer/routes/_authenticated/components/DiffThemeSync";
 import { LeaderboardAutoPublish } from "renderer/routes/_authenticated/components/LeaderboardAutoPublish";
 import { PendingDeletionScreen } from "renderer/routes/_authenticated/components/PendingDeletionScreen";
-import { PluginConnectionsSync } from "renderer/routes/_authenticated/components/PluginConnectionsSync";
 import { RealtimeNudges } from "renderer/routes/_authenticated/components/RealtimeNudges";
 import { StarNagObserver } from "renderer/routes/_authenticated/components/StarNagObserver";
 import {
@@ -57,6 +56,7 @@ import { FileAutoSave } from "./components/FileAutoSave";
 import { FileMenuListener } from "./components/FileMenuListener";
 import { GitInitConfirmDialog } from "./components/GitInitConfirmDialog";
 import { GlobalBrowserLifecycle } from "./components/GlobalBrowserLifecycle";
+import { GlobalPaneLayoutRequests } from "./components/GlobalPaneLayoutRequests";
 import { InviteMemberDialog } from "./components/InviteMemberDialog";
 import { TeardownLogsDialog } from "./components/TeardownLogsDialog";
 import { V2NotificationController } from "./components/V2NotificationController";
@@ -305,6 +305,7 @@ function AuthenticatedLayout() {
 			<CollectionsProvider>
 				<WindowTitle />
 				<GlobalBrowserLifecycle />
+				<GlobalPaneLayoutRequests />
 				<FileAutoSave />
 				<LocalHostServiceProvider>
 					{/* Above the workspace fan-out: it needs sandbox addresses to
@@ -317,7 +318,6 @@ function AuthenticatedLayout() {
 							>
 								<DiffThemeSync />
 								<AgentHooks />
-								<PluginConnectionsSync />
 								<FileMenuListener />
 								<V2NotificationController />
 								<DockBadgeController />
