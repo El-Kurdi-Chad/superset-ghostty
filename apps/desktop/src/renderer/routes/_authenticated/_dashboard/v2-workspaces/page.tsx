@@ -17,6 +17,7 @@ import {
 	parseV2WorkspacesSearch,
 	type V2WorkspacesSearch,
 } from "./utils/parseV2WorkspacesSearch";
+import { resolveViewModeFromSearch } from "./utils/resolveViewModeFromSearch";
 
 export type { V2WorkspacesSearch };
 
@@ -113,13 +114,16 @@ function V2WorkspacesPage() {
 
 	// In-app links to `?view=archived` (the undo toast, the palette, the
 	// archived deep-link state) can arrive while this page is already mounted,
-	// after the one-shot hydration above. Follow them. Store changes write the
-	// URL back below, so a matching value is a no-op and there is no loop.
+	// after the one-shot hydration above. Follow them, and let a bare URL (the
+	// sidebar's Workspaces entry) leave the Archived view the same way the
+	// hydration does. Store changes write the URL back below, so a matching
+	// value is a no-op and there is no loop.
 	useEffect(() => {
-		if (search.view === undefined) return;
-		if (search.view !== useV2WorkspacesFilterStore.getState().viewMode) {
-			setViewMode(search.view);
-		}
+		const next = resolveViewModeFromSearch(
+			search.view,
+			useV2WorkspacesFilterStore.getState(),
+		);
+		if (next !== null) setViewMode(next);
 	}, [search.view, setViewMode]);
 
 	// Debounced: each navigate() re-renders every router-state subscriber

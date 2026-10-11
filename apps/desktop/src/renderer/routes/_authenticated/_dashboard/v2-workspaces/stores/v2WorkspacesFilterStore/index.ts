@@ -21,5 +21,6 @@ export {
 	type V2WorkspacesProjectFilter,
 	type V2WorkspacesPrStateFilter,
 	type V2WorkspacesSortMode,
+	type V2WorkspacesLiveViewMode,
 	type V2WorkspacesViewMode,
 } from "./v2WorkspacesFilterStore";

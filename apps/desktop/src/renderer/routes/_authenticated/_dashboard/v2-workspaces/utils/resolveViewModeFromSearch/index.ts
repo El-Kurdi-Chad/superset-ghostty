@@ -1,0 +1,1 @@
+export { resolveViewModeFromSearch } from "./resolveViewModeFromSearch";

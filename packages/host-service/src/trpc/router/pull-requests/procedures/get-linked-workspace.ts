@@ -1,7 +1,6 @@
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, isNull } from "drizzle-orm";
 import { z } from "zod";
 import { pullRequests, workspaces } from "../../../../db/schema";
-import { notTombstoned } from "../../../../workspaces/archive-state";
 import { protectedProcedure } from "../../../index";
 
 const getLinkedWorkspaceInputSchema = z.object({
@@ -32,14 +31,18 @@ export const getLinkedWorkspace = protectedProcedure
 		if (!pr) return { workspaceId: null };
 
 		// workspaces.pullRequestId has no unique constraint — more than one
-		// non-archived workspace can link to the same PR (two worktrees
-		// checking out the same branch, a stale duplicate). Break the tie
-		// deterministically by picking the most recently active one instead
-		// of an arbitrary DB row order.
+		// live workspace can link to the same PR (two worktrees checking out
+		// the same branch, a stale duplicate). Break the tie deterministically
+		// by picking the most recently active one instead of an arbitrary DB
+		// row order. A workspace the user put away is not a place to send a
+		// prompt: its terminals are suspended, and archiving stamps updatedAt,
+		// so it would otherwise outrank the live one.
 		const workspace = ctx.db
 			.select({ id: workspaces.id })
 			.from(workspaces)
-			.where(and(eq(workspaces.pullRequestId, pr.id), notTombstoned))
+			.where(
+				and(eq(workspaces.pullRequestId, pr.id), isNull(workspaces.archivedAt)),
+			)
 			.orderBy(desc(workspaces.updatedAt), desc(workspaces.createdAt))
 			.get();
 		return { workspaceId: workspace?.id ?? null };
