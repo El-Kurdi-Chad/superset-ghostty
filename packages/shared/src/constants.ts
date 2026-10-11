@@ -17,7 +17,7 @@ export const PROTOCOL_SCHEMES = {
 
 // Company
 // Root domain flips the whole brand at cutover. Default keeps superset.sh so
-// nothing changes until NEXT_PUBLIC_ROOT_DOMAIN is set (e.g. boid.so). All
+// nothing changes until NEXT_PUBLIC_ROOT_DOMAIN is set. All
 // domain-derived URLs below build off this; social handles / GitHub / Discord
 // are external identities and are updated by hand on rebrand.
 const MARKETING_URL =
