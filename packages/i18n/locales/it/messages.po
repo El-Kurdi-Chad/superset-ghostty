@@ -8604,6 +8604,9 @@ msgstr "Installato tramite"
 msgid "Installing..."
 msgstr "Installazione..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
+msgstr "Installa Superset su una macchina raggiungibile via ssh, ne esegue l'accesso e la mantiene in esecuzione come servizio."
+
 msgid "Instructions"
 msgstr "Istruzioni"
 
@@ -14730,6 +14733,9 @@ msgstr "Configura"
 msgid "Set up {0}"
 msgstr "Configura {0}"
 
+msgid "Set up a host over SSH"
+msgstr "Configura un host tramite SSH"
+
 msgid "Set up an automation"
 msgstr "Configura un’automazione"
 
@@ -14771,6 +14777,9 @@ msgstr "Setup"
 
 msgid "Setup script"
 msgstr "Script di setup"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "Configurazione interrotta. Il motivo è nell'output qui sotto."
 
 msgid "Sexual content"
 msgstr "Contenuti sessuali"
@@ -15418,6 +15427,9 @@ msgstr "Squash e merge"
 
 msgid "SS"
 msgstr "SS"
+
+msgid "SSH destination"
+msgstr "Destinazione SSH"
 
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
@@ -16572,6 +16584,9 @@ msgstr "L’host non è tornato disponibile entro quindici minuti."
 
 msgid "The host hasn't answered."
 msgstr "L'host non ha risposto."
+
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "L'host è online. Sceglilo quando crei un workspace."
 
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "L'host non è connesso al relay di Superset. Se è questo dispositivo, attiva \"Consenti l'accesso remoto a questo dispositivo tramite relay\" in Impostazioni > Accesso remoto, poi riprova."
@@ -17976,6 +17991,9 @@ msgstr "Utente non trovato"
 
 msgid "user@example.com"
 msgstr "user@example.com"
+
+msgid "user@host or an ssh config alias"
+msgstr "utente@host o un alias della configurazione ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Uso di un nome di branch casuale (generazione AI scaduta)"

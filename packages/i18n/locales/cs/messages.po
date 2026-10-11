@@ -8604,6 +8604,9 @@ msgstr "Nainstalováno přes"
 msgid "Installing..."
 msgstr "Instaluji..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
+msgstr "Nainstaluje Superset na počítač dostupný přes ssh, přihlásí ho a udržuje ho spuštěný jako službu."
+
 msgid "Instructions"
 msgstr "Instrukce"
 
@@ -14730,6 +14733,9 @@ msgstr "Nastavit"
 msgid "Set up {0}"
 msgstr "Nastavit {0}"
 
+msgid "Set up a host over SSH"
+msgstr "Nastavit host přes SSH"
+
 msgid "Set up an automation"
 msgstr "Nastavte automatizaci"
 
@@ -14771,6 +14777,9 @@ msgstr "Setup"
 
 msgid "Setup script"
 msgstr "Setup skript"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "Nastavení se zastavilo. Důvod je ve výstupu níže."
 
 msgid "Sexual content"
 msgstr "Sexuální obsah"
@@ -15418,6 +15427,9 @@ msgstr "Squash a sloučit"
 
 msgid "SS"
 msgstr "SS"
+
+msgid "SSH destination"
+msgstr "Cíl SSH"
 
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
@@ -16572,6 +16584,9 @@ msgstr "Hostitel se neobnovil do patnácti minut."
 
 msgid "The host hasn't answered."
 msgstr "Host neodpověděl."
+
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "Host je online. Vyberte ho při vytváření pracovního prostoru."
 
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "Host není připojený k Superset relay. Pokud jde o toto zařízení, zapněte „Povolit vzdálený přístup k tomuto zařízení přes relay“ v Nastavení > Vzdálený přístup a zkuste to znovu."
@@ -17976,6 +17991,9 @@ msgstr "Uživatel nenalezen"
 
 msgid "user@example.com"
 msgstr "uzivatel@example.com"
+
+msgid "user@host or an ssh config alias"
+msgstr "uživatel@host nebo alias z konfigurace ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Použije se náhodný název větve (generování přes AI vypršelo)"

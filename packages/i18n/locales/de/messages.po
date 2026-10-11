@@ -8604,6 +8604,9 @@ msgstr "Installiert über"
 msgid "Installing..."
 msgstr "Wird installiert..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
+msgstr "Installiert Superset auf einem Rechner, den du per ssh erreichst, meldet ihn an und hält ihn als Dienst am Laufen."
+
 msgid "Instructions"
 msgstr "Anweisungen"
 
@@ -14730,6 +14733,9 @@ msgstr "Einrichten"
 msgid "Set up {0}"
 msgstr "{0} einrichten"
 
+msgid "Set up a host over SSH"
+msgstr "Host über SSH einrichten"
+
 msgid "Set up an automation"
 msgstr "Automatisierung einrichten"
 
@@ -14771,6 +14777,9 @@ msgstr "Setup"
 
 msgid "Setup script"
 msgstr "Setup-Skript"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "Die Einrichtung wurde angehalten. Den Grund siehst du in der Ausgabe unten."
 
 msgid "Sexual content"
 msgstr "Sexuelle Inhalte"
@@ -15418,6 +15427,9 @@ msgstr "Squash und zusammenführen"
 
 msgid "SS"
 msgstr "SS"
+
+msgid "SSH destination"
+msgstr "SSH-Ziel"
 
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
@@ -16572,6 +16584,9 @@ msgstr "Der Host war nach fünfzehn Minuten noch nicht wieder erreichbar."
 
 msgid "The host hasn't answered."
 msgstr "Der Host hat nicht geantwortet."
+
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "Der Host ist online. Wähle ihn beim Erstellen eines Arbeitsbereichs aus."
 
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "Der Host ist nicht mit dem Superset-Relay verbunden. Falls es dieses Gerät ist, aktiviere \"Fernzugriffn den Zugriff auf dieses Gerät über das Relay erlauben\" unter Einstellungen > Fernzugriff und versuche es erneut."
@@ -17976,6 +17991,9 @@ msgstr "Benutzer nicht gefunden"
 
 msgid "user@example.com"
 msgstr "user@example.com"
+
+msgid "user@host or an ssh config alias"
+msgstr "user@host oder ein Alias aus der ssh-Konfiguration"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Zufälliger Branch-Name wird verwendet (KI-Generierung: Zeitüberschreitung)"

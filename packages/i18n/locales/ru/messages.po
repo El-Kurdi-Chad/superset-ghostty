@@ -8604,6 +8604,9 @@ msgstr "Установлено через"
 msgid "Installing..."
 msgstr "Установка..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
+msgstr "Устанавливает Superset на машину, доступную по ssh, выполняет вход и держит её запущенной как службу."
+
 msgid "Instructions"
 msgstr "Инструкции"
 
@@ -14730,6 +14733,9 @@ msgstr "Настроить"
 msgid "Set up {0}"
 msgstr "Настроить {0}"
 
+msgid "Set up a host over SSH"
+msgstr "Настроить хост по SSH"
+
 msgid "Set up an automation"
 msgstr "Настройте автоматизацию"
 
@@ -14771,6 +14777,9 @@ msgstr "Установка"
 
 msgid "Setup script"
 msgstr "Скрипт установки"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "Настройка остановлена. Причина указана в выводе ниже."
 
 msgid "Sexual content"
 msgstr "Сексуальный контент"
@@ -15418,6 +15427,9 @@ msgstr "Сжать и объединить"
 
 msgid "SS"
 msgstr "SS"
+
+msgid "SSH destination"
+msgstr "Адрес SSH"
 
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
@@ -16572,6 +16584,9 @@ msgstr "Хост не восстановил работу в течение пя
 
 msgid "The host hasn't answered."
 msgstr "Хост не ответил."
+
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "Хост в сети. Выберите его при создании рабочей области."
 
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "Хост не подключён к реле Superset. Если это текущее устройство, включите «Разрешить удалённый доступ к этому устройству через реле» в Настройки > Удалённый доступ и повторите."
@@ -17976,6 +17991,9 @@ msgstr "Пользователь не найден"
 
 msgid "user@example.com"
 msgstr "user@example.com"
+
+msgid "user@host or an ssh config alias"
+msgstr "user@host или псевдоним из конфигурации ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Используется случайное имя ветки (истекло время генерации AI)"

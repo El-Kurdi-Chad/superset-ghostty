@@ -8604,6 +8604,9 @@ msgstr "Kurulum yolu"
 msgid "Installing..."
 msgstr "Kuruluyor..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
+msgstr "ssh ile erişebildiğin bir makineye Superset'i kurar, oturum açar ve bir hizmet olarak çalışır durumda tutar."
+
 msgid "Instructions"
 msgstr "Yönergeler"
 
@@ -14730,6 +14733,9 @@ msgstr "Kur"
 msgid "Set up {0}"
 msgstr "{0} kurulumu"
 
+msgid "Set up a host over SSH"
+msgstr "SSH ile host kur"
+
 msgid "Set up an automation"
 msgstr "Bir otomasyon kur"
 
@@ -14771,6 +14777,9 @@ msgstr "Kurulum"
 
 msgid "Setup script"
 msgstr "Kurulum betiği"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "Kurulum durdu. Nedeni aşağıdaki çıktıda."
 
 msgid "Sexual content"
 msgstr "Cinsel içerik"
@@ -15418,6 +15427,9 @@ msgstr "Squash ve birleştir"
 
 msgid "SS"
 msgstr "SS"
+
+msgid "SSH destination"
+msgstr "SSH hedefi"
 
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
@@ -16572,6 +16584,9 @@ msgstr "Ana makine on beş dakika içinde geri gelmedi."
 
 msgid "The host hasn't answered."
 msgstr "Host yanıt vermedi."
+
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "Host çevrimiçi. Bir çalışma alanı oluştururken onu seç."
 
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "Host, Superset rölesine bağlı değil. Bu cihazsa Ayarlar > Uzaktan erişim bölümünde \"Uzaktan erişimnın bu cihaza röle üzerinden erişmesine izin ver\" seçeneğini açıp yeniden deneyin."
@@ -17976,6 +17991,9 @@ msgstr "Kullanıcı bulunamadı"
 
 msgid "user@example.com"
 msgstr "user@example.com"
+
+msgid "user@host or an ssh config alias"
+msgstr "kullanıcı@host veya bir ssh yapılandırma takma adı"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Rastgele dal adı kullanılıyor (AI üretimi zaman aşımına uğradı)"

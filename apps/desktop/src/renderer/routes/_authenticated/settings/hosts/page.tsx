@@ -1,7 +1,9 @@
 import { Trans } from "@lingui/react/macro";
+import { Button } from "@superset/ui/button";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useKnownHosts } from "renderer/hooks/known-hosts/useKnownHosts";
+import { SetUpOverSshDialog } from "./components/SetUpOverSshDialog";
 
 export const Route = createFileRoute("/_authenticated/settings/hosts/")({
 	component: HostsIndexPage,
@@ -11,6 +13,7 @@ function HostsIndexPage() {
 	const navigate = useNavigate();
 
 	const { hosts, settled } = useKnownHosts();
+	const [sshDialogOpen, setSshDialogOpen] = useState(false);
 	const isPending = !settled;
 
 	const firstHostId = useMemo(() => {
@@ -32,8 +35,20 @@ function HostsIndexPage() {
 	if (hosts.length === 0) {
 		if (isPending) return null;
 		return (
-			<div className="flex items-center justify-center h-full p-6 text-sm text-muted-foreground">
+			<div className="flex flex-col items-center justify-center gap-3 h-full p-6 text-sm text-muted-foreground">
 				<Trans>No hosts yet.</Trans>
+				<Button
+					type="button"
+					variant="outline"
+					size="sm"
+					onClick={() => setSshDialogOpen(true)}
+				>
+					<Trans>Set up a host over SSH</Trans>
+				</Button>
+				<SetUpOverSshDialog
+					open={sshDialogOpen}
+					onOpenChange={setSshDialogOpen}
+				/>
 			</div>
 		);
 	}

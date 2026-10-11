@@ -26,6 +26,12 @@ export class SshSession {
 	}
 
 	static async open(target: string): Promise<SshSession> {
+		if (target.startsWith("-")) {
+			throw new CLIError(
+				`Not an SSH destination: ${target}`,
+				"Pass user@host or a Host alias from your ssh config.",
+			);
+		}
 		// A short path: a unix socket path is limited to about 100 bytes.
 		const controlDir = mkdtempSync(
 			join(process.platform === "darwin" ? "/tmp" : tmpdir(), "superset-ssh-"),

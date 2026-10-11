@@ -8604,6 +8604,9 @@ msgstr "Zainstalowano przez"
 msgid "Installing..."
 msgstr "Instalowanie..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
+msgstr "Instaluje Superset na maszynie dostępnej przez ssh, loguje ją i utrzymuje jako działającą usługę."
+
 msgid "Instructions"
 msgstr "Instrukcje"
 
@@ -14730,6 +14733,9 @@ msgstr "Skonfiguruj"
 msgid "Set up {0}"
 msgstr "Skonfiguruj {0}"
 
+msgid "Set up a host over SSH"
+msgstr "Skonfiguruj host przez SSH"
+
 msgid "Set up an automation"
 msgstr "Skonfiguruj automatyzację"
 
@@ -14771,6 +14777,9 @@ msgstr "Konfiguracja"
 
 msgid "Setup script"
 msgstr "Skrypt konfiguracyjny"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "Konfiguracja została przerwana. Przyczyna jest w danych wyjściowych poniżej."
 
 msgid "Sexual content"
 msgstr "Treści seksualne"
@@ -15418,6 +15427,9 @@ msgstr "Squash i scal"
 
 msgid "SS"
 msgstr "SS"
+
+msgid "SSH destination"
+msgstr "Cel SSH"
 
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
@@ -16572,6 +16584,9 @@ msgstr "Host nie wrócił do działania w ciągu piętnastu minut."
 
 msgid "The host hasn't answered."
 msgstr "Host nie odpowiedział."
+
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "Host jest online. Wybierz go podczas tworzenia obszaru roboczego."
 
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "Host nie jest połączony z przekaźnikiem Superset. Jeśli chodzi o to urządzenie, włącz „Zezwól na zdalny dostęp do tego urządzenia przez przekaźnik” w Ustawienia > Dostęp zdalny i spróbuj ponownie."
@@ -17976,6 +17991,9 @@ msgstr "Nie znaleziono użytkownika"
 
 msgid "user@example.com"
 msgstr "user@example.com"
+
+msgid "user@host or an ssh config alias"
+msgstr "użytkownik@host lub alias z konfiguracji ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Losowa nazwa gałęzi (przekroczono czas generowania AI)"

@@ -8604,6 +8604,9 @@ msgstr "Instalado via"
 msgid "Installing..."
 msgstr "Instalando..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
+msgstr "Instala o Superset em uma máquina que você acessa por ssh, faz login nela e a mantém em execução como serviço."
+
 msgid "Instructions"
 msgstr "Instruções"
 
@@ -14730,6 +14733,9 @@ msgstr "Configurar"
 msgid "Set up {0}"
 msgstr "Configurar {0}"
 
+msgid "Set up a host over SSH"
+msgstr "Configurar um host via SSH"
+
 msgid "Set up an automation"
 msgstr "Configure uma automação"
 
@@ -14771,6 +14777,9 @@ msgstr "Setup"
 
 msgid "Setup script"
 msgstr "Script de setup"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "A configuração parou. O motivo está na saída abaixo."
 
 msgid "Sexual content"
 msgstr "Conteúdo sexual"
@@ -15418,6 +15427,9 @@ msgstr "Squash e merge"
 
 msgid "SS"
 msgstr "SS"
+
+msgid "SSH destination"
+msgstr "Destino SSH"
 
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
@@ -16572,6 +16584,9 @@ msgstr "O host não voltou a ficar disponível em quinze minutos."
 
 msgid "The host hasn't answered."
 msgstr "O host não respondeu."
+
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "O host está online. Escolha-o ao criar uma área de trabalho."
 
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "O host não está conectado ao relay do Superset. Se for este dispositivo, ative \"Permitir acesso remoto a este dispositivo via relay\" em Configurações > Acesso remoto e tente novamente."
@@ -17976,6 +17991,9 @@ msgstr "Usuário não encontrado"
 
 msgid "user@example.com"
 msgstr "usuario@exemplo.com"
+
+msgid "user@host or an ssh config alias"
+msgstr "usuário@host ou um alias da configuração do ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Usando nome de branch aleatório (a geração por IA expirou)"

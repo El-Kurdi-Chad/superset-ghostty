@@ -8604,6 +8604,9 @@ msgstr "Geïnstalleerd via"
 msgid "Installing..."
 msgstr "Installeren..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
+msgstr "Installeert Superset op een machine die je via ssh bereikt, meldt hem aan en houdt hem actief als service."
+
 msgid "Instructions"
 msgstr "Instructies"
 
@@ -14730,6 +14733,9 @@ msgstr "Instellen"
 msgid "Set up {0}"
 msgstr "{0} instellen"
 
+msgid "Set up a host over SSH"
+msgstr "Host instellen via SSH"
+
 msgid "Set up an automation"
 msgstr "Stel een automatisering in"
 
@@ -14771,6 +14777,9 @@ msgstr "Setup"
 
 msgid "Setup script"
 msgstr "Setup-script"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "Instellen is gestopt. De reden staat in de uitvoer hieronder."
 
 msgid "Sexual content"
 msgstr "Seksuele inhoud"
@@ -15418,6 +15427,9 @@ msgstr "Squashen en mergen"
 
 msgid "SS"
 msgstr "SS"
+
+msgid "SSH destination"
+msgstr "SSH-bestemming"
 
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
@@ -16572,6 +16584,9 @@ msgstr "De host was na vijftien minuten nog niet terug."
 
 msgid "The host hasn't answered."
 msgstr "De host heeft niet geantwoord."
+
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "De host is online. Kies hem wanneer je een werkruimte aanmaakt."
 
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "De host is niet verbonden met de Superset-relay. Als het dit apparaat is, zet dan \"Externe toegang via de relay toegang geven tot dit apparaat\" aan bij Instellingen > Externe toegang en probeer het opnieuw."
@@ -17976,6 +17991,9 @@ msgstr "Gebruiker niet gevonden"
 
 msgid "user@example.com"
 msgstr "gebruiker@voorbeeld.com"
+
+msgid "user@host or an ssh config alias"
+msgstr "gebruiker@host of een alias uit je ssh-configuratie"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Willekeurige branchnaam gebruikt (AI-generatie duurde te lang)"

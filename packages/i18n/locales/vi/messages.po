@@ -8604,6 +8604,9 @@ msgstr "Cài đặt qua"
 msgid "Installing..."
 msgstr "Đang cài đặt..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
+msgstr "Cài Superset lên một máy bạn truy cập được bằng ssh, đăng nhập cho máy đó và giữ nó chạy như một dịch vụ."
+
 msgid "Instructions"
 msgstr "Hướng dẫn"
 
@@ -14730,6 +14733,9 @@ msgstr "Thiết lập"
 msgid "Set up {0}"
 msgstr "Thiết lập {0}"
 
+msgid "Set up a host over SSH"
+msgstr "Thiết lập host qua SSH"
+
 msgid "Set up an automation"
 msgstr "Thiết lập tự động hóa"
 
@@ -14771,6 +14777,9 @@ msgstr "Thiết lập"
 
 msgid "Setup script"
 msgstr "Script thiết lập"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "Quá trình thiết lập đã dừng. Lý do có trong output bên dưới."
 
 msgid "Sexual content"
 msgstr "Nội dung tình dục"
@@ -15418,6 +15427,9 @@ msgstr "Squash và merge"
 
 msgid "SS"
 msgstr "SS"
+
+msgid "SSH destination"
+msgstr "Đích SSH"
 
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
@@ -16572,6 +16584,9 @@ msgstr "Máy chủ không hoạt động trở lại trong vòng mười lăm ph
 
 msgid "The host hasn't answered."
 msgstr "Host không phản hồi."
+
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "Host đã trực tuyến. Hãy chọn nó khi tạo workspace."
 
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "Host chưa kết nối tới relay của Superset. Nếu đó là thiết bị này, hãy bật \"Cho phép truy cập từ xa vào thiết bị này qua relay\" trong Cài đặt > Truy cập từ xa, rồi thử lại."
@@ -17976,6 +17991,9 @@ msgstr "Không tìm thấy người dùng"
 
 msgid "user@example.com"
 msgstr "user@example.com"
+
+msgid "user@host or an ssh config alias"
+msgstr "user@host hoặc một bí danh trong cấu hình ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Dùng tên nhánh ngẫu nhiên (AI tạo tên bị quá thời gian)"
