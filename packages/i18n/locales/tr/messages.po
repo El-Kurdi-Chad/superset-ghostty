@@ -3236,6 +3236,9 @@ msgstr "Düzenlemeleri iptal et"
 msgid "Cancel plan"
 msgstr "Planı iptal et"
 
+msgid "Cancel reply"
+msgstr "Yanıtı iptal et"
+
 msgid "Canceled"
 msgstr "İptal edildi"
 
@@ -13373,6 +13376,10 @@ msgstr "Yanıtla"
 msgid "Reply to thread…"
 msgstr "Konuya yanıt verin…"
 
+#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
+msgid "Replying to {0}"
+msgstr "{0} kullanıcısına yanıt"
+
 msgid "repo"
 msgstr "depo"
 
@@ -18676,6 +18683,9 @@ msgstr "Bir not yazın ve bir ajan seçin. Notunuz, öğenin koduyla ve kırpıl
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Bir istem yazın ve bir zamanlama seçin. Her çalıştırma, inceleyip devam edebileceğiniz bir çalışma alanı açar."
+
+msgid "Write a reply"
+msgstr "Bir yanıt yazın"
 
 msgid "Write a reply…"
 msgstr "Bir yanıt yazın…"

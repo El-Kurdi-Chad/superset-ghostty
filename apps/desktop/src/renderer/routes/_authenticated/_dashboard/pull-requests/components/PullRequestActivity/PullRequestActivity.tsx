@@ -2,9 +2,13 @@ import { plural } from "@lingui/core/macro";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { Skeleton } from "@superset/ui/skeleton";
 import { ArrowUpRight, LoaderCircle } from "lucide-react";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import type { PullRequestDetail } from "../../hooks/usePullRequestDetail";
 import { PullRequestActivityLayoutProvider } from "../../providers/PullRequestActivityLayoutProvider";
+import {
+	PullRequestActivityReplyProvider,
+	type PullRequestReplyTarget,
+} from "../../providers/PullRequestActivityReplyProvider";
 import { PullRequestActivityAvatar } from "../PullRequestActivityAvatar";
 import {
 	type PullRequestCommentTarget,
@@ -51,6 +55,7 @@ export function PullRequestActivity({
 	const { t } = useLingui();
 	const sectionRef = useRef<HTMLElement>(null);
 	const layout = usePullRequestActivityWidthLayout(sectionRef);
+	const [replyTo, setReplyTo] = useState<PullRequestReplyTarget | null>(null);
 	const items = useMemo(
 		() =>
 			buildPullRequestTimeline({
@@ -114,86 +119,92 @@ export function PullRequestActivity({
 				</p>
 			) : null}
 			<PullRequestActivityLayoutProvider value={layout}>
-				{items.length > 0 ? (
-					<ol
-						className={
-							layout === "row" ? "flex flex-col gap-1.5" : "flex flex-col"
-						}
-					>
-						{items.map((item, index) => {
-							const first = index === 0;
-							const last = index === items.length - 1;
-							switch (item.kind) {
-								case "commits":
-									return (
-										<PullRequestCommitRun
-											key={`commits-${item.commits[0]?.oid}`}
-											author={item.author}
-											commits={item.commits}
-											first={first}
-											last={last}
-										/>
-									);
-								case "review-event":
-									return (
-										<PullRequestReviewEvent
-											key={item.comment.id}
-											comment={item.comment}
-											verdict={item.verdict}
-											first={first}
-											last={last}
-										/>
-									);
-								case "comment":
-									if (layout === "row")
+				<PullRequestActivityReplyProvider
+					value={commentTarget ? setReplyTo : null}
+				>
+					{items.length > 0 ? (
+						<ol
+							className={
+								layout === "row" ? "flex flex-col gap-1.5" : "flex flex-col"
+							}
+						>
+							{items.map((item, index) => {
+								const first = index === 0;
+								const last = index === items.length - 1;
+								switch (item.kind) {
+									case "commits":
 										return (
-											<li key={item.comment.id}>
+											<PullRequestCommitRun
+												key={`commits-${item.commits[0]?.oid}`}
+												author={item.author}
+												commits={item.commits}
+												first={first}
+												last={last}
+											/>
+										);
+									case "review-event":
+										return (
+											<PullRequestReviewEvent
+												key={item.comment.id}
+												comment={item.comment}
+												verdict={item.verdict}
+												first={first}
+												last={last}
+											/>
+										);
+									case "comment":
+										if (layout === "row")
+											return (
+												<li key={item.comment.id}>
+													<PullRequestActivityComment
+														comment={item.comment}
+														prUrl={data.url}
+													/>
+												</li>
+											);
+										return (
+											<PullRequestTimelineStop
+												key={item.comment.id}
+												card
+												first={first}
+												last={last}
+												node={
+													<PullRequestActivityAvatar
+														author={item.comment.author}
+													/>
+												}
+											>
 												<PullRequestActivityComment
 													comment={item.comment}
 													prUrl={data.url}
 												/>
-											</li>
+											</PullRequestTimelineStop>
 										);
-									return (
-										<PullRequestTimelineStop
-											key={item.comment.id}
-											card
-											first={first}
-											last={last}
-											node={
-												<PullRequestActivityAvatar
-													author={item.comment.author}
-												/>
-											}
-										>
-											<PullRequestActivityComment
-												comment={item.comment}
-												prUrl={data.url}
-											/>
-										</PullRequestTimelineStop>
-									);
-								case "entry":
-									if (layout === "row")
-										return <li key={item.entry.id}>{item.entry.card}</li>;
-									return (
-										<PullRequestTimelineStop
-											key={item.entry.id}
-											card
-											first={first}
-											last={last}
-											node={
-												<PullRequestActivityAvatar author={item.entry.author} />
-											}
-										>
-											{item.entry.card}
-										</PullRequestTimelineStop>
-									);
-								default:
-									return null;
-							}
-						})}
-					</ol>
-				) : null}
+									case "entry":
+										if (layout === "row")
+											return <li key={item.entry.id}>{item.entry.card}</li>;
+										return (
+											<PullRequestTimelineStop
+												key={item.entry.id}
+												card
+												first={first}
+												last={last}
+												node={
+													<PullRequestActivityAvatar
+														author={item.entry.author}
+													/>
+												}
+											>
+												{item.entry.card}
+											</PullRequestTimelineStop>
+										);
+									default:
+										return null;
+								}
+							})}
+						</ol>
+					) : null}
+				</PullRequestActivityReplyProvider>
 			</PullRequestActivityLayoutProvider>
 			{loadingEmpty ? (
 				<div className="space-y-3">
@@ -208,7 +219,11 @@ export function PullRequestActivity({
 			) : null}
 			{commentTarget ? (
 				<div className="mt-4">
-					<PullRequestConversationComposer target={commentTarget} />
+					<PullRequestConversationComposer
+						target={commentTarget}
+						replyTo={replyTo}
+						onCancelReply={() => setReplyTo(null)}
+					/>
 				</div>
 			) : null}
 		</section>

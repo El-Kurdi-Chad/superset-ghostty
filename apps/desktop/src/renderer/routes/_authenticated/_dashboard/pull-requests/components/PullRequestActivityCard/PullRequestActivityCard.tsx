@@ -11,7 +11,9 @@ import { PullRequestClampedBody } from "./components/PullRequestClampedBody";
 
 interface PullRequestActivityCardProps {
 	author: PullRequestActivityAuthor | null;
-	/** Muted parts after the name, each behind a "·": a review state, a file path, "Resolved". */
+	/** Muted parts after the name, each behind a "·": a review state, a file
+	 *  path, "Resolved". The header is one line; a part that may be long sets
+	 *  `min-w-0 flex-1 truncate` and gives way to the rest. */
 	meta?: ReactNode;
 	createdAt?: string | null;
 	/** Where the time links: the comment's own page on GitHub. */
@@ -84,9 +86,9 @@ export function PullRequestActivityCard({
 					hasContent && "border-b border-border/60",
 				)}
 			>
-				<div className="flex min-h-6 min-w-0 flex-1 flex-wrap items-center gap-x-2 gap-y-1 [&>*+*]:before:me-2 [&>*+*]:before:text-muted-foreground [&>*+*]:before:content-['·']">
+				<div className="flex min-h-6 min-w-0 flex-1 items-center gap-x-2 [&>*+*]:before:me-2 [&>*+*]:before:text-muted-foreground [&>*+*]:before:content-['·']">
 					<span
-						className="min-w-0 truncate font-medium text-foreground"
+						className="min-w-0 max-w-[50%] shrink truncate font-medium text-foreground"
 						title={author?.name ?? undefined}
 					>
 						{pullRequestAuthorLabel(author)}

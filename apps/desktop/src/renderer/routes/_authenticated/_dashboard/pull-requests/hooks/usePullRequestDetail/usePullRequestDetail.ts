@@ -170,6 +170,11 @@ export function useInvalidatePullRequestDetail(key: PullRequestDetailKey) {
 				queryKey: V2_WORKSPACES_PULL_REQUEST_QUERY_KEY_PREFIX,
 			});
 		}
+		// The workspace pane's review threads live on the context client under
+		// tRPC's own key; a thread reply posted here must reach them too.
+		void queryClient.invalidateQueries({
+			queryKey: [["git", "getPullRequestThreads"]],
+		});
 		return queryClient.invalidateQueries({
 			queryKey: pullRequestDetailQueryKey({ projectId, hostUrl, prNumber }),
 		});

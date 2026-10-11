@@ -112,7 +112,6 @@ for (const state of ["loading", "error"] as const) {
 			<PullRequestPane
 				data={{ repoFullName: "owner/repo", number: 12 }}
 				onOpenDiff={mock()}
-				onOpenComment={mock()}
 				onOpenPage={mock()}
 			/>,
 		);
@@ -141,7 +140,6 @@ test("matching projects retain project actions even while Summary loads", async 
 		<PullRequestPane
 			data={{ repoFullName: "owner/repo", number: 12 }}
 			onOpenDiff={mock()}
-			onOpenComment={mock()}
 			onOpenPage={mock()}
 		/>,
 	);

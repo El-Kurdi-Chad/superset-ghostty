@@ -3236,6 +3236,9 @@ msgstr "編集をキャンセル"
 msgid "Cancel plan"
 msgstr "プランをキャンセル"
 
+msgid "Cancel reply"
+msgstr "返信をキャンセル"
+
 msgid "Canceled"
 msgstr "キャンセル済み"
 
@@ -13373,6 +13376,10 @@ msgstr "返信"
 msgid "Reply to thread…"
 msgstr "スレッドに返信…"
 
+#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
+msgid "Replying to {0}"
+msgstr "{0} に返信"
+
 msgid "repo"
 msgstr "リポジトリ"
 
@@ -18676,6 +18683,9 @@ msgstr "メモを書いて、エージェントを選びます。メモは、要
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "プロンプトを書いて、スケジュールを選びます。実行のたびにワークスペースが開き、確認や続行ができます。"
+
+msgid "Write a reply"
+msgstr "返信を書く"
 
 msgid "Write a reply…"
 msgstr "返信を入力…"

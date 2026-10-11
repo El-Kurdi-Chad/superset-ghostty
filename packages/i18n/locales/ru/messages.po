@@ -3236,6 +3236,9 @@ msgstr "Отменить правки"
 msgid "Cancel plan"
 msgstr "Отменить тариф"
 
+msgid "Cancel reply"
+msgstr "Отменить ответ"
+
 msgid "Canceled"
 msgstr "Отменена"
 
@@ -13373,6 +13376,10 @@ msgstr "Ответить"
 msgid "Reply to thread…"
 msgstr "Ответить в ветке…"
 
+#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
+msgid "Replying to {0}"
+msgstr "Ответ для {0}"
+
 msgid "repo"
 msgstr "репозиторий"
 
@@ -18676,6 +18683,9 @@ msgstr "Напишите заметку и выберите агента. Зам
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Напишите промпт и выберите расписание. Каждый запуск открывает рабочую область, которую можно проверить и продолжить."
+
+msgid "Write a reply"
+msgstr "Напишите ответ"
 
 msgid "Write a reply…"
 msgstr "Напишите ответ…"

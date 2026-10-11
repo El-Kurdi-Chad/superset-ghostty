@@ -3236,6 +3236,9 @@ msgstr "Zrušit úpravy"
 msgid "Cancel plan"
 msgstr "Zrušit tarif"
 
+msgid "Cancel reply"
+msgstr "Zrušit odpověď"
+
 msgid "Canceled"
 msgstr "Zrušeno"
 
@@ -13373,6 +13376,10 @@ msgstr "Odpovědět"
 msgid "Reply to thread…"
 msgstr "Odpovědět do vlákna…"
 
+#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
+msgid "Replying to {0}"
+msgstr "Odpověď pro {0}"
+
 msgid "repo"
 msgstr "repo"
 
@@ -18676,6 +18683,9 @@ msgstr "Napište poznámku a vyberte agenta. Poznámka dorazí spolu s kódem pr
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Napište prompt a vyberte plán. Každý běh otevře pracovní prostor, který můžete zkontrolovat a v něm pokračovat."
+
+msgid "Write a reply"
+msgstr "Napište odpověď"
 
 msgid "Write a reply…"
 msgstr "Napište odpověď…"

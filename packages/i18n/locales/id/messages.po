@@ -3236,6 +3236,9 @@ msgstr "Batalkan suntingan"
 msgid "Cancel plan"
 msgstr "Batalkan paket"
 
+msgid "Cancel reply"
+msgstr "Batalkan balasan"
+
 msgid "Canceled"
 msgstr "Dibatalkan"
 
@@ -13373,6 +13376,10 @@ msgstr "Balas"
 msgid "Reply to thread…"
 msgstr "Balas thread…"
 
+#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
+msgid "Replying to {0}"
+msgstr "Membalas {0}"
+
 msgid "repo"
 msgstr "repo"
 
@@ -18676,6 +18683,9 @@ msgstr "Tulis catatan dan pilih agen. Catatan Anda dikirim bersama kode elemen d
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Tulis prompt dan pilih jadwal. Setiap run membuka workspace yang bisa Anda tinjau dan lanjutkan."
+
+msgid "Write a reply"
+msgstr "Tulis balasan"
 
 msgid "Write a reply…"
 msgstr "Tulis balasan…"

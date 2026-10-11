@@ -1,4 +1,5 @@
 import { afterAll, afterEach, describe, expect, mock, test } from "bun:test";
+import { PullRequestActivityReplyProvider } from "renderer/routes/_authenticated/_dashboard/pull-requests/providers/PullRequestActivityReplyProvider";
 import type { PullRequestCommentCardProps } from "./PullRequestCommentCard";
 
 const reactActGlobal = globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean };
@@ -14,17 +15,16 @@ function renderCard(
 		PullRequestCommentCardProps,
 		"comment" | "replies" | "onOpenInDiff"
 	>,
+	requestReply: ((target: { commentId: number }) => void) | null = null,
 ) {
 	return render(
 		<workspaceTrpc.Provider
 			client={workspaceTrpc.createClient({ links: [] })}
 			queryClient={new QueryClient()}
 		>
-			<PullRequestCommentCard
-				workspaceId="ws"
-				onOpenComment={() => {}}
-				{...props}
-			/>
+			<PullRequestActivityReplyProvider value={requestReply}>
+				<PullRequestCommentCard workspaceId="ws" {...props} />
+			</PullRequestActivityReplyProvider>
 		</workspaceTrpc.Provider>,
 	);
 }
@@ -34,6 +34,8 @@ afterAll(async () => {
 });
 const comment = {
 	id: "c1",
+	databaseId: 4242,
+	url: "https://github.com/example/repo/pull/1#discussion_r4242",
 	authorLogin: "reviewer",
 	body: "Keep the **selected line** visible.\n\nRead [the context](https://github.com/example/repo/pull/1).",
 	kind: "review" as const,
@@ -84,6 +86,22 @@ describe("review cards", () => {
 		expect(body.closest("button")).toBeNull();
 		fireEvent.click(body);
 		expect(onOpenInDiff).not.toHaveBeenCalled();
+	});
+	test("Reply hands the thread to the composer, or opens GitHub when nothing can take it", () => {
+		const requestReply = mock((_target: { commentId: number }) => {});
+		const inline = renderCard({ comment }, requestReply);
+		fireEvent.click(inline.getByRole("button", { name: "Reply" }));
+		expect(requestReply).toHaveBeenCalledWith({
+			commentId: 4242,
+			author: { login: "reviewer", avatarUrl: undefined },
+		});
+		inline.unmount();
+		const fallback = renderCard({ comment });
+		expect(fallback.getByRole("link", { name: "Reply" })).toHaveProperty(
+			"href",
+			comment.url,
+		);
+		expect(fallback.queryByRole("button", { name: "Reply" })).toBeNull();
 	});
 	test.each([
 		["LEFT", "deletions"],

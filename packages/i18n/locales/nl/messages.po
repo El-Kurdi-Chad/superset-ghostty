@@ -3236,6 +3236,9 @@ msgstr "Bewerkingen annuleren"
 msgid "Cancel plan"
 msgstr "Plan opzeggen"
 
+msgid "Cancel reply"
+msgstr "Antwoord annuleren"
+
 msgid "Canceled"
 msgstr "Geannuleerd"
 
@@ -13373,6 +13376,10 @@ msgstr "Antwoorden"
 msgid "Reply to thread…"
 msgstr "Reageren op thread…"
 
+#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
+msgid "Replying to {0}"
+msgstr "Antwoord aan {0}"
+
 msgid "repo"
 msgstr "repo"
 
@@ -18676,6 +18683,9 @@ msgstr "Schrijf een notitie en kies een agent. Je notitie komt aan met de code v
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Schrijf een prompt en kies een schema. Elke run opent een werkruimte die je kunt beoordelen en voortzetten."
+
+msgid "Write a reply"
+msgstr "Schrijf een antwoord"
 
 msgid "Write a reply…"
 msgstr "Schrijf een antwoord…"

@@ -3236,6 +3236,9 @@ msgstr "Bearbeitung abbrechen"
 msgid "Cancel plan"
 msgstr "Tarif kündigen"
 
+msgid "Cancel reply"
+msgstr "Antwort abbrechen"
+
 msgid "Canceled"
 msgstr "Abgebrochen"
 
@@ -13373,6 +13376,10 @@ msgstr "Antworten"
 msgid "Reply to thread…"
 msgstr "Auf den Thread antworten…"
 
+#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
+msgid "Replying to {0}"
+msgstr "Antwort an {0}"
+
 msgid "repo"
 msgstr "Repo"
 
@@ -18676,6 +18683,9 @@ msgstr "Schreibe eine Notiz und wähle einen Agenten. Deine Notiz kommt mit dem 
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Schreibe einen Prompt und wähle einen Zeitplan. Jede Ausführung öffnet einen Arbeitsbereich, den du prüfen und fortsetzen kannst."
+
+msgid "Write a reply"
+msgstr "Antwort schreiben"
 
 msgid "Write a reply…"
 msgstr "Antwort schreiben…"

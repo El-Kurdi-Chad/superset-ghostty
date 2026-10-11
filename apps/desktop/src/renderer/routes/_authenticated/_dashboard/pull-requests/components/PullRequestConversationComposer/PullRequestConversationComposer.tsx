@@ -1,12 +1,14 @@
-import { useLingui } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import { errorMessage } from "@superset/i18n/errors";
 import { toast } from "@superset/ui/sonner";
 import { useMutation } from "@tanstack/react-query";
-import { ArrowUp } from "lucide-react";
-import { useRef, useState } from "react";
+import { ArrowUp, X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import { getHostServiceClientByUrl } from "renderer/lib/host-service-client";
 import { useInvalidatePullRequestDetail } from "../../hooks/usePullRequestDetail";
+import type { PullRequestReplyTarget } from "../../providers/PullRequestActivityReplyProvider";
+import { pullRequestAuthorLabel } from "../../utils/pullRequestAuthorLabel";
 
 export interface PullRequestCommentTarget {
 	projectId: string;
@@ -16,34 +18,59 @@ export interface PullRequestCommentTarget {
 
 interface PullRequestConversationComposerProps {
 	target: PullRequestCommentTarget;
+	/** A review-thread comment to answer instead of the conversation. */
+	replyTo?: PullRequestReplyTarget | null;
+	onCancelReply?: () => void;
 }
 
-/** The "Leave a comment" card at the end of the Comments section. Posts as the gh user;
- *  Enter sends, Shift+Enter breaks a line (comments accept markdown). */
+/** The "Leave a comment" card at the end of the Activity section. Posts as the gh user;
+ *  Enter sends, Shift+Enter breaks a line (comments accept markdown). With a reply
+ *  target it answers that review thread instead. */
 export function PullRequestConversationComposer({
 	target,
+	replyTo = null,
+	onCancelReply,
 }: PullRequestConversationComposerProps) {
 	const { t } = useLingui();
 	const [body, setBody] = useState("");
+	const fieldRef = useRef<HTMLTextAreaElement>(null);
 	// mutation.isPending updates on React's schedule, too late to stop a
 	// rapid double Enter from posting twice.
 	const submittingRef = useRef(false);
 	const invalidate = useInvalidatePullRequestDetail(target);
+	useEffect(() => {
+		if (replyTo) fieldRef.current?.focus();
+	}, [replyTo]);
 	const post = useMutation({
-		mutationFn: (text: string) =>
-			getHostServiceClientByUrl(target.hostUrl).pullRequests.addComment.mutate({
+		mutationFn: async (text: string) => {
+			const client = getHostServiceClientByUrl(target.hostUrl);
+			if (replyTo) {
+				await client.pullRequests.replyToThread.mutate({
+					projectId: target.projectId,
+					prNumber: target.prNumber,
+					commentId: replyTo.commentId,
+					body: text,
+				});
+				return;
+			}
+			await client.pullRequests.addComment.mutate({
 				projectId: target.projectId,
 				prNumber: target.prNumber,
 				body: text,
-			}),
+			});
+		},
 		onSuccess: () => {
 			setBody("");
+			onCancelReply?.();
 			void invalidate();
 		},
 		onError: (error) => {
-			toast.error(t({ message: "Couldn't post comment" }), {
-				description: errorMessage(error),
-			});
+			toast.error(
+				replyTo
+					? t({ message: "Couldn't post reply" })
+					: t({ message: "Couldn't post comment" }),
+				{ description: errorMessage(error) },
+			);
 		},
 	});
 	const trimmed = body.trim();
@@ -57,10 +84,28 @@ export function PullRequestConversationComposer({
 			},
 		});
 	};
-	const placeholder = t({ message: "Leave a comment" });
+	const placeholder = replyTo
+		? t({ message: "Write a reply" })
+		: t({ message: "Leave a comment" });
 	return (
 		<div className="rounded-xl border border-border/60 bg-background shadow-sm">
+			{replyTo ? (
+				<div className="flex items-center gap-2 px-3 pt-2 text-[11px] text-muted-foreground">
+					<span className="min-w-0 truncate">
+						<Trans>Replying to {pullRequestAuthorLabel(replyTo.author)}</Trans>
+					</span>
+					<button
+						type="button"
+						aria-label={t({ message: "Cancel reply" })}
+						onClick={onCancelReply}
+						className="flex size-5 shrink-0 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+					>
+						<X className="size-3" />
+					</button>
+				</div>
+			) : null}
 			<textarea
+				ref={fieldRef}
 				rows={Math.max(3, Math.min(8, body.split("\n").length))}
 				value={body}
 				disabled={post.isPending}

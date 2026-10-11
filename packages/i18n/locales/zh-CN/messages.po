@@ -3236,6 +3236,9 @@ msgstr "取消编辑"
 msgid "Cancel plan"
 msgstr "取消方案"
 
+msgid "Cancel reply"
+msgstr "取消回复"
+
 msgid "Canceled"
 msgstr "已取消"
 
@@ -13373,6 +13376,10 @@ msgstr "回复"
 msgid "Reply to thread…"
 msgstr "回复讨论串…"
 
+#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
+msgid "Replying to {0}"
+msgstr "回复 {0}"
+
 msgid "repo"
 msgstr "仓库"
 
@@ -18676,6 +18683,9 @@ msgstr "写一条备注并选择智能体。备注会连同该元素的代码和
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "写好提示词并选择计划。每次运行都会打开一个工作区，你可以审阅并继续。"
+
+msgid "Write a reply"
+msgstr "写回复"
 
 msgid "Write a reply…"
 msgstr "写一条回复…"

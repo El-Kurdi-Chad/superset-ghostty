@@ -3,27 +3,24 @@ import { Button } from "@superset/ui/button";
 import { toast } from "@superset/ui/sonner";
 import { workspaceTrpc } from "@superset/workspace-client";
 import { useEffect, useState } from "react";
-import {
-	LuArrowUpRight,
-	LuCheck,
-	LuCopy,
-	LuMessageSquare,
-	LuUndo2,
-} from "react-icons/lu";
+import { LuArrowUpRight, LuCheck, LuCopy, LuUndo2 } from "react-icons/lu";
 import { electronTrpcClient } from "renderer/lib/trpc-client";
 import { PullRequestActivityCard } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestActivityCard";
 import { PullRequestMarkdown } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestMarkdown";
 import { usePullRequestActivityLayout } from "renderer/routes/_authenticated/_dashboard/pull-requests/providers/PullRequestActivityLayoutProvider";
+import { usePullRequestActivityReply } from "renderer/routes/_authenticated/_dashboard/pull-requests/providers/PullRequestActivityReplyProvider";
 import type { NormalizedComment } from "../../../../../../components/CommentsSection/types";
-import type { CommentPaneData, DiffFocusSide } from "../../../../../../types";
+import type { DiffFocusSide } from "../../../../../../types";
 import { PullRequestCommentReply } from "./components/PullRequestCommentReply";
+
+const REPLY_CLASS_NAME =
+	"rounded px-1.5 py-0.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground";
 
 export interface PullRequestCommentCardProps {
 	workspaceId: string;
 	comment: NormalizedComment;
 	/** Later comments in the same thread. */
 	replies?: NormalizedComment[];
-	onOpenComment: (comment: CommentPaneData) => void;
 	onOpenInDiff?: (
 		path: string,
 		line?: number,
@@ -32,16 +29,16 @@ export interface PullRequestCommentCardProps {
 	) => void;
 }
 
-/** A review thread on the activity rail: file and state in the header, the thread's actions, replies under the body. */
+/** A review thread on the activity rail: file and state in the header, copy and Reply beside them, replies under the body, resolve and open-in-diff in the footer. */
 export function PullRequestCommentCard({
 	workspaceId,
 	comment,
 	replies = [],
-	onOpenComment,
 	onOpenInDiff,
 }: PullRequestCommentCardProps) {
 	const { t } = useLingui();
 	const layout = usePullRequestActivityLayout();
+	const requestReply = usePullRequestActivityReply();
 	const [copied, setCopied] = useState(false);
 	const utils = workspaceTrpc.useUtils();
 	const resolve = workspaceTrpc.git.setReviewThreadResolution.useMutation({
@@ -74,16 +71,6 @@ export function PullRequestCommentCard({
 						: undefined,
 			);
 	};
-	const openComment = () =>
-		onOpenComment({
-			commentId: comment.id,
-			authorLogin: comment.authorLogin,
-			avatarUrl: comment.avatarUrl,
-			body: comment.body,
-			url: comment.url,
-			path: comment.path,
-			line: comment.line,
-		});
 	const copy = async () => {
 		try {
 			await electronTrpcClient.external.copyText.mutate(comment.body);
@@ -92,6 +79,18 @@ export function PullRequestCommentCard({
 			toast.error(t({ message: "Couldn't copy comment" }));
 		}
 	};
+	const replyId = comment.databaseId;
+	const reply =
+		requestReply && replyId != null
+			? () =>
+					requestReply({
+						commentId: replyId,
+						author: {
+							login: comment.authorLogin,
+							avatarUrl: comment.avatarUrl,
+						},
+					})
+			: null;
 	const location = comment.path
 		? `${comment.path}${comment.line != null ? `:${comment.line}` : ""}`
 		: null;
@@ -105,14 +104,14 @@ export function PullRequestCommentCard({
 							type="button"
 							onClick={openCode}
 							title={comment.path}
-							className="min-w-0 truncate font-mono text-[11px] text-foreground/80 transition-colors hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+							className="min-w-0 flex-1 truncate text-left font-mono text-[11px] text-foreground/80 transition-colors hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
 						>
 							{location}
 						</button>
 					) : location ? (
 						<span
 							title={comment.path}
-							className="min-w-0 truncate font-mono text-[11px]"
+							className="min-w-0 flex-1 truncate font-mono text-[11px]"
 						>
 							{location}
 						</span>
@@ -147,38 +146,26 @@ export function PullRequestCommentCard({
 							<LuCopy className="size-3.5" />
 						)}
 					</Button>
-					<Button
-						size="icon"
-						variant="ghost"
-						className="size-6 text-muted-foreground"
-						onClick={openComment}
-						aria-label={t({ message: "Open as comment pane" })}
-					>
-						<LuMessageSquare className="size-3.5" />
-					</Button>
-					{comment.url ? (
-						<Button
-							asChild
-							size="icon"
-							variant="ghost"
-							className="size-6 text-muted-foreground"
+					{reply ? (
+						<button type="button" onClick={reply} className={REPLY_CLASS_NAME}>
+							<Trans>Reply</Trans>
+						</button>
+					) : comment.url ? (
+						<a
+							href={comment.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							className={REPLY_CLASS_NAME}
 						>
-							<a
-								href={comment.url}
-								target="_blank"
-								rel="noopener noreferrer"
-								aria-label={t({ message: "Open comment on GitHub" })}
-							>
-								<LuArrowUpRight className="size-3.5" />
-							</a>
-						</Button>
+							<Trans>Reply</Trans>
+						</a>
 					) : null}
 				</>
 			}
 			replies={
 				replies.length > 0
-					? replies.map((reply) => (
-							<PullRequestCommentReply key={reply.id} comment={reply} />
+					? replies.map((item) => (
+							<PullRequestCommentReply key={item.id} comment={item} />
 						))
 					: null
 			}

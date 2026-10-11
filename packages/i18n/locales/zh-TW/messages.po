@@ -3236,6 +3236,9 @@ msgstr "取消編輯"
 msgid "Cancel plan"
 msgstr "取消方案"
 
+msgid "Cancel reply"
+msgstr "取消回覆"
+
 msgid "Canceled"
 msgstr "已取消"
 
@@ -13373,6 +13376,10 @@ msgstr "回覆"
 msgid "Reply to thread…"
 msgstr "回覆討論串…"
 
+#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
+msgid "Replying to {0}"
+msgstr "回覆 {0}"
+
 msgid "repo"
 msgstr "儲存庫"
 
@@ -18676,6 +18683,9 @@ msgstr "寫一則備註並選擇代理程式。備註會連同該元素的程式
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "寫好提示詞並選擇計劃。每次執行都會開啟一個工作區，你可以審閱並繼續。"
+
+msgid "Write a reply"
+msgstr "撰寫回覆"
 
 msgid "Write a reply…"
 msgstr "寫一條回覆…"

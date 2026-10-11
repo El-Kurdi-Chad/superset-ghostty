@@ -900,7 +900,6 @@ export function usePaneRegistry({
 					<PullRequestPane
 						data={ctx.pane.data as PullRequestPaneData}
 						onOpenDiff={onOpenDiff}
-						onOpenComment={onOpenComment}
 						onOpenPage={(page) => openPagePaneInStore(ctx.store, page)}
 					/>
 				),

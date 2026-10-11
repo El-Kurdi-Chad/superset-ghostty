@@ -3236,6 +3236,9 @@ msgstr "Hủy chỉnh sửa"
 msgid "Cancel plan"
 msgstr "Hủy gói"
 
+msgid "Cancel reply"
+msgstr "Hủy trả lời"
+
 msgid "Canceled"
 msgstr "Đã hủy"
 
@@ -13373,6 +13376,10 @@ msgstr "Trả lời"
 msgid "Reply to thread…"
 msgstr "Trả lời luồng…"
 
+#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
+msgid "Replying to {0}"
+msgstr "Đang trả lời {0}"
+
 msgid "repo"
 msgstr "repo"
 
@@ -18676,6 +18683,9 @@ msgstr "Viết ghi chú và chọn một agent. Ghi chú của bạn được g�
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Viết một prompt và chọn lịch. Mỗi lượt chạy mở một workspace để bạn xem lại và tiếp tục."
+
+msgid "Write a reply"
+msgstr "Viết câu trả lời"
 
 msgid "Write a reply…"
 msgstr "Viết trả lời…"

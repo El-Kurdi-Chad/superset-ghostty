@@ -14,11 +14,7 @@ import {
 } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestDetailTabs";
 import { useWorkspace } from "renderer/routes/_authenticated/_dashboard/v2-workspace/providers/WorkspaceProvider";
 import { normalizeThreadsToComments } from "../../../../components/CommentsSection/utils/normalizeThreadsToComments";
-import type {
-	CommentPaneData,
-	PagePaneData,
-	PullRequestPaneData,
-} from "../../../../types";
+import type { PagePaneData, PullRequestPaneData } from "../../../../types";
 import {
 	type OpenReviewDiff,
 	useReviewCommentNavigation,
@@ -31,14 +27,12 @@ import { buildReviewThreadEntries } from "./utils/buildReviewThreadEntries";
 interface PullRequestPaneProps {
 	data: PullRequestPaneData;
 	onOpenDiff: OpenReviewDiff;
-	onOpenComment: (comment: CommentPaneData) => void;
 	onOpenPage: (page: PagePaneData) => void;
 }
 
 export function PullRequestPane({
 	data,
 	onOpenDiff,
-	onOpenComment,
 	onOpenPage,
 }: PullRequestPaneProps) {
 	const navigate = useNavigate();
@@ -85,7 +79,6 @@ export function PullRequestPane({
 			entries: buildReviewThreadEntries({
 				comments,
 				workspaceId: workspace.id,
-				onOpenComment,
 				onOpenInDiff,
 			}),
 			commentCount: comments.length,
@@ -100,7 +93,6 @@ export function PullRequestPane({
 		linkedPR.data?.url,
 		hasConversation,
 		workspace.id,
-		onOpenComment,
 		onOpenInDiff,
 	]);
 	const projectId = isLinkedPR ? workspace.projectId : null;

@@ -3236,6 +3236,9 @@ msgstr "Annulla le modifiche"
 msgid "Cancel plan"
 msgstr "Disdici il piano"
 
+msgid "Cancel reply"
+msgstr "Annulla risposta"
+
 msgid "Canceled"
 msgstr "Annullati"
 
@@ -13373,6 +13376,10 @@ msgstr "Rispondi"
 msgid "Reply to thread…"
 msgstr "Rispondi al thread…"
 
+#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
+msgid "Replying to {0}"
+msgstr "In risposta a {0}"
+
 msgid "repo"
 msgstr "repo"
 
@@ -18676,6 +18683,9 @@ msgstr "Scrivi una nota e scegli un agente. La nota arriva con il codice dell'el
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Scrivi un prompt e scegli una pianificazione. Ogni esecuzione apre un workspace che puoi rivedere e continuare."
+
+msgid "Write a reply"
+msgstr "Scrivi una risposta"
 
 msgid "Write a reply…"
 msgstr "Scrivi una risposta…"

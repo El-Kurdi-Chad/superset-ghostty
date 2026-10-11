@@ -3236,6 +3236,9 @@ msgstr "Cancelar las ediciones"
 msgid "Cancel plan"
 msgstr "Cancelar el plan"
 
+msgid "Cancel reply"
+msgstr "Cancelar respuesta"
+
 msgid "Canceled"
 msgstr "Cancelado"
 
@@ -13373,6 +13376,10 @@ msgstr "Responder"
 msgid "Reply to thread…"
 msgstr "Responder al hilo…"
 
+#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
+msgid "Replying to {0}"
+msgstr "Respondiendo a {0}"
+
 msgid "repo"
 msgstr "repo"
 
@@ -18676,6 +18683,9 @@ msgstr "Escribe una nota y elige un agente. Tu nota llega con el código del ele
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Escribe un prompt y elige una programación. Cada ejecución abre un espacio de trabajo que puedes revisar y continuar."
+
+msgid "Write a reply"
+msgstr "Escribe una respuesta"
 
 msgid "Write a reply…"
 msgstr "Escribe una respuesta…"
