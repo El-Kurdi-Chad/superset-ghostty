@@ -30,55 +30,60 @@ function wrapsImage(node: MarkupNode | undefined): boolean {
 	);
 }
 
-/** GitHub-body renderers: links carry their site's mark, images keep the
- *  markup's size, task boxes sit in the list gutter, tables are a bordered
- *  grid. */
-const PROSE_COMPONENTS: Partial<Components> = {
-	a: ({ href, children, node }) => {
-		const external =
-			typeof href === "string" && EXTERNAL_HREF_PATTERN.test(href);
-		const marked = external && !wrapsImage(node);
-		return (
-			<a
-				href={href}
-				target={external ? "_blank" : undefined}
-				rel={external ? "noopener noreferrer" : undefined}
-				className={marked ? "pr-prose-link" : undefined}
-			>
-				{marked ? <PullRequestLinkIcon url={href} /> : null}
-				{children}
-			</a>
-		);
-	},
-	img: ({ src, alt, width, height, node }) => (
-		<SafeImage
-			src={src}
-			alt={alt}
-			width={width}
-			height={height}
-			align={imageAlignment(node?.properties.align)}
-		/>
-	),
-	picture: ({ node }) => <PullRequestPicture node={node} />,
-	li: ({ children, className }) => <li className={className}>{children}</li>,
-	input: ({ type, checked }) =>
-		type === "checkbox" ? (
-			<input
-				type="checkbox"
-				className="pr-prose-task-checkbox"
-				checked={checked === true}
-				disabled
-				readOnly
+/** GitHub-body renderers: images keep the markup's size, task boxes sit in
+ *  the list gutter, tables are a framed grid. The description's links carry
+ *  their site's mark; a comment's stay plain, as on GitHub. */
+function proseComponents(linkMarks: boolean): Partial<Components> {
+	return {
+		a: ({ href, children, node }) => {
+			const external =
+				typeof href === "string" && EXTERNAL_HREF_PATTERN.test(href);
+			const marked = linkMarks && external && !wrapsImage(node);
+			return (
+				<a
+					href={href}
+					target={external ? "_blank" : undefined}
+					rel={external ? "noopener noreferrer" : undefined}
+					className={marked ? "pr-prose-link" : undefined}
+				>
+					{marked ? <PullRequestLinkIcon url={href} /> : null}
+					{children}
+				</a>
+			);
+		},
+		img: ({ src, alt, width, height, node }) => (
+			<SafeImage
+				src={src}
+				alt={alt}
+				width={width}
+				height={height}
+				align={imageAlignment(node?.properties.align)}
 			/>
-		) : null,
-	table: ({ children }) => (
-		<div className="pr-prose-table">
-			<table>{children}</table>
-		</div>
-	),
-	th: ({ children }) => <th>{children}</th>,
-	td: ({ children }) => <td>{children}</td>,
-};
+		),
+		picture: ({ node }) => <PullRequestPicture node={node} />,
+		li: ({ children, className }) => <li className={className}>{children}</li>,
+		input: ({ type, checked }) =>
+			type === "checkbox" ? (
+				<input
+					type="checkbox"
+					className="pr-prose-task-checkbox"
+					checked={checked === true}
+					disabled
+					readOnly
+				/>
+			) : null,
+		table: ({ children }) => (
+			<div className="pr-prose-table">
+				<table>{children}</table>
+			</div>
+		),
+		th: ({ children }) => <th>{children}</th>,
+		td: ({ children }) => <td>{children}</td>,
+	};
+}
+
+const PAGE_COMPONENTS = proseComponents(true);
+const COMMENT_COMPONENTS = proseComponents(false);
 
 interface PullRequestMarkdownProps {
 	body: string;
@@ -112,7 +117,7 @@ export function PullRequestMarkdown({
 		<MarkdownRenderer
 			content={prepared}
 			style="default"
-			components={PROSE_COMPONENTS}
+			components={size === "comment" ? COMMENT_COMPONENTS : PAGE_COMPONENTS}
 			className={cn(
 				"pull-request-markdown h-auto overflow-visible",
 				size === "comment" && "pull-request-markdown-comment",
