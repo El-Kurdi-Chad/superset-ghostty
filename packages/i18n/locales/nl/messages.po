@@ -971,6 +971,18 @@ msgstr "{noun, select, repository {Geef minstens één repository op.} channel {
 msgid "{openCount} open"
 msgstr "{openCount} open"
 
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} kan namens jou gegevens in je {pluginLabel}-account lezen en wijzigen, ook in toekomstige versies van deze pagina. Wat de pagina leest, kan ze naar andere websites sturen. Sta alleen pagina’s toe die je vertrouwt."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} kan {pluginLabel} namens jou gebruiken, ook in toekomstige versies van deze pagina. Wat de pagina leest, kan ze naar andere websites sturen. Sta alleen pagina’s toe die je vertrouwt."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} gebruikt {pluginLabel}. Installeer het om door te gaan."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} gebruikt dit account."
+
 msgid "{partialCount} partial"
 msgstr "{partialCount} gedeeltelijk"
 
@@ -2128,6 +2140,9 @@ msgstr "Externe toegang tot dit apparaat via de relay toestaan"
 
 msgid "Allow this action?"
 msgstr "Deze actie toestaan?"
+
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Deze pagina toestaan {pluginLabel} te gebruiken?"
 
 msgid "Allowed"
 msgstr "Toegestaan"
@@ -3524,6 +3539,9 @@ msgstr "Checks geslaagd"
 msgid "Checks Skipped"
 msgstr "Checks overgeslagen"
 
+msgid "Choose a {pluginLabel} account"
+msgstr "Kies een {pluginLabel}-account"
+
 msgid "Choose a fighter"
 msgstr "Kies een vechter"
 
@@ -4164,6 +4182,9 @@ msgstr "Verbinden"
 msgid "Connect {name}"
 msgstr "{name} verbinden"
 
+msgid "Connect {pluginLabel}"
+msgstr "{pluginLabel} verbinden"
+
 msgid "Connect a device"
 msgstr "Apparaat koppelen"
 
@@ -4226,6 +4247,9 @@ msgstr "Verbind Slack om taken vanuit gesprekken te beheren. Vermeld de bot in e
 
 msgid "Connect this computer"
 msgstr "Verbind deze computer"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Verbind je {pluginLabel}-account en laad deze pagina daarna opnieuw."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Verbind je codeeragents met de apps die je team al gebruikt."
@@ -6123,6 +6147,9 @@ msgstr "Docs"
 
 msgid "Documentation"
 msgstr "Documentatie"
+
+msgid "Don't allow"
+msgstr "Niet toestaan"
 
 msgid "Don't ask again"
 msgstr "Niet meer vragen"
@@ -8594,6 +8621,9 @@ msgstr "{0} inspecteren"
 
 msgid "Install"
 msgstr "Installeren"
+
+msgid "Install {pluginLabel}?"
+msgstr "{pluginLabel} installeren?"
 
 msgid "Install & restart"
 msgstr "Installeren en herstarten"
@@ -17992,6 +18022,9 @@ msgstr "Gebruik de desktop-app om parallelle coding agents te draaien."
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Gebruik het Superset-menu in de menubalk > Hostservice > Opnieuw starten en probeer het opnieuw."
+
+msgid "Use this account"
+msgstr "Dit account gebruiken"
 
 msgid "Use this folder"
 msgstr "Deze map gebruiken"

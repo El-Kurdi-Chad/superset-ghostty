@@ -971,6 +971,18 @@ msgstr "{noun, select, repository {Hãy chỉ định ít nhất một repo.} ch
 msgid "{openCount} open"
 msgstr "{openCount} còn mở"
 
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} có thể thay bạn đọc và thay đổi dữ liệu trong tài khoản {pluginLabel} của bạn, kể cả trong các phiên bản sau của trang này. Trang có thể gửi những gì nó đọc được đến các trang web khác. Chỉ cho phép những trang bạn tin tưởng."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} có thể thay bạn sử dụng {pluginLabel}, kể cả trong các phiên bản sau của trang này. Trang có thể gửi những gì nó đọc được đến các trang web khác. Chỉ cho phép những trang bạn tin tưởng."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} sử dụng {pluginLabel}. Hãy cài đặt để tiếp tục."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} sẽ sử dụng tài khoản này."
+
 msgid "{partialCount} partial"
 msgstr "{partialCount} một phần"
 
@@ -2128,6 +2140,9 @@ msgstr "Cho phép truy cập từ xa vào thiết bị này qua relay"
 
 msgid "Allow this action?"
 msgstr "Cho phép thao tác này?"
+
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Cho phép trang này sử dụng {pluginLabel}?"
 
 msgid "Allowed"
 msgstr "Đã cho phép"
@@ -3524,6 +3539,9 @@ msgstr "Check đã qua"
 msgid "Checks Skipped"
 msgstr "Check đã bỏ qua"
 
+msgid "Choose a {pluginLabel} account"
+msgstr "Chọn một tài khoản {pluginLabel}"
+
 msgid "Choose a fighter"
 msgstr "Chọn một đấu sĩ"
 
@@ -4164,6 +4182,9 @@ msgstr "Kết nối"
 msgid "Connect {name}"
 msgstr "Kết nối {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Kết nối {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Kết nối một thiết bị"
 
@@ -4226,6 +4247,9 @@ msgstr "Kết nối Slack để quản lý tác vụ ngay trong hội thoại. N
 
 msgid "Connect this computer"
 msgstr "Kết nối máy tính này"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Kết nối tài khoản {pluginLabel} của bạn, sau đó tải lại trang này."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Kết nối các agent lập trình của bạn với những ứng dụng mà nhóm bạn đang dùng."
@@ -6123,6 +6147,9 @@ msgstr "Tài liệu"
 
 msgid "Documentation"
 msgstr "Tài liệu"
+
+msgid "Don't allow"
+msgstr "Không cho phép"
 
 msgid "Don't ask again"
 msgstr "Đừng hỏi lại"
@@ -8594,6 +8621,9 @@ msgstr "Đang kiểm tra {0}"
 
 msgid "Install"
 msgstr "Cài đặt"
+
+msgid "Install {pluginLabel}?"
+msgstr "Cài đặt {pluginLabel}?"
 
 msgid "Install & restart"
 msgstr "Cài đặt & khởi động lại"
@@ -17992,6 +18022,9 @@ msgstr "Dùng ứng dụng máy tính để chạy song song nhiều agent lập
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Dùng menu khay Superset > Host Service > Restart, rồi thử lại."
+
+msgid "Use this account"
+msgstr "Dùng tài khoản này"
 
 msgid "Use this folder"
 msgstr "Dùng thư mục này"

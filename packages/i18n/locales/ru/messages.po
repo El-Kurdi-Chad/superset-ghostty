@@ -971,6 +971,18 @@ msgstr "{noun, select, repository {Укажите хотя бы один реп�
 msgid "{openCount} open"
 msgstr "{openCount} открыто"
 
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} может от вашего имени читать и изменять данные в вашем аккаунте {pluginLabel}, в том числе в будущих версиях этой страницы. Прочитанное она может отправить на другие сайты. Разрешайте только страницам, которым доверяете."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} может от вашего имени использовать {pluginLabel}, в том числе в будущих версиях этой страницы. Прочитанное она может отправить на другие сайты. Разрешайте только страницам, которым доверяете."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} использует {pluginLabel}. Установите его, чтобы продолжить."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} будет использовать этот аккаунт."
+
 msgid "{partialCount} partial"
 msgstr "{partialCount} частично"
 
@@ -2128,6 +2140,9 @@ msgstr "Разрешить удалённый доступ к этому уст�
 
 msgid "Allow this action?"
 msgstr "Разрешить это действие?"
+
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Разрешить этой странице использовать {pluginLabel}?"
 
 msgid "Allowed"
 msgstr "Разрешено"
@@ -3524,6 +3539,9 @@ msgstr "Проверки пройдены"
 msgid "Checks Skipped"
 msgstr "Проверки пропущены"
 
+msgid "Choose a {pluginLabel} account"
+msgstr "Выберите аккаунт {pluginLabel}"
+
 msgid "Choose a fighter"
 msgstr "Выберите бойца"
 
@@ -4164,6 +4182,9 @@ msgstr "Подключить"
 msgid "Connect {name}"
 msgstr "Подключить {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Подключить {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Подключите устройство"
 
@@ -4226,6 +4247,9 @@ msgstr "Подключите Slack, чтобы управлять задачам
 
 msgid "Connect this computer"
 msgstr "Подключите этот компьютер"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Подключите аккаунт {pluginLabel}, затем перезагрузите эту страницу."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Подключите своих кодинг-агентов к приложениям, которыми ваша команда уже пользуется."
@@ -6123,6 +6147,9 @@ msgstr "Документация"
 
 msgid "Documentation"
 msgstr "Документация"
+
+msgid "Don't allow"
+msgstr "Не разрешать"
 
 msgid "Don't ask again"
 msgstr "Больше не спрашивать"
@@ -8594,6 +8621,9 @@ msgstr "Инспектируем {0}"
 
 msgid "Install"
 msgstr "Установить"
+
+msgid "Install {pluginLabel}?"
+msgstr "Установить {pluginLabel}?"
 
 msgid "Install & restart"
 msgstr "Установить и перезапустить"
@@ -17992,6 +18022,9 @@ msgstr "Используйте десктопное приложение, что
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Откройте меню Superset в трее > Host Service > Restart, затем повторите."
+
+msgid "Use this account"
+msgstr "Использовать этот аккаунт"
 
 msgid "Use this folder"
 msgstr "Использовать эту папку"

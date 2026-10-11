@@ -971,6 +971,18 @@ msgstr "{noun, select, repository {리포지토리를 하나 이상 지정하세
 msgid "{openCount} open"
 msgstr "{openCount}개 열림"
 
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle}은(는) 사용자 본인으로서 {pluginLabel} 계정의 데이터를 읽고 변경할 수 있으며, 이 페이지의 향후 버전에도 적용됩니다. 읽은 내용을 다른 웹사이트로 보낼 수 있습니다. 신뢰하는 페이지만 허용하세요."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle}은(는) 사용자 본인으로서 {pluginLabel}을(를) 사용할 수 있으며, 이 페이지의 향후 버전에도 적용됩니다. 읽은 내용을 다른 웹사이트로 보낼 수 있습니다. 신뢰하는 페이지만 허용하세요."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle}에서 {pluginLabel}을(를) 사용합니다. 계속하려면 설치하세요."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle}에서 이 계정을 사용합니다."
+
 msgid "{partialCount} partial"
 msgstr "{partialCount}개 부분 달성"
 
@@ -2128,6 +2140,9 @@ msgstr "릴레이를 통해 이 기기에 원격 액세스 허용"
 
 msgid "Allow this action?"
 msgstr "이 작업을 허용할까요?"
+
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "이 페이지에서 {pluginLabel}을(를) 사용하도록 허용할까요?"
 
 msgid "Allowed"
 msgstr "허용됨"
@@ -3524,6 +3539,9 @@ msgstr "검사 통과"
 msgid "Checks Skipped"
 msgstr "검사 건너뜀"
 
+msgid "Choose a {pluginLabel} account"
+msgstr "{pluginLabel} 계정 선택"
+
 msgid "Choose a fighter"
 msgstr "파이터 선택"
 
@@ -4164,6 +4182,9 @@ msgstr "연결"
 msgid "Connect {name}"
 msgstr "{name} 연결"
 
+msgid "Connect {pluginLabel}"
+msgstr "{pluginLabel} 연결"
+
 msgid "Connect a device"
 msgstr "기기 연결"
 
@@ -4226,6 +4247,9 @@ msgstr "Slack을 연결해 대화에서 바로 작업을 관리하세요. 아무
 
 msgid "Connect this computer"
 msgstr "이 컴퓨터에 연결"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "{pluginLabel} 계정을 연결한 다음 이 페이지를 새로 고치세요."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "코딩 에이전트를 팀이 이미 쓰는 앱에 연결하세요."
@@ -6123,6 +6147,9 @@ msgstr "문서"
 
 msgid "Documentation"
 msgstr "문서"
+
+msgid "Don't allow"
+msgstr "허용 안 함"
 
 msgid "Don't ask again"
 msgstr "다시 묻지 않기"
@@ -8594,6 +8621,9 @@ msgstr "{0} 검사 중"
 
 msgid "Install"
 msgstr "설치"
+
+msgid "Install {pluginLabel}?"
+msgstr "{pluginLabel}을(를) 설치할까요?"
 
 msgid "Install & restart"
 msgstr "설치 후 재시작"
@@ -17992,6 +18022,9 @@ msgstr "데스크톱 앱에서 병렬 코딩 에이전트를 실행하세요."
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Superset 트레이 메뉴 > Host Service > Restart를 사용한 뒤 다시 시도하세요."
+
+msgid "Use this account"
+msgstr "이 계정 사용"
 
 msgid "Use this folder"
 msgstr "이 폴더 사용"

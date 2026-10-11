@@ -971,6 +971,18 @@ msgstr "{noun, select, repository {Especifica al menos un repositorio.} channel 
 msgid "{openCount} open"
 msgstr "{openCount} abiertas"
 
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} puede leer y cambiar datos de tu cuenta de {pluginLabel} en tu nombre, también en futuras versiones de esta página. Puede enviar lo que lea a otros sitios web. Permite solo páginas en las que confíes."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} puede usar {pluginLabel} en tu nombre, también en futuras versiones de esta página. Puede enviar lo que lea a otros sitios web. Permite solo páginas en las que confíes."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} usa {pluginLabel}. Instálalo para continuar."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} usará esta cuenta."
+
 msgid "{partialCount} partial"
 msgstr "{partialCount} parciales"
 
@@ -2128,6 +2140,9 @@ msgstr "Permitir el acceso remoto a este dispositivo a través del relay"
 
 msgid "Allow this action?"
 msgstr "¿Permitir esta acción?"
+
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "¿Permitir que esta página use {pluginLabel}?"
 
 msgid "Allowed"
 msgstr "Permitido"
@@ -3524,6 +3539,9 @@ msgstr "Comprobaciones superadas"
 msgid "Checks Skipped"
 msgstr "Comprobaciones omitidas"
 
+msgid "Choose a {pluginLabel} account"
+msgstr "Elige una cuenta de {pluginLabel}"
+
 msgid "Choose a fighter"
 msgstr "Elige un luchador"
 
@@ -4164,6 +4182,9 @@ msgstr "Conectar"
 msgid "Connect {name}"
 msgstr "Conectar {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Conectar {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Conectar un dispositivo"
 
@@ -4226,6 +4247,9 @@ msgstr "Conecta Slack para gestionar tareas desde las conversaciones. Menciona a
 
 msgid "Connect this computer"
 msgstr "Conectar este ordenador"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Conecta tu cuenta de {pluginLabel} y vuelve a cargar esta página."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Conecta tus agentes de código a las apps que tu equipo ya usa."
@@ -6123,6 +6147,9 @@ msgstr "Documentación"
 
 msgid "Documentation"
 msgstr "Documentación"
+
+msgid "Don't allow"
+msgstr "No permitir"
 
 msgid "Don't ask again"
 msgstr "No volver a preguntar"
@@ -8594,6 +8621,9 @@ msgstr "Inspeccionando {0}"
 
 msgid "Install"
 msgstr "Instalar"
+
+msgid "Install {pluginLabel}?"
+msgstr "¿Instalar {pluginLabel}?"
 
 msgid "Install & restart"
 msgstr "Instalar y reiniciar"
@@ -17992,6 +18022,9 @@ msgstr "Usa la app de escritorio para empezar a ejecutar agentes de programació
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Usa el menú de la bandeja de Superset > Servicio de host > Reiniciar y vuelve a intentarlo."
+
+msgid "Use this account"
+msgstr "Usar esta cuenta"
 
 msgid "Use this folder"
 msgstr "Usar esta carpeta"

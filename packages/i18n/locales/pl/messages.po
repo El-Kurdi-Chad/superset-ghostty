@@ -971,6 +971,18 @@ msgstr "{noun, select, repository {Podaj co najmniej jedno repozytorium.} channe
 msgid "{openCount} open"
 msgstr "{openCount} otwartych"
 
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} może w Twoim imieniu odczytywać i zmieniać dane na Twoim koncie {pluginLabel}, także w przyszłych wersjach tej strony. To, co odczyta, może wysłać do innych witryn. Zezwalaj tylko stronom, którym ufasz."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} może w Twoim imieniu używać {pluginLabel}, także w przyszłych wersjach tej strony. To, co odczyta, może wysłać do innych witryn. Zezwalaj tylko stronom, którym ufasz."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} używa {pluginLabel}. Zainstaluj go, aby kontynuować."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} użyje tego konta."
+
 msgid "{partialCount} partial"
 msgstr "{partialCount} częściowo"
 
@@ -2128,6 +2140,9 @@ msgstr "Zezwól na zdalny dostęp do tego urządzenia przez przekaźnik"
 
 msgid "Allow this action?"
 msgstr "Zezwolić na tę akcję?"
+
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Zezwolić tej stronie na używanie {pluginLabel}?"
 
 msgid "Allowed"
 msgstr "Dozwolone"
@@ -3524,6 +3539,9 @@ msgstr "Kontrole przeszły"
 msgid "Checks Skipped"
 msgstr "Kontrole pominięte"
 
+msgid "Choose a {pluginLabel} account"
+msgstr "Wybierz konto {pluginLabel}"
+
 msgid "Choose a fighter"
 msgstr "Wybierz wojownika"
 
@@ -4164,6 +4182,9 @@ msgstr "Połącz"
 msgid "Connect {name}"
 msgstr "Połącz {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Połącz {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Podłącz urządzenie"
 
@@ -4226,6 +4247,9 @@ msgstr "Podłącz Slack, aby zarządzać zadaniami z rozmów. Wspomnij bota na d
 
 msgid "Connect this computer"
 msgstr "Połącz ten komputer"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Połącz swoje konto {pluginLabel}, a następnie odśwież tę stronę."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Połącz swoich agentów kodujących z aplikacjami, z których Twój zespół już korzysta."
@@ -6123,6 +6147,9 @@ msgstr "Dokumentacja"
 
 msgid "Documentation"
 msgstr "Dokumentacja"
+
+msgid "Don't allow"
+msgstr "Nie zezwalaj"
 
 msgid "Don't ask again"
 msgstr "Nie pytaj ponownie"
@@ -8594,6 +8621,9 @@ msgstr "Inspekcja {0}"
 
 msgid "Install"
 msgstr "Zainstaluj"
+
+msgid "Install {pluginLabel}?"
+msgstr "Zainstalować {pluginLabel}?"
 
 msgid "Install & restart"
 msgstr "Zainstaluj i uruchom ponownie"
@@ -17992,6 +18022,9 @@ msgstr "Użyj aplikacji desktopowej, aby uruchamiać równoległych agentów kod
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Użyj menu zasobnika Superset > Usługa hosta > Uruchom ponownie, a następnie ponów."
+
+msgid "Use this account"
+msgstr "Użyj tego konta"
 
 msgid "Use this folder"
 msgstr "Użyj tego folderu"

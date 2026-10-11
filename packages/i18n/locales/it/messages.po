@@ -971,6 +971,18 @@ msgstr "{noun, select, repository {Specifica almeno un repository.} channel {Spe
 msgid "{openCount} open"
 msgstr "{openCount} aperti"
 
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} può leggere e modificare i dati del tuo account {pluginLabel} a tuo nome, anche nelle versioni future di questa pagina. Può inviare ciò che legge ad altri siti web. Consenti solo le pagine di cui ti fidi."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} può usare {pluginLabel} a tuo nome, anche nelle versioni future di questa pagina. Può inviare ciò che legge ad altri siti web. Consenti solo le pagine di cui ti fidi."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} usa {pluginLabel}. Installalo per continuare."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} userà questo account."
+
 msgid "{partialCount} partial"
 msgstr "{partialCount} parziali"
 
@@ -2128,6 +2140,9 @@ msgstr "Consenti l'accesso remoto a questo dispositivo tramite relay"
 
 msgid "Allow this action?"
 msgstr "Consentire questa azione?"
+
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Consentire a questa pagina di usare {pluginLabel}?"
 
 msgid "Allowed"
 msgstr "Consentito"
@@ -3524,6 +3539,9 @@ msgstr "Controlli superati"
 msgid "Checks Skipped"
 msgstr "Controlli saltati"
 
+msgid "Choose a {pluginLabel} account"
+msgstr "Scegli un account {pluginLabel}"
+
 msgid "Choose a fighter"
 msgstr "Scegli un combattente"
 
@@ -4164,6 +4182,9 @@ msgstr "Collega"
 msgid "Connect {name}"
 msgstr "Collega {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Collega {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Collega un dispositivo"
 
@@ -4226,6 +4247,9 @@ msgstr "Collega Slack per gestire i task dalle conversazioni. Menziona il bot in
 
 msgid "Connect this computer"
 msgstr "Collega questo computer"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Collega il tuo account {pluginLabel}, poi ricarica questa pagina."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Collega i tuoi agenti di coding alle app che il tuo team usa già."
@@ -6123,6 +6147,9 @@ msgstr "Docs"
 
 msgid "Documentation"
 msgstr "Documentazione"
+
+msgid "Don't allow"
+msgstr "Non consentire"
 
 msgid "Don't ask again"
 msgstr "Non chiedere più"
@@ -8594,6 +8621,9 @@ msgstr "Ispezione di {0}"
 
 msgid "Install"
 msgstr "Installa"
+
+msgid "Install {pluginLabel}?"
+msgstr "Installare {pluginLabel}?"
 
 msgid "Install & restart"
 msgstr "Installa e riavvia"
@@ -17992,6 +18022,9 @@ msgstr "Usa l'app desktop per iniziare a eseguire agenti di programmazione in pa
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Usa il menu della barra di stato di Superset > Servizio host > Riavvia, poi riprova."
+
+msgid "Use this account"
+msgstr "Usa questo account"
 
 msgid "Use this folder"
 msgstr "Usa questa cartella"

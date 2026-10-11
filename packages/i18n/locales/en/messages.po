@@ -971,6 +971,18 @@ msgstr "{noun, select, repository {Specify at least one repository.} channel {Sp
 msgid "{openCount} open"
 msgstr "{openCount} open"
 
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} uses {pluginLabel}. Install it to continue."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} will use this account."
+
 msgid "{partialCount} partial"
 msgstr "{partialCount} partial"
 
@@ -2128,6 +2140,9 @@ msgstr "Allow remote access to this device via relay"
 
 msgid "Allow this action?"
 msgstr "Allow this action?"
+
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Allow this page to use {pluginLabel}?"
 
 msgid "Allowed"
 msgstr "Allowed"
@@ -3524,6 +3539,9 @@ msgstr "Checks passed"
 msgid "Checks Skipped"
 msgstr "Checks Skipped"
 
+msgid "Choose a {pluginLabel} account"
+msgstr "Choose a {pluginLabel} account"
+
 msgid "Choose a fighter"
 msgstr "Choose a fighter"
 
@@ -4164,6 +4182,9 @@ msgstr "Connect"
 msgid "Connect {name}"
 msgstr "Connect {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Connect {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Connect a device"
 
@@ -4226,6 +4247,9 @@ msgstr "Connect Slack to manage tasks from conversations. Mention the bot in any
 
 msgid "Connect this computer"
 msgstr "Connect this computer"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Connect your {pluginLabel} account, then reload this page."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Connect your coding agents to the apps your team already uses."
@@ -6123,6 +6147,9 @@ msgstr "Docs"
 
 msgid "Documentation"
 msgstr "Documentation"
+
+msgid "Don't allow"
+msgstr "Don't allow"
 
 msgid "Don't ask again"
 msgstr "Don't ask again"
@@ -8594,6 +8621,9 @@ msgstr "Inspecting {0}"
 
 msgid "Install"
 msgstr "Install"
+
+msgid "Install {pluginLabel}?"
+msgstr "Install {pluginLabel}?"
 
 msgid "Install & restart"
 msgstr "Install & restart"
@@ -17992,6 +18022,9 @@ msgstr "Use the desktop app to start running parallel coding agents."
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Use the Superset tray menu > Host Service > Restart, then retry."
+
+msgid "Use this account"
+msgstr "Use this account"
 
 msgid "Use this folder"
 msgstr "Use this folder"

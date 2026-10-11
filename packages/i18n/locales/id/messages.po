@@ -971,6 +971,18 @@ msgstr "{noun, select, repository {Tentukan minimal satu repositori.} channel {T
 msgid "{openCount} open"
 msgstr "{openCount} terbuka"
 
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} dapat membaca dan mengubah data di akun {pluginLabel} Anda atas nama Anda, termasuk di versi halaman ini yang akan datang. Halaman ini dapat mengirim apa yang dibacanya ke situs web lain. Izinkan hanya halaman yang Anda percayai."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} dapat menggunakan {pluginLabel} atas nama Anda, termasuk di versi halaman ini yang akan datang. Halaman ini dapat mengirim apa yang dibacanya ke situs web lain. Izinkan hanya halaman yang Anda percayai."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} menggunakan {pluginLabel}. Instal untuk melanjutkan."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} akan menggunakan akun ini."
+
 msgid "{partialCount} partial"
 msgstr "{partialCount} sebagian"
 
@@ -2128,6 +2140,9 @@ msgstr "Izinkan akses jarak jauh ke perangkat ini melalui relay"
 
 msgid "Allow this action?"
 msgstr "Izinkan tindakan ini?"
+
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Izinkan halaman ini menggunakan {pluginLabel}?"
 
 msgid "Allowed"
 msgstr "Diizinkan"
@@ -3524,6 +3539,9 @@ msgstr "Check lulus"
 msgid "Checks Skipped"
 msgstr "Check Dilewati"
 
+msgid "Choose a {pluginLabel} account"
+msgstr "Pilih akun {pluginLabel}"
+
 msgid "Choose a fighter"
 msgstr "Pilih petarung"
 
@@ -4164,6 +4182,9 @@ msgstr "Hubungkan"
 msgid "Connect {name}"
 msgstr "Hubungkan {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Hubungkan {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Hubungkan perangkat"
 
@@ -4226,6 +4247,9 @@ msgstr "Hubungkan Slack untuk mengelola tugas dari percakapan. Sebut bot-nya di 
 
 msgid "Connect this computer"
 msgstr "Hubungkan komputer ini"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Hubungkan akun {pluginLabel} Anda, lalu muat ulang halaman ini."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Hubungkan agen coding Anda ke aplikasi yang sudah dipakai tim Anda."
@@ -6123,6 +6147,9 @@ msgstr "Dokumentasi"
 
 msgid "Documentation"
 msgstr "Dokumentasi"
+
+msgid "Don't allow"
+msgstr "Jangan izinkan"
 
 msgid "Don't ask again"
 msgstr "Jangan tanya lagi"
@@ -8594,6 +8621,9 @@ msgstr "Memeriksa {0}"
 
 msgid "Install"
 msgstr "Instal"
+
+msgid "Install {pluginLabel}?"
+msgstr "Instal {pluginLabel}?"
 
 msgid "Install & restart"
 msgstr "Instal & mulai ulang"
@@ -17992,6 +18022,9 @@ msgstr "Pakai aplikasi desktop untuk mulai menjalankan agen coding paralel."
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Pakai menu tray Superset > Host Service > Restart, lalu coba lagi."
+
+msgid "Use this account"
+msgstr "Gunakan akun ini"
 
 msgid "Use this folder"
 msgstr "Pakai folder ini"

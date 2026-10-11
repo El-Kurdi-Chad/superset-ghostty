@@ -971,6 +971,18 @@ msgstr "{noun, select, repository {請至少指定一個倉庫。} channel {請�
 msgid "{openCount} open"
 msgstr "{openCount}項已開啟"
 
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} 可以以你的身分讀取和變更你的 {pluginLabel} 帳戶中的資料，包括此頁面的未來版本。它可以把讀取的內容傳送到其他網站。只允許你信任的頁面。"
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} 可以以你的身分使用 {pluginLabel}，包括此頁面的未來版本。它可以把讀取的內容傳送到其他網站。只允許你信任的頁面。"
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} 使用 {pluginLabel}。請安裝後繼續。"
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} 將使用此帳戶。"
+
 msgid "{partialCount} partial"
 msgstr "{partialCount}項部分開啟"
 
@@ -2128,6 +2140,9 @@ msgstr "允許透過中繼遠端存取此裝置"
 
 msgid "Allow this action?"
 msgstr "允許此操作？"
+
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "允許此頁面使用 {pluginLabel}？"
 
 msgid "Allowed"
 msgstr "已允許"
@@ -3524,6 +3539,9 @@ msgstr "檢查通過"
 msgid "Checks Skipped"
 msgstr "檢查已跳過"
 
+msgid "Choose a {pluginLabel} account"
+msgstr "選擇 {pluginLabel} 帳戶"
+
 msgid "Choose a fighter"
 msgstr "選擇一名鬥士"
 
@@ -4164,6 +4182,9 @@ msgstr "連線"
 msgid "Connect {name}"
 msgstr "連線 {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "連線 {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "連線裝置"
 
@@ -4226,6 +4247,9 @@ msgstr "連線Slack，直接在對話中管理任務。在任意頻道提及機�
 
 msgid "Connect this computer"
 msgstr "連線至這台電腦"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "連線你的 {pluginLabel} 帳戶，然後重新載入此頁面。"
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "把你的程式碼代理程式連接到團隊已在使用的應用程式。"
@@ -6123,6 +6147,9 @@ msgstr "文件"
 
 msgid "Documentation"
 msgstr "文件"
+
+msgid "Don't allow"
+msgstr "不允許"
 
 msgid "Don't ask again"
 msgstr "不再詢問"
@@ -8594,6 +8621,9 @@ msgstr "正在檢查{0}"
 
 msgid "Install"
 msgstr "安裝"
+
+msgid "Install {pluginLabel}?"
+msgstr "安裝 {pluginLabel}？"
 
 msgid "Install & restart"
 msgstr "安裝並重啟"
@@ -17992,6 +18022,9 @@ msgstr "使用桌面應用程式開始並行執行編碼代理程式。"
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "請使用Superset托盤選單 > 主機服務 > 重啟，然後重試。"
+
+msgid "Use this account"
+msgstr "使用此帳戶"
 
 msgid "Use this folder"
 msgstr "使用此資料夾"

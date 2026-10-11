@@ -971,6 +971,18 @@ msgstr "{noun, select, repository {Zadejte alespoň jeden repozitář.} channel 
 msgid "{openCount} open"
 msgstr "{openCount} otevřených"
 
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} může vaším jménem číst a měnit data ve vašem účtu {pluginLabel}, a to i v budoucích verzích této stránky. Co načte, může odeslat na jiné weby. Povolte jen stránky, kterým důvěřujete."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} může vaším jménem používat {pluginLabel}, a to i v budoucích verzích této stránky. Co načte, může odeslat na jiné weby. Povolte jen stránky, kterým důvěřujete."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} používá {pluginLabel}. Pokračujte instalací."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} použije tento účet."
+
 msgid "{partialCount} partial"
 msgstr "{partialCount} částečně"
 
@@ -2128,6 +2140,9 @@ msgstr "Povolit vzdálený přístup k tomuto zařízení přes relay"
 
 msgid "Allow this action?"
 msgstr "Povolit tuto akci?"
+
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Povolit této stránce používat {pluginLabel}?"
 
 msgid "Allowed"
 msgstr "Povoleno"
@@ -3524,6 +3539,9 @@ msgstr "Kontroly prošly"
 msgid "Checks Skipped"
 msgstr "Kontroly přeskočeny"
 
+msgid "Choose a {pluginLabel} account"
+msgstr "Vyberte účet {pluginLabel}"
+
 msgid "Choose a fighter"
 msgstr "Vyberte bojovníka"
 
@@ -4164,6 +4182,9 @@ msgstr "Připojit"
 msgid "Connect {name}"
 msgstr "Připojit {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Připojit {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Připojit zařízení"
 
@@ -4226,6 +4247,9 @@ msgstr "Připojte Slack a spravujte úkoly přímo z konverzací. Zmiňte bota v
 
 msgid "Connect this computer"
 msgstr "Připojte tento počítač"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Připojte svůj účet {pluginLabel} a pak tuto stránku znovu načtěte."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Připojte své kódovací agenty k aplikacím, které váš tým už používá."
@@ -6123,6 +6147,9 @@ msgstr "Dokumentace"
 
 msgid "Documentation"
 msgstr "Dokumentace"
+
+msgid "Don't allow"
+msgstr "Nepovolit"
 
 msgid "Don't ask again"
 msgstr "Příště se neptat"
@@ -8594,6 +8621,9 @@ msgstr "Zkoumám {0}"
 
 msgid "Install"
 msgstr "Nainstalovat"
+
+msgid "Install {pluginLabel}?"
+msgstr "Nainstalovat {pluginLabel}?"
 
 msgid "Install & restart"
 msgstr "Nainstalovat a restartovat"
@@ -17992,6 +18022,9 @@ msgstr "Pro spouštění paralelních kódovacích agentů použijte desktopovou
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Použijte nabídku Superset na liště > Host Service > Restart a zkuste to znovu."
+
+msgid "Use this account"
+msgstr "Použít tento účet"
 
 msgid "Use this folder"
 msgstr "Použít tuto složku"

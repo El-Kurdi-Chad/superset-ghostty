@@ -971,6 +971,18 @@ msgstr "{noun, select, repository {Indiquez au moins un dépôt.} channel {Indiq
 msgid "{openCount} open"
 msgstr "{openCount} ouvertes"
 
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} peut lire et modifier les données de votre compte {pluginLabel} en votre nom, y compris dans les futures versions de cette page. Elle peut envoyer ce qu’elle lit à d’autres sites web. N’autorisez que les pages de confiance."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} peut utiliser {pluginLabel} en votre nom, y compris dans les futures versions de cette page. Elle peut envoyer ce qu’elle lit à d’autres sites web. N’autorisez que les pages de confiance."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} utilise {pluginLabel}. Installez-le pour continuer."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} utilisera ce compte."
+
 msgid "{partialCount} partial"
 msgstr "{partialCount} partielles"
 
@@ -2128,6 +2140,9 @@ msgstr "Autoriser l'accès distant à cet appareil via le relais"
 
 msgid "Allow this action?"
 msgstr "Autoriser cette action ?"
+
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Autoriser cette page à utiliser {pluginLabel} ?"
 
 msgid "Allowed"
 msgstr "Autorisé"
@@ -3524,6 +3539,9 @@ msgstr "Vérifications réussies"
 msgid "Checks Skipped"
 msgstr "Vérifications ignorées"
 
+msgid "Choose a {pluginLabel} account"
+msgstr "Choisir un compte {pluginLabel}"
+
 msgid "Choose a fighter"
 msgstr "Choisir un combattant"
 
@@ -4164,6 +4182,9 @@ msgstr "Connecter"
 msgid "Connect {name}"
 msgstr "Connecter {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Connecter {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Connecter un appareil"
 
@@ -4226,6 +4247,9 @@ msgstr "Connectez Slack pour gérer les tâches depuis vos conversations. Mentio
 
 msgid "Connect this computer"
 msgstr "Connecter cet ordinateur"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Connectez votre compte {pluginLabel}, puis rechargez cette page."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Connectez vos agents de code aux applications que votre équipe utilise déjà."
@@ -6123,6 +6147,9 @@ msgstr "Docs"
 
 msgid "Documentation"
 msgstr "Documentation"
+
+msgid "Don't allow"
+msgstr "Ne pas autoriser"
 
 msgid "Don't ask again"
 msgstr "Ne plus demander"
@@ -8594,6 +8621,9 @@ msgstr "Inspection de {0}"
 
 msgid "Install"
 msgstr "Installer"
+
+msgid "Install {pluginLabel}?"
+msgstr "Installer {pluginLabel} ?"
 
 msgid "Install & restart"
 msgstr "Installer et redémarrer"
@@ -17992,6 +18022,9 @@ msgstr "Utilisez l'application de bureau pour lancer des agents de code en paral
 
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Utilisez le menu de la barre d'état Superset > Service hôte > Redémarrer, puis réessayez."
+
+msgid "Use this account"
+msgstr "Utiliser ce compte"
 
 msgid "Use this folder"
 msgstr "Utiliser ce dossier"
