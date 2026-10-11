@@ -23,6 +23,7 @@ interface ClosedChatBatch {
 	chats: ClosedChat[];
 	toastId: string;
 	settled: boolean;
+	settle: (undo: boolean) => void;
 }
 
 export function useUndoableChatClose({
@@ -37,7 +38,10 @@ export function useUndoableChatClose({
 
 	useEffect(
 		() => () => {
-			if (batchRef.current) toast.dismiss(batchRef.current.toastId);
+			const batch = batchRef.current;
+			if (!batch) return;
+			batch.settle(false);
+			toast.dismiss(batch.toastId);
 		},
 		[],
 	);
@@ -66,29 +70,28 @@ export function useUndoableChatClose({
 				],
 				toastId: crypto.randomUUID(),
 				settled: false,
+				settle: (undo) => {
+					if (batch.settled) return;
+					batch.settled = true;
+					if (batchRef.current === batch) batchRef.current = null;
+					for (const chat of batch.chats) {
+						if (undo) {
+							chat.reopen();
+							store.getState().addTab({ panes: [chat.pane] });
+						} else {
+							void stopChat(chat.sessionId);
+						}
+					}
+				},
 			};
 			batchRef.current = batch;
-
-			const settle = (revert: boolean) => {
-				if (batch.settled) return;
-				batch.settled = true;
-				if (batchRef.current === batch) batchRef.current = null;
-				for (const chat of batch.chats) {
-					if (revert) {
-						chat.reopen();
-						store.getState().addTab({ panes: [chat.pane] });
-					} else {
-						void stopChat(chat.sessionId);
-					}
-				}
-			};
 
 			toast.custom(
 				() => (
 					<ChatClosedToast
 						durationMs={UNDO_WINDOW_MS}
 						onUndo={() => {
-							settle(true);
+							batch.settle(true);
 							toast.dismiss(batch.toastId);
 						}}
 						titles={batch.chats.map((chat) => chat.title)}
@@ -97,8 +100,8 @@ export function useUndoableChatClose({
 				{
 					id: batch.toastId,
 					duration: UNDO_WINDOW_MS,
-					onAutoClose: () => settle(false),
-					onDismiss: () => settle(false),
+					onAutoClose: () => batch.settle(false),
+					onDismiss: () => batch.settle(false),
 				},
 			);
 		},
