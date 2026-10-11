@@ -49,7 +49,7 @@ the desktop finds it there, with no SSH session kept open.
    not read the rc file the installer edits.
 5. **Sign the host in** . Mint the host's credential on this machine and send it over
    ssh **stdin**, never in argv, so it stays out of `ps`, shell history and logs. Needs
-   `superset auth login --api-key -` to read the key from stdin.
+   `superset auth login --api-key=-` to read the key from stdin.
 6. **Start it and keep it running** . `superset start --org <id>` under a user service:
    a systemd user unit on Linux (`KillMode=process`, no `--daemon`; this is the unit
    `apps/docs/content/docs/cli/host-server.mdx` already documents), and a LaunchAgent on macOS.

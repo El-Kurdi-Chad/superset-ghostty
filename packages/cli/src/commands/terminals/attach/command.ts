@@ -2,6 +2,7 @@ import { boolean, CLIError, string } from "@superset/cli-framework";
 import { clearAgentStatusAfterInterrupt } from "../../../lib/agent-binding";
 import { command } from "../../../lib/command";
 import { resolveWorkspaceTarget } from "../../../lib/host-workspaces";
+import { shellQuote } from "../../../lib/shell-quote";
 import {
 	attachTerminal,
 	DETACH_KEY_LABEL,
@@ -11,10 +12,6 @@ import {
 
 const SSH_CONNECTION_FAILED = 255;
 const COMMAND_NOT_FOUND = 127;
-
-function shellQuote(value: string): string {
-	return `'${value.replaceAll("'", `'\\''`)}'`;
-}
 
 export default command({
 	description: `Attach this shell to a running terminal; detach with ${DETACH_KEY_LABEL}`,
