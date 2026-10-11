@@ -1,5 +1,5 @@
 import { Trans, useLingui } from "@lingui/react/macro";
-import { useState } from "react";
+import { type CSSProperties, useState } from "react";
 import { LuImageOff } from "react-icons/lu";
 import { useMarkdownResources } from "renderer/components/MarkdownRenderer/providers/MarkdownResourceProvider";
 import { useLocalImageUrl } from "./hooks/useLocalImageUrl";
@@ -26,12 +26,33 @@ function loadsDirectly(src: string, fromDisk: boolean): boolean {
 	);
 }
 
+export type ImageAlignment = "top" | "middle" | "bottom" | "left" | "right";
+
+/** The HTML `align` attribute as GitHub lays it out: a float with a gutter, or a vertical alignment. */
+function alignmentStyle(
+	align: ImageAlignment | undefined,
+): CSSProperties | undefined {
+	switch (align) {
+		case "left":
+			return { float: "left", paddingRight: 20 };
+		case "right":
+			return { float: "right", paddingLeft: 20 };
+		case "top":
+		case "middle":
+		case "bottom":
+			return { verticalAlign: align };
+		default:
+			return undefined;
+	}
+}
+
 interface SafeImageProps {
 	src?: string;
 	alt?: string;
-	/** The markup's own size hints, which badges and icons in GitHub bodies rely on. */
+	/** The markup's own size and alignment hints, which badges and icons in GitHub bodies rely on. */
 	width?: number | string;
 	height?: number | string;
+	align?: ImageAlignment;
 	className?: string;
 }
 
@@ -40,6 +61,7 @@ export function SafeImage({
 	alt,
 	width,
 	height,
+	align,
 	className,
 }: SafeImageProps) {
 	const { t } = useLingui();
@@ -65,6 +87,7 @@ export function SafeImage({
 					alt={alt}
 					width={width}
 					height={height}
+					style={alignmentStyle(align)}
 					className={imageClassName}
 					onError={() => setUndecodableUrl(local.url)}
 				/>
@@ -77,6 +100,7 @@ export function SafeImage({
 				alt={alt}
 				width={width}
 				height={height}
+				style={alignmentStyle(align)}
 				className={imageClassName}
 			/>
 		);

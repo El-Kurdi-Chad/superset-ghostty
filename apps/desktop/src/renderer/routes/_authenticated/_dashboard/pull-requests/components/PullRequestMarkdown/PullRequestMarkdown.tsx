@@ -5,32 +5,61 @@ import { MarkdownRenderer } from "renderer/components/MarkdownRenderer";
 import { SafeImage } from "renderer/components/MarkdownRenderer/components";
 import { preparePullRequestMarkdown } from "../../utils/preparePullRequestMarkdown";
 import { PullRequestLinkIcon } from "./components/PullRequestLinkIcon";
+import {
+	imageAlignment,
+	PullRequestPicture,
+} from "./components/PullRequestPicture";
 import "./pull-request-markdown.css";
 
 const EXTERNAL_HREF_PATTERN = /^https?:\/\//i;
+
+interface MarkupNode {
+	type: string;
+	tagName?: string;
+	children?: MarkupNode[];
+}
+
+/** A badge link is its own mark; adding the site's would stack two icons. */
+function wrapsImage(node: MarkupNode | undefined): boolean {
+	return (node?.children ?? []).some(
+		(child) =>
+			child.type === "element" &&
+			(child.tagName === "img" ||
+				child.tagName === "picture" ||
+				wrapsImage(child)),
+	);
+}
 
 /** GitHub-body renderers: links carry their site's mark, images keep the
  *  markup's size, task boxes sit in the list gutter, tables are a bordered
  *  grid. */
 const PROSE_COMPONENTS: Partial<Components> = {
-	a: ({ href, children }) => {
+	a: ({ href, children, node }) => {
 		const external =
 			typeof href === "string" && EXTERNAL_HREF_PATTERN.test(href);
+		const marked = external && !wrapsImage(node);
 		return (
 			<a
 				href={href}
 				target={external ? "_blank" : undefined}
 				rel={external ? "noopener noreferrer" : undefined}
-				className={external ? "pr-prose-link" : undefined}
+				className={marked ? "pr-prose-link" : undefined}
 			>
-				{external ? <PullRequestLinkIcon url={href} /> : null}
+				{marked ? <PullRequestLinkIcon url={href} /> : null}
 				{children}
 			</a>
 		);
 	},
-	img: ({ src, alt, width, height }) => (
-		<SafeImage src={src} alt={alt} width={width} height={height} />
+	img: ({ src, alt, width, height, node }) => (
+		<SafeImage
+			src={src}
+			alt={alt}
+			width={width}
+			height={height}
+			align={imageAlignment(node?.properties.align)}
+		/>
 	),
+	picture: ({ node }) => <PullRequestPicture node={node} />,
 	li: ({ children, className }) => <li className={className}>{children}</li>,
 	input: ({ type, checked }) =>
 		type === "checkbox" ? (

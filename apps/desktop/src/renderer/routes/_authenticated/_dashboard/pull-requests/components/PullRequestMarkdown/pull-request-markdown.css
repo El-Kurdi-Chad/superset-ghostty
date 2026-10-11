@@ -86,14 +86,17 @@
 }
 
 .pull-request-markdown.default-markdown h1 {
-	font-size: 1.3em;
+	font-size: 1.6em;
 }
 
 .pull-request-markdown.default-markdown h2 {
-	font-size: 1.16em;
+	font-size: 1.38em;
 }
 
-.pull-request-markdown.default-markdown h3,
+.pull-request-markdown.default-markdown h3 {
+	font-size: 1.2em;
+}
+
 .pull-request-markdown.default-markdown h4,
 .pull-request-markdown.default-markdown h5,
 .pull-request-markdown.default-markdown h6 {
@@ -225,15 +228,22 @@
 
 .pull-request-markdown.default-markdown td img,
 .pull-request-markdown.default-markdown th img {
-	display: inline-block;
 	max-width: 20rem;
 	vertical-align: middle;
 }
 
-/* The renderer's image margins are for a figure on its own line; badges and
- * icons sit inline with text. */
+/* GitHub lays images inline, so a badge or icon sits in its sentence; the
+ * app's preflight makes every image a block, and the renderer's margins are
+ * for a figure on its own line. */
 .pull-request-markdown.default-markdown img {
+	display: inline;
 	max-width: 100%;
 	height: auto;
 	margin: 0;
+}
+
+/* Bots indent a fold's content with <dl><dd>, which GitHub pads. */
+.pull-request-markdown.default-markdown dd {
+	margin: 0 0 1rem;
+	padding: 0 1rem;
 }
