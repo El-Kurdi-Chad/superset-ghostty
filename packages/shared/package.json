@@ -93,6 +93,10 @@
 			"types": "./src/constants.ts",
 			"default": "./src/constants.ts"
 		},
+		"./app-identity": {
+			"types": "./src/app-identity.ts",
+			"default": "./src/app-identity.ts"
+		},
 		"./format-scaled": {
 			"types": "./src/format-scaled.ts",
 			"default": "./src/format-scaled.ts"

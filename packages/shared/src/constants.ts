@@ -1,4 +1,7 @@
+import { ROOT_DOMAIN } from "./app-identity";
 import type { TriggerConfigInput } from "./automation-triggers";
+
+export { CANONICAL_URLS, IOS_APP } from "./app-identity";
 
 // Auth
 export const AUTH_PROVIDERS = ["github", "google"] as const;
@@ -12,27 +15,11 @@ export const PROTOCOL_SCHEMES = {
 	PROD: "superset",
 } as const;
 
-const IOS_TEAM_ID = "NV9657CS5A";
-const IOS_BUNDLE_ID = "sh.superset.mobile";
-
-export const IOS_APP = {
-	TEAM_ID: IOS_TEAM_ID,
-	BUNDLE_ID: IOS_BUNDLE_ID,
-	APP_ID: `${IOS_TEAM_ID}.${IOS_BUNDLE_ID}`,
-} as const;
-
 // Company
 // Root domain flips the whole brand at cutover. Default keeps superset.sh so
 // nothing changes until NEXT_PUBLIC_ROOT_DOMAIN is set (e.g. boid.so). All
 // domain-derived URLs below build off this; social handles / GitHub / Discord
 // are external identities and are updated by hand on rebrand.
-// Mobile bundles inline only EXPO_PUBLIC_*. The desktop renderer has no
-// process global; its build defines NEXT_PUBLIC_ROOT_DOMAIN non-empty, so the
-// second read never runs there.
-const ROOT_DOMAIN =
-	process.env.NEXT_PUBLIC_ROOT_DOMAIN ||
-	process.env.EXPO_PUBLIC_ROOT_DOMAIN ||
-	"superset.sh";
 const MARKETING_URL =
 	process.env.NEXT_PUBLIC_MARKETING_URL || `https://${ROOT_DOMAIN}`;
 const SUPPORT_EMAIL = `support@${ROOT_DOMAIN}`;
@@ -64,14 +51,6 @@ export const COMPANY = {
 	JOIN_US_URL: `${MARKETING_URL}/careers`,
 	/** The formal YC listing; product surfaces link here. `JOIN_US_URL` is our own marketing page. */
 	CAREERS_URL: "https://www.ycombinator.com/companies/superset/jobs",
-} as const;
-
-// Production hosts. Unlike COMPANY.MARKETING_URL/DOCS_URL, they ignore per-deployment URL overrides.
-export const CANONICAL_URLS = {
-	MARKETING: `https://${ROOT_DOMAIN}`,
-	API: `https://api.${ROOT_DOMAIN}`,
-	APP: `https://app.${ROOT_DOMAIN}`,
-	DOCS: `https://docs.${ROOT_DOMAIN}`,
 } as const;
 
 export const OPEN_ROLES = [

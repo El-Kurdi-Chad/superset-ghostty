@@ -934,7 +934,7 @@ export const serverErrorMessages: Record<
 			}),
 		),
 	"serverError.user.theRecoveryPeriodHasEndedContact": (params) => {
-		const email = params?.email;
+		const email = params?.email || "support@superset.sh";
 		return i18n._(
 			msg({
 				message: `The recovery period has ended. Contact ${email}.`,
