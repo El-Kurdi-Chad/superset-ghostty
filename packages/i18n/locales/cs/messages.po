@@ -723,6 +723,9 @@ msgstr "{count, plural, one {# kontrola selhala} few {# kontroly selhaly} many {
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {# kontrola vyžaduje akci} few {# kontroly vyžadují akci} many {# kontroly vyžaduje akci} other {# kontrol vyžaduje akci}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {# komentář, nové odpovědi} few {# komentáře, nové odpovědi} many {# komentáře, nové odpovědi} other {# komentářů, nové odpovědi}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {# komentář} few {# komentáře} many {# komentáře} other {# komentářů}}"
 

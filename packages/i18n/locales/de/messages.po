@@ -723,6 +723,9 @@ msgstr "{count, plural, one {# Prüfung fehlgeschlagen} other {# Prüfungen fehl
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {# Prüfung braucht Aktion} other {# Prüfungen brauchen Aktion}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {# Kommentar, neue Antworten} other {# Kommentare, neue Antworten}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {# Kommentar} other {# Kommentare}}"
 

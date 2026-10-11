@@ -723,6 +723,9 @@ msgstr "{count, plural, one {# проверка не пройдена} few {# п
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {# проверка требует действия} few {# проверки требуют действия} many {# проверок требуют действия} other {# проверки требуют действия}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {# комментарий, новые ответы} few {# комментария, новые ответы} many {# комментариев, новые ответы} other {# комментария, новые ответы}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {# комментарий} few {# комментария} many {# комментариев} other {# комментария}}"
 

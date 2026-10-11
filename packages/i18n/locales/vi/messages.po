@@ -723,6 +723,9 @@ msgstr "{count, plural, one {# check thất bại} other {# check thất bại}}
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {# check cần xử lý} other {# check cần xử lý}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {# bình luận, có trả lời mới} other {# bình luận, có trả lời mới}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {# bình luận} other {# bình luận}}"
 

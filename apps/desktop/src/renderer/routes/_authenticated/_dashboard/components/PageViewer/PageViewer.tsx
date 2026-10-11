@@ -20,6 +20,8 @@ import { env } from "renderer/env.renderer";
 import { authClient, ensureFreshJwt, getJwt } from "renderer/lib/auth-client";
 import { cloudTrpc } from "renderer/lib/cloud-trpc";
 import { electronTrpcClient } from "renderer/lib/trpc-client";
+import { CommentDeepLink } from "./components/CommentDeepLink";
+import { MarkCommentsRead } from "./components/MarkCommentsRead";
 import { PageViewerMessage } from "./components/PageViewerMessage";
 
 const scrollPositions = new Map<string, number>();
@@ -38,6 +40,8 @@ interface PageViewerProps {
 	onCommentsEnabledChange: (enabled: boolean) => void;
 	onResolved?: (page: ResolvedPage) => void;
 	onFramePointerDown?: () => void;
+	initialThreadId?: string | null;
+	initialPanelOpen?: boolean;
 	onLinkClick?: (click: PageLinkClick) => void;
 	version?: number | null;
 	onExitPreview?: () => void;
@@ -51,6 +55,8 @@ export function PageViewer({
 	onCommentsEnabledChange,
 	onResolved,
 	onFramePointerDown,
+	initialThreadId = null,
+	initialPanelOpen = false,
 	onLinkClick = (click) => {
 		void electronTrpcClient.external.openUrl
 			.mutate(click.url)
@@ -158,6 +164,11 @@ export function PageViewer({
 			user={user}
 			pageOwnerId={pull.data?.createdByUserId}
 		>
+			<CommentDeepLink
+				threadId={initialThreadId}
+				openPanel={initialPanelOpen}
+			/>
+			{resolvedPageId ? <MarkCommentsRead pageId={resolvedPageId} /> : null}
 			<div className="flex h-full w-full flex-col">
 				{previewing && onExitPreview ? (
 					<PageVersionBanner

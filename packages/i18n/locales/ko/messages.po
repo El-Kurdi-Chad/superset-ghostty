@@ -723,6 +723,9 @@ msgstr "{count, plural, one {검사 #개 실패} other {검사 #개 실패}}"
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {검사 #개에 조치 필요} other {검사 #개에 조치 필요}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {댓글 #개, 새 답글 있음} other {댓글 #개, 새 답글 있음}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {댓글 #개} other {댓글 #개}}"
 

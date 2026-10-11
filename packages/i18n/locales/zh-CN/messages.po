@@ -723,6 +723,9 @@ msgstr "{count, plural, one {#项检查失败} other {#项检查失败}}"
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {#项检查需要处理} other {#项检查需要处理}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {#条评论，有新回复} other {#条评论，有新回复}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {#条评论} other {#条评论}}"
 
