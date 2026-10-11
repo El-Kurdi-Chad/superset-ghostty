@@ -351,3 +351,21 @@ export const hiringEventKindValues = [
 ] as const;
 export const hiringEventKindEnum = z.enum(hiringEventKindValues);
 export type HiringEventKind = z.infer<typeof hiringEventKindEnum>;
+
+/** Why a closed application was closed. Set alongside `outcome`/`closedAt`, cleared on reopen. "Logistics" codes are the one case a rejection template is allowed to name to the candidate. */
+export const hiringClosedReasonValues = [
+	"visa_or_sponsorship",
+	"location_or_remote",
+	"seniority_or_fit",
+	"frontend_depth_gap",
+	"live_venture_conflict",
+	"lean_hire_no_decision",
+	"slow_loop_role_filled",
+	"ghosted_no_reply",
+	"above_experience_ceiling",
+	"below_experience_band",
+	"pedigree_bar",
+	"other",
+] as const;
+export const hiringClosedReasonEnum = z.enum(hiringClosedReasonValues);
+export type HiringClosedReason = z.infer<typeof hiringClosedReasonEnum>;

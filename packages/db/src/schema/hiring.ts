@@ -13,6 +13,7 @@ import {
 
 import { users } from "./auth";
 import {
+	hiringClosedReasonValues,
 	hiringEventKindValues,
 	hiringOutcomeValues,
 	hiringRoleStatusValues,
@@ -32,6 +33,10 @@ export const hiringScore = pgEnum("hiring_score", hiringScoreValues);
 export const hiringEventKind = pgEnum(
 	"hiring_event_kind",
 	hiringEventKindValues,
+);
+export const hiringClosedReason = pgEnum(
+	"hiring_closed_reason",
+	hiringClosedReasonValues,
 );
 
 export const hiringRoles = pgTable(
@@ -120,6 +125,7 @@ export const hiringApplications = pgTable(
 			.notNull()
 			.defaultNow(),
 		closedAt: timestamp("closed_at", { withTimezone: true }),
+		closedReason: hiringClosedReason("closed_reason"),
 		createdAt: timestamp("created_at", { withTimezone: true })
 			.notNull()
 			.defaultNow(),
