@@ -17,31 +17,51 @@ export function ChatClosedToast({
 }) {
 	const { t } = useLingui();
 	const countdownRef = useRef<HTMLDivElement>(null);
-	const animationRef = useRef<Animation | null>(null);
 	const { keys } = useHotkey("REOPEN_CLOSED_CHATS", onUndo, {
 		enableOnFormTags: false,
 		enableOnContentEditable: false,
 	});
 
 	useEffect(() => {
-		const animation = countdownRef.current?.animate(
+		const bar = countdownRef.current;
+		if (!bar) return;
+		const toaster = bar.closest("[data-sonner-toaster]");
+		const animation = bar.animate(
 			[{ transform: "scaleX(1)" }, { transform: "scaleX(0)" }],
 			{ duration: durationMs, easing: "linear", fill: "forwards" },
 		);
-		animationRef.current = animation ?? null;
-		return () => animation?.cancel();
+		let hovered = false;
+		let pressed = false;
+		const followToastTimer = () => {
+			if (hovered || pressed || document.hidden) animation.pause();
+			else if (animation.playState === "paused") animation.play();
+		};
+		const update = (change: () => void) => () => {
+			change();
+			followToastTimer();
+		};
+		const listeners = Object.entries({
+			mouseenter: update(() => (hovered = true)),
+			mousemove: update(() => (hovered = true)),
+			mouseleave: update(() => (hovered = pressed)),
+			pointerdown: update(() => (pressed = true)),
+			pointerup: update(() => (pressed = false)),
+		});
+		for (const [type, listener] of listeners) {
+			toaster?.addEventListener(type, listener);
+		}
+		document.addEventListener("visibilitychange", followToastTimer);
+		return () => {
+			for (const [type, listener] of listeners) {
+				toaster?.removeEventListener(type, listener);
+			}
+			document.removeEventListener("visibilitychange", followToastTimer);
+			animation.cancel();
+		};
 	}, [durationMs]);
 
 	return (
-		<div
-			className="relative flex w-[356px] items-center gap-3 overflow-hidden rounded-lg border border-border bg-popover py-2.5 pr-2.5 pl-3 shadow-lg"
-			onPointerEnter={() => animationRef.current?.pause()}
-			onPointerLeave={() => {
-				if (animationRef.current?.playState === "paused") {
-					animationRef.current.play();
-				}
-			}}
-		>
+		<div className="relative flex w-[356px] items-center gap-3 overflow-hidden rounded-lg border border-border bg-popover py-2.5 pr-2.5 pl-3 shadow-lg">
 			<div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
 				<MessageSquareIcon className="size-4" />
 			</div>

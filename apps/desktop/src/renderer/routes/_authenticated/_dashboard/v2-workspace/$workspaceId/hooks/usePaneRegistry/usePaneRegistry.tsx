@@ -182,6 +182,7 @@ export function usePaneRegistry({
 	const workspaceId = workspace.id;
 	const agentSurface = useAgentSurfaceSwitch(workspaceId);
 	const closeChatWithUndo = useUndoableChatClose({
+		workspaceId,
 		store,
 		stopChat: agentSurface.stopChat,
 	});
