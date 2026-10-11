@@ -1448,6 +1448,9 @@ msgstr "Satu endpoint CDP per panel"
 msgid "A changelog goes out every week. Most new hires ship to users in their first few days."
 msgstr "Changelog terbit setiap minggu. Kebanyakan karyawan baru sudah merilis ke pengguna dalam beberapa hari pertama."
 
+msgid "A chat can't switch to another provider partway through. Fork this conversation into a new {label} chat instead. This {currentLabel} chat stays open."
+msgstr "Chat tidak dapat beralih ke penyedia lain di tengah percakapan. Sebagai gantinya, cabangkan percakapan ini ke chat {label} baru. Chat {currentLabel} ini tetap terbuka."
+
 msgid "A chat takes its name from the agent."
 msgstr "Chat mengambil namanya dari agen."
 
@@ -4535,6 +4538,9 @@ msgstr "Menu Konteks"
 
 msgid "Continue"
 msgstr "Lanjutkan"
+
+msgid "Continue in a new {label} chat?"
+msgstr "Lanjutkan di chat {label} baru?"
 
 msgid "Continue or fork session"
 msgstr "Lanjutkan atau fork sesi"
@@ -7844,6 +7850,9 @@ msgstr "Fork sesi"
 
 msgid "Fork session…"
 msgstr "Fork sesi…"
+
+msgid "Fork to new chat"
+msgstr "Cabangkan ke chat baru"
 
 msgid "Forks"
 msgstr "Fork"

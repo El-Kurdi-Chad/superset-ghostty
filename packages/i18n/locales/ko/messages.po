@@ -1448,6 +1448,9 @@ msgstr "패널마다 전용 CDP 엔드포인트"
 msgid "A changelog goes out every week. Most new hires ship to users in their first few days."
 msgstr "매주 변경 로그를 발행합니다. 대부분의 신규 입사자가 입사 후 며칠 안에 사용자에게 출시합니다."
 
+msgid "A chat can't switch to another provider partway through. Fork this conversation into a new {label} chat instead. This {currentLabel} chat stays open."
+msgstr "채팅 도중에는 다른 제공자로 전환할 수 없습니다. 대신 이 대화를 새 {label} 채팅으로 포크하세요. 이 {currentLabel} 채팅은 계속 열려 있습니다."
+
 msgid "A chat takes its name from the agent."
 msgstr "채팅 이름은 에이전트 이름을 따릅니다."
 
@@ -4535,6 +4538,9 @@ msgstr "컨텍스트 메뉴"
 
 msgid "Continue"
 msgstr "계속"
+
+msgid "Continue in a new {label} chat?"
+msgstr "새 {label} 채팅에서 계속할까요?"
 
 msgid "Continue or fork session"
 msgstr "세션 계속하기 또는 포크"
@@ -7844,6 +7850,9 @@ msgstr "세션 포크"
 
 msgid "Fork session…"
 msgstr "세션 포크…"
+
+msgid "Fork to new chat"
+msgstr "새 채팅으로 포크"
 
 msgid "Forks"
 msgstr "포크"

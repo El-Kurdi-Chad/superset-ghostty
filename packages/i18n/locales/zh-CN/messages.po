@@ -1448,6 +1448,9 @@ msgstr "每个窗格一个 CDP 端点"
 msgid "A changelog goes out every week. Most new hires ship to users in their first few days."
 msgstr "我们每周发布一次更新日志。大多数新员工入职头几天就会向用户发布功能。"
 
+msgid "A chat can't switch to another provider partway through. Fork this conversation into a new {label} chat instead. This {currentLabel} chat stays open."
+msgstr "聊天进行中无法切换到其他提供方。请将此对话分叉到新的 {label} 聊天。当前的 {currentLabel} 聊天会保持打开。"
+
 msgid "A chat takes its name from the agent."
 msgstr "聊天的名称来自智能体。"
 
@@ -4535,6 +4538,9 @@ msgstr "右键菜单"
 
 msgid "Continue"
 msgstr "继续"
+
+msgid "Continue in a new {label} chat?"
+msgstr "在新的 {label} 聊天中继续？"
 
 msgid "Continue or fork session"
 msgstr "继续或分叉会话"
@@ -7844,6 +7850,9 @@ msgstr "分叉会话"
 
 msgid "Fork session…"
 msgstr "分叉会话…"
+
+msgid "Fork to new chat"
+msgstr "分叉到新聊天"
 
 msgid "Forks"
 msgstr "Fork"

@@ -1448,6 +1448,9 @@ msgstr "Một endpoint CDP cho mỗi ngăn"
 msgid "A changelog goes out every week. Most new hires ship to users in their first few days."
 msgstr "Changelog được phát hành mỗi tuần. Hầu hết nhân sự mới đã phát hành tới người dùng ngay trong vài ngày đầu."
 
+msgid "A chat can't switch to another provider partway through. Fork this conversation into a new {label} chat instead. This {currentLabel} chat stays open."
+msgstr "Cuộc trò chuyện không thể chuyển sang nhà cung cấp khác giữa chừng. Thay vào đó, hãy tách cuộc trò chuyện này sang một cuộc trò chuyện {label} mới. Cuộc trò chuyện {currentLabel} này vẫn mở."
+
 msgid "A chat takes its name from the agent."
 msgstr "Chat lấy tên từ agent."
 
@@ -4535,6 +4538,9 @@ msgstr "Context Menu"
 
 msgid "Continue"
 msgstr "Tiếp tục"
+
+msgid "Continue in a new {label} chat?"
+msgstr "Tiếp tục trong cuộc trò chuyện {label} mới?"
 
 msgid "Continue or fork session"
 msgstr "Tiếp tục hoặc fork phiên"
@@ -7844,6 +7850,9 @@ msgstr "Fork phiên"
 
 msgid "Fork session…"
 msgstr "Fork phiên…"
+
+msgid "Fork to new chat"
+msgstr "Tách sang cuộc trò chuyện mới"
 
 msgid "Forks"
 msgstr "Fork"

@@ -1448,6 +1448,9 @@ msgstr "Un point de terminaison CDP par volet"
 msgid "A changelog goes out every week. Most new hires ship to users in their first few days."
 msgstr "Un changelog est publié chaque semaine. La plupart des nouvelles recrues livrent aux utilisateurs dès leurs premiers jours."
 
+msgid "A chat can't switch to another provider partway through. Fork this conversation into a new {label} chat instead. This {currentLabel} chat stays open."
+msgstr "Un chat ne peut pas changer de fournisseur en cours de route. Dupliquez plutôt cette conversation dans un nouveau chat {label}. Ce chat {currentLabel} reste ouvert."
+
 msgid "A chat takes its name from the agent."
 msgstr "Un chat prend son nom de l'agent."
 
@@ -4535,6 +4538,9 @@ msgstr "Menu contextuel"
 
 msgid "Continue"
 msgstr "Continuer"
+
+msgid "Continue in a new {label} chat?"
+msgstr "Continuer dans un nouveau chat {label} ?"
 
 msgid "Continue or fork session"
 msgstr "Continuer ou forker la session"
@@ -7844,6 +7850,9 @@ msgstr "Forker la session"
 
 msgid "Fork session…"
 msgstr "Forker la session…"
+
+msgid "Fork to new chat"
+msgstr "Dupliquer dans un nouveau chat"
 
 msgid "Forks"
 msgstr "Forks"

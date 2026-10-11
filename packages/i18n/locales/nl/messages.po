@@ -1448,6 +1448,9 @@ msgstr "Een CDP-endpoint per paneel"
 msgid "A changelog goes out every week. Most new hires ship to users in their first few days."
 msgstr "Elke week verschijnt er een changelog. De meeste nieuwe collega's leveren in hun eerste dagen al op aan gebruikers."
 
+msgid "A chat can't switch to another provider partway through. Fork this conversation into a new {label} chat instead. This {currentLabel} chat stays open."
+msgstr "Een chat kan halverwege niet overstappen naar een andere provider. Fork dit gesprek in plaats daarvan naar een nieuwe {label}-chat. Deze {currentLabel}-chat blijft open."
+
 msgid "A chat takes its name from the agent."
 msgstr "Een chat krijgt zijn naam van de agent."
 
@@ -4535,6 +4538,9 @@ msgstr "Contextmenu"
 
 msgid "Continue"
 msgstr "Doorgaan"
+
+msgid "Continue in a new {label} chat?"
+msgstr "Doorgaan in een nieuwe {label}-chat?"
 
 msgid "Continue or fork session"
 msgstr "Sessie voortzetten of forken"
@@ -7844,6 +7850,9 @@ msgstr "Sessie forken"
 
 msgid "Fork session…"
 msgstr "Sessie forken…"
+
+msgid "Fork to new chat"
+msgstr "Forken naar nieuwe chat"
 
 msgid "Forks"
 msgstr "Forks"

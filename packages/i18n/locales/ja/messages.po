@@ -1448,6 +1448,9 @@ msgstr "ペインごとに専用のCDPエンドポイント"
 msgid "A changelog goes out every week. Most new hires ship to users in their first few days."
 msgstr "毎週Changelogを公開しています。ほとんどの新メンバーが入社して数日のうちにユーザーへリリースします。"
 
+msgid "A chat can't switch to another provider partway through. Fork this conversation into a new {label} chat instead. This {currentLabel} chat stays open."
+msgstr "チャットの途中で別のプロバイダーに切り替えることはできません。代わりに、この会話を新しい {label} チャットにフォークしてください。この {currentLabel} チャットは開いたままです。"
+
 msgid "A chat takes its name from the agent."
 msgstr "チャットの名前はエージェントから付けられます。"
 
@@ -4535,6 +4538,9 @@ msgstr "Context Menu"
 
 msgid "Continue"
 msgstr "続行"
+
+msgid "Continue in a new {label} chat?"
+msgstr "新しい {label} チャットで続けますか？"
 
 msgid "Continue or fork session"
 msgstr "セッションを続行またはフォーク"
@@ -7844,6 +7850,9 @@ msgstr "セッションをフォーク"
 
 msgid "Fork session…"
 msgstr "セッションをフォーク…"
+
+msgid "Fork to new chat"
+msgstr "新しいチャットにフォーク"
 
 msgid "Forks"
 msgstr "フォーク"

@@ -1448,6 +1448,9 @@ msgstr "Свой CDP-эндпоинт для каждой панели"
 msgid "A changelog goes out every week. Most new hires ship to users in their first few days."
 msgstr "Changelog выходит каждую неделю. Большинство новых сотрудников выпускают свой первый код для пользователей уже в первые дни."
 
+msgid "A chat can't switch to another provider partway through. Fork this conversation into a new {label} chat instead. This {currentLabel} chat stays open."
+msgstr "Чат нельзя переключить на другого провайдера посреди разговора. Вместо этого создайте ответвление этого разговора в новом чате {label}. Этот чат {currentLabel} останется открытым."
+
 msgid "A chat takes its name from the agent."
 msgstr "Чат получает имя от агента."
 
@@ -4535,6 +4538,9 @@ msgstr "Контекстное меню"
 
 msgid "Continue"
 msgstr "Продолжить"
+
+msgid "Continue in a new {label} chat?"
+msgstr "Продолжить в новом чате {label}?"
 
 msgid "Continue or fork session"
 msgstr "Продолжить или форкнуть сессию"
@@ -7844,6 +7850,9 @@ msgstr "Форкнуть сессию"
 
 msgid "Fork session…"
 msgstr "Форкнуть сессию…"
+
+msgid "Fork to new chat"
+msgstr "Ответвить в новый чат"
 
 msgid "Forks"
 msgstr "Форки"

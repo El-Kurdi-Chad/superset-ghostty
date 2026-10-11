@@ -1448,6 +1448,9 @@ msgstr "A CDP endpoint per pane"
 msgid "A changelog goes out every week. Most new hires ship to users in their first few days."
 msgstr "A changelog goes out every week. Most new hires ship to users in their first few days."
 
+msgid "A chat can't switch to another provider partway through. Fork this conversation into a new {label} chat instead. This {currentLabel} chat stays open."
+msgstr "A chat can't switch to another provider partway through. Fork this conversation into a new {label} chat instead. This {currentLabel} chat stays open."
+
 msgid "A chat takes its name from the agent."
 msgstr "A chat takes its name from the agent."
 
@@ -4535,6 +4538,9 @@ msgstr "Context Menu"
 
 msgid "Continue"
 msgstr "Continue"
+
+msgid "Continue in a new {label} chat?"
+msgstr "Continue in a new {label} chat?"
 
 msgid "Continue or fork session"
 msgstr "Continue or fork session"
@@ -7844,6 +7850,9 @@ msgstr "Fork session"
 
 msgid "Fork session…"
 msgstr "Fork session…"
+
+msgid "Fork to new chat"
+msgstr "Fork to new chat"
 
 msgid "Forks"
 msgstr "Forks"

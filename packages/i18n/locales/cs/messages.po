@@ -1448,6 +1448,9 @@ msgstr "Jeden CDP endpoint na panel"
 msgid "A changelog goes out every week. Most new hires ship to users in their first few days."
 msgstr "Každý týden vydáváme changelog. Většina nových kolegů dodá něco uživatelům už během prvních pár dní."
 
+msgid "A chat can't switch to another provider partway through. Fork this conversation into a new {label} chat instead. This {currentLabel} chat stays open."
+msgstr "Chat nemůže uprostřed konverzace přejít k jinému poskytovateli. Místo toho tuto konverzaci rozvětvěte do nového chatu {label}. Tento chat {currentLabel} zůstane otevřený."
+
 msgid "A chat takes its name from the agent."
 msgstr "Chat přebírá název od agenta."
 
@@ -4535,6 +4538,9 @@ msgstr "Kontextová nabídka"
 
 msgid "Continue"
 msgstr "Pokračovat"
+
+msgid "Continue in a new {label} chat?"
+msgstr "Pokračovat v novém chatu {label}?"
 
 msgid "Continue or fork session"
 msgstr "Pokračovat nebo forkovat relaci"
@@ -7844,6 +7850,9 @@ msgstr "Forkovat relaci"
 
 msgid "Fork session…"
 msgstr "Forkovat relaci…"
+
+msgid "Fork to new chat"
+msgstr "Rozvětvit do nového chatu"
 
 msgid "Forks"
 msgstr "Forky"

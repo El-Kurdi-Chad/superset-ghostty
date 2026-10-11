@@ -1448,6 +1448,9 @@ msgstr "Her bölme için bir CDP uç noktası"
 msgid "A changelog goes out every week. Most new hires ship to users in their first few days."
 msgstr "Her hafta bir değişiklik günlüğü yayınlıyoruz. Yeni katılanların çoğu ilk birkaç gününde kullanıcılara bir şey yayınlıyor."
 
+msgid "A chat can't switch to another provider partway through. Fork this conversation into a new {label} chat instead. This {currentLabel} chat stays open."
+msgstr "Bir sohbet, konuşmanın ortasında başka bir sağlayıcıya geçemez. Bunun yerine bu konuşmayı yeni bir {label} sohbetine çatallayın. Bu {currentLabel} sohbeti açık kalır."
+
 msgid "A chat takes its name from the agent."
 msgstr "Sohbet adını ajandan alır."
 
@@ -4535,6 +4538,9 @@ msgstr "Bağlam menüsü"
 
 msgid "Continue"
 msgstr "Devam et"
+
+msgid "Continue in a new {label} chat?"
+msgstr "Yeni bir {label} sohbetinde devam edilsin mi?"
 
 msgid "Continue or fork session"
 msgstr "Oturumu sürdür veya forkla"
@@ -7844,6 +7850,9 @@ msgstr "Oturumu forkla"
 
 msgid "Fork session…"
 msgstr "Oturumu forkla…"
+
+msgid "Fork to new chat"
+msgstr "Yeni sohbete çatalla"
 
 msgid "Forks"
 msgstr "Çatallar"
