@@ -1,5 +1,6 @@
 export {
+	addPendingChatStop,
 	readPendingChatStopIds,
-	setPendingChatStops,
-	takePendingChatStops,
+	readPendingChatStops,
+	removePendingChatStop,
 } from "./pendingChatStops";

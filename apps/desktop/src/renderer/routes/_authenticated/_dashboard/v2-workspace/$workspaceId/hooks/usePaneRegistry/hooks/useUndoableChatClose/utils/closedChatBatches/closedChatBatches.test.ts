@@ -4,7 +4,6 @@ import { createClosedChatBatches } from "./closedChatBatches";
 function setup() {
 	const log: string[] = [];
 	const shown: { id: string; chats: string[] }[] = [];
-	const persisted: string[][] = [];
 	let next = 0;
 	const batches = createClosedChatBatches<string>(
 		{
@@ -12,11 +11,10 @@ function setup() {
 			hide: (id) => log.push(`hide ${id}`),
 			restore: (chat) => log.push(`restore ${chat}`),
 			stop: (chat) => log.push(`stop ${chat}`),
-			persist: (chats) => persisted.push([...chats]),
 		},
 		() => `t${++next}`,
 	);
-	return { batches, log, persisted, shown };
+	return { batches, log, shown };
 }
 
 describe("createClosedChatBatches", () => {
@@ -56,13 +54,5 @@ describe("createClosedChatBatches", () => {
 		batches.flush();
 		batches.undo("t1");
 		expect(log).toEqual(["hide t1", "stop a"]);
-	});
-
-	it("persists the pending chats until the batch settles", () => {
-		const { batches, persisted } = setup();
-		batches.add("a");
-		batches.add("b");
-		batches.expire("t2");
-		expect(persisted).toEqual([["a"], ["a", "b"], []]);
 	});
 });

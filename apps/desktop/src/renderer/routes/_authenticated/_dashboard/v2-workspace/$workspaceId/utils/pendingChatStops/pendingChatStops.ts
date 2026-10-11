@@ -22,29 +22,34 @@ function read(): PendingChatStop[] {
 }
 
 function write(entries: PendingChatStop[]): void {
-	if (entries.length === 0) localStorage.removeItem(STORAGE_KEY);
-	else localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+	try {
+		if (entries.length === 0) localStorage.removeItem(STORAGE_KEY);
+		else localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+	} catch (error) {
+		console.warn("[acp-chat] could not save pending chat stops", error);
+	}
 }
 
 export function readPendingChatStopIds(): string[] {
 	return read().map((entry) => entry.sessionId);
 }
 
-export function setPendingChatStops(
+export function readPendingChatStops(workspaceId: string): string[] {
+	return read()
+		.filter((entry) => entry.workspaceId === workspaceId)
+		.map((entry) => entry.sessionId);
+}
+
+export function addPendingChatStop(
 	workspaceId: string,
-	sessionIds: string[],
+	sessionId: string,
 ): void {
-	const closedAt = Date.now();
 	write([
-		...read().filter((entry) => entry.workspaceId !== workspaceId),
-		...sessionIds.map((sessionId) => ({ workspaceId, sessionId, closedAt })),
+		...read().filter((entry) => entry.sessionId !== sessionId),
+		{ workspaceId, sessionId, closedAt: Date.now() },
 	]);
 }
 
-export function takePendingChatStops(workspaceId: string): string[] {
-	const entries = read();
-	write(entries.filter((entry) => entry.workspaceId !== workspaceId));
-	return entries
-		.filter((entry) => entry.workspaceId === workspaceId)
-		.map((entry) => entry.sessionId);
+export function removePendingChatStop(sessionId: string): void {
+	write(read().filter((entry) => entry.sessionId !== sessionId));
 }

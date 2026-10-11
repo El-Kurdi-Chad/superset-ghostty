@@ -10,8 +10,9 @@ import {
 	markChatSessionClosed,
 } from "../../../../utils/closedChatSessions";
 import {
-	setPendingChatStops,
-	takePendingChatStops,
+	addPendingChatStop,
+	readPendingChatStops,
+	removePendingChatStop,
 } from "../../../../utils/pendingChatStops";
 import { ChatClosedToast } from "./components/ChatClosedToast";
 import { createClosedChatBatches } from "./utils/closedChatBatches";
@@ -36,8 +37,8 @@ export function useUndoableChatClose({
 	stopChat: (sessionId: string) => Promise<boolean>;
 }): (pane: Pane<PaneViewerData>) => void {
 	const { t } = useLingui();
-	const latest = useRef({ workspaceId, store, stopChat, t });
-	latest.current = { workspaceId, store, stopChat, t };
+	const latest = useRef({ store, stopChat, t });
+	latest.current = { store, stopChat, t };
 	const previousTabs = useRef(store.getState().tabs);
 
 	useEffect(
@@ -50,11 +51,16 @@ export function useUndoableChatClose({
 
 	const [batches] = useState(() => {
 		const stopSession = (sessionId: string) =>
-			void latest.current.stopChat(sessionId).then((stopped) => {
-				if (!stopped) {
-					toast.error(latest.current.t({ message: "Couldn't stop the chat" }));
-				}
-			});
+			void latest.current
+				.stopChat(sessionId)
+				.then((stopped) => {
+					if (!stopped) {
+						toast.error(
+							latest.current.t({ message: "Couldn't stop the chat" }),
+						);
+					}
+				})
+				.finally(() => removePendingChatStop(sessionId));
 		const { push, remove } = useUndoStack.getState();
 		const closed = createClosedChatBatches<ClosedChat>({
 			show: ({ id, chats }) => {
@@ -86,23 +92,19 @@ export function useUndoableChatClose({
 				toast.dismiss(id);
 			},
 			restore: (chat) => {
+				removePendingChatStop(chat.sessionId);
 				chat.reopen();
 				const state = latest.current.store.getState();
 				if (chat.slot) state.insertTab(chat.slot);
 				else state.addTab({ panes: [chat.pane] });
 			},
 			stop: (chat) => stopSession(chat.sessionId),
-			persist: (chats) =>
-				setPendingChatStops(
-					latest.current.workspaceId,
-					chats.map((chat) => chat.sessionId),
-				),
 		});
 		return { closed, stopSession };
 	});
 
 	useEffect(() => {
-		for (const sessionId of takePendingChatStops(workspaceId)) {
+		for (const sessionId of readPendingChatStops(workspaceId)) {
 			batches.stopSession(sessionId);
 		}
 	}, [workspaceId, batches]);
@@ -118,6 +120,7 @@ export function useUndoableChatClose({
 				(tab) => tab.panes[pane.id] !== undefined,
 			);
 			const tab = previousTabs.current[index];
+			addPendingChatStop(workspaceId, sessionId);
 			batches.closed.add({
 				pane,
 				slot:
@@ -127,6 +130,6 @@ export function useUndoableChatClose({
 				reopen: markChatSessionClosed(sessionId),
 			});
 		},
-		[batches, t],
+		[batches, workspaceId, t],
 	);
 }

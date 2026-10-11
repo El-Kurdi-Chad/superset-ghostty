@@ -8,7 +8,6 @@ export interface ClosedChatBatchActions<TChat> {
 	hide: (id: string) => void;
 	restore: (chat: TChat) => void;
 	stop: (chat: TChat) => void;
-	persist: (chats: TChat[]) => void;
 }
 
 export function createClosedChatBatches<TChat>(
@@ -24,33 +23,26 @@ export function createClosedChatBatches<TChat>(
 		return batch;
 	};
 
-	const settle = (id?: string) => {
-		const batch = take(id);
-		if (batch) actions.persist([]);
-		return batch;
-	};
-
 	return {
 		add(chat: TChat) {
 			const previous = take();
 			if (previous) actions.hide(previous.id);
 			pending = { id: createId(), chats: [...(previous?.chats ?? []), chat] };
-			actions.persist(pending.chats);
 			actions.show(pending);
 		},
 		undo(id: string) {
-			const batch = settle(id);
+			const batch = take(id);
 			if (!batch) return;
 			actions.hide(batch.id);
 			for (const chat of [...batch.chats].reverse()) actions.restore(chat);
 		},
 		expire(id: string) {
-			const batch = settle(id);
+			const batch = take(id);
 			if (!batch) return;
 			for (const chat of batch.chats) actions.stop(chat);
 		},
 		flush() {
-			const batch = settle();
+			const batch = take();
 			if (!batch) return;
 			actions.hide(batch.id);
 			for (const chat of batch.chats) actions.stop(chat);
