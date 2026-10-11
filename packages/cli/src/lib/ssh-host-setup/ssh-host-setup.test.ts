@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { hostKeyName } from "./host-key";
 import { machineIdProblem } from "./machine-id";
 import { checkPlatform } from "./platform";
 import { parseProbe } from "./probe";
@@ -85,4 +86,13 @@ test("the systemd unit keeps a path with spaces and % as one word", () => {
 		organizationId: "org-1",
 	});
 	expect(unit).toContain('ExecStart="/home/Jo Doe/100%%/superset" start');
+});
+
+test("the host key name fits better-auth's 32-character limit", () => {
+	const name = hostKeyName(
+		"Manageds-Virtual-Machine.local",
+		"a97d7f26b38197e34cb10dc80a4461a8",
+	);
+	expect(name).toBe("Host a97d7f26 Manageds-Virtual-M");
+	expect(name.length).toBeLessThanOrEqual(32);
 });

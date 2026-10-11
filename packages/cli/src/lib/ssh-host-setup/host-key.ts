@@ -12,5 +12,7 @@ export async function revokeKeysNamed(
 
 /** The API key a host set up over SSH signs in with; `hosts remove` finds it by this name. */
 export function hostKeyName(hostname: string, hostId: string): string {
-	return `Host ${hostname} (${hostId.slice(0, 8)})`;
+	const shortName = hostname.split(".")[0] || hostname;
+	// better-auth rejects API key names longer than 32 characters.
+	return `Host ${hostId.slice(0, 8)} ${shortName}`.slice(0, 32);
 }
