@@ -21,6 +21,7 @@ export function MarkCommentsRead({ pageId }: MarkCommentsReadProps) {
 	const markedAt = useRef(0);
 	const inFlight = useRef<number | null>(null);
 	const { mutate } = cloudTrpc.pageComment.markRead.useMutation({
+		retry: 2,
 		onSuccess: () => void utils.page.listPaginated.invalidate(),
 	});
 

@@ -59,7 +59,9 @@ export function CommentPreviewPanel({
 						)}
 					</AvatarFallback>
 				</Avatar>
-				<span className="min-w-0 truncate">{firstName(author.name)}</span>
+				<span className="min-w-0 truncate">
+					{author.isAgent ? author.name : firstName(author.name)}
+				</span>
 				<span className="ml-auto shrink-0">
 					{formatCompactRelativeTime(new Date(preview.createdAt))}
 				</span>
