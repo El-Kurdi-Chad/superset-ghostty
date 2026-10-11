@@ -1,5 +1,1 @@
-export {
-	type PullRequestActivityAuthor,
-	PullRequestActivityCard,
-	pullRequestAuthorLabel,
-} from "./PullRequestActivityCard";
+export { PullRequestActivityCard } from "./PullRequestActivityCard";

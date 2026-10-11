@@ -4,7 +4,7 @@ import type {
 	PullRequestDetailCommit,
 	PullRequestDetailCommitAuthor,
 } from "../../../../hooks/usePullRequestDetail";
-import type { PullRequestActivityAuthor } from "../../../PullRequestActivityCard";
+import type { PullRequestActivityAuthor } from "../../../../utils/pullRequestAuthorLabel";
 
 /** A card another surface hangs on the rail, such as a workspace's review thread. */
 export interface PullRequestActivityEntry {

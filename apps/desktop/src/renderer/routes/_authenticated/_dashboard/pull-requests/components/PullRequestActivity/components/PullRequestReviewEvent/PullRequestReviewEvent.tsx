@@ -1,7 +1,8 @@
 import { CircleCheck, CircleX, MessageSquare } from "lucide-react";
 import type { PullRequestDetailComment } from "../../../../hooks/usePullRequestDetail";
+import { usePullRequestActivityLayout } from "../../../../providers/PullRequestActivityLayoutProvider";
 import { describePullRequestTime } from "../../../../utils/describePullRequestTime";
-import { pullRequestAuthorLabel } from "../../../PullRequestActivityCard";
+import { pullRequestAuthorLabel } from "../../../../utils/pullRequestAuthorLabel";
 import type { PullRequestReviewVerdict } from "../../utils/buildPullRequestTimeline";
 import { PullRequestReviewStateLabel } from "../PullRequestReviewStateLabel";
 import { PullRequestTimelineEventLine } from "../PullRequestTimelineEventLine";
@@ -26,25 +27,36 @@ interface PullRequestReviewEventProps {
 	last: boolean;
 }
 
-/** A review without a note: its verdict's icon on the rail and one line of who and when. */
+/** A review without a note: its verdict's icon and one line of who and when. */
 export function PullRequestReviewEvent({
 	comment,
 	verdict,
 	first,
 	last,
 }: PullRequestReviewEventProps) {
+	const layout = usePullRequestActivityLayout();
 	const { Icon, className } = VERDICT_ICON[verdict];
+	const icon = <Icon strokeWidth={1.75} className={`size-4 ${className}`} />;
+	const line = (
+		<PullRequestTimelineEventLine
+			name={pullRequestAuthorLabel(comment.author)}
+			action={<PullRequestReviewStateLabel state={verdict} />}
+			time={describePullRequestTime(comment.createdAt)}
+		/>
+	);
+	if (layout === "row") {
+		return (
+			<li className="flex h-8 min-w-0 items-center gap-2 px-3">
+				<span className="flex size-5 shrink-0 items-center justify-center">
+					{icon}
+				</span>
+				<div className="min-w-0 flex-1">{line}</div>
+			</li>
+		);
+	}
 	return (
-		<PullRequestTimelineStop
-			first={first}
-			last={last}
-			node={<Icon strokeWidth={1.75} className={`size-4 ${className}`} />}
-		>
-			<PullRequestTimelineEventLine
-				name={pullRequestAuthorLabel(comment.author)}
-				action={<PullRequestReviewStateLabel state={verdict} />}
-				time={describePullRequestTime(comment.createdAt)}
-			/>
+		<PullRequestTimelineStop first={first} last={last} node={icon}>
+			{line}
 		</PullRequestTimelineStop>
 	);
 }

@@ -2,13 +2,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@superset/ui/avatar";
 import {
 	type PullRequestActivityAuthor,
 	pullRequestAuthorLabel,
-} from "../../../PullRequestActivityCard";
+} from "../../utils/pullRequestAuthorLabel";
 
 interface PullRequestActivityAvatarProps {
 	author: PullRequestActivityAuthor | null;
 }
 
-/** The 20px avatar that marks a person's stop on the rail. */
+/** The 20px avatar that marks a person on the rail or leads a folded row. */
 export function PullRequestActivityAvatar({
 	author,
 }: PullRequestActivityAvatarProps) {

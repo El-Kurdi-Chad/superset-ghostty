@@ -13,6 +13,7 @@ import {
 import { electronTrpcClient } from "renderer/lib/trpc-client";
 import { PullRequestActivityCard } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestActivityCard";
 import { PullRequestMarkdown } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestMarkdown";
+import { usePullRequestActivityLayout } from "renderer/routes/_authenticated/_dashboard/pull-requests/providers/PullRequestActivityLayoutProvider";
 import type { NormalizedComment } from "../../../../../../components/CommentsSection/types";
 import type { CommentPaneData, DiffFocusSide } from "../../../../../../types";
 import { PullRequestCommentReply } from "./components/PullRequestCommentReply";
@@ -40,6 +41,7 @@ export function PullRequestCommentCard({
 	onOpenInDiff,
 }: PullRequestCommentCardProps) {
 	const { t } = useLingui();
+	const layout = usePullRequestActivityLayout();
 	const [copied, setCopied] = useState(false);
 	const utils = workspaceTrpc.useUtils();
 	const resolve = workspaceTrpc.git.setReviewThreadResolution.useMutation({
@@ -56,6 +58,9 @@ export function PullRequestCommentCard({
 		return () => clearTimeout(timer);
 	}, [copied]);
 	const canOpenCode = Boolean(comment.path && onOpenInDiff);
+	// A folded row is itself a button, so the path cannot be one inside it;
+	// the footer's "Open in diff" still opens the file there.
+	const pathOpensDiff = canOpenCode && layout === "card";
 	const openCode = () => {
 		if (comment.path)
 			onOpenInDiff?.(
@@ -95,7 +100,7 @@ export function PullRequestCommentCard({
 			author={{ login: comment.authorLogin, avatarUrl: comment.avatarUrl }}
 			meta={
 				<>
-					{location && canOpenCode ? (
+					{location && pathOpensDiff ? (
 						<button
 							type="button"
 							onClick={openCode}

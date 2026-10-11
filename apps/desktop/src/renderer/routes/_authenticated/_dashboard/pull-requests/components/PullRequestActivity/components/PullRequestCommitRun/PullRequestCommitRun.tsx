@@ -4,11 +4,14 @@ import type {
 	PullRequestDetailCommit,
 	PullRequestDetailCommitAuthor,
 } from "../../../../hooks/usePullRequestDetail";
+import { usePullRequestActivityLayout } from "../../../../providers/PullRequestActivityLayoutProvider";
 import { describePullRequestTime } from "../../../../utils/describePullRequestTime";
-import { pullRequestAuthorLabel } from "../../../PullRequestActivityCard";
-import { PullRequestActivityAvatar } from "../PullRequestActivityAvatar";
+import { pullRequestAuthorLabel } from "../../../../utils/pullRequestAuthorLabel";
+import { PullRequestActivityAvatar } from "../../../PullRequestActivityAvatar";
+import { PullRequestFoldRow } from "../../../PullRequestFoldRow";
 import { PullRequestTimelineEventLine } from "../PullRequestTimelineEventLine";
 import { PullRequestTimelineStop } from "../PullRequestTimelineStop";
+import { PullRequestCommitLink } from "./components/PullRequestCommitLink";
 import { PullRequestCommitStop } from "./components/PullRequestCommitStop";
 
 interface PullRequestCommitRunProps {
@@ -18,7 +21,7 @@ interface PullRequestCommitRunProps {
 	last: boolean;
 }
 
-/** One push on the rail: "name added N commits · time", then each commit. */
+/** One push: "name added N commits · time", then each commit; a narrow pane folds the commits behind the line. */
 export function PullRequestCommitRun({
 	author,
 	commits,
@@ -26,7 +29,34 @@ export function PullRequestCommitRun({
 	last,
 }: PullRequestCommitRunProps) {
 	const { t } = useLingui();
+	const layout = usePullRequestActivityLayout();
 	const count = commits.length;
+	const action = t({
+		message: plural(count, {
+			one: "added a commit",
+			other: "added # commits",
+		}),
+	});
+	const time = describePullRequestTime(commits[count - 1]?.committedDate);
+	if (layout === "row") {
+		return (
+			<li>
+				<PullRequestFoldRow
+					author={author}
+					meta={<span>{action}</span>}
+					time={time}
+				>
+					<ol className="flex flex-col gap-1">
+						{commits.map((commit) => (
+							<li key={commit.oid}>
+								<PullRequestCommitLink commit={commit} />
+							</li>
+						))}
+					</ol>
+				</PullRequestFoldRow>
+			</li>
+		);
+	}
 	return (
 		<>
 			<PullRequestTimelineStop
@@ -36,13 +66,8 @@ export function PullRequestCommitRun({
 			>
 				<PullRequestTimelineEventLine
 					name={pullRequestAuthorLabel(author)}
-					action={t({
-						message: plural(count, {
-							one: "added a commit",
-							other: "added # commits",
-						}),
-					})}
-					time={describePullRequestTime(commits[count - 1]?.committedDate)}
+					action={action}
+					time={time}
 				/>
 			</PullRequestTimelineStop>
 			{commits.map((commit, index) => (

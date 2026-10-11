@@ -2,17 +2,19 @@ import { plural } from "@lingui/core/macro";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { Skeleton } from "@superset/ui/skeleton";
 import { ArrowUpRight, LoaderCircle } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import type { PullRequestDetail } from "../../hooks/usePullRequestDetail";
+import { PullRequestActivityLayoutProvider } from "../../providers/PullRequestActivityLayoutProvider";
+import { PullRequestActivityAvatar } from "../PullRequestActivityAvatar";
 import {
 	type PullRequestCommentTarget,
 	PullRequestConversationComposer,
 } from "../PullRequestConversationComposer";
-import { PullRequestActivityAvatar } from "./components/PullRequestActivityAvatar";
 import { PullRequestActivityComment } from "./components/PullRequestActivityComment";
 import { PullRequestCommitRun } from "./components/PullRequestCommitRun";
 import { PullRequestReviewEvent } from "./components/PullRequestReviewEvent";
 import { PullRequestTimelineStop } from "./components/PullRequestTimelineStop";
+import { usePullRequestActivityWidthLayout } from "./hooks/usePullRequestActivityWidthLayout";
 import {
 	buildPullRequestTimeline,
 	type PullRequestActivityEntry,
@@ -36,9 +38,10 @@ interface PullRequestActivityProps {
 
 /**
  * The Activity section: comments, reviews, commits and the pane's review
- * threads on one rail, oldest first, with the composer last. Older hosts and
- * the cloud route send no comments or commits; without threads or a composer
- * there is then nothing to show.
+ * threads on one rail, oldest first, with the composer last. A narrow pane
+ * trades the rail and its cards for folded rows. Older hosts and the cloud
+ * route send no comments or commits; without threads or a composer there is
+ * then nothing to show.
  */
 export function PullRequestActivity({
 	data,
@@ -46,6 +49,8 @@ export function PullRequestActivity({
 	threads,
 }: PullRequestActivityProps) {
 	const { t } = useLingui();
+	const sectionRef = useRef<HTMLElement>(null);
+	const layout = usePullRequestActivityWidthLayout(sectionRef);
 	const items = useMemo(
 		() =>
 			buildPullRequestTimeline({
@@ -63,7 +68,7 @@ export function PullRequestActivity({
 	const commitCount = data.commits?.length ?? 0;
 	const loadingEmpty = Boolean(threads?.isLoading) && items.length === 0;
 	return (
-		<section className="min-w-0" data-pr-comments>
+		<section ref={sectionRef} className="min-w-0" data-pr-comments>
 			<div className="flex h-10 items-center gap-2">
 				<h2 className="text-sm font-medium">
 					<Trans>Activity</Trans>
@@ -108,69 +113,88 @@ export function PullRequestActivity({
 					<Trans>Unable to load review status</Trans>
 				</p>
 			) : null}
-			{items.length > 0 ? (
-				<ol className="flex flex-col">
-					{items.map((item, index) => {
-						const first = index === 0;
-						const last = index === items.length - 1;
-						switch (item.kind) {
-							case "commits":
-								return (
-									<PullRequestCommitRun
-										key={`commits-${item.commits[0]?.oid}`}
-										author={item.author}
-										commits={item.commits}
-										first={first}
-										last={last}
-									/>
-								);
-							case "review-event":
-								return (
-									<PullRequestReviewEvent
-										key={item.comment.id}
-										comment={item.comment}
-										verdict={item.verdict}
-										first={first}
-										last={last}
-									/>
-								);
-							case "comment":
-								return (
-									<PullRequestTimelineStop
-										key={item.comment.id}
-										card
-										first={first}
-										last={last}
-										node={
-											<PullRequestActivityAvatar author={item.comment.author} />
-										}
-									>
-										<PullRequestActivityComment
-											comment={item.comment}
-											prUrl={data.url}
-										/>
-									</PullRequestTimelineStop>
-								);
-							case "entry":
-								return (
-									<PullRequestTimelineStop
-										key={item.entry.id}
-										card
-										first={first}
-										last={last}
-										node={
-											<PullRequestActivityAvatar author={item.entry.author} />
-										}
-									>
-										{item.entry.card}
-									</PullRequestTimelineStop>
-								);
-							default:
-								return null;
+			<PullRequestActivityLayoutProvider value={layout}>
+				{items.length > 0 ? (
+					<ol
+						className={
+							layout === "row" ? "flex flex-col gap-1.5" : "flex flex-col"
 						}
-					})}
-				</ol>
-			) : null}
+					>
+						{items.map((item, index) => {
+							const first = index === 0;
+							const last = index === items.length - 1;
+							switch (item.kind) {
+								case "commits":
+									return (
+										<PullRequestCommitRun
+											key={`commits-${item.commits[0]?.oid}`}
+											author={item.author}
+											commits={item.commits}
+											first={first}
+											last={last}
+										/>
+									);
+								case "review-event":
+									return (
+										<PullRequestReviewEvent
+											key={item.comment.id}
+											comment={item.comment}
+											verdict={item.verdict}
+											first={first}
+											last={last}
+										/>
+									);
+								case "comment":
+									if (layout === "row")
+										return (
+											<li key={item.comment.id}>
+												<PullRequestActivityComment
+													comment={item.comment}
+													prUrl={data.url}
+												/>
+											</li>
+										);
+									return (
+										<PullRequestTimelineStop
+											key={item.comment.id}
+											card
+											first={first}
+											last={last}
+											node={
+												<PullRequestActivityAvatar
+													author={item.comment.author}
+												/>
+											}
+										>
+											<PullRequestActivityComment
+												comment={item.comment}
+												prUrl={data.url}
+											/>
+										</PullRequestTimelineStop>
+									);
+								case "entry":
+									if (layout === "row")
+										return <li key={item.entry.id}>{item.entry.card}</li>;
+									return (
+										<PullRequestTimelineStop
+											key={item.entry.id}
+											card
+											first={first}
+											last={last}
+											node={
+												<PullRequestActivityAvatar author={item.entry.author} />
+											}
+										>
+											{item.entry.card}
+										</PullRequestTimelineStop>
+									);
+								default:
+									return null;
+							}
+						})}
+					</ol>
+				) : null}
+			</PullRequestActivityLayoutProvider>
 			{loadingEmpty ? (
 				<div className="space-y-3">
 					<Skeleton className="h-9 w-full rounded-md" />

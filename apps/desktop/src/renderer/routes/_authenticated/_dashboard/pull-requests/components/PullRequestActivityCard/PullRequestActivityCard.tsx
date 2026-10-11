@@ -1,20 +1,13 @@
 import { cn } from "@superset/ui/utils";
 import type { ReactNode } from "react";
+import { usePullRequestActivityLayout } from "../../providers/PullRequestActivityLayoutProvider";
 import { describePullRequestTime } from "../../utils/describePullRequestTime";
+import {
+	type PullRequestActivityAuthor,
+	pullRequestAuthorLabel,
+} from "../../utils/pullRequestAuthorLabel";
+import { PullRequestFoldRow } from "../PullRequestFoldRow";
 import { PullRequestClampedBody } from "./components/PullRequestClampedBody";
-
-export interface PullRequestActivityAuthor {
-	/** Null when GitHub maps the actor to no account. */
-	login: string | null;
-	name?: string | null;
-	avatarUrl?: string | null;
-}
-
-export function pullRequestAuthorLabel(
-	author: PullRequestActivityAuthor | null,
-): string {
-	return author?.login ?? author?.name ?? "ghost";
-}
 
 interface PullRequestActivityCardProps {
 	author: PullRequestActivityAuthor | null;
@@ -34,7 +27,8 @@ interface PullRequestActivityCardProps {
 
 /**
  * A comment hung on the activity rail: a header line of who, what kind and
- * when, then the body folded past a scannable height.
+ * when, then the body folded past a scannable height. In a narrow pane the
+ * same comment is one folded row that unfolds to the whole body.
  */
 export function PullRequestActivityCard({
 	author,
@@ -47,8 +41,36 @@ export function PullRequestActivityCard({
 	className,
 	children,
 }: PullRequestActivityCardProps) {
+	const layout = usePullRequestActivityLayout();
 	const time = describePullRequestTime(createdAt);
 	const hasContent = Boolean(children || replies || footer);
+	if (layout === "row") {
+		return (
+			<PullRequestFoldRow
+				author={author}
+				meta={meta}
+				time={time}
+				className={className}
+			>
+				{hasContent || actions ? (
+					<>
+						{actions ? (
+							<div className="mb-1 flex items-center justify-end gap-0.5">
+								{actions}
+							</div>
+						) : null}
+						{children}
+						{replies ? <div className="mt-2 min-w-0">{replies}</div> : null}
+						{footer ? (
+							<div className="mt-2 flex min-w-0 items-center justify-between gap-3">
+								{footer}
+							</div>
+						) : null}
+					</>
+				) : null}
+			</PullRequestFoldRow>
+		);
+	}
 	return (
 		<article
 			className={cn(
