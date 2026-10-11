@@ -1,6 +1,6 @@
 ---
 name: browser
-description: Open, navigate, screenshot, read, click, and type in web pages from an agent. Use when the user asks to open a URL, preview or verify a running web app, check a page's console, fill a form, click through a web flow, or automate anything in a browser, including "open localhost:3000", "screenshot the page", "what does the console say", "click the submit button". Drives the in-app browser pane of a Superset workspace by default and Browser Use for browsers the panes cannot reach.
+description: Open, navigate, screenshot, read, click, and type in web pages from an agent. Use when the user asks to open a URL, preview or verify a running web app, check a page's console, fill a form, click through a web flow, or automate anything in a browser, including "open localhost:3000", "screenshot the page", "what does the console say", "click the submit button", "I'm logged in on Chrome". Drives the in-app browser pane of a Superset workspace by default and Browser Use for browsers the panes cannot reach.
 argument-hint: URL or what to do in the browser
 allowed-tools: Bash(superset:*) Bash(curl:*)
 ---
@@ -99,12 +99,25 @@ rejected with a clear error.
 to the sites the user already uses. It imports every cookie that profile has on
 disk, not just the one site, and panes share a profile, so say that when
 offering and run it only with the user's go-ahead. Offering it is how most
-users discover it: when a pane hits a login wall for a site the user uses in
-their own browser, suggest importing that login instead of stopping. The user
-always picks the source browser; people run several Chromium browsers (Chrome,
-Edge, Brave, Arc, Dia, Comet) and only they know which holds the session. macOS
-only; it reads the browser's Keychain key (first run prompts them to allow it)
-and never modifies the source browser.
+users discover it, so reach for it in two cases:
+
+- The user says they're already signed in somewhere ("I'm logged in on
+  Chrome", "use my Arc session", "it works in my browser"). If they asked to
+  use that login and named the browser, that is the go-ahead: import from it,
+  say in one line that it brings over every site's cookies, and continue. If
+  they only mentioned being logged in, ask once before you navigate: "Want me
+  to import your logins from <browser>? It copies all of that browser's
+  cookies into the Superset browser, not just this site."
+- A pane hits a login wall for a site the user uses in their own browser:
+  suggest importing that login instead of stopping.
+
+Prefer this over attaching Browser Use to their own browser: the work stays in
+the pane they can see. The user always picks the source browser; people run
+several Chromium browsers (Chrome, Edge, Brave, Arc, Dia, Comet) and only they
+know which holds the session. macOS only; it reads the browser's Keychain key
+(first run prompts them to allow it) and never modifies the source browser. On
+another OS, or for a non-Chromium browser like Safari or Firefox, say it can't
+import and leave sign-in to the user.
 
 1. List the installed browsers and let the user choose:
    `superset browser import-login --workspace <id> --pane <paneId>`
