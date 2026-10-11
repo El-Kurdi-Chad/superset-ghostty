@@ -9,16 +9,16 @@ import { useHotkey } from "renderer/hotkeys";
 export function ChatClosedToast({
 	titles,
 	durationMs,
-	onRevert,
+	onUndo,
 }: {
 	titles: string[];
 	durationMs: number;
-	onRevert: () => void;
+	onUndo: () => void;
 }) {
 	const { t } = useLingui();
 	const countdownRef = useRef<HTMLDivElement>(null);
 	const animationRef = useRef<Animation | null>(null);
-	const { keys } = useHotkey("REOPEN_CLOSED_CHATS", onRevert, {
+	const { keys } = useHotkey("REOPEN_CLOSED_CHATS", onUndo, {
 		enableOnFormTags: false,
 		enableOnContentEditable: false,
 	});
@@ -62,11 +62,11 @@ export function ChatClosedToast({
 			</div>
 			<Button
 				className="h-7 shrink-0 gap-2 px-2"
-				onClick={onRevert}
+				onClick={onUndo}
 				size="sm"
 				variant="secondary"
 			>
-				<Trans>Revert</Trans>
+				<Trans>Undo</Trans>
 				{keys[0] !== "Unassigned" && (
 					<KbdGroup>
 						{keys.map((key) => (

@@ -14148,12 +14148,6 @@ msgstr "Sıralamamı göster"
 msgid "Revenue first, then how many people are actually using it, then what it costs to run."
 msgstr "Önce gelir, sonra gerçekte kaç kişinin kullandığı, sonra da işletme maliyeti."
 
-msgid "Revert"
-msgstr "Geri al"
-
-msgid "Revert Closed Chats"
-msgstr "Kapatılan sohbetleri geri al"
-
 msgid "Review"
 msgstr "İnceleme"
 
@@ -18105,6 +18099,9 @@ msgstr "Geri al"
 
 msgid "Undo Archive"
 msgstr "Arşivlemeyi geri al"
+
+msgid "Undo Closed Chats"
+msgstr "Kapatılan sohbetleri geri al"
 
 msgid "Ungroup"
 msgstr "Gruptan çıkar"

@@ -87,7 +87,7 @@ export function useUndoableChatClose({
 				() => (
 					<ChatClosedToast
 						durationMs={UNDO_WINDOW_MS}
-						onRevert={() => {
+						onUndo={() => {
 							settle(true);
 							toast.dismiss(batch.toastId);
 						}}

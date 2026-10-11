@@ -14148,12 +14148,6 @@ msgstr "Odhalit mou pozici"
 msgid "Revenue first, then how many people are actually using it, then what it costs to run."
 msgstr "Nejdřív tržby, pak kolik lidí to opravdu používá a nakonec kolik stojí provoz."
 
-msgid "Revert"
-msgstr "Vrátit"
-
-msgid "Revert Closed Chats"
-msgstr "Vrátit zavřené chaty"
-
 msgid "Review"
 msgstr "Revize"
 
@@ -18105,6 +18099,9 @@ msgstr "Zpět"
 
 msgid "Undo Archive"
 msgstr "Vrátit archivaci"
+
+msgid "Undo Closed Chats"
+msgstr "Vrátit zavření chatů"
 
 msgid "Ungroup"
 msgstr "Zrušit skupinu"

@@ -14148,12 +14148,6 @@ msgstr "Показать моё место"
 msgid "Revenue first, then how many people are actually using it, then what it costs to run."
 msgstr "Сначала выручка, затем сколько людей действительно им пользуются, затем во что обходится работа."
 
-msgid "Revert"
-msgstr "Вернуть"
-
-msgid "Revert Closed Chats"
-msgstr "Вернуть закрытые чаты"
-
 msgid "Review"
 msgstr "Ревью"
 
@@ -18105,6 +18099,9 @@ msgstr "Отменить"
 
 msgid "Undo Archive"
 msgstr "Отменить архивацию"
+
+msgid "Undo Closed Chats"
+msgstr "Отменить закрытие чатов"
 
 msgid "Ungroup"
 msgstr "Убрать из группы"

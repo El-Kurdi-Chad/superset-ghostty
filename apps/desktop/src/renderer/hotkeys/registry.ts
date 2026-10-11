@@ -565,7 +565,7 @@ export const HOTKEYS_REGISTRY = {
 			windows: L("ctrl+z"),
 			linux: L("ctrl+z"),
 		},
-		label: msg({ message: "Revert Closed Chats" }),
+		label: msg({ message: "Undo Closed Chats" }),
 		category: "Layout",
 		description: msg({
 			message: "Reopen the chats you just closed",

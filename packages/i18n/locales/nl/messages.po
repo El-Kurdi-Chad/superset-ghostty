@@ -14148,12 +14148,6 @@ msgstr "Mijn positie tonen"
 msgid "Revenue first, then how many people are actually using it, then what it costs to run."
 msgstr "Eerst de omzet, dan hoeveel mensen het echt gebruiken, dan wat het kost om te draaien."
 
-msgid "Revert"
-msgstr "Terugzetten"
-
-msgid "Revert Closed Chats"
-msgstr "Gesloten chats terugzetten"
-
 msgid "Review"
 msgstr "Review"
 
@@ -18105,6 +18099,9 @@ msgstr "Ongedaan maken"
 
 msgid "Undo Archive"
 msgstr "Archiveren ongedaan maken"
+
+msgid "Undo Closed Chats"
+msgstr "Sluiten van chats ongedaan maken"
 
 msgid "Ungroup"
 msgstr "Groepering opheffen"

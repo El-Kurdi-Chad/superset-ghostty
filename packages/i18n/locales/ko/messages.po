@@ -14148,12 +14148,6 @@ msgstr "내 순위 공개"
 msgid "Revenue first, then how many people are actually using it, then what it costs to run."
 msgstr "매출을 먼저, 그다음 실제 사용자 수, 마지막으로 운영 비용."
 
-msgid "Revert"
-msgstr "되돌리기"
-
-msgid "Revert Closed Chats"
-msgstr "닫은 채팅 되돌리기"
-
 msgid "Review"
 msgstr "리뷰"
 
@@ -18105,6 +18099,9 @@ msgstr "실행 취소"
 
 msgid "Undo Archive"
 msgstr "보관 실행 취소"
+
+msgid "Undo Closed Chats"
+msgstr "닫은 채팅 실행 취소"
 
 msgid "Ungroup"
 msgstr "그룹 해제"

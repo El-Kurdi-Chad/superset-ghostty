@@ -14148,12 +14148,6 @@ msgstr "显示我的排名"
 msgid "Revenue first, then how many people are actually using it, then what it costs to run."
 msgstr "先看收入，再看实际使用人数，最后看运营成本。"
 
-msgid "Revert"
-msgstr "撤销"
-
-msgid "Revert Closed Chats"
-msgstr "撤销关闭的聊天"
-
 msgid "Review"
 msgstr "审查"
 
@@ -18105,6 +18099,9 @@ msgstr "撤销"
 
 msgid "Undo Archive"
 msgstr "撤销归档"
+
+msgid "Undo Closed Chats"
+msgstr "撤销关闭的聊天"
 
 msgid "Ungroup"
 msgstr "取消分组"

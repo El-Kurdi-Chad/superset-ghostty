@@ -14148,12 +14148,6 @@ msgstr "Meinen Rang anzeigen"
 msgid "Revenue first, then how many people are actually using it, then what it costs to run."
 msgstr "Zuerst der Umsatz, dann wie viele Menschen es wirklich nutzen, dann was der Betrieb kostet."
 
-msgid "Revert"
-msgstr "Rückgängig"
-
-msgid "Revert Closed Chats"
-msgstr "Geschlossene Chats wiederherstellen"
-
 msgid "Review"
 msgstr "Review"
 
@@ -18105,6 +18099,9 @@ msgstr "Rückgängig"
 
 msgid "Undo Archive"
 msgstr "Archivierung rückgängig machen"
+
+msgid "Undo Closed Chats"
+msgstr "Schließen von Chats rückgängig machen"
 
 msgid "Ungroup"
 msgstr "Gruppierung aufheben"

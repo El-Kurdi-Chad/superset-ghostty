@@ -14148,12 +14148,6 @@ msgstr "Pokaż moją pozycję"
 msgid "Revenue first, then how many people are actually using it, then what it costs to run."
 msgstr "Najpierw przychód, potem ilu ludzi naprawdę tego używa, a na końcu ile kosztuje utrzymanie."
 
-msgid "Revert"
-msgstr "Przywróć"
-
-msgid "Revert Closed Chats"
-msgstr "Przywróć zamknięte czaty"
-
 msgid "Review"
 msgstr "Przegląd"
 
@@ -18105,6 +18099,9 @@ msgstr "Cofnij"
 
 msgid "Undo Archive"
 msgstr "Cofnij archiwizację"
+
+msgid "Undo Closed Chats"
+msgstr "Cofnij zamknięcie czatów"
 
 msgid "Ungroup"
 msgstr "Rozgrupuj"

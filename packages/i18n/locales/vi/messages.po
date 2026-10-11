@@ -14148,12 +14148,6 @@ msgstr "Hiện thứ hạng của tôi"
 msgid "Revenue first, then how many people are actually using it, then what it costs to run."
 msgstr "Doanh thu trước, rồi đến số người thực sự dùng, rồi chi phí vận hành."
 
-msgid "Revert"
-msgstr "Hoàn tác"
-
-msgid "Revert Closed Chats"
-msgstr "Hoàn tác các cuộc trò chuyện đã đóng"
-
 msgid "Review"
 msgstr "Review"
 
@@ -18105,6 +18099,9 @@ msgstr "Hoàn tác"
 
 msgid "Undo Archive"
 msgstr "Hoàn tác lưu trữ"
+
+msgid "Undo Closed Chats"
+msgstr "Hoàn tác đóng cuộc trò chuyện"
 
 msgid "Ungroup"
 msgstr "Bỏ nhóm"

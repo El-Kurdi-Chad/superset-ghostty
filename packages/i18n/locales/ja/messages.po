@@ -14148,12 +14148,6 @@ msgstr "自分のランクを表示"
 msgid "Revenue first, then how many people are actually using it, then what it costs to run."
 msgstr "まず売上、次に実際に使っている人数、そして運営にかかるコスト。"
 
-msgid "Revert"
-msgstr "元に戻す"
-
-msgid "Revert Closed Chats"
-msgstr "閉じたチャットを元に戻す"
-
 msgid "Review"
 msgstr "レビュー"
 
@@ -18105,6 +18099,9 @@ msgstr "取り消す"
 
 msgid "Undo Archive"
 msgstr "アーカイブを元に戻す"
+
+msgid "Undo Closed Chats"
+msgstr "閉じたチャットを元に戻す"
 
 msgid "Ungroup"
 msgstr "グループ解除"

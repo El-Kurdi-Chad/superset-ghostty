@@ -14148,12 +14148,6 @@ msgstr "Tampilkan peringkat saya"
 msgid "Revenue first, then how many people are actually using it, then what it costs to run."
 msgstr "Pendapatan dulu, lalu berapa banyak orang yang benar-benar memakainya, lalu berapa biayanya."
 
-msgid "Revert"
-msgstr "Kembalikan"
-
-msgid "Revert Closed Chats"
-msgstr "Kembalikan chat yang ditutup"
-
 msgid "Review"
 msgstr "Review"
 
@@ -18105,6 +18099,9 @@ msgstr "Undo"
 
 msgid "Undo Archive"
 msgstr "Batalkan arsip"
+
+msgid "Undo Closed Chats"
+msgstr "Batalkan penutupan chat"
 
 msgid "Ungroup"
 msgstr "Keluarkan dari grup"
