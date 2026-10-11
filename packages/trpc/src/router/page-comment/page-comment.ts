@@ -1,5 +1,6 @@
 import { db, dbWs } from "@superset/db/client";
 import {
+	pageCommentReads,
 	pageComments,
 	pageCommentThreads,
 	pages,
@@ -24,6 +25,7 @@ import {
 	editPageCommentSchema,
 	listOrganizationPageCommentsSchema,
 	listPageCommentsSchema,
+	markReadPageCommentsSchema,
 	replyPageCommentSchema,
 	resolvePageCommentThreadSchema,
 } from "./schema";
@@ -157,6 +159,25 @@ export const pageCommentRouter = {
 					),
 				),
 			);
+		}),
+
+	markRead: protectedProcedure
+		.input(markReadPageCommentsSchema)
+		.mutation(async ({ ctx, input }) => {
+			const organizationId = await requireActiveOrgMembership(ctx);
+			const userId = ctx.session.user.id;
+			await loadReadablePage({ pageId: input.pageId, organizationId, userId });
+
+			const now = new Date();
+			await db
+				.insert(pageCommentReads)
+				.values({ userId, pageId: input.pageId, lastSeenAt: now })
+				.onConflictDoUpdate({
+					target: [pageCommentReads.userId, pageCommentReads.pageId],
+					set: { lastSeenAt: now },
+				});
+
+			return { pageId: input.pageId };
 		}),
 
 	/**

@@ -66,6 +66,10 @@ export const replyPageCommentSchema = z.object({
 	agentSessionId: z.string().min(1).max(200).optional(),
 });
 
+export const markReadPageCommentsSchema = z.object({
+	pageId: z.string().uuid(),
+});
+
 export const editPageCommentSchema = z.object({
 	commentId: z.string().uuid(),
 	body: z.string().min(1).max(10_000),
