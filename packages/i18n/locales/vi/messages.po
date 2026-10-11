@@ -698,6 +698,9 @@ msgstr "{closedCount, plural, one {Đã đóng # cổng} other {Đã đóng # c�
 msgid "{closedCount} closed"
 msgstr "{closedCount} đã đóng"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commit}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} trong {0} check đã xong"
@@ -737,6 +740,9 @@ msgstr "{count, plural, other {# bước}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree trong repository này chưa có workspace. Nó sẽ được nhập thành workspace.} other {# worktree trong repository này chưa có workspace. Chúng sẽ được nhập thành workspace.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {đã thêm một commit} other {đã thêm # commit}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {Đã tạo # workspace} other {Đã tạo # workspace}}"
@@ -6052,6 +6058,9 @@ msgstr "Bỏ qua gợi ý"
 msgid "Dismissed"
 msgstr "Đã bỏ qua"
 
+msgid "dismissed their review"
+msgstr "đã hủy review của mình"
+
 msgid "Display"
 msgstr "Hiển thị"
 
@@ -10744,9 +10753,6 @@ msgstr "Không có kết quả cho “{query}”"
 
 msgid "No results found."
 msgstr "Không tìm thấy kết quả nào."
-
-msgid "No review body."
-msgstr "Không có nội dung review."
 
 msgid "No Reviewers Assigned"
 msgstr "Chưa gán người review"

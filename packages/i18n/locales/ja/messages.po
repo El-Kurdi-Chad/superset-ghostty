@@ -698,6 +698,9 @@ msgstr "{closedCount, plural, one {#個のポートを閉じました} other {#�
 msgid "{closedCount} closed"
 msgstr "{closedCount}件未通過"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {#件のコミット} other {#件のコミット}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{0}件中{completed}件のチェックが完了"
@@ -737,6 +740,9 @@ msgstr "{count, plural, other {#ステップ}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {このリポジトリの#件のワークツリーにワークスペースがありません。ワークスペースとしてインポートされます。} other {このリポジトリの#件のワークツリーにワークスペースがありません。ワークスペースとしてインポートされます。}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {が#件のコミットを追加しました} other {が#件のコミットを追加しました}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {#件のワークスペースを作成しました} other {#件のワークスペースを作成しました}}"
@@ -6052,6 +6058,9 @@ msgstr "提案を閉じる"
 msgid "Dismissed"
 msgstr "却下"
 
+msgid "dismissed their review"
+msgstr "がレビューを取り下げました"
+
 msgid "Display"
 msgstr "表示"
 
@@ -10744,9 +10753,6 @@ msgstr "「{query}」に一致する結果はありません"
 
 msgid "No results found."
 msgstr "結果が見つかりません。"
-
-msgid "No review body."
-msgstr "レビュー本文はありません。"
 
 msgid "No Reviewers Assigned"
 msgstr "レビュアーの割り当てなし"

@@ -2,14 +2,16 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { cn } from "@superset/ui/utils";
 import type { Components } from "react-markdown";
 import { MarkdownRenderer } from "renderer/components/MarkdownRenderer";
+import { SafeImage } from "renderer/components/MarkdownRenderer/components";
 import { preparePullRequestMarkdown } from "../../utils/preparePullRequestMarkdown";
 import { PullRequestLinkIcon } from "./components/PullRequestLinkIcon";
 import "./pull-request-markdown.css";
 
 const EXTERNAL_HREF_PATTERN = /^https?:\/\//i;
 
-/** GitHub-body renderers: links carry their site's mark, task boxes sit in
- *  the list gutter, tables are a bordered grid. */
+/** GitHub-body renderers: links carry their site's mark, images keep the
+ *  markup's size, task boxes sit in the list gutter, tables are a bordered
+ *  grid. */
 const PROSE_COMPONENTS: Partial<Components> = {
 	a: ({ href, children }) => {
 		const external =
@@ -26,6 +28,9 @@ const PROSE_COMPONENTS: Partial<Components> = {
 			</a>
 		);
 	},
+	img: ({ src, alt, width, height }) => (
+		<SafeImage src={src} alt={alt} width={width} height={height} />
+	),
 	li: ({ children, className }) => <li className={className}>{children}</li>,
 	input: ({ type, checked }) =>
 		type === "checkbox" ? (
@@ -49,12 +54,15 @@ const PROSE_COMPONENTS: Partial<Components> = {
 interface PullRequestMarkdownProps {
 	body: string;
 	className?: string;
+	/** Comment cards set smaller, tighter type than the description. */
+	size?: "page" | "comment";
 }
 
 /** A GitHub body as page prose: template comments gone, no inner scroller. */
 export function PullRequestMarkdown({
 	body,
 	className,
+	size = "page",
 }: PullRequestMarkdownProps) {
 	const { t } = useLingui();
 	const prepared = preparePullRequestMarkdown(body, {
@@ -76,7 +84,11 @@ export function PullRequestMarkdown({
 			content={prepared}
 			style="default"
 			components={PROSE_COMPONENTS}
-			className={cn("pull-request-markdown h-auto overflow-visible", className)}
+			className={cn(
+				"pull-request-markdown h-auto overflow-visible",
+				size === "comment" && "pull-request-markdown-comment",
+				className,
+			)}
 		/>
 	);
 }

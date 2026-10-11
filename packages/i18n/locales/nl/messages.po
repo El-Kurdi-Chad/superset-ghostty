@@ -698,6 +698,9 @@ msgstr "{closedCount, plural, one {# poort gesloten} other {# poorten gesloten}}
 msgid "{closedCount} closed"
 msgstr "{closedCount} gesloten"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commits}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} van {0} checks afgerond"
@@ -737,6 +740,9 @@ msgstr "{count, plural, one {# stap} other {# stappen}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree in deze repository heeft geen werkruimte. Die wordt als werkruimte geïmporteerd.} other {# worktrees in deze repository hebben geen werkruimte. Ze worden als werkruimtes geïmporteerd.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {heeft een commit toegevoegd} other {heeft # commits toegevoegd}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {# werkruimte aangemaakt} other {# werkruimtes aangemaakt}}"
@@ -6052,6 +6058,9 @@ msgstr "Suggesties sluiten"
 msgid "Dismissed"
 msgstr "Afgewezen"
 
+msgid "dismissed their review"
+msgstr "heeft de review ingetrokken"
+
 msgid "Display"
 msgstr "Weergave"
 
@@ -10744,9 +10753,6 @@ msgstr "Geen resultaten voor “{query}”"
 
 msgid "No results found."
 msgstr "Geen resultaten gevonden."
-
-msgid "No review body."
-msgstr "Geen reviewtekst."
 
 msgid "No Reviewers Assigned"
 msgstr "Geen reviewers toegewezen"

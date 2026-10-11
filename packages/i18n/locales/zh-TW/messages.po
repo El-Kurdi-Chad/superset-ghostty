@@ -698,6 +698,9 @@ msgstr "{closedCount, plural, one {已關閉#個埠} other {已關閉#個埠}}"
 msgid "{closedCount} closed"
 msgstr "{closedCount}項未開啟"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {#個提交} other {#個提交}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{0}項檢查中已完成{completed}項"
@@ -737,6 +740,9 @@ msgstr "{count, plural, other {# 個步驟}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {此儲存庫中有#個worktree沒有對應的工作區，將被匯入為工作區。} other {此儲存庫中有#個worktree沒有對應的工作區，將被匯入為工作區。}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {新增了#個提交} other {新增了#個提交}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {已建立#個工作區} other {已建立#個工作區}}"
@@ -6052,6 +6058,9 @@ msgstr "忽略建議"
 msgid "Dismissed"
 msgstr "已忽略"
 
+msgid "dismissed their review"
+msgstr "撤銷了審查"
+
 msgid "Display"
 msgstr "顯示"
 
@@ -10744,9 +10753,6 @@ msgstr "沒有「{query}」的結果"
 
 msgid "No results found."
 msgstr "未找到結果。"
-
-msgid "No review body."
-msgstr "沒有審查內容。"
 
 msgid "No Reviewers Assigned"
 msgstr "未指派審查者"

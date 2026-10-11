@@ -1,6 +1,9 @@
 import type { ReactNode } from "react";
 import type { PullRequestDetail } from "../../hooks/usePullRequestDetail";
-import { PullRequestConversation } from "../PullRequestConversation";
+import {
+	PullRequestActivity,
+	type PullRequestActivityThreads,
+} from "../PullRequestActivity";
 import type { PullRequestCommentTarget } from "../PullRequestConversationComposer";
 import { PullRequestInfo } from "../PullRequestInfo";
 import { PullRequestItemHeader } from "../PullRequestItemHeader";
@@ -11,18 +14,16 @@ interface PullRequestSummaryContentProps {
 	data: PullRequestDetail;
 	/** Where a new conversation comment posts; null hides the composer. */
 	commentTarget?: PullRequestCommentTarget | null;
-	/** Review-thread rows the workspace pane adds to the Comments section. */
-	children?: ReactNode;
-	threadCount?: number;
+	/** The workspace pane's review threads, hung on the activity rail. */
+	threads?: PullRequestActivityThreads;
 	aside?: ReactNode;
 }
 
-/** The Summary tab: header, info rail, description, then the Comments section. */
+/** The Summary tab: header, info rail, description, then the Activity section. */
 export function PullRequestSummaryContent({
 	data,
 	commentTarget = null,
-	children,
-	threadCount,
+	threads,
 	aside,
 }: PullRequestSummaryContentProps) {
 	return (
@@ -35,13 +36,11 @@ export function PullRequestSummaryContent({
 		>
 			<PullRequestMarkdown body={data.body} />
 			<div className="mt-8">
-				<PullRequestConversation
+				<PullRequestActivity
 					data={data}
 					commentTarget={commentTarget}
-					threadCount={threadCount}
-				>
-					{children}
-				</PullRequestConversation>
+					threads={threads}
+				/>
 			</div>
 		</PullRequestPageBody>
 	);

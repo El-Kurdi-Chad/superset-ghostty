@@ -698,6 +698,9 @@ msgstr "{closedCount, plural, one {# Port geschlossen} other {# Ports geschlosse
 msgid "{closedCount} closed"
 msgstr "{closedCount} geschlossen"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# Commit} other {# Commits}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} von {0} Prüfungen abgeschlossen"
@@ -737,6 +740,9 @@ msgstr "{count, plural, one {# Schritt} other {# Schritte}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# Worktree in diesem Repository hat keinen Arbeitsbereich. Er wird als Arbeitsbereich importiert.} other {# Worktrees in diesem Repository haben keinen Arbeitsbereich. Sie werden als Arbeitsbereiche importiert.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {hat einen Commit hinzugefügt} other {hat # Commits hinzugefügt}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {# Arbeitsbereich erstellt} other {# Arbeitsbereiche erstellt}}"
@@ -6052,6 +6058,9 @@ msgstr "Vorschläge ausblenden"
 msgid "Dismissed"
 msgstr "Verworfen"
 
+msgid "dismissed their review"
+msgstr "hat das Review verworfen"
+
 msgid "Display"
 msgstr "Anzeige"
 
@@ -10744,9 +10753,6 @@ msgstr "Keine Ergebnisse für „{query}“"
 
 msgid "No results found."
 msgstr "Keine Ergebnisse gefunden."
-
-msgid "No review body."
-msgstr "Kein Review-Text."
 
 msgid "No Reviewers Assigned"
 msgstr "Keine Reviewer zugewiesen"

@@ -698,6 +698,9 @@ msgstr "{closedCount, plural, one {Закрыт # порт} few {Закрыто 
 msgid "{closedCount} closed"
 msgstr "{closedCount} закрыто"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# коммит} few {# коммита} many {# коммитов} other {# коммита}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} из {0} проверок завершено"
@@ -737,6 +740,9 @@ msgstr "{count, plural, one {# шаг} few {# шага} many {# шагов} othe
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree в этом репозитории не имеет рабочей области. Он будет импортирован как рабочая область.} few {# worktree в этом репозитории не имеют рабочих областей. Они будут импортированы как рабочие области.} many {# worktree в этом репозитории не имеют рабочих областей. Они будут импортированы как рабочие области.} other {# worktree в этом репозитории не имеют рабочих областей. Они будут импортированы как рабочие области.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {добавил(а) коммит} few {добавил(а) # коммита} many {добавил(а) # коммитов} other {добавил(а) # коммита}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {Создана # рабочая область} few {Создано # рабочие области} many {Создано # рабочих областей} other {Создано # рабочей области}}"
@@ -6052,6 +6058,9 @@ msgstr "Скрыть подсказки"
 msgid "Dismissed"
 msgstr "Отклонено"
 
+msgid "dismissed their review"
+msgstr "отклонил(а) своё ревью"
+
 msgid "Display"
 msgstr "Отображение"
 
@@ -10744,9 +10753,6 @@ msgstr "Ничего не найдено по запросу «{query}»"
 
 msgid "No results found."
 msgstr "Ничего не найдено."
-
-msgid "No review body."
-msgstr "Нет текста ревью."
 
 msgid "No Reviewers Assigned"
 msgstr "Ревьюеры не назначены"

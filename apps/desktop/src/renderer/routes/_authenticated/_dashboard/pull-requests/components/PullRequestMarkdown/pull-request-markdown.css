@@ -12,6 +12,11 @@
 	--pr-prose-link: #7cacf8;
 }
 
+.pull-request-markdown.pull-request-markdown-comment.default-markdown {
+	font-size: 0.8125rem;
+	line-height: 1.6;
+}
+
 .pull-request-markdown.default-markdown article {
 	max-width: none;
 	margin: 0;
@@ -34,6 +39,17 @@
 .pull-request-markdown.default-markdown table {
 	margin: 0.8rem 0;
 	line-height: 1.7;
+}
+
+.pull-request-markdown.pull-request-markdown-comment.default-markdown p,
+.pull-request-markdown.pull-request-markdown-comment.default-markdown ul,
+.pull-request-markdown.pull-request-markdown-comment.default-markdown ol,
+.pull-request-markdown.pull-request-markdown-comment.default-markdown
+	blockquote,
+.pull-request-markdown.pull-request-markdown-comment.default-markdown pre,
+.pull-request-markdown.pull-request-markdown-comment.default-markdown table {
+	margin: 0.6rem 0;
+	line-height: 1.6;
 }
 
 .pull-request-markdown.default-markdown ul,
@@ -86,8 +102,7 @@
 
 .pull-request-markdown.default-markdown strong,
 .pull-request-markdown.default-markdown b {
-	font-weight: 500;
-	font-synthesis: none;
+	font-weight: 600;
 }
 
 .pull-request-markdown.default-markdown a {
@@ -114,9 +129,33 @@
 .pull-request-markdown.default-markdown blockquote {
 	margin: 0.8rem 0;
 	border-left: 2px solid var(--border);
-	padding-left: 0.8rem;
+	padding: 0.1rem 0 0.1rem 0.8rem;
 	color: var(--muted-foreground);
-	font-style: normal;
+	font-style: italic;
+}
+
+/* Bots fold their detail behind <details>; the native marker is the fold's handle. */
+.pull-request-markdown.default-markdown details {
+	margin: 0.6rem 0;
+}
+
+.pull-request-markdown.default-markdown details > summary {
+	cursor: pointer;
+	font-weight: 500;
+	transition: color 120ms ease;
+}
+
+.pull-request-markdown.default-markdown details > summary:hover {
+	color: var(--foreground);
+}
+
+.pull-request-markdown.default-markdown details > summary > p {
+	display: inline;
+	margin: 0;
+}
+
+.pull-request-markdown.default-markdown details[open] > summary {
+	margin-bottom: 0.4rem;
 }
 
 .pull-request-markdown.default-markdown hr {
@@ -142,17 +181,20 @@
 	accent-color: var(--primary);
 }
 
+/* A framed, full-width grid with rules between rows; a table wider than the
+ * pane scrolls inside the frame instead of squeezing its columns. */
 .pull-request-markdown.default-markdown .pr-prose-table {
 	margin: 0.8rem 0;
 	max-width: 100%;
 	overflow-x: auto;
 	overscroll-behavior-inline: contain;
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	background: color-mix(in srgb, var(--foreground) 4%, transparent);
 }
 
-/* Laid out at its natural width and scrolled, as GitHub does: a 100% table
- * would squeeze the prose column behind unbreakable code tokens. */
 .pull-request-markdown.default-markdown table {
-	width: max-content;
+	width: 100%;
 	max-width: none;
 	margin: 0;
 	border-collapse: collapse;
@@ -160,29 +202,38 @@
 	line-height: 1.5;
 }
 
-.pull-request-markdown.default-markdown td {
-	max-width: 36rem;
-}
-
 .pull-request-markdown.default-markdown th,
 .pull-request-markdown.default-markdown td {
-	border: 1px solid var(--border);
-	padding: 0.35rem 0.45rem;
+	min-width: 8rem;
+	max-width: 36rem;
+	border: 0;
+	padding: 0.5rem 0.75rem;
 	text-align: left;
 	vertical-align: top;
 	background: transparent;
 }
 
 .pull-request-markdown.default-markdown th {
-	font-weight: 500;
+	border-bottom: 1px solid var(--border);
+	background: color-mix(in srgb, var(--foreground) 4%, transparent);
+	font-weight: 600;
 }
 
-.pull-request-markdown.default-markdown img {
-	max-width: 100%;
-	height: auto;
+.pull-request-markdown.default-markdown tr + tr > td {
+	border-top: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
 }
 
 .pull-request-markdown.default-markdown td img,
 .pull-request-markdown.default-markdown th img {
+	display: inline-block;
 	max-width: 20rem;
+	vertical-align: middle;
+}
+
+/* The renderer's image margins are for a figure on its own line; badges and
+ * icons sit inline with text. */
+.pull-request-markdown.default-markdown img {
+	max-width: 100%;
+	height: auto;
+	margin: 0;
 }

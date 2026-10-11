@@ -698,6 +698,9 @@ msgstr "{closedCount, plural, one {# port kapatıldı} other {# port kapatıldı
 msgid "{closedCount} closed"
 msgstr "{closedCount} kapalı"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commit}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{0} kontrolden {completed} tanesi tamamlandı"
@@ -737,6 +740,9 @@ msgstr "{count, plural, other {# adım}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {Bu depodaki # worktree'nin çalışma alanı yok. Çalışma alanı olarak içe aktarılacak.} other {Bu depodaki # worktree'nin çalışma alanı yok. Çalışma alanı olarak içe aktarılacaklar.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {bir commit ekledi} other {# commit ekledi}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {# çalışma alanı oluşturuldu} other {# çalışma alanı oluşturuldu}}"
@@ -6052,6 +6058,9 @@ msgstr "Önerileri kapat"
 msgid "Dismissed"
 msgstr "Yok sayıldı"
 
+msgid "dismissed their review"
+msgstr "incelemesini geri çekti"
+
 msgid "Display"
 msgstr "Görüntüleme"
 
@@ -10744,9 +10753,6 @@ msgstr "“{query}” için sonuç yok"
 
 msgid "No results found."
 msgstr "Sonuç bulunamadı."
-
-msgid "No review body."
-msgstr "İnceleme metni yok."
 
 msgid "No Reviewers Assigned"
 msgstr "İnceleyici atanmadı"

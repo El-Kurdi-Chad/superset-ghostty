@@ -698,6 +698,9 @@ msgstr "{closedCount, plural, one {Menutup # port} other {Menutup # port}}"
 msgid "{closedCount} closed"
 msgstr "{closedCount} tertutup"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commit}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} dari {0} check selesai"
@@ -737,6 +740,9 @@ msgstr "{count, plural, other {# langkah}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree di repositori ini belum punya workspace. Worktree itu akan diimpor sebagai workspace.} other {# worktree di repositori ini belum punya workspace. Worktree itu akan diimpor sebagai workspace.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {menambahkan satu commit} other {menambahkan # commit}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {Membuat # workspace} other {Membuat # workspace}}"
@@ -6052,6 +6058,9 @@ msgstr "Tutup saran"
 msgid "Dismissed"
 msgstr "Diabaikan"
 
+msgid "dismissed their review"
+msgstr "membatalkan ulasannya"
+
 msgid "Display"
 msgstr "Tampilan"
 
@@ -10744,9 +10753,6 @@ msgstr "Tidak ada hasil untuk “{query}”"
 
 msgid "No results found."
 msgstr "Tidak ada hasil ditemukan."
-
-msgid "No review body."
-msgstr "Tidak ada isi ulasan."
 
 msgid "No Reviewers Assigned"
 msgstr "Tidak Ada Reviewer yang Ditugaskan"

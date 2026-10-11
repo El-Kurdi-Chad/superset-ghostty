@@ -698,6 +698,9 @@ msgstr "{closedCount, plural, one {포트 #개를 닫았습니다} other {포트
 msgid "{closedCount} closed"
 msgstr "{closedCount}개 닫힘"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {커밋 #개} other {커밋 #개}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "검사 {0}개 중 {completed}개 완료"
@@ -737,6 +740,9 @@ msgstr "{count, plural, other {#단계}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {이 리포지토리의 worktree #개에 워크스페이스가 없습니다. 워크스페이스로 가져옵니다.} other {이 리포지토리의 worktree #개에 워크스페이스가 없습니다. 워크스페이스로 가져옵니다.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {커밋 #개 추가함} other {커밋 #개 추가함}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {워크스페이스 #개를 만들었습니다} other {워크스페이스 #개를 만들었습니다}}"
@@ -6052,6 +6058,9 @@ msgstr "추천 닫기"
 msgid "Dismissed"
 msgstr "무시됨"
 
+msgid "dismissed their review"
+msgstr "리뷰 철회함"
+
 msgid "Display"
 msgstr "표시"
 
@@ -10744,9 +10753,6 @@ msgstr "“{query}”에 대한 결과가 없습니다"
 
 msgid "No results found."
 msgstr "결과를 찾을 수 없습니다."
-
-msgid "No review body."
-msgstr "리뷰 본문이 없습니다."
 
 msgid "No Reviewers Assigned"
 msgstr "지정된 리뷰어 없음"

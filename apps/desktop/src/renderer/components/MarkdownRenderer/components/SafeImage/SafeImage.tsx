@@ -29,10 +29,19 @@ function loadsDirectly(src: string, fromDisk: boolean): boolean {
 interface SafeImageProps {
 	src?: string;
 	alt?: string;
+	/** The markup's own size hints, which badges and icons in GitHub bodies rely on. */
+	width?: number | string;
+	height?: number | string;
 	className?: string;
 }
 
-export function SafeImage({ src, alt, className }: SafeImageProps) {
+export function SafeImage({
+	src,
+	alt,
+	width,
+	height,
+	className,
+}: SafeImageProps) {
 	const { t } = useLingui();
 	const resources = useMarkdownResources();
 	const localPath =
@@ -54,13 +63,23 @@ export function SafeImage({ src, alt, className }: SafeImageProps) {
 				<img
 					src={local.url}
 					alt={alt}
+					width={width}
+					height={height}
 					className={imageClassName}
 					onError={() => setUndecodableUrl(local.url)}
 				/>
 			);
 		}
 	} else if (src && loadsDirectly(src, resources !== null)) {
-		return <img src={src} alt={alt} className={imageClassName} />;
+		return (
+			<img
+				src={src}
+				alt={alt}
+				width={width}
+				height={height}
+				className={imageClassName}
+			/>
+		);
 	}
 
 	const failedToLoad = localPath !== null;

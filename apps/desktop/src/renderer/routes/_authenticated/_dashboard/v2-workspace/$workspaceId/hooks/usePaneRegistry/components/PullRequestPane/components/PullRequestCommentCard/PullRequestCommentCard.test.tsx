@@ -10,7 +10,10 @@ const { workspaceTrpc } = await import("@superset/workspace-client");
 const { PullRequestCommentCard } = await import("./PullRequestCommentCard");
 
 function renderCard(
-	props: Pick<PullRequestCommentCardProps, "comment" | "onOpenInDiff">,
+	props: Pick<
+		PullRequestCommentCardProps,
+		"comment" | "replies" | "onOpenInDiff"
+	>,
 ) {
 	return render(
 		<workspaceTrpc.Provider
@@ -40,18 +43,37 @@ const comment = {
 	isResolved: false,
 };
 describe("review cards", () => {
-	test("folds to a row that names the author, the file and its state", () => {
-		const view = renderCard({ comment: { ...comment, isResolved: true } });
-		const row = view.getByRole("button", { name: /Expand/ });
-		expect(row.textContent).toContain("reviewer");
-		expect(row.textContent).toContain("src/app.ts:42");
-		expect(row.textContent).toContain("Resolved");
-		expect(view.queryByText(/Keep the/)).toBeNull();
+	test("the header names the author, the file and its state, and replies sit under the body", () => {
+		const view = renderCard({
+			comment: { ...comment, threadId: "T1", isResolved: true },
+			replies: [
+				{
+					...comment,
+					id: "c2",
+					authorLogin: "author",
+					body: "Fixed in the next push.",
+				},
+			],
+		});
+		const header = view.getByText("reviewer").closest("header");
+		expect(header?.textContent).toContain("src/app.ts:42");
+		expect(header?.textContent).toContain("Resolved");
+		expect(header?.textContent).not.toContain("Keep the");
+		const card = header?.parentElement;
+		const root = view.getByText(/Keep the/);
+		const reply = view.getByText("Fixed in the next push.");
+		expect(card?.contains(root)).toBe(true);
+		expect(card?.contains(reply)).toBe(true);
+		expect(
+			Boolean(
+				root.compareDocumentPosition(reply) & Node.DOCUMENT_POSITION_FOLLOWING,
+			),
+		).toBe(true);
+		expect(view.getByRole("button", { name: "Unresolve" })).toBeTruthy();
 	});
 	test("renders the full comment body without making it a navigation button", () => {
 		const onOpenInDiff = mock(() => {});
 		const view = renderCard({ comment, onOpenInDiff });
-		fireEvent.click(view.getByRole("button", { name: /Expand/ }));
 		const body = view.getByText(/Keep the/);
 		expect(body.textContent).toBe("Keep the selected line visible.");
 		expect(view.getByText("selected line").tagName).toBe("STRONG");
@@ -72,7 +94,6 @@ describe("review cards", () => {
 			comment: { ...comment, diffSide },
 			onOpenInDiff,
 		});
-		fireEvent.click(view.getByRole("button", { name: /Expand/ }));
 		fireEvent.click(view.getByRole("button", { name: /^src\/app\.ts/ }));
 		expect(onOpenInDiff).toHaveBeenCalledWith(
 			"src/app.ts",

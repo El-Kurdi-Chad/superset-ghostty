@@ -52,8 +52,8 @@ mock.module(
 	`${root}/pull-requests/components/PullRequestSummaryContent`,
 	() => ({ PullRequestSummaryContent: () => null }),
 );
-mock.module(`${pane}/components/PullRequestComments`, () => ({
-	PullRequestComments: () => null,
+mock.module(`${pane}/utils/buildReviewThreadEntries`, () => ({
+	buildReviewThreadEntries: () => [],
 }));
 mock.module(`${root}/components/WorkItemDetailState`, () => ({
 	WorkItemDetailState: ({ message }: { message: string }) => (

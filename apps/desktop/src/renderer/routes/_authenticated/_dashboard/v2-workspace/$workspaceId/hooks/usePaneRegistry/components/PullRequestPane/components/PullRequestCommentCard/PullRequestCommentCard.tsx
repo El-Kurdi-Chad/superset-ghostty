@@ -7,19 +7,21 @@ import {
 	LuArrowUpRight,
 	LuCheck,
 	LuCopy,
-	LuFileCode,
 	LuMessageSquare,
 	LuUndo2,
 } from "react-icons/lu";
-import { CommentBody } from "renderer/components/CommentBody";
 import { electronTrpcClient } from "renderer/lib/trpc-client";
-import { PullRequestCommentRow } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestCommentRow";
+import { PullRequestActivityCard } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestActivityCard";
+import { PullRequestMarkdown } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestMarkdown";
 import type { NormalizedComment } from "../../../../../../components/CommentsSection/types";
 import type { CommentPaneData, DiffFocusSide } from "../../../../../../types";
+import { PullRequestCommentReply } from "./components/PullRequestCommentReply";
 
 export interface PullRequestCommentCardProps {
 	workspaceId: string;
 	comment: NormalizedComment;
+	/** Later comments in the same thread. */
+	replies?: NormalizedComment[];
 	onOpenComment: (comment: CommentPaneData) => void;
 	onOpenInDiff?: (
 		path: string,
@@ -28,9 +30,12 @@ export interface PullRequestCommentCardProps {
 		side?: DiffFocusSide,
 	) => void;
 }
+
+/** A review thread on the activity rail: file and state in the header, the thread's actions, replies under the body. */
 export function PullRequestCommentCard({
 	workspaceId,
 	comment,
+	replies = [],
 	onOpenComment,
 	onOpenInDiff,
 }: PullRequestCommentCardProps) {
@@ -50,6 +55,7 @@ export function PullRequestCommentCard({
 		const timer = setTimeout(() => setCopied(false), 1500);
 		return () => clearTimeout(timer);
 	}, [copied]);
+	const canOpenCode = Boolean(comment.path && onOpenInDiff);
 	const openCode = () => {
 		if (comment.path)
 			onOpenInDiff?.(
@@ -81,51 +87,46 @@ export function PullRequestCommentCard({
 			toast.error(t({ message: "Couldn't copy comment" }));
 		}
 	};
+	const location = comment.path
+		? `${comment.path}${comment.line != null ? `:${comment.line}` : ""}`
+		: null;
 	return (
-		<PullRequestCommentRow
+		<PullRequestActivityCard
 			author={{ login: comment.authorLogin, avatarUrl: comment.avatarUrl }}
 			meta={
-				comment.path ? (
-					<span className="font-mono text-xs">
-						{comment.path}
-						{comment.line != null ? `:${comment.line}` : ""}
-					</span>
-				) : null
-			}
-			createdAt={comment.createdAt}
-			status={
-				comment.isResolved ? (
-					<span className="text-emerald-600 [.dark_&]:text-emerald-400">
-						<Trans>Resolved</Trans>
-					</span>
-				) : comment.isOutdated ? (
-					<span className="text-muted-foreground">
-						<Trans>Outdated</Trans>
-					</span>
-				) : null
-			}
-		>
-			<article className="min-w-0" data-review-comment={comment.id}>
-				<div className="mb-2 flex min-w-0 items-center gap-1">
-					{comment.path && onOpenInDiff ? (
+				<>
+					{location && canOpenCode ? (
 						<button
 							type="button"
 							onClick={openCode}
 							title={comment.path}
-							className="mr-auto flex min-w-0 items-center gap-1.5 text-left font-mono text-xs text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+							className="min-w-0 truncate font-mono text-[11px] text-foreground/80 transition-colors hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
 						>
-							<LuFileCode className="size-3.5 shrink-0 text-muted-foreground" />
-							<span className="min-w-0 truncate">{comment.path}</span>
-							{comment.line != null ? (
-								<span className="shrink-0 text-muted-foreground">
-									:{comment.line}
-								</span>
-							) : null}
-							<LuArrowUpRight className="size-3.5 shrink-0" />
+							{location}
 						</button>
-					) : (
-						<span className="mr-auto" />
-					)}
+					) : location ? (
+						<span
+							title={comment.path}
+							className="min-w-0 truncate font-mono text-[11px]"
+						>
+							{location}
+						</span>
+					) : null}
+					{comment.isResolved ? (
+						<span className="shrink-0 text-emerald-600 [.dark_&]:text-emerald-400">
+							<Trans>Resolved</Trans>
+						</span>
+					) : comment.isOutdated ? (
+						<span className="shrink-0">
+							<Trans>Outdated</Trans>
+						</span>
+					) : null}
+				</>
+			}
+			createdAt={comment.createdAt}
+			url={comment.url}
+			actions={
+				<>
 					<Button
 						size="icon"
 						variant="ghost"
@@ -167,12 +168,18 @@ export function PullRequestCommentCard({
 							</a>
 						</Button>
 					) : null}
-				</div>
-				<div className="min-w-0">
-					<CommentBody body={comment.body} />
-				</div>
-				{comment.threadId || (comment.path && onOpenInDiff) ? (
-					<footer className="mt-3 flex items-center justify-between gap-3">
+				</>
+			}
+			replies={
+				replies.length > 0
+					? replies.map((reply) => (
+							<PullRequestCommentReply key={reply.id} comment={reply} />
+						))
+					: null
+			}
+			footer={
+				comment.threadId || canOpenCode ? (
+					<>
 						{comment.threadId ? (
 							<Button
 								variant="ghost"
@@ -202,7 +209,7 @@ export function PullRequestCommentCard({
 						) : (
 							<span />
 						)}
-						{comment.path && onOpenInDiff ? (
+						{canOpenCode ? (
 							<Button
 								variant="ghost"
 								size="sm"
@@ -213,9 +220,11 @@ export function PullRequestCommentCard({
 								<LuArrowUpRight className="size-3.5" />
 							</Button>
 						) : null}
-					</footer>
-				) : null}
-			</article>
-		</PullRequestCommentRow>
+					</>
+				) : null
+			}
+		>
+			<PullRequestMarkdown body={comment.body} size="comment" />
+		</PullRequestActivityCard>
 	);
 }
