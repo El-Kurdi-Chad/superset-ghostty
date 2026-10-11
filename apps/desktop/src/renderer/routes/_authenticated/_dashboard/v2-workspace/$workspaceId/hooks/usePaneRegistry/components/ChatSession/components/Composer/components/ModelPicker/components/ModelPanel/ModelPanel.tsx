@@ -138,13 +138,23 @@ export function ModelPanel({
 		const next = tabs[(target + tabs.length) % tabs.length];
 		if (next) selectTab(next.presetId);
 	};
-	// Tab walks the agent tabs instead of leaving the menu; mod+digit picks a row.
+	// Tab walks the agent tabs instead of leaving the menu; mod+digit picks a
+	// row; a letter typed while a hovered row holds focus still reaches search.
 	const onPanelKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
 		if (event.key === "Tab") {
 			if (tabs.length === 0 && !onLeave) return;
 			event.preventDefault();
 			event.stopPropagation();
 			cycleTab(event.shiftKey ? -1 : 1);
+			return;
+		}
+		const typed =
+			event.key.length === 1 &&
+			event.key !== " " &&
+			!(event.metaKey || event.ctrlKey || event.altKey);
+		if (typed && searchRef.current && event.target !== searchRef.current) {
+			event.stopPropagation();
+			searchRef.current.focus();
 			return;
 		}
 		if (!(event.metaKey || event.ctrlKey) || event.altKey) return;

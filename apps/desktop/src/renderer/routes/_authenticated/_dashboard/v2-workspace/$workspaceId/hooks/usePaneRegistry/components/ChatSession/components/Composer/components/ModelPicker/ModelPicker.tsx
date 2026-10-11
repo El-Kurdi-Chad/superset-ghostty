@@ -1,4 +1,3 @@
-import { useLingui } from "@lingui/react/macro";
 import type { SessionConfigOption } from "@superset/chat/protocol";
 import {
 	DropdownMenu,
@@ -12,7 +11,7 @@ import {
 } from "@superset/ui/dropdown-menu";
 import { cn } from "@superset/ui/utils";
 import { type KeyboardEvent, useMemo, useRef, useState } from "react";
-import { LuCheck, LuChevronDown, LuZap } from "react-icons/lu";
+import { LuCheck, LuChevronDown } from "react-icons/lu";
 import {
 	getPresetIcon,
 	useIsDarkTheme,
@@ -57,7 +56,6 @@ export function ModelPicker({
 	configOptions,
 	onSelect,
 }: ModelPickerProps) {
-	const { t } = useLingui();
 	const [open, setOpen] = useState(false);
 	const searchRef = useRef<HTMLInputElement>(null);
 	const settingsRef = useRef<HTMLDivElement>(null);
@@ -98,7 +96,6 @@ export function ModelPicker({
 	const fast = settings.find(
 		(option) => option.id === "fast" && isToggle(option),
 	);
-	const fastOn = fast?.currentValue === "on";
 	const effort = settings.find((option) => option.category === "thought_level");
 	const effortLabel = currentLabel(effort);
 	// The slider card owns effort and the fast toggle; the rest stay as rows.
@@ -148,139 +145,104 @@ export function ModelPicker({
 			controls.at(next < 0 ? -1 : 0)?.focus();
 		}
 	};
-	// Hovering a row moves menu focus to it; typing must still reach the search.
-	const sendTypingToSearch = (event: KeyboardEvent<HTMLDivElement>) => {
-		const search = searchRef.current;
-		if (!search || event.target === search) return;
-		if (event.key.length !== 1 || event.key === " ") return;
-		if (event.metaKey || event.ctrlKey || event.altKey) return;
-		event.stopPropagation();
-		search.focus();
-	};
 
 	return (
-		<div className="flex min-w-0 items-center gap-0.5">
-			{fast ? (
-				<button
-					aria-label={fast.label}
-					aria-pressed={fastOn}
-					className={cn(
-						PILL_TRIGGER_CLASS,
-						"gap-1",
-						fastOn
-							? "text-highlight hover:text-highlight"
-							: "text-muted-foreground",
-					)}
-					onClick={() => choose(fast.id, fastOn ? "off" : "on")}
-					title={fast.label}
-					type="button"
-				>
-					<LuZap className={cn("size-3.5", fastOn && "fill-current")} />
-					<span>{t({ message: "Fast" })}</span>
-				</button>
-			) : null}
-			<DropdownMenu onOpenChange={setOpen} open={open}>
-				<DropdownMenuTrigger asChild>
-					<button className={cn(PILL_TRIGGER_CLASS, "group")} type="button">
-						{agentIcon ? (
-							<img
-								alt=""
-								className="size-3.5 shrink-0 object-contain"
-								draggable={false}
-								src={agentIcon}
-							/>
-						) : null}
-						<span className="truncate">{pillLabel}</span>
-						{effortLabel ? (
-							<span className="shrink-0 text-muted-foreground">
-								{effortLabel}
-							</span>
-						) : null}
-						<LuChevronDown className={PILL_CHEVRON_CLASS} />
-					</button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent
-					align="end"
-					className={cn(
-						MENU_PANEL_CLASS,
-						"flex w-[296px] flex-col overflow-hidden p-0",
-					)}
-					onKeyDownCapture={sendTypingToSearch}
-					side="top"
-				>
-					{showsModels ? (
-						<ModelPanel
-							agentSwitcher={
-								agentSwitcher && {
-									...agentSwitcher,
-									onSwitch: (presetId, picked) => {
-										setOpen(false);
-										agentSwitcher.onSwitch(presetId, picked);
-									},
-								}
-							}
-							model={model}
-							onLeave={settings.length > 0 ? leavePanel : undefined}
-							onPick={(modelId) => {
-								if (model) pick(model, modelId);
-							}}
-							searchRef={searchRef}
+		<DropdownMenu onOpenChange={setOpen} open={open}>
+			<DropdownMenuTrigger asChild>
+				<button className={cn(PILL_TRIGGER_CLASS, "group")} type="button">
+					{agentIcon ? (
+						<img
+							alt=""
+							className="size-3.5 shrink-0 object-contain"
+							draggable={false}
+							src={agentIcon}
 						/>
 					) : null}
-					{settings.length > 0 ? (
-						<div
-							className={cn(
-								"flex flex-col gap-px p-1",
-								showsModels && "border-t",
-							)}
-							onKeyDownCapture={onSettingsKeyDown}
-							ref={settingsRef}
-						>
-							{effort ? (
-								<EffortSliderCard
-									effort={effort}
-									fast={fast}
-									onSelect={choose}
-								/>
-							) : null}
-							{rows.map((option) => (
-								<DropdownMenuSub key={option.id}>
-									<DropdownMenuSubTrigger className={TRAIT_ROW_CLASS}>
-										<span className="min-w-0 flex-1 truncate">
-											{option.label}
-										</span>
-										<span className="max-w-28 truncate text-muted-foreground">
-											{currentLabel(option)}
-										</span>
-									</DropdownMenuSubTrigger>
-									{/* Portaled: the panel's backdrop-blur would otherwise contain and clip it. */}
-									<DropdownMenuPortal>
-										<DropdownMenuSubContent
-											className={cn(MENU_PANEL_CLASS, "w-[200px]")}
-										>
-											{option.options.map((entry) => (
-												<DropdownMenuItem
-													className={MENU_ROW_CLASS}
-													key={entry.id}
-													onSelect={() => pick(option, entry.id)}
-													title={entry.description}
-												>
-													<span className="min-w-0 flex-1 truncate">
-														{entry.label}
-													</span>
-													{entry.id === option.currentValue ? (
-														<LuCheck className="size-3.5 shrink-0" />
-													) : null}
-												</DropdownMenuItem>
-											))}
-										</DropdownMenuSubContent>
-									</DropdownMenuPortal>
-								</DropdownMenuSub>
-							))}
-						</div>
+					<span className="truncate">{pillLabel}</span>
+					{effortLabel ? (
+						<span className="shrink-0 text-muted-foreground">
+							{effortLabel}
+						</span>
 					) : null}
-				</DropdownMenuContent>
-			</DropdownMenu>
-		</div>
+					<LuChevronDown className={PILL_CHEVRON_CLASS} />
+				</button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent
+				align="end"
+				className={cn(
+					MENU_PANEL_CLASS,
+					"flex w-[296px] flex-col overflow-hidden p-0",
+				)}
+				side="top"
+			>
+				{showsModels ? (
+					<ModelPanel
+						agentSwitcher={
+							agentSwitcher && {
+								...agentSwitcher,
+								onSwitch: (presetId, picked) => {
+									setOpen(false);
+									agentSwitcher.onSwitch(presetId, picked);
+								},
+							}
+						}
+						model={model}
+						onLeave={settings.length > 0 ? leavePanel : undefined}
+						onPick={(modelId) => {
+							if (model) pick(model, modelId);
+						}}
+						searchRef={searchRef}
+					/>
+				) : null}
+				{settings.length > 0 ? (
+					<div
+						className={cn(
+							"flex flex-col gap-px p-1",
+							showsModels && "border-t",
+						)}
+						onKeyDownCapture={onSettingsKeyDown}
+						ref={settingsRef}
+					>
+						{effort ? (
+							<EffortSliderCard effort={effort} fast={fast} onSelect={choose} />
+						) : null}
+						{rows.map((option) => (
+							<DropdownMenuSub key={option.id}>
+								<DropdownMenuSubTrigger className={TRAIT_ROW_CLASS}>
+									<span className="min-w-0 flex-1 truncate">
+										{option.label}
+									</span>
+									<span className="max-w-28 truncate text-muted-foreground">
+										{currentLabel(option)}
+									</span>
+								</DropdownMenuSubTrigger>
+								{/* Portaled: the panel's backdrop-blur would otherwise contain and clip it. */}
+								<DropdownMenuPortal>
+									<DropdownMenuSubContent
+										className={cn(MENU_PANEL_CLASS, "w-[200px]")}
+									>
+										{option.options.map((entry) => (
+											<DropdownMenuItem
+												className={MENU_ROW_CLASS}
+												key={entry.id}
+												onSelect={() => pick(option, entry.id)}
+												title={entry.description}
+											>
+												<span className="min-w-0 flex-1 truncate">
+													{entry.label}
+												</span>
+												{entry.id === option.currentValue ? (
+													<LuCheck className="size-3.5 shrink-0" />
+												) : null}
+											</DropdownMenuItem>
+										))}
+									</DropdownMenuSubContent>
+								</DropdownMenuPortal>
+							</DropdownMenuSub>
+						))}
+					</div>
+				) : null}
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 }
