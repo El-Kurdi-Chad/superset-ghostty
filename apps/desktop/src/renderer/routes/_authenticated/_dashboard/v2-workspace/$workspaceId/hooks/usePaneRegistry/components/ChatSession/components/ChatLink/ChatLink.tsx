@@ -14,7 +14,7 @@ import { LinkUnfurlIcon } from "./components/LinkUnfurlIcon";
 
 const MarkdownLink = chatMarkdownComponents.a;
 const UNFURLED_LINK_CLASSNAME =
-	"rounded-md bg-foreground/[0.06] px-1.5 py-0.5 text-foreground no-underline box-decoration-clone transition-colors hover:bg-foreground/[0.12]";
+	"rounded-md bg-foreground/[0.06] px-1.5 py-0.5 text-foreground no-underline box-decoration-clone transition-colors hover:bg-foreground/[0.12] hover:text-foreground hover:no-underline";
 
 function openInApp(
 	link: Exclude<SupersetAppLink, { kind: "page" }>,
@@ -76,6 +76,7 @@ export function ChatLink(props: ComponentProps<typeof MarkdownLink>) {
 	return (
 		<MarkdownLink
 			{...props}
+			title={href}
 			className={cn(
 				typeof props.className === "string" && props.className,
 				unfurl && UNFURLED_LINK_CLASSNAME,
