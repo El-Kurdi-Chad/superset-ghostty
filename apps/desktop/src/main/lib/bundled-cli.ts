@@ -27,7 +27,6 @@ interface InstallBundledPdevShimOptions {
 	binDir?: string;
 	bundledPdevPath?: string | null;
 	platform?: NodeJS.Platform;
-	gatewayUrl?: string;
 }
 
 type ShimEnv = Array<[string, string]>;
@@ -81,24 +80,11 @@ export function buildBundledCliShim(
 	return buildShim(bundledCliPath, platform, devStackAddresses());
 }
 
-/**
- * The dev superset CLI mints tokens the hosted router cannot verify, so a dev
- * stack only points pdev elsewhere when the developer runs a router too.
- */
-function devPdevGatewayUrl(): string | undefined {
-	return app.isPackaged ? undefined : process.env.PDEV_GATEWAY_URL;
-}
-
 export function buildBundledPdevShim(
 	bundledPdevPath: string,
 	platform: NodeJS.Platform = process.platform,
-	gatewayUrl?: string,
 ): string {
-	return buildShim(
-		bundledPdevPath,
-		platform,
-		gatewayUrl ? [["PDEV_GATEWAY_URL", gatewayUrl]] : [],
-	);
+	return buildShim(bundledPdevPath, platform, []);
 }
 
 function buildShim(
@@ -226,11 +212,7 @@ export function installBundledPdevShim(
 	}
 	return installShim({
 		shimPath,
-		contents: buildBundledPdevShim(
-			bundledPdevPath,
-			platform,
-			options.gatewayUrl ?? devPdevGatewayUrl(),
-		),
+		contents: buildBundledPdevShim(bundledPdevPath, platform),
 		platform,
 	});
 }

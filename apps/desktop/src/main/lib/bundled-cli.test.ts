@@ -132,20 +132,12 @@ describe("bundled pdev", () => {
 		rmSync(tempDir, { recursive: true, force: true });
 	});
 
-	it("exports the gateway only when one is configured", () => {
-		const withGateway = buildBundledPdevShim(
-			bundledPdevPath,
-			"darwin",
-			"http://localhost:8787",
-		);
-		const withoutGateway = buildBundledPdevShim(bundledPdevPath, "darwin");
+	it("execs the bundled pdev without setting its environment", () => {
+		const shim = buildBundledPdevShim(bundledPdevPath, "darwin");
 
-		expect(withGateway).toContain(
-			"export PDEV_GATEWAY_URL='http://localhost:8787'\n",
-		);
-		expect(withGateway).toContain(`exec '${bundledPdevPath}' "$@"`);
-		expect(withoutGateway).not.toContain("PDEV_GATEWAY_URL");
-		expect(withoutGateway).toContain(BUNDLED_CLI_SHIM_MARKER);
+		expect(shim).toContain(BUNDLED_CLI_SHIM_MARKER);
+		expect(shim).toContain(`exec '${bundledPdevPath}' "$@"`);
+		expect(shim).not.toContain("export ");
 	});
 
 	it("installs a managed pdev shim next to the superset shim", () => {
