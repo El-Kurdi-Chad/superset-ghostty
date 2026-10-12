@@ -61,6 +61,7 @@ export function AttachmentImage({
 	if (
 		!workspaceId ||
 		thumbnail.isError ||
+		preview.isError ||
 		unrenderable ||
 		(thumbnail.data && thumbnail.data.kind !== "bytes") ||
 		(preview.data &&
@@ -78,7 +79,11 @@ export function AttachmentImage({
 				: null;
 		return (
 			<>
-				<LargeImageTile filename={name} onClick={() => setPreviewOpen(true)} />
+				<LargeImageTile
+					filename={name}
+					loading={previewOpen && preview.isFetching}
+					onClick={() => setPreviewOpen(true)}
+				/>
 				{src && (
 					<ImagePreviewOverlay
 						filename={name}

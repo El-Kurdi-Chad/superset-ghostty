@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import {
+	existsSync,
 	mkdirSync,
 	mkdtempSync,
 	readdirSync,
@@ -78,6 +79,19 @@ describe("storeAgentImage", () => {
 				cwd,
 			),
 		).toEqual({ path: ".superset/attachments/upload.png" });
+	});
+
+	it("skips a linked file over the size cap", () => {
+		const linked = join(outside, "huge.png");
+		writeFileSync(linked, PNG);
+		expect(
+			storeAgentImage(
+				{ kind: "file", mimeType: "image/png", path: linked },
+				cwd,
+				PNG.byteLength - 1,
+			),
+		).toBe(null);
+		expect(existsSync(join(cwd, ".superset"))).toBe(false);
 	});
 
 	it("answers null for a file it cannot read or an empty image", () => {

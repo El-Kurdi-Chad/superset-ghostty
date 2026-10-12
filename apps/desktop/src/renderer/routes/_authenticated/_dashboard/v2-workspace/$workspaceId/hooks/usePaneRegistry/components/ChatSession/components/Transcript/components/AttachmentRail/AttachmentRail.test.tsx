@@ -51,6 +51,30 @@ describe("AttachmentRail", () => {
 		expect(boxes).toHaveLength(2);
 	});
 
+	test("shows one tile for an image that appears twice", () => {
+		const image = {
+			type: "image" as const,
+			path: ".superset/attachments/a-1.png",
+			mimeType: "image/png",
+		};
+		const view = render(
+			<electronTrpc.Provider
+				client={electronTrpc.createClient({ links: [] })}
+				queryClient={new QueryClient()}
+			>
+				<workspaceTrpc.Provider
+					client={workspaceTrpc.createClient({ links: [] })}
+					queryClient={new QueryClient()}
+				>
+					<ChatPaneActionsProvider workspaceId="ws">
+						<AttachmentRail images={[image, { ...image }]} />
+					</ChatPaneActionsProvider>
+				</workspaceTrpc.Provider>
+			</electronTrpc.Provider>,
+		);
+		expect(view.container.querySelectorAll(".size-40")).toHaveLength(1);
+	});
+
 	test("renders nothing without images", () => {
 		const view = render(<AttachmentRail images={[]} />);
 		expect(view.container.innerHTML).toBe("");

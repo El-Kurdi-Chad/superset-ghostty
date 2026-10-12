@@ -57,7 +57,7 @@ export type ItemAttachment = ImageAttachment | UnknownAttachment;
 export function isImageAttachment(
 	attachment: ItemAttachment,
 ): attachment is ImageAttachment {
-	return attachment.type === "image";
+	return imageAttachmentSchema.safeParse(attachment).success;
 }
 
 export const toolContentSchema = z.discriminatedUnion("type", [

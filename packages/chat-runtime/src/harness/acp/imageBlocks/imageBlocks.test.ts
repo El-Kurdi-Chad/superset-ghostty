@@ -46,6 +46,12 @@ describe("imageSourceOf", () => {
 			}),
 		).toBe(null);
 	});
+
+	it("ignores a link whose path cannot be decoded", () => {
+		expect(
+			imageSourceOf({ type: "resource_link", uri: "file:///tmp/100%.png" }),
+		).toBe(null);
+	});
 });
 
 describe("withoutImageData", () => {

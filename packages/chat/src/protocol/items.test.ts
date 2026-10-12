@@ -125,6 +125,14 @@ describe("item attachments", () => {
 		expect(parsed.attachments?.filter(isImageAttachment)).toEqual([image]);
 	});
 
+	test("an image entry without a path parses and is not an image", () => {
+		const parsed = toolCallSchema.parse({
+			...toolCall,
+			attachments: [{ type: "image" }],
+		});
+		expect(parsed.attachments?.filter(isImageAttachment)).toEqual([]);
+	});
+
 	test("tool content stays the released union", () => {
 		expect(
 			toolContentSchema.safeParse({ type: "image", path: "x.png" }).success,

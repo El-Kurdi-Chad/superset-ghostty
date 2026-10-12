@@ -9,10 +9,11 @@ export function AttachmentRail({
 	images: readonly ImageAttachment[];
 	className?: string;
 }) {
-	if (images.length === 0) return null;
+	const byPath = new Map(images.map((image) => [image.path, image]));
+	if (byPath.size === 0) return null;
 	return (
 		<div className={cn("flex flex-wrap gap-2", className)}>
-			{images.map((image) => (
+			{[...byPath.values()].map((image) => (
 				<AttachmentImage
 					alt={image.alt}
 					key={image.path}

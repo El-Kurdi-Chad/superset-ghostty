@@ -5,6 +5,7 @@ import {
 	mkdirSync,
 	openSync,
 	readFileSync,
+	statSync,
 	writeFileSync,
 } from "node:fs";
 import { basename, extname, join, relative, resolve, sep } from "node:path";
@@ -49,9 +50,10 @@ function attachmentsDir(cwd: string): string {
 	return dir;
 }
 
-function bytesOf(source: AcpImageSource): Uint8Array | null {
+function bytesOf(source: AcpImageSource, maxBytes: number): Uint8Array | null {
 	if (source.kind === "bytes") return source.bytes;
 	try {
+		if (statSync(source.path).size > maxBytes) return null;
 		return readFileSync(source.path);
 	} catch {
 		return null;
@@ -65,6 +67,7 @@ function bytesOf(source: AcpImageSource): Uint8Array | null {
 export function storeAgentImage(
 	source: AcpImageSource,
 	cwd: string,
+	maxBytes = MAX_IMAGE_BYTES,
 ): AcpStoredImage | null {
 	const dir = join(cwd, WORKSPACE_ATTACHMENTS_DIR);
 	if (source.kind === "file") {
@@ -73,8 +76,8 @@ export function storeAgentImage(
 			return { path: `${WORKSPACE_ATTACHMENTS_DIR}/${inside}` };
 		}
 	}
-	const bytes = bytesOf(source);
-	if (!bytes || bytes.byteLength === 0 || bytes.byteLength > MAX_IMAGE_BYTES)
+	const bytes = bytesOf(source, maxBytes);
+	if (!bytes || bytes.byteLength === 0 || bytes.byteLength > maxBytes)
 		return null;
 	const name =
 		source.kind === "file" ? (source.name ?? source.path) : source.name;

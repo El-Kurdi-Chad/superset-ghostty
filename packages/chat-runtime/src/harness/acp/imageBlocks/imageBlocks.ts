@@ -25,6 +25,15 @@ function mimeOfPath(path: string): string | null {
 	return MIME_BY_EXTENSION[extension] ?? null;
 }
 
+function localPathOf(uri: unknown): string | null {
+	if (typeof uri !== "string" || !uri.startsWith("file://")) return null;
+	try {
+		return decodeURIComponent(uri.slice("file://".length));
+	} catch {
+		return null;
+	}
+}
+
 function nameOf(block: AcpContentBlock): string | undefined {
 	const { name, title } = block as { name?: unknown; title?: unknown };
 	if (typeof name === "string" && name !== "") return name;
@@ -50,8 +59,8 @@ export function imageSourceOf(
 	}
 	if (block.type === "resource_link") {
 		const { uri, mimeType } = block as { uri?: unknown; mimeType?: unknown };
-		if (typeof uri !== "string" || !uri.startsWith("file://")) return null;
-		const path = decodeURIComponent(uri.slice("file://".length));
+		const path = localPathOf(uri);
+		if (!path) return null;
 		const resolvedMime = isImageMime(mimeType) ? mimeType : mimeOfPath(path);
 		if (!resolvedMime) return null;
 		return {
