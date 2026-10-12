@@ -3050,8 +3050,8 @@ msgstr "Подключите {companyName} для своей команды. С�
 msgid "Bring a link to something you built recently."
 msgstr "Принесите ссылку на то, что вы недавно создали."
 
-msgid "Bring Any Agent."
-msgstr "Приводите любого агента."
+msgid "Bring Any Agent"
+msgstr "Приводите любого агента"
 
 msgid "Bring over your projects"
 msgstr "Перенесите проекты"
@@ -11807,8 +11807,8 @@ msgstr "Оранжевый"
 msgid "Orchestrate Parallel Agents"
 msgstr "Оркестрируйте параллельных агентов"
 
-msgid "Orchestrate Them All."
-msgstr "Оркестрируйте всех."
+msgid "Orchestrate Them All"
+msgstr "Оркестрируйте всех"
 
 msgid "Orchestrated"
 msgstr "С оркестрацией"

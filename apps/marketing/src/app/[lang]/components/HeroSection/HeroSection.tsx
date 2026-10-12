@@ -34,13 +34,13 @@ export function HeroSection() {
 			// reflowing down once it outgrows the width. Needs the h1's
 			// whitespace-pre-line to render.
 			text: `${t({
-				message: "Bring Any Agent.",
+				message: "Bring Any Agent",
 			})}\n`,
 		},
 		{
 			id: "emphasis",
 			text: t({
-				message: "Orchestrate Them All.",
+				message: "Orchestrate Them All",
 			}),
 			// Beat on the empty second line before the payoff line types
 			delayBefore: 450,

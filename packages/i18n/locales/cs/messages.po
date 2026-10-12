@@ -3050,8 +3050,8 @@ msgstr "Přineste {companyName} svému týmu. Ozvěte se nám a zjistěte více 
 msgid "Bring a link to something you built recently."
 msgstr "Přineste odkaz na něco, co jste nedávno vytvořili."
 
-msgid "Bring Any Agent."
-msgstr "Přiveďte jakéhokoli agenta."
+msgid "Bring Any Agent"
+msgstr "Přiveďte jakéhokoli agenta"
 
 msgid "Bring over your projects"
 msgstr "Převeďte své projekty"
@@ -11807,8 +11807,8 @@ msgstr "Oranžová"
 msgid "Orchestrate Parallel Agents"
 msgstr "Řiďte paralelní agenty"
 
-msgid "Orchestrate Them All."
-msgstr "Řiďte je všechny."
+msgid "Orchestrate Them All"
+msgstr "Řiďte je všechny"
 
 msgid "Orchestrated"
 msgstr "Orchestrovaný"

@@ -3050,8 +3050,8 @@ msgstr "把 {companyName} 带给你的团队。联系我们，了解企业版方
 msgid "Bring a link to something you built recently."
 msgstr "请带上你最近做的作品链接。"
 
-msgid "Bring Any Agent."
-msgstr "带上任意智能体。"
+msgid "Bring Any Agent"
+msgstr "带上任意智能体"
 
 msgid "Bring over your projects"
 msgstr "迁入项目"
@@ -11807,8 +11807,8 @@ msgstr "橙色"
 msgid "Orchestrate Parallel Agents"
 msgstr "编排并行智能体"
 
-msgid "Orchestrate Them All."
-msgstr "统一编排。"
+msgid "Orchestrate Them All"
+msgstr "统一编排"
 
 msgid "Orchestrated"
 msgstr "编排"

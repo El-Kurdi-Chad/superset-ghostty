@@ -3050,8 +3050,8 @@ msgstr "Porta {companyName} nel tuo team. Contattaci per saperne di più sui pia
 msgid "Bring a link to something you built recently."
 msgstr "Porta il link a qualcosa che hai costruito di recente."
 
-msgid "Bring Any Agent."
-msgstr "Porta qualsiasi agente."
+msgid "Bring Any Agent"
+msgstr "Porta qualsiasi agente"
 
 msgid "Bring over your projects"
 msgstr "Importa i tuoi progetti"
@@ -11807,8 +11807,8 @@ msgstr "Arancione"
 msgid "Orchestrate Parallel Agents"
 msgstr "Orchestra agenti in parallelo"
 
-msgid "Orchestrate Them All."
-msgstr "Orchestrali tutti."
+msgid "Orchestrate Them All"
+msgstr "Orchestrali tutti"
 
 msgid "Orchestrated"
 msgstr "Orchestrato"

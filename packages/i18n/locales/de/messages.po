@@ -3050,8 +3050,8 @@ msgstr "Hol {companyName} in dein Team. Kontaktiere uns, um mehr über Enterpris
 msgid "Bring a link to something you built recently."
 msgstr "Bring einen Link zu etwas mit, das du kürzlich gebaut hast."
 
-msgid "Bring Any Agent."
-msgstr "Bring jeden Agenten mit."
+msgid "Bring Any Agent"
+msgstr "Bring jeden Agenten mit"
 
 msgid "Bring over your projects"
 msgstr "Projekte übernehmen"
@@ -11807,8 +11807,8 @@ msgstr "Orange"
 msgid "Orchestrate Parallel Agents"
 msgstr "Parallele Agenten orchestrieren"
 
-msgid "Orchestrate Them All."
-msgstr "Orchestriere sie alle."
+msgid "Orchestrate Them All"
+msgstr "Orchestriere sie alle"
 
 msgid "Orchestrated"
 msgstr "Orchestriert"

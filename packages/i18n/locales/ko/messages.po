@@ -3050,8 +3050,8 @@ msgstr "{companyName}을 팀에 도입하세요. 엔터프라이즈 플랜과 �
 msgid "Bring a link to something you built recently."
 msgstr "최근에 만든 결과물의 링크를 가져오세요."
 
-msgid "Bring Any Agent."
-msgstr "어떤 에이전트든 데려오세요."
+msgid "Bring Any Agent"
+msgstr "어떤 에이전트든 데려오세요"
 
 msgid "Bring over your projects"
 msgstr "프로젝트 가져오기"
@@ -11807,8 +11807,8 @@ msgstr "주황"
 msgid "Orchestrate Parallel Agents"
 msgstr "병렬 에이전트 오케스트레이션"
 
-msgid "Orchestrate Them All."
-msgstr "모두 오케스트레이션하세요."
+msgid "Orchestrate Them All"
+msgstr "모두 오케스트레이션하세요"
 
 msgid "Orchestrated"
 msgstr "오케스트레이션"

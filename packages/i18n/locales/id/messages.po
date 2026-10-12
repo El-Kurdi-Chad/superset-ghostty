@@ -3050,8 +3050,8 @@ msgstr "Bawa {companyName} ke tim Anda. Hubungi kami untuk mempelajari lebih lan
 msgid "Bring a link to something you built recently."
 msgstr "Bawa tautan ke sesuatu yang baru-baru ini Anda bangun."
 
-msgid "Bring Any Agent."
-msgstr "Bawa Agen Apa Pun."
+msgid "Bring Any Agent"
+msgstr "Bawa Agen Apa Pun"
 
 msgid "Bring over your projects"
 msgstr "Impor proyek Anda"
@@ -11807,8 +11807,8 @@ msgstr "Oranye"
 msgid "Orchestrate Parallel Agents"
 msgstr "Orkestrasi Agen Paralel"
 
-msgid "Orchestrate Them All."
-msgstr "Orkestrasi Semuanya."
+msgid "Orchestrate Them All"
+msgstr "Orkestrasi Semuanya"
 
 msgid "Orchestrated"
 msgstr "Terorkestrasi"
