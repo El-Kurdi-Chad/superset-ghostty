@@ -12,7 +12,7 @@ Open more than one Superset window to watch several workspaces at the same time,
 - **New window** in the command palette (**⌘⇧K**)
 - On Linux, **New Window** in the launcher or dock menu for Superset. An AppImage shows it only when it is integrated with your desktop.
 
-A new window uses the same organization as the window you opened it from, and starts on the New Workspace screen.
+A new window uses the same organization as the window you opened it from, and opens on the page you visited last in any window.
 
 ## Switch and Close Windows
 
@@ -37,7 +37,7 @@ All windows share:
 
 The organization you switch to last is also the default for a window that opens without one, such as the window macOS opens when you click the Dock icon with no windows open.
 
-Desktop notifications open their workspace in the window you used last.
+Clicking a desktop notification brings the window you used last to the front, and every open window navigates to that notification's workspace.
 
 ## Same Workspace in Two Windows
 
@@ -45,6 +45,6 @@ You can open one workspace in two windows. Its tabs and panes stay in sync: a ta
 
 ## Restore on Relaunch
 
-When you quit, Superset saves every open window with its position, size, zoom level, and organization. On the next launch, each window opens again on its organization. Restored windows start on the New Workspace screen, not on the workspace they last showed.
+When you quit, Superset saves every open window with its position, size, zoom level, and organization. On the next launch, each window opens again on its organization. Restored windows all open on the same page, the one you visited last before you quit, not on the pages they each showed.
 
-Closing a window without quitting removes it from the saved set. On macOS, closing the last window keeps Superset running, and the next launch opens one window. On Linux, closing the last window quits Superset.
+Closing a window without quitting removes it from the saved set. On macOS, closing the last window keeps Superset running, and the next launch opens one window. On Linux, closing the last window quits Superset, and that window comes back on the next launch.
