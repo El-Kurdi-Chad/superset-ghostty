@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { createHash } from "node:crypto";
 import {
 	chmodSync,
 	cpSync,
@@ -14,8 +15,17 @@ import { dirname, join, resolve } from "node:path";
 import { config } from "dotenv";
 
 export const PDEV_VERSION = "0.1.0";
-export const PDEV_RELEASE_REPO = "superset-sh/router";
-export const PDEV_RELEASE_TAG = `pdev@${PDEV_VERSION}`;
+const PDEV_DOWNLOAD_URL = `https://github.com/superset-sh/pdev/releases/download/v${PDEV_VERSION}`;
+export const PDEV_SHA256: Record<string, string> = {
+	"pdev-0.1.0-darwin-arm64.tar.gz":
+		"c0411c5258cc962571f8c7244fb0225262ed49c8f85ea4c9d77e43896e6819fd",
+	"pdev-0.1.0-darwin-x64.tar.gz":
+		"ac7fd553dea699cfb5dbb9408cdad518b88ce423102bbda5c6edda64ef24218a",
+	"pdev-0.1.0-linux-arm64.tar.gz":
+		"53ef97375cb98b231920aab1f50e1784cc44164596de9661a887441f2dfefb6f",
+	"pdev-0.1.0-linux-x64.tar.gz":
+		"eba0a00c73607786437c554ca5c98e5df9ef7d4d1d7a1e930255a325f36bd775",
+};
 const BUNDLED_FROM_FILE = ".bundled-from";
 
 const PDEV_TARGETS: Record<string, readonly string[]> = {
@@ -30,10 +40,6 @@ export function pdevAssetName(
 ): string | null {
 	if (!PDEV_TARGETS[platform]?.includes(arch)) return null;
 	return `pdev-${version}-${platform}-${arch}.tar.gz`;
-}
-
-export function releaseToken(env: NodeJS.ProcessEnv): string | undefined {
-	return env.PDEV_RELEASE_TOKEN || env.GH_TOKEN || env.GITHUB_TOKEN;
 }
 
 function run(command: string, args: string[]): Promise<void> {
@@ -91,45 +97,29 @@ export function isBundled(destDir: string, bundledFrom: string): boolean {
 
 async function downloadAsset(
 	assetName: string,
-	token: string,
+	expectedSha256: string,
 	outfile: string,
+	fetcher: typeof fetch,
 ): Promise<void> {
-	const api = `https://api.github.com/repos/${PDEV_RELEASE_REPO}/releases/tags/${encodeURIComponent(PDEV_RELEASE_TAG)}`;
-	const headers = {
-		Authorization: `Bearer ${token}`,
-		"X-GitHub-Api-Version": "2022-11-28",
-	};
-	const releaseResponse = await fetch(api, {
-		headers: { ...headers, Accept: "application/vnd.github+json" },
-	});
-	if (!releaseResponse.ok) {
+	const response = await fetcher(`${PDEV_DOWNLOAD_URL}/${assetName}`);
+	if (!response.ok) {
+		throw new Error(`Could not download ${assetName}: HTTP ${response.status}`);
+	}
+	const bytes = Buffer.from(await response.arrayBuffer());
+	const sha256 = createHash("sha256").update(bytes).digest("hex");
+	if (sha256 !== expectedSha256) {
 		throw new Error(
-			`Could not read release ${PDEV_RELEASE_TAG} on ${PDEV_RELEASE_REPO}: HTTP ${releaseResponse.status}. The token needs read access to that repo's releases.`,
+			`${assetName} has SHA-256 ${sha256}, expected ${expectedSha256}`,
 		);
 	}
-	const release = (await releaseResponse.json()) as {
-		assets: Array<{ name: string; url: string }>;
-	};
-	const asset = release.assets.find((entry) => entry.name === assetName);
-	if (!asset) {
-		throw new Error(`Release ${PDEV_RELEASE_TAG} has no asset ${assetName}`);
-	}
-
-	const redirect = await fetch(asset.url, {
-		headers: { ...headers, Accept: "application/octet-stream" },
-		redirect: "manual",
-	});
-	const location = redirect.headers.get("location");
-	const download = location ? await fetch(location) : redirect;
-	if (!download.ok) {
-		throw new Error(`Could not download ${assetName}: HTTP ${download.status}`);
-	}
-	writeFileSync(outfile, Buffer.from(await download.arrayBuffer()));
+	writeFileSync(outfile, bytes);
 }
 
 export async function main(
 	env: NodeJS.ProcessEnv = process.env,
 	destDir: string = resolve(import.meta.dirname, "../dist/resources/bin/pdev"),
+	fetcher: typeof fetch = fetch,
+	checksums: Record<string, string> = PDEV_SHA256,
 ) {
 	const platform = env.TARGET_PLATFORM ?? process.platform;
 	const arch = env.TARGET_ARCH ?? process.arch;
@@ -145,7 +135,8 @@ export async function main(
 	}
 
 	const assetName = pdevAssetName(platform, arch);
-	if (!assetName) {
+	const expectedSha256 = assetName ? checksums[assetName] : undefined;
+	if (!assetName || !expectedSha256) {
 		rmSync(destDir, { recursive: true, force: true });
 		console.log(`[desktop] pdev is not bundled for ${platform}/${arch}`);
 		return;
@@ -157,19 +148,10 @@ export async function main(
 	}
 
 	const required = env.PDEV_BUNDLE_REQUIRED === "1";
-	const token = releaseToken(env);
-	if (!token) {
-		const message = `No PDEV_RELEASE_TOKEN, GH_TOKEN or GITHUB_TOKEN to download ${assetName} from ${PDEV_RELEASE_REPO}`;
-		if (required) throw new Error(message);
-		rmSync(destDir, { recursive: true, force: true });
-		console.warn(`[desktop] ${message}; pdev is not bundled`);
-		return;
-	}
-
 	const downloadDir = mkdtempSync(join(tmpdir(), "pdev-download-"));
 	try {
 		const tarball = join(downloadDir, assetName);
-		await downloadAsset(assetName, token, tarball);
+		await downloadAsset(assetName, expectedSha256, tarball, fetcher);
 		await extractPdevTarball(tarball, destDir, assetName);
 		console.log(`[desktop] bundled pdev written to ${destDir}`);
 	} catch (error) {

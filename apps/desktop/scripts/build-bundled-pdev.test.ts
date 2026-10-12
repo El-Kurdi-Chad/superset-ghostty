@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
+import { createHash } from "node:crypto";
 import {
 	existsSync,
 	mkdirSync,
@@ -15,8 +16,11 @@ import {
 	isBundled,
 	main,
 	pdevAssetName,
-	releaseToken,
 } from "./build-bundled-pdev";
+
+const offline = (async () => {
+	throw new Error("offline");
+}) as unknown as typeof fetch;
 
 describe("build-bundled-pdev", () => {
 	let tempDir: string;
@@ -47,19 +51,7 @@ describe("build-bundled-pdev", () => {
 		expect(pdevAssetName("linux", "ia32")).toBeNull();
 	});
 
-	it("prefers the dedicated release token", () => {
-		expect(
-			releaseToken({
-				PDEV_RELEASE_TOKEN: "a",
-				GH_TOKEN: "b",
-				GITHUB_TOKEN: "c",
-			}),
-		).toBe("a");
-		expect(releaseToken({ GITHUB_TOKEN: "c" })).toBe("c");
-		expect(releaseToken({})).toBeUndefined();
-	});
-
-	it("extracts the pdev folder from a release tarball", async () => {
+	function packSource(): string {
 		const tarball = path.join(tempDir, "pdev.tar.gz");
 		const proc = Bun.spawnSync([
 			"tar",
@@ -70,6 +62,11 @@ describe("build-bundled-pdev", () => {
 			"pdev",
 		]);
 		expect(proc.exitCode).toBe(0);
+		return tarball;
+	}
+
+	it("extracts the pdev folder from a release tarball", async () => {
+		const tarball = packSource();
 
 		await extractPdevTarball(
 			tarball,
@@ -92,23 +89,55 @@ describe("build-bundled-pdev", () => {
 		expect(existsSync(path.join(destDir, "assets", "theme.json"))).toBe(true);
 	});
 
-	it("removes a bundle for another target when it cannot download", async () => {
-		await main({ PDEV_BUNDLE_DIR: sourceDir }, destDir);
+	it("downloads the release archive and checks its SHA-256", async () => {
+		const bytes = readFileSync(packSource());
+		const assetName = "pdev-0.1.0-linux-x64.tar.gz";
+		const sha256 = createHash("sha256").update(bytes).digest("hex");
+		const requested: string[] = [];
+		const fetcher = (async (url: string) => {
+			requested.push(url);
+			return new Response(bytes);
+		}) as unknown as typeof fetch;
 
-		await main({ TARGET_PLATFORM: "linux", TARGET_ARCH: "x64" }, destDir);
+		await main(
+			{ TARGET_PLATFORM: "linux", TARGET_ARCH: "x64" },
+			destDir,
+			fetcher,
+			{
+				[assetName]: sha256,
+			},
+		);
 
-		expect(existsSync(destDir)).toBe(false);
+		expect(requested).toEqual([
+			`https://github.com/superset-sh/pdev/releases/download/v0.1.0/${assetName}`,
+		]);
+		expect(isBundled(destDir, assetName)).toBe(true);
 	});
 
-	it("skips without a token unless the bundle is required", async () => {
-		const env = { TARGET_PLATFORM: "darwin", TARGET_ARCH: "arm64" };
+	it("refuses an archive whose SHA-256 does not match", async () => {
+		const env = { TARGET_PLATFORM: "linux", TARGET_ARCH: "x64" };
+		const fetcher = (async () =>
+			new Response("tampered")) as unknown as typeof fetch;
+		const checksums = { "pdev-0.1.0-linux-x64.tar.gz": "0".repeat(64) };
 
-		await main(env, destDir);
+		await main(env, destDir, fetcher, checksums);
 		expect(existsSync(destDir)).toBe(false);
 
 		await expect(
-			main({ ...env, PDEV_BUNDLE_REQUIRED: "1" }, destDir),
-		).rejects.toThrow("PDEV_RELEASE_TOKEN");
+			main({ ...env, PDEV_BUNDLE_REQUIRED: "1" }, destDir, fetcher, checksums),
+		).rejects.toThrow("SHA-256");
+	});
+
+	it("removes a bundle for another target when it cannot download", async () => {
+		await main({ PDEV_BUNDLE_DIR: sourceDir }, destDir);
+
+		await main(
+			{ TARGET_PLATFORM: "linux", TARGET_ARCH: "x64" },
+			destDir,
+			offline,
+		);
+
+		expect(existsSync(destDir)).toBe(false);
 	});
 
 	it("removes a stale bundle for a target pdev does not ship", async () => {
