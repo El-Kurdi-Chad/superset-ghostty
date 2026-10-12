@@ -73,6 +73,9 @@ test("inline code inside a link leaves navigation to its destination", () => {
 		capture: true,
 	});
 	const code = view.container.querySelector("code") as HTMLElement;
+	expect(view.getByRole("link").querySelectorAll("img")).toHaveLength(1);
+	expect(code.className).toContain("bg-transparent");
+	expect(code.className).toContain("p-0");
 	fireEvent.click(code);
 	expect(openLink.mock.calls.map(([href]) => href)).toEqual(["src/app.ts:42"]);
 	expect(code.getAttribute("role")).toBeNull();

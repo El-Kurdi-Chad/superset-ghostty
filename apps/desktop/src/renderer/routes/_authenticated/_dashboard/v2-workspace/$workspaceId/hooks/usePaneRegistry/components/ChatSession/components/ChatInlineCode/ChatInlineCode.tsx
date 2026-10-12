@@ -18,10 +18,20 @@ export function ChatInlineCode(props: ComponentProps<typeof PlainInlineCode>) {
 	const text = typeof props.children === "string" ? props.children.trim() : "";
 	const fileName = pathFileName(text);
 	if (!fileName) return <PlainInlineCode {...props} />;
+	if (insideLink) {
+		return (
+			<PlainInlineCode
+				{...props}
+				className={cn(
+					typeof props.className === "string" && props.className,
+					"rounded-none bg-transparent p-0",
+				)}
+			/>
+		);
+	}
 
 	const { node: _node, className, children, ...rest } = props;
-	const openable =
-		!insideLink && openLink !== undefined && isLocalPathText(text);
+	const openable = openLink !== undefined && isLocalPathText(text);
 	const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
 		if (event.key !== "Enter" && event.key !== " ") return;
 		event.preventDefault();
