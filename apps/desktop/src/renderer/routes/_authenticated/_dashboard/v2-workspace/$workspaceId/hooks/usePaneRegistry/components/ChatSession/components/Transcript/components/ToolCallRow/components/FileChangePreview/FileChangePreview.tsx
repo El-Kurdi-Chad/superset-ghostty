@@ -64,6 +64,23 @@ function PreviewLineRow({ line }: { line: PreviewLine }) {
 	);
 }
 
+/** Mounted with the card, so a row that is never hovered never diffs. */
+function PreviewLines({
+	content,
+}: {
+	content: Extract<ToolContent, { type: "diff" }>;
+}) {
+	const lines = useMemo(() => diffPreviewLines(content), [content]);
+	if (!lines || lines.length === 0) return null;
+	return (
+		<div className="max-h-[180px] overflow-auto overscroll-contain border-border/60 border-t py-1">
+			{lines.map((line) => (
+				<PreviewLineRow key={`${line.kind}:${line.number}`} line={line} />
+			))}
+		</div>
+	);
+}
+
 /**
  * The file chip of an edit row, and the card that opens on hover or focus
  * to show the edit itself: the file, what it cost, and its first changed
@@ -91,7 +108,6 @@ export function FileChangePreview({
 	const { t } = useLingui();
 	const [open, setOpen] = useState(false);
 	const pointerDown = useRef(false);
-	const lines = useMemo(() => diffPreviewLines(content), [content]);
 	const directory = directoryOf(change.path, change.name);
 	const attempted =
 		status === "failed" || status === "declined" || status === "canceled";
@@ -105,8 +121,12 @@ export function FileChangePreview({
 			<HoverCardTrigger asChild>
 				<button
 					className="pointer-events-auto min-w-0 cursor-pointer truncate rounded bg-foreground/[0.06] px-1 py-0.5 text-left font-mono text-[13px] text-foreground/70 transition-colors hover:bg-foreground/[0.12] hover:text-foreground/90"
+					onBlur={() => {
+						pointerDown.current = false;
+					}}
 					onClick={() => {
 						// The row opens under the pointer, so the glance gives way to it.
+						pointerDown.current = false;
 						setOpen(false);
 						onClick?.();
 					}}
@@ -157,16 +177,7 @@ export function FileChangePreview({
 						</span>
 					)}
 				</div>
-				{lines && lines.length > 0 && (
-					<div className="max-h-[180px] overflow-auto overscroll-contain border-border/60 border-t py-1">
-						{lines.map((line, index) => (
-							<PreviewLineRow
-								key={`${line.kind}:${line.number}:${index}`}
-								line={line}
-							/>
-						))}
-					</div>
-				)}
+				<PreviewLines content={content} />
 			</HoverCardContent>
 		</HoverCard>
 	);

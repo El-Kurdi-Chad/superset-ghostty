@@ -85,6 +85,14 @@ test("the chip previews the edit on focus, and a click still reaches the row", a
 	await new Promise((resolve) => setTimeout(resolve, 20));
 	expect(screen.queryByText("Change preview")).toBeNull();
 	expect(onClick).toHaveBeenCalledTimes(2);
+
+	// A click on a chip that already has focus fires no focus event, and must
+	// not swallow the next keyboard focus either.
+	fireEvent.pointerDown(chip);
+	fireEvent.click(chip);
+	chip.blur();
+	chip.focus();
+	expect(await screen.findByText("Change preview")).toBeTruthy();
 });
 
 test("an edit that did not complete says so", async () => {

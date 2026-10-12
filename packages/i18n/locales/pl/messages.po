@@ -2608,7 +2608,7 @@ msgid "Attempt before checks pass"
 msgstr "Spróbuj przed przejściem kontroli"
 
 msgid "Attempted changes"
-msgstr "Próbowane zmiany"
+msgstr "Próby wprowadzenia zmian"
 
 msgid "Attention queue"
 msgstr "Kolejka uwagi"
