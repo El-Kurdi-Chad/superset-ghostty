@@ -10,7 +10,7 @@ import {
 } from "../../lib/sandbox";
 import { publishCloudWorkspaceJob } from "./jobs";
 
-export const STANDARD_BOX_VCPUS = 4;
+export const STANDARD_BOX_VCPUS = 8;
 const MIN_RUNNING_REPORT_MS = 60_000;
 const RECONCILE_LOOKBACK_MS = 30 * 60 * 1000;
 const RECONCILE_CONCURRENCY = 25;

@@ -23,10 +23,10 @@ const row = {
 };
 
 describe("meter", () => {
-	test("a box-minute is a minute of a 4 vCPU box", () => {
-		expect(boxMinutes(60_000, 4)).toBe(1);
-		expect(boxMinutes(60_000, 8)).toBe(2);
-		expect(boxMinutes(30_000, 2)).toBe(0.25);
+	test("a box-minute is a minute of today's 8 vCPU box", () => {
+		expect(boxMinutes(60_000, 8)).toBe(1);
+		expect(boxMinutes(60_000, 4)).toBe(0.5);
+		expect(boxMinutes(30_000, 16)).toBe(1);
 	});
 
 	test("a running session counts up to now, a stopped one up to its stop", () => {
