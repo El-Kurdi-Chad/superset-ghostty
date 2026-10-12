@@ -799,6 +799,9 @@ msgstr "{count} 台主機執行的主機服務比此應用程式舊"
 msgid "{count}/day"
 msgstr "{count}/天"
 
+msgid "{current} of {total}"
+msgstr "第 {current} 項，共 {total} 項"
+
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage}/{totalBranches}"
 
@@ -3725,6 +3728,9 @@ msgstr "正在克隆…"
 
 msgid "Close"
 msgstr "關閉"
+
+msgid "Close (Esc)"
+msgstr "關閉 (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -10301,6 +10307,9 @@ msgstr "來自 Superset 團隊的新聞、更新與洞察，涵蓋平行編碼�
 msgid "Next"
 msgstr "下一頁"
 
+msgid "Next (Enter)"
+msgstr "下一頁 (Enter)"
+
 msgid "Next branch"
 msgstr "下一個分支"
 
@@ -12472,6 +12481,9 @@ msgstr "預覽：GitHub 星標提醒通知"
 
 msgid "Previous"
 msgstr "上一頁"
+
+msgid "Previous (Shift+Enter)"
+msgstr "上一頁 (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "上一個分支"

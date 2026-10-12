@@ -799,6 +799,9 @@ msgstr "{count} hôtes exécutent un service d'hôte plus ancien que cette appli
 msgid "{count}/day"
 msgstr "{count}/jour"
 
+msgid "{current} of {total}"
+msgstr "{current} sur {total}"
+
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} sur {totalBranches}"
 
@@ -3725,6 +3728,9 @@ msgstr "Clonage…"
 
 msgid "Close"
 msgstr "Fermer"
+
+msgid "Close (Esc)"
+msgstr "Fermer (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -10301,6 +10307,9 @@ msgstr "Actualités, mises à jour et analyses de l'équipe Superset sur les age
 msgid "Next"
 msgstr "Suivant"
 
+msgid "Next (Enter)"
+msgstr "Suivant (Enter)"
+
 msgid "Next branch"
 msgstr "Branche suivante"
 
@@ -12472,6 +12481,9 @@ msgstr "Aperçu : toast de rappel d'étoile GitHub"
 
 msgid "Previous"
 msgstr "Précédent"
+
+msgid "Previous (Shift+Enter)"
+msgstr "Précédent (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "Branche précédente"

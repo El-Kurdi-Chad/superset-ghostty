@@ -799,6 +799,9 @@ msgstr "{count} hosts draaien een oudere hostservice dan deze app"
 msgid "{count}/day"
 msgstr "{count}/dag"
 
+msgid "{current} of {total}"
+msgstr "{current} van {total}"
+
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} van {totalBranches}"
 
@@ -3725,6 +3728,9 @@ msgstr "Klonen…"
 
 msgid "Close"
 msgstr "Sluiten"
+
+msgid "Close (Esc)"
+msgstr "Sluiten (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -10301,6 +10307,9 @@ msgstr "Nieuws, updates en inzichten van het Superset-team over parallelle codin
 msgid "Next"
 msgstr "Volgende"
 
+msgid "Next (Enter)"
+msgstr "Volgende (Enter)"
+
 msgid "Next branch"
 msgstr "Volgende branch"
 
@@ -12472,6 +12481,9 @@ msgstr "Voorbeeld: GitHub-sterherinnering"
 
 msgid "Previous"
 msgstr "Vorige"
+
+msgid "Previous (Shift+Enter)"
+msgstr "Vorige (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "Vorige branch"

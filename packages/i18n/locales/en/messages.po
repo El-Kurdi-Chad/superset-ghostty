@@ -799,6 +799,9 @@ msgstr "{count} hosts run an older host service than this app"
 msgid "{count}/day"
 msgstr "{count}/day"
 
+msgid "{current} of {total}"
+msgstr "{current} of {total}"
+
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} of {totalBranches}"
 
@@ -3725,6 +3728,9 @@ msgstr "Cloning…"
 
 msgid "Close"
 msgstr "Close"
+
+msgid "Close (Esc)"
+msgstr "Close (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -10301,6 +10307,9 @@ msgstr "News, updates, and insights from the Superset team about parallel coding
 msgid "Next"
 msgstr "Next"
 
+msgid "Next (Enter)"
+msgstr "Next (Enter)"
+
 msgid "Next branch"
 msgstr "Next branch"
 
@@ -12472,6 +12481,9 @@ msgstr "Preview: GitHub star nag toast"
 
 msgid "Previous"
 msgstr "Previous"
+
+msgid "Previous (Shift+Enter)"
+msgstr "Previous (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "Previous branch"

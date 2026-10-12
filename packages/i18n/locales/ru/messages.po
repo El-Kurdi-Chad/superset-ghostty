@@ -799,6 +799,9 @@ msgstr "{count} хостов работают на более старой ве�
 msgid "{count}/day"
 msgstr "{count}/день"
 
+msgid "{current} of {total}"
+msgstr "{current} из {total}"
+
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} из {totalBranches}"
 
@@ -3725,6 +3728,9 @@ msgstr "Клонирование…"
 
 msgid "Close"
 msgstr "Закрыть"
+
+msgid "Close (Esc)"
+msgstr "Закрыть (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -10301,6 +10307,9 @@ msgstr "Новости, обновления и заметки команды Su
 msgid "Next"
 msgstr "Далее"
 
+msgid "Next (Enter)"
+msgstr "Далее (Enter)"
+
 msgid "Next branch"
 msgstr "Следующая ветка"
 
@@ -12472,6 +12481,9 @@ msgstr "Предпросмотр: напоминание о звезде на Gi
 
 msgid "Previous"
 msgstr "Назад"
+
+msgid "Previous (Shift+Enter)"
+msgstr "Назад (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "Предыдущая ветка"

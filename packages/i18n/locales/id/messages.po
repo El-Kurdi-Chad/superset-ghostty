@@ -799,6 +799,9 @@ msgstr "{count} host menjalankan layanan host yang lebih lama dari aplikasi ini"
 msgid "{count}/day"
 msgstr "{count}/hari"
 
+msgid "{current} of {total}"
+msgstr "{current} dari {total}"
+
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} dari {totalBranches}"
 
@@ -3725,6 +3728,9 @@ msgstr "Meng-clone…"
 
 msgid "Close"
 msgstr "Tutup"
+
+msgid "Close (Esc)"
+msgstr "Tutup (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -10301,6 +10307,9 @@ msgstr "Berita, pembaruan, dan wawasan dari tim Superset tentang agen coding par
 msgid "Next"
 msgstr "Berikutnya"
 
+msgid "Next (Enter)"
+msgstr "Berikutnya (Enter)"
+
 msgid "Next branch"
 msgstr "Branch berikutnya"
 
@@ -12472,6 +12481,9 @@ msgstr "Pratinjau: pengingat bintang GitHub"
 
 msgid "Previous"
 msgstr "Sebelumnya"
+
+msgid "Previous (Shift+Enter)"
+msgstr "Sebelumnya (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "Branch sebelumnya"

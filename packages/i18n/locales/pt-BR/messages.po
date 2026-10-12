@@ -799,6 +799,9 @@ msgstr "{count} hosts executam um serviço de host mais antigo que este app"
 msgid "{count}/day"
 msgstr "{count}/dia"
 
+msgid "{current} of {total}"
+msgstr "{current} de {total}"
+
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} de {totalBranches}"
 
@@ -3725,6 +3728,9 @@ msgstr "Clonando…"
 
 msgid "Close"
 msgstr "Fechar"
+
+msgid "Close (Esc)"
+msgstr "Fechar (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -10301,6 +10307,9 @@ msgstr "Notícias, atualizações e análises da equipe do Superset sobre agente
 msgid "Next"
 msgstr "Próxima"
 
+msgid "Next (Enter)"
+msgstr "Próxima (Enter)"
+
 msgid "Next branch"
 msgstr "Próxima branch"
 
@@ -12472,6 +12481,9 @@ msgstr "Prévia: lembrete de estrela no GitHub"
 
 msgid "Previous"
 msgstr "Anterior"
+
+msgid "Previous (Shift+Enter)"
+msgstr "Anterior (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "Branch anterior"

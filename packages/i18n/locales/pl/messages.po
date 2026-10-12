@@ -799,6 +799,9 @@ msgstr "{count} hostów działa na starszej usłudze hosta niż ta aplikacja"
 msgid "{count}/day"
 msgstr "{count}/dzień"
 
+msgid "{current} of {total}"
+msgstr "{current} z {total}"
+
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} z {totalBranches}"
 
@@ -3725,6 +3728,9 @@ msgstr "Klonowanie…"
 
 msgid "Close"
 msgstr "Zamknij"
+
+msgid "Close (Esc)"
+msgstr "Zamknij (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -10301,6 +10307,9 @@ msgstr "Nowości, aktualizacje i spostrzeżenia zespołu Superset na temat równ
 msgid "Next"
 msgstr "Dalej"
 
+msgid "Next (Enter)"
+msgstr "Dalej (Enter)"
+
 msgid "Next branch"
 msgstr "Następna gałąź"
 
@@ -12472,6 +12481,9 @@ msgstr "Podgląd: przypomnienie o gwiazdce na GitHub"
 
 msgid "Previous"
 msgstr "Wstecz"
+
+msgid "Previous (Shift+Enter)"
+msgstr "Wstecz (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "Poprzednia gałąź"

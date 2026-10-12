@@ -799,6 +799,9 @@ msgstr "{count}台のホストがこのアプリより古いホストサービ�
 msgid "{count}/day"
 msgstr "{count}/日"
 
+msgid "{current} of {total}"
+msgstr "{total} 件中 {current} 件目"
+
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage}/{totalBranches}"
 
@@ -3725,6 +3728,9 @@ msgstr "クローン中…"
 
 msgid "Close"
 msgstr "閉じる"
+
+msgid "Close (Esc)"
+msgstr "閉じる (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -10301,6 +10307,9 @@ msgstr "並列コーディングエージェントと開発者の生産性に関
 msgid "Next"
 msgstr "次へ"
 
+msgid "Next (Enter)"
+msgstr "次へ (Enter)"
+
 msgid "Next branch"
 msgstr "次のブランチ"
 
@@ -12472,6 +12481,9 @@ msgstr "プレビュー: GitHub スター催促トースト"
 
 msgid "Previous"
 msgstr "前へ"
+
+msgid "Previous (Shift+Enter)"
+msgstr "前へ (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "前のブランチ"

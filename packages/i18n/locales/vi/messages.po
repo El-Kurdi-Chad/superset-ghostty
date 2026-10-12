@@ -799,6 +799,9 @@ msgstr "{count} máy chủ đang chạy dịch vụ máy chủ cũ hơn ứng d�
 msgid "{count}/day"
 msgstr "{count}/ngày"
 
+msgid "{current} of {total}"
+msgstr "{current} / {total}"
+
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage}/{totalBranches}"
 
@@ -3725,6 +3728,9 @@ msgstr "Đang clone…"
 
 msgid "Close"
 msgstr "Đóng"
+
+msgid "Close (Esc)"
+msgstr "Đóng (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -10301,6 +10307,9 @@ msgstr "Tin tức, cập nhật và góc nhìn từ đội ngũ Superset về c�
 msgid "Next"
 msgstr "Tiếp"
 
+msgid "Next (Enter)"
+msgstr "Tiếp (Enter)"
+
 msgid "Next branch"
 msgstr "Nhánh kế tiếp"
 
@@ -12472,6 +12481,9 @@ msgstr "Xem trước: lời nhắc gắn sao GitHub"
 
 msgid "Previous"
 msgstr "Trước"
+
+msgid "Previous (Shift+Enter)"
+msgstr "Trước (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "Nhánh trước"

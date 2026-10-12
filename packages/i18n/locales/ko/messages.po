@@ -799,6 +799,9 @@ msgstr "{count}개의 호스트가 이 앱보다 오래된 호스트 서비스�
 msgid "{count}/day"
 msgstr "하루 {count}개"
 
+msgid "{current} of {total}"
+msgstr "{total}개 중 {current}번째"
+
 msgid "{currentPage} of {totalBranches}"
 msgstr "{totalBranches} 중 {currentPage}"
 
@@ -3725,6 +3728,9 @@ msgstr "클론하는 중…"
 
 msgid "Close"
 msgstr "닫기"
+
+msgid "Close (Esc)"
+msgstr "닫기 (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -10301,6 +10307,9 @@ msgstr "병렬 코딩 에이전트와 개발자 생산성에 대한 Superset 팀
 msgid "Next"
 msgstr "다음"
 
+msgid "Next (Enter)"
+msgstr "다음 (Enter)"
+
 msgid "Next branch"
 msgstr "다음 브랜치"
 
@@ -12472,6 +12481,9 @@ msgstr "미리보기: GitHub 스타 요청 토스트"
 
 msgid "Previous"
 msgstr "이전"
+
+msgid "Previous (Shift+Enter)"
+msgstr "이전 (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "이전 브랜치"
