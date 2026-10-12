@@ -1,4 +1,4 @@
-import { Trans, useLingui } from "@lingui/react/macro";
+import { useLingui } from "@lingui/react/macro";
 import { Spinner } from "@superset/ui/spinner";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@superset/ui/tooltip";
 import { cn } from "@superset/ui/utils";
@@ -32,13 +32,14 @@ function FindButton({
 }: {
 	children: ReactNode;
 	disabled?: boolean;
-	label: ReactNode;
+	label: string;
 	onClick: () => void;
 }) {
 	return (
 		<Tooltip>
 			<TooltipTrigger asChild>
 				<button
+					aria-label={label}
 					className="rounded p-1 text-muted-foreground transition-colors hover:bg-muted-foreground/20 hover:text-foreground disabled:pointer-events-none disabled:opacity-40"
 					disabled={disabled}
 					onClick={onClick}
@@ -132,19 +133,19 @@ export function TranscriptFindBar({
 			<div className="flex shrink-0 items-center">
 				<FindButton
 					disabled={matchCount === 0}
-					label={<Trans>Previous (Shift+Enter)</Trans>}
+					label={t({ message: "Previous (Shift+Enter)" })}
 					onClick={onPrevious}
 				>
 					<HiChevronUp className="size-3.5" />
 				</FindButton>
 				<FindButton
 					disabled={matchCount === 0}
-					label={<Trans>Next (Enter)</Trans>}
+					label={t({ message: "Next (Enter)" })}
 					onClick={onNext}
 				>
 					<HiChevronDown className="size-3.5" />
 				</FindButton>
-				<FindButton label={<Trans>Close (Esc)</Trans>} onClick={onClose}>
+				<FindButton label={t({ message: "Close (Esc)" })} onClick={onClose}>
 					<HiMiniXMark className="size-3.5" />
 				</FindButton>
 			</div>

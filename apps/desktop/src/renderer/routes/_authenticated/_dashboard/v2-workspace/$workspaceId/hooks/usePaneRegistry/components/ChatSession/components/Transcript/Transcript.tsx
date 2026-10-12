@@ -78,7 +78,7 @@ export type TranscriptProps = {
 	onDiscardPrompt: (clientId: string) => void;
 	/** The pane has focus, so ⌘F opens the find bar here. */
 	isActive?: boolean;
-	/** The find bar closed; focus belongs back in the composer. */
+	/** The reader closed the find bar; focus belongs back in the composer. */
 	onCloseFind?: (() => void) | undefined;
 };
 

@@ -45,6 +45,16 @@ test("shows the position and steps with Enter and Shift+Enter", () => {
 	expect(onPrevious).toHaveBeenCalledTimes(1);
 });
 
+test("the icon buttons are named and act on click", () => {
+	const { getByRole, onNext, onPrevious, onClose } = renderBar();
+	fireEvent.click(getByRole("button", { name: "Previous (Shift+Enter)" }));
+	fireEvent.click(getByRole("button", { name: "Next (Enter)" }));
+	fireEvent.click(getByRole("button", { name: "Close (Esc)" }));
+	expect(onPrevious).toHaveBeenCalledTimes(1);
+	expect(onNext).toHaveBeenCalledTimes(1);
+	expect(onClose).toHaveBeenCalledTimes(1);
+});
+
 test("Esc closes the bar", () => {
 	const { getByRole, onClose } = renderBar();
 	fireEvent.keyDown(getByRole("textbox"), { key: "Escape" });

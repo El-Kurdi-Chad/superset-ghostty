@@ -45,7 +45,7 @@ export type UseTranscriptFindOptions = {
 	isEntryCollapsed: (entryKey: string, defaultCollapsed: boolean) => boolean;
 	onToggleEntry: (entryKey: string, collapsed: boolean) => void;
 	scrollToMessage: ScrollToMessage;
-	/** Called after the bar closes, so focus can go back to the composer. */
+	/** Called when the reader closes the bar, so focus can go back to the composer. */
 	onClose?: (() => void) | undefined;
 	debounceMs?: number;
 };
@@ -178,12 +178,15 @@ export function useTranscriptFind({
 	}, [goTo]);
 
 	const open = useCallback(() => setIsOpen(true), []);
-	const close = useCallback(() => {
+	const dismiss = useCallback(() => {
 		setIsOpen(false);
 		setCurrent(null);
 		revealRef.current = null;
+	}, []);
+	const close = useCallback(() => {
+		dismiss();
 		onClose?.();
-	}, [onClose]);
+	}, [dismiss, onClose]);
 
 	useHotkey(
 		"FIND_IN_CHAT",
@@ -202,9 +205,11 @@ export function useTranscriptFind({
 		},
 	);
 
+	// Focus already belongs to the pane the reader moved to, so this close
+	// must not hand it back to this pane's composer.
 	useEffect(() => {
-		if (!isActive && isOpen) close();
-	}, [isActive, isOpen, close]);
+		if (!isActive && isOpen) dismiss();
+	}, [isActive, isOpen, dismiss]);
 
 	useEffect(() => {
 		if (!isOpen || !isActive) return;

@@ -178,13 +178,14 @@ test("closing keeps the query, drops the position and hands focus back", async (
 	expect(onClose).toHaveBeenCalledTimes(1);
 });
 
-test("the bar closes when the pane loses focus", async () => {
-	const { result, rerender, initial } = renderFind();
+test("the bar closes when the pane loses focus, without taking focus back", async () => {
+	const { result, rerender, initial, onClose } = renderFind();
 	act(() => result.current.open());
 	expect(result.current.isOpen).toBe(true);
 
 	rerender({ ...initial, isActive: false });
 	expect(result.current.isOpen).toBe(false);
+	expect(onClose).not.toHaveBeenCalled();
 });
 
 test("paints the current hit, and again after a jump lands on the same hit", async () => {
