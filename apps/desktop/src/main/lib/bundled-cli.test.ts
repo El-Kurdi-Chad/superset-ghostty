@@ -189,6 +189,34 @@ describe("bundled pdev", () => {
 		expect(existsSync(path.join(binDir, "pdev"))).toBe(false);
 	});
 
+	it("removes its own shim once pdev is no longer bundled", () => {
+		const shimPath = path.join(binDir, "pdev");
+		installBundledPdevShim({ binDir, bundledPdevPath, platform: "darwin" });
+
+		const status = installBundledPdevShim({
+			binDir,
+			bundledPdevPath: path.join(tempDir, "missing", "pdev"),
+			platform: "darwin",
+		});
+
+		expect(status).toBe("missing");
+		expect(existsSync(shimPath)).toBe(false);
+	});
+
+	it("keeps a user's pdev when pdev is not bundled", () => {
+		const shimPath = path.join(binDir, "pdev");
+		mkdirSync(binDir, { recursive: true });
+		writeFileSync(shimPath, "#!/bin/sh\necho mine\n", { mode: 0o755 });
+
+		installBundledPdevShim({
+			binDir,
+			bundledPdevPath: path.join(tempDir, "missing", "pdev"),
+			platform: "darwin",
+		});
+
+		expect(readFileSync(shimPath, "utf-8")).toBe("#!/bin/sh\necho mine\n");
+	});
+
 	it("is never bundled on Windows", () => {
 		expect(resolveBundledPdevPath("win32")).toBeNull();
 	});

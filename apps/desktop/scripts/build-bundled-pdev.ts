@@ -161,6 +161,7 @@ export async function main(
 	if (!token) {
 		const message = `No PDEV_RELEASE_TOKEN, GH_TOKEN or GITHUB_TOKEN to download ${assetName} from ${PDEV_RELEASE_REPO}`;
 		if (required) throw new Error(message);
+		rmSync(destDir, { recursive: true, force: true });
 		console.warn(`[desktop] ${message}; pdev is not bundled`);
 		return;
 	}
@@ -173,6 +174,7 @@ export async function main(
 		console.log(`[desktop] bundled pdev written to ${destDir}`);
 	} catch (error) {
 		if (required) throw error;
+		rmSync(destDir, { recursive: true, force: true });
 		console.warn(`[desktop] pdev is not bundled: ${String(error)}`);
 	} finally {
 		rmSync(downloadDir, { recursive: true, force: true });

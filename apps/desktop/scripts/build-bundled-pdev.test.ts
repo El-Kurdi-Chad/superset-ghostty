@@ -92,6 +92,14 @@ describe("build-bundled-pdev", () => {
 		expect(existsSync(path.join(destDir, "assets", "theme.json"))).toBe(true);
 	});
 
+	it("removes a bundle for another target when it cannot download", async () => {
+		await main({ PDEV_BUNDLE_DIR: sourceDir }, destDir);
+
+		await main({ TARGET_PLATFORM: "linux", TARGET_ARCH: "x64" }, destDir);
+
+		expect(existsSync(destDir)).toBe(false);
+	});
+
 	it("skips without a token unless the bundle is required", async () => {
 		const env = { TARGET_PLATFORM: "darwin", TARGET_ARCH: "arm64" };
 

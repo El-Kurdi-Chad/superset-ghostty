@@ -211,17 +211,21 @@ export function installBundledPdevShim(
 	options: InstallBundledPdevShimOptions = {},
 ): BundledCliInstallStatus {
 	const platform = options.platform ?? process.platform;
+	const shimPath = path.join(
+		options.binDir ?? getBinDir(),
+		shimName("pdev", platform),
+	);
 	const bundledPdevPath =
 		options.bundledPdevPath ?? resolveBundledPdevPath(platform);
 	if (!bundledPdevPath || !existsSync(bundledPdevPath)) {
 		console.debug("[bundled-cli] No bundled pdev binary found");
+		if (existsSync(shimPath) && shouldReplaceShim(shimPath)) {
+			unlinkSync(shimPath);
+		}
 		return "missing";
 	}
 	return installShim({
-		shimPath: path.join(
-			options.binDir ?? getBinDir(),
-			shimName("pdev", platform),
-		),
+		shimPath,
 		contents: buildBundledPdevShim(
 			bundledPdevPath,
 			platform,
