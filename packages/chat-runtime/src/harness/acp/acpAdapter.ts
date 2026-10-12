@@ -185,7 +185,9 @@ function sessionMissing(error: unknown): boolean {
 	return (
 		error instanceof AcpRpcError &&
 		(error.code === -32002 ||
-			/not found|unknown session|no rollout/i.test(error.message))
+			/unknown sessionid|session not found|no conversation found|no rollout found/i.test(
+				error.message,
+			))
 	);
 }
 
@@ -407,6 +409,7 @@ export class AcpAdapter implements HarnessAdapter {
 	private unkeyedImageSequence = 0;
 	private queuedPrompts: UserContent[][] = [];
 	private disposed = false;
+	private dead = false;
 	private stderrTail = "";
 
 	constructor(private readonly options: AcpAdapterOptions) {
@@ -455,15 +458,11 @@ export class AcpAdapter implements HarnessAdapter {
 		const client = this.client;
 		const sessionId = this.sessionId;
 		if (!client || !sessionId || !this.canSteer()) return false;
-		const response = await client.request(
-			ACP_STEERING_METHOD,
-			{
-				sessionId,
-				prompt: await this.toAcpPrompt(content),
-				_meta: { steering: { idleBehavior: "promptRequired" } },
-			},
-			this.requestTimeoutMs(),
-		);
+		const response = await client.request(ACP_STEERING_METHOD, {
+			sessionId,
+			prompt: await this.toAcpPrompt(content),
+			_meta: { steering: { idleBehavior: "promptRequired" } },
+		});
 		const outcome = acpSteeringResponseSchema.safeParse(response).data?.outcome;
 		if (outcome === "injected") {
 			this.steeredCyclePending = true;
@@ -791,6 +790,7 @@ export class AcpAdapter implements HarnessAdapter {
 
 			if (!this.sessionId) {
 				this.emitNotice("error", "acp agent returned no session id");
+				this.dead = true;
 				this.emitSession({ status: "dead" });
 				this.queue.close();
 				void client.close();
@@ -823,6 +823,7 @@ export class AcpAdapter implements HarnessAdapter {
 			for (const content of queued) await this.runTurn(content);
 		} catch (error) {
 			this.emitNotice("error", this.withStderr(this.authAwareMessage(error)));
+			this.dead = true;
 			this.emitSession({ status: "dead" });
 			this.queue.close();
 			void this.client?.close();
@@ -1818,7 +1819,8 @@ export class AcpAdapter implements HarnessAdapter {
 	}
 
 	private handleExit(code: number | null): void {
-		if (this.disposed) return;
+		if (this.disposed || this.dead) return;
+		this.dead = true;
 		this.stalePendingApprovals();
 		for (const sessionId of [...this.subagents.keys()]) {
 			this.finishSubagent(sessionId, "failed");

@@ -2935,7 +2935,10 @@ describe("AcpAdapter when the agent fails", () => {
 
 	it("keeps a resume dead when the load fails for a reason other than a missing session", async () => {
 		const agent = new FakeAcpAgent();
-		agent.loadError = { code: -32603, message: "Internal error: fetch failed" };
+		agent.loadError = {
+			code: -32603,
+			message: "Internal error: model not found",
+		};
 		const { adapter, events } = startAdapter(agent, "sess-1");
 		await flush(40);
 

@@ -57,7 +57,11 @@ export function spawnAcpTransport(
 		handlers.onStderr(`${error.message}\n`);
 		reportExit(null, null);
 	});
-	child.stdin.on("error", () => undefined);
+	child.stdin.on("error", (error) => {
+		handlers.onStderr(`stdin: ${error.message}\n`);
+		killProcessGroup(child.pid);
+		child.kill("SIGKILL");
+	});
 
 	let pending = "";
 	child.stdout.setEncoding("utf8");
@@ -133,9 +137,9 @@ export class AcpTimeoutError extends Error {
 		readonly method: string,
 		timeoutMs: number,
 	) {
-		super(
-			`${method}: the agent did not answer within ${Math.round(timeoutMs / 1000)}s`,
-		);
+		const wait =
+			timeoutMs < 1000 ? `${timeoutMs}ms` : `${Math.round(timeoutMs / 1000)}s`;
+		super(`${method}: the agent did not answer within ${wait}`);
 		this.name = "AcpTimeoutError";
 	}
 }
