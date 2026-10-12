@@ -12,7 +12,6 @@ import { useDebouncedValue } from "renderer/hooks/useDebouncedValue";
 import { useHotkey } from "renderer/hotkeys";
 import {
 	type FindMatch,
-	type FindSegment,
 	findMatches,
 	findNeedle,
 	findSegments,
@@ -26,7 +25,6 @@ import {
 import { rowMessageId, type TranscriptRow } from "../../utils/transcriptRows";
 
 const DEBOUNCE_MS = 150;
-const NO_SEGMENTS: FindSegment[] = [];
 /** Rows near the viewport finish laying out over a frame or two after a jump. */
 const REVEAL_FRAMES = 3;
 /** Keeps a revealed hit clear of the find bar and the pane edges. */
@@ -109,13 +107,16 @@ export function useTranscriptFind({
 	const [jumps, setJumps] = useState(0);
 	const inputRef = useRef<HTMLInputElement>(null);
 
+	// Segments stay current while the bar is closed, so reopening it with the
+	// last query counts at once instead of after the debounce.
 	const harness = snapshot.session?.harness;
 	const liveSegments = useMemo(
-		() => (isOpen ? findSegments(rows, snapshot, harness) : NO_SEGMENTS),
-		[isOpen, rows, snapshot, harness],
+		() => findSegments(rows, snapshot, harness),
+		[rows, snapshot, harness],
 	);
 	const segments = useDebouncedValue(liveSegments, debounceMs);
-	const needle = useDebouncedValue(findNeedle(query), debounceMs);
+	const settledNeedle = useDebouncedValue(findNeedle(query), debounceMs);
+	const needle = isOpen ? settledNeedle : "";
 	const matches = useMemo(
 		() => findMatches(segments, needle),
 		[segments, needle],
@@ -140,8 +141,6 @@ export function useTranscriptFind({
 	currentRef.current = current;
 	const currentIndexRef = useRef(currentIndex);
 	currentIndexRef.current = currentIndex;
-	const currentMatchRef = useRef(currentMatch);
-	currentMatchRef.current = currentMatch;
 	const revealRef = useRef<Reveal | null>(null);
 
 	const goTo = useCallback(
@@ -244,9 +243,8 @@ export function useTranscriptFind({
 		});
 	}, [isOpen, jumps, scrollToMessage]);
 
-	const _currentKey = currentMatch
-		? `${currentMatch.itemId}:${currentMatch.occurrence}`
-		: null;
+	// Repainted for every jump, even back onto the same hit, so a reveal that
+	// was interrupted still finishes.
 	useEffect(() => {
 		if (!isOpen || !viewport || !needle) {
 			clearHighlights();
@@ -258,11 +256,16 @@ export function useTranscriptFind({
 		};
 		const paint = () => {
 			frame = 0;
-			const plan = collectHighlights(viewport, needle, currentMatchRef.current);
+			const plan = collectHighlights(viewport, needle, currentMatch);
 			paintHighlights(plan);
 			const reveal = revealRef.current;
-			const shown = currentMatchRef.current;
-			if (!reveal || !shown || !sameMatch(reveal.match, shown)) return;
+			if (
+				jumps === 0 ||
+				!reveal ||
+				!currentMatch ||
+				!sameMatch(reveal.match, currentMatch)
+			)
+				return;
 			const hit = plan.current?.getBoundingClientRect();
 			if (hit && hit.height > 0) {
 				revealRect(viewport, hit, true);
@@ -286,7 +289,7 @@ export function useTranscriptFind({
 			if (frame !== 0) cancelAnimationFrame(frame);
 			clearHighlights();
 		};
-	}, [isOpen, viewport, needle]);
+	}, [isOpen, viewport, needle, currentMatch, jumps]);
 
 	return {
 		isOpen,

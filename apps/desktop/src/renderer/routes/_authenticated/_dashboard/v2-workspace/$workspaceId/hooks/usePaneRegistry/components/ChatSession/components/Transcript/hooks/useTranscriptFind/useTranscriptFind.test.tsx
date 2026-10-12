@@ -186,3 +186,59 @@ test("the bar closes when the pane loses focus", async () => {
 	rerender({ ...initial, isActive: false });
 	expect(result.current.isOpen).toBe(false);
 });
+
+test("paints the current hit, and again after a jump lands on the same hit", async () => {
+	class FakeHighlight {
+		ranges: Range[];
+		constructor(...ranges: Range[]) {
+			this.ranges = ranges;
+		}
+		get size() {
+			return this.ranges.length;
+		}
+	}
+	const registry = new Map<string, FakeHighlight>();
+	const previous = {
+		CSS: Object.getOwnPropertyDescriptor(globalThis, "CSS"),
+		Highlight: Object.getOwnPropertyDescriptor(globalThis, "Highlight"),
+	};
+	const define = (name: string, value: unknown) =>
+		Object.defineProperty(globalThis, name, {
+			value,
+			configurable: true,
+			writable: true,
+		});
+	const restore = (name: string, descriptor: PropertyDescriptor | undefined) =>
+		descriptor
+			? Object.defineProperty(globalThis, name, descriptor)
+			: Reflect.deleteProperty(globalThis, name);
+	define("CSS", { highlights: registry, escape: (value: string) => value });
+	define("Highlight", FakeHighlight);
+	const viewport = document.createElement("div");
+	viewport.innerHTML = `<div data-message-id="agent-1"><p data-find-item="agent-1">The login form posts to /login</p></div>`;
+	document.body.appendChild(viewport);
+	try {
+		const { result } = renderFind({
+			viewport,
+			rows: [itemRow(reply)],
+			snapshot: snapshotOf([reply]),
+		});
+		act(() => result.current.open());
+		act(() => result.current.setQuery("login"));
+		await settle();
+		expect(registry.get("chat-search-matches")?.size).toBe(2);
+		expect(registry.get("chat-search-active")?.size).toBe(1);
+
+		act(() => result.current.next());
+		act(() => result.current.next());
+		expect(result.current.currentIndex).toBe(0);
+		expect(registry.get("chat-search-active")?.size).toBe(1);
+
+		act(() => result.current.close());
+		expect(registry.has("chat-search-matches")).toBe(false);
+	} finally {
+		viewport.remove();
+		restore("CSS", previous.CSS);
+		restore("Highlight", previous.Highlight);
+	}
+});
