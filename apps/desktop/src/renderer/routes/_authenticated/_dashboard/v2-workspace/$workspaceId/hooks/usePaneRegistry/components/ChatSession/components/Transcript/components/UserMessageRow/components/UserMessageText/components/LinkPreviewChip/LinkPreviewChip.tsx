@@ -27,7 +27,10 @@ export function LinkPreviewChip({ url }: { url: string }) {
 			target="_blank"
 			title={url}
 		>
-			<span className="mr-1 inline-flex size-4 items-center justify-center overflow-hidden rounded bg-background/50 align-[-0.125em] font-semibold text-[9px] text-foreground/55 uppercase">
+			<span
+				aria-hidden="true"
+				className="mr-1 inline-flex size-4 select-none items-center justify-center overflow-hidden rounded bg-background/50 align-[-0.125em] font-semibold text-[9px] text-foreground/55 uppercase"
+			>
 				{icon && icon !== brokenIcon ? (
 					<img
 						alt=""

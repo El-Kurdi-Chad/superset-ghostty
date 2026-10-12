@@ -92,3 +92,27 @@ test("the site's icon replaces the letter when the host returns one", async () =
 	const box = view.getByText("Content").previousElementSibling;
 	expect(box?.querySelector("img")?.getAttribute("src")).toBe(icon);
 });
+
+test("copying a sent message gives back what was typed, not the labels shown", async () => {
+	const text = `Look at ${PR} and ${DOCS}\nthen ${LATER}.`;
+	const { view } = await renderText(text, {
+		title: "Content · Agent Client Protocol",
+		iconDataUrl: null,
+	});
+	const message = view.container.firstElementChild as HTMLElement;
+	const copy = (target: Element) => {
+		const setData = mock((_type: string, _text: string) => {});
+		fireEvent.copy(target, { clipboardData: { setData } });
+		return setData.mock.calls;
+	};
+
+	window.getSelection()?.selectAllChildren(message);
+	expect(copy(message)).toEqual([["text/plain", text]]);
+
+	const pill = view.getByText("superset-sh/superset#8329");
+	window.getSelection()?.selectAllChildren(pill);
+	expect(copy(pill)).toEqual([["text/plain", PR]]);
+
+	window.getSelection()?.removeAllRanges();
+	expect(copy(message)).toEqual([]);
+});
