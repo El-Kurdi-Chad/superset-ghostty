@@ -1,5 +1,10 @@
-export type { AcpAdapterOptions } from "./acpAdapter";
+export type {
+	AcpAdapterOptions,
+	AcpAttachment,
+	AcpStoredImage,
+} from "./acpAdapter";
 export { AcpAdapter, createAcpAdapter } from "./acpAdapter";
+export type { AcpImageSource } from "./imageBlocks";
 export type {
 	AcpNotification,
 	AcpRpcClientOptions,

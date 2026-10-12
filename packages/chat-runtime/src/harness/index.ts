@@ -1,4 +1,8 @@
-export type { AcpAdapterOptions } from "./acp";
+export type {
+	AcpAdapterOptions,
+	AcpImageSource,
+	AcpStoredImage,
+} from "./acp";
 export { AcpAdapter, createAcpAdapter } from "./acp";
 export { BackgroundTasks } from "./backgroundTasks";
 export type {
