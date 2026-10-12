@@ -1,5 +1,6 @@
 import { useLingui } from "@lingui/react/macro";
 import type { ToolCall } from "@superset/chat/protocol";
+import { isImageAttachment } from "@superset/chat/protocol";
 import { ShimmerLabel } from "@superset/ui/ai-elements/shimmer-label";
 import {
 	Collapsible,
@@ -7,7 +8,7 @@ import {
 	CollapsibleTrigger,
 } from "@superset/ui/collapsible";
 import { cn } from "@superset/ui/utils";
-import { ChevronRight, CircleDashed } from "lucide-react";
+import { ChevronRight, CircleDashed, ImageIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
 import { PluginIcon } from "renderer/components/PluginIcon";
@@ -36,7 +37,8 @@ export function ToolCallRow({
 	const { t } = useLingui();
 	const [open, setOpen] = useState(false);
 	const hasBody = item.content.length > 0;
-	const Icon = toolKindIcon(item.toolKind);
+	const sawImage = (item.attachments ?? []).some(isImageAttachment);
+	const Icon = sawImage ? ImageIcon : toolKindIcon(item.toolKind);
 	const running = item.status === "running";
 	const command = item.toolKind === "execute";
 	const change = useMemo(() => fileChangeOf(item), [item]);

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ImagePreviewOverlay } from "renderer/routes/_authenticated/components/ImagePreviewOverlay";
 
 export function PreviewableImage({
+	alt,
 	src,
 	filename,
 	onError,
@@ -10,6 +11,7 @@ export function PreviewableImage({
 }: {
 	src: string;
 	filename: string;
+	alt?: string | undefined;
 	onError: () => void;
 	onDownload: () => Promise<void>;
 }) {
@@ -24,7 +26,7 @@ export function PreviewableImage({
 				onClick={() => setIsPreviewOpen(true)}
 			>
 				<img
-					alt={filename}
+					alt={alt ?? filename}
 					className="size-full object-cover"
 					draggable={false}
 					onError={onError}

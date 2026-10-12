@@ -1,18 +1,24 @@
 import { Badge } from "@superset/ui/badge";
 import { workspaceTrpc } from "@superset/workspace-client";
 import { useState } from "react";
+import { ImagePreviewOverlay } from "renderer/routes/_authenticated/components/ImagePreviewOverlay";
 import { useSaveImageToDownloads } from "renderer/routes/_authenticated/hooks/useSaveImageToDownloads";
-import { useChatPaneActions } from "../../../../../../providers/ChatPaneActionsProvider";
+import { useChatPaneActions } from "../../../../providers/ChatPaneActionsProvider";
+import { LargeImageTile } from "./components/LargeImageTile";
 import { PreviewableImage } from "./components/PreviewableImage";
 
+/** A thumbnail is small; a screenshot over this only opens in the overlay. */
 const MAX_THUMBNAIL_BYTES = 5 * 1024 * 1024;
+const MAX_PREVIEW_BYTES = 25 * 1024 * 1024;
 
 export function AttachmentImage({
+	alt,
 	path,
 	type,
 }: {
 	path: string;
 	type: string;
+	alt?: string | undefined;
 }) {
 	const { workspaceId } = useChatPaneActions();
 	const saveImageToDownloads = useSaveImageToDownloads();
@@ -22,34 +28,74 @@ export function AttachmentImage({
 		{ enabled: Boolean(workspaceId) },
 	);
 	const worktreePath = workspace?.worktreePath;
-	const { data, isPending, isError } =
-		workspaceTrpc.filesystem.readFile.useQuery(
-			{
-				workspaceId: workspaceId ?? "",
-				absolutePath: `${worktreePath}/${path}`,
-				maxBytes: MAX_THUMBNAIL_BYTES,
-			},
-			{
-				enabled: Boolean(workspaceId && worktreePath),
-				staleTime: Number.POSITIVE_INFINITY,
-				retry: false,
-			},
-		);
+	const absolutePath = `${worktreePath}/${path}`;
+	const readOptions = {
+		staleTime: Number.POSITIVE_INFINITY,
+		retry: false,
+	} as const;
+	const thumbnail = workspaceTrpc.filesystem.readFile.useQuery(
+		{
+			workspaceId: workspaceId ?? "",
+			absolutePath,
+			maxBytes: MAX_THUMBNAIL_BYTES,
+		},
+		{ ...readOptions, enabled: Boolean(workspaceId && worktreePath) },
+	);
 	const [unrenderable, setUnrenderable] = useState(false);
+	const [previewOpen, setPreviewOpen] = useState(false);
+	const tooLargeForThumbnail =
+		thumbnail.data?.kind === "bytes" && thumbnail.data.exceededLimit;
+	const preview = workspaceTrpc.filesystem.readFile.useQuery(
+		{
+			workspaceId: workspaceId ?? "",
+			absolutePath,
+			maxBytes: MAX_PREVIEW_BYTES,
+		},
+		{
+			...readOptions,
+			enabled: Boolean(
+				workspaceId && worktreePath && tooLargeForThumbnail && previewOpen,
+			),
+		},
+	);
+
 	if (
 		!workspaceId ||
-		isError ||
+		thumbnail.isError ||
 		unrenderable ||
-		(data && (data.kind !== "bytes" || data.exceededLimit))
+		(thumbnail.data && thumbnail.data.kind !== "bytes") ||
+		(preview.data &&
+			(preview.data.kind !== "bytes" || preview.data.exceededLimit))
 	)
 		return <Badge variant="secondary">{name}</Badge>;
-	if (isPending || !data)
+	if (thumbnail.isPending || !thumbnail.data)
 		return (
 			<div className="size-40 animate-pulse rounded-2xl bg-foreground/10" />
 		);
-	const src = `data:${type};base64,${data.content}`;
+	if (tooLargeForThumbnail) {
+		const src =
+			preview.data?.kind === "bytes"
+				? `data:${type};base64,${preview.data.content}`
+				: null;
+		return (
+			<>
+				<LargeImageTile filename={name} onClick={() => setPreviewOpen(true)} />
+				{src && (
+					<ImagePreviewOverlay
+						filename={name}
+						onClose={() => setPreviewOpen(false)}
+						onDownload={() => saveImageToDownloads(src, name)}
+						open={previewOpen}
+						src={src}
+					/>
+				)}
+			</>
+		);
+	}
+	const src = `data:${type};base64,${thumbnail.data.content}`;
 	return (
 		<PreviewableImage
+			alt={alt}
 			filename={name}
 			onDownload={() => saveImageToDownloads(src, name)}
 			onError={() => setUnrenderable(true)}
