@@ -15965,8 +15965,8 @@ msgstr "Superset 就是在 Superset 中建構的，因此我們自己就是它�
 msgid "Superset is designed to work with your existing tool, we natively support deep-linking to IDEs like Cursor so you can open your workspaces and files in your IDE."
 msgstr "Superset的設計就是配合你現有的工具。我們原生支援深度連結到Cursor這類IDE，你可以直接在自己的IDE裡開啟工作區和檔案。"
 
-msgid "Superset is getting a new name soon."
-msgstr "Superset 即將更名。"
+msgid "Superset is getting a new name soon"
+msgstr "Superset 即將更名"
 
 msgid "Superset is open source. If it's helped you today, a GitHub star helps other developers find it."
 msgstr "Superset是開源的。如果它今天幫到了你，一個GitHub星標能幫助更多開發者找到它。"
