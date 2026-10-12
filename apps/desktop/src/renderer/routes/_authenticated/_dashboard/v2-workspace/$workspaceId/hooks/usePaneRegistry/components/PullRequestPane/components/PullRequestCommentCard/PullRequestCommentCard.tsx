@@ -12,6 +12,7 @@ import { usePullRequestActivityReply } from "renderer/routes/_authenticated/_das
 import type { NormalizedComment } from "../../../../../../components/CommentsSection/types";
 import type { DiffFocusSide } from "../../../../../../types";
 import { PullRequestCommentReply } from "./components/PullRequestCommentReply";
+import { PullRequestThreadPath } from "./components/PullRequestThreadPath";
 
 const REPLY_CLASS_NAME =
 	"rounded px-1.5 py-0.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground";
@@ -91,30 +92,17 @@ export function PullRequestCommentCard({
 						},
 					})
 			: null;
-	const location = comment.path
-		? `${comment.path}${comment.line != null ? `:${comment.line}` : ""}`
-		: null;
 	return (
 		<PullRequestActivityCard
 			author={{ login: comment.authorLogin, avatarUrl: comment.avatarUrl }}
 			meta={
 				<>
-					{location && pathOpensDiff ? (
-						<button
-							type="button"
-							onClick={openCode}
-							title={comment.path}
-							className="min-w-0 flex-1 truncate text-left font-mono text-[11px] text-foreground/80 transition-colors hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-						>
-							{location}
-						</button>
-					) : location ? (
-						<span
-							title={comment.path}
-							className="min-w-0 flex-1 truncate font-mono text-[11px]"
-						>
-							{location}
-						</span>
+					{comment.path ? (
+						<PullRequestThreadPath
+							path={comment.path}
+							line={comment.line}
+							onOpen={pathOpensDiff ? openCode : undefined}
+						/>
 					) : null}
 					{comment.isResolved ? (
 						<span className="shrink-0 text-emerald-600 [.dark_&]:text-emerald-400">

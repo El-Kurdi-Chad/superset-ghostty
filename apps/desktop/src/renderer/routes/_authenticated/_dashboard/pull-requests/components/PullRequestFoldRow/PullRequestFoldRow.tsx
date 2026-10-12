@@ -48,18 +48,14 @@ export function PullRequestFoldRow({
 				className="flex h-10 w-full min-w-0 items-center gap-2 px-3 text-left"
 			>
 				<PullRequestActivityAvatar author={author} />
-				<span className="min-w-0 flex-1 truncate text-sm">
-					<span
-						className="font-medium text-foreground"
-						title={author?.name ?? undefined}
-					>
-						{pullRequestAuthorLabel(author)}
-					</span>
-					{meta ? (
-						<span className="ml-1.5 text-xs text-muted-foreground [&>*+*]:ms-1.5">
-							{meta}
-						</span>
-					) : null}
+				<span
+					className="max-w-[50%] shrink-0 truncate text-sm font-medium text-foreground"
+					title={author?.name ?? undefined}
+				>
+					{pullRequestAuthorLabel(author)}
+				</span>
+				<span className="flex min-w-0 flex-1 items-center gap-1.5 text-xs text-muted-foreground">
+					{meta}
 				</span>
 				{time ? (
 					<time
