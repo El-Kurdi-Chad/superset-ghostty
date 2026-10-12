@@ -29,6 +29,7 @@ import type { StoreApi } from "zustand/vanilla";
 import type { PaneViewerData, TerminalPaneData } from "../../types";
 import type { OpenAgentChat } from "../useAgentSessionLauncher";
 import type { TerminalLauncher } from "../useV2TerminalLauncher";
+import { isLinkedPresetEnabled } from "./utils/isLinkedPresetEnabled";
 
 function makeTerminalPane(
 	terminalId: string,
@@ -131,11 +132,13 @@ export function useV2PresetExecution({
 	const isAgentPresetEnabled = useIsAgentPresetEnabled();
 	const allPresets = useMemo(
 		() =>
-			storedPresets.filter((preset) => {
-				if (!preset.agentId) return true;
-				const linked = findLinkedAgent(unfilteredAgents, preset.agentId);
-				return isAgentPresetEnabled(linked?.presetId ?? preset.agentId);
-			}),
+			storedPresets.filter((preset) =>
+				isLinkedPresetEnabled(
+					preset.agentId,
+					unfilteredAgents,
+					isAgentPresetEnabled,
+				),
+			),
 		[storedPresets, unfilteredAgents, isAgentPresetEnabled],
 	);
 
@@ -165,6 +168,15 @@ export function useV2PresetExecution({
 			preset: V2TerminalPresetRow,
 			options?: { target?: "new-tab" | "active-tab" },
 		) => {
+			if (
+				!isLinkedPresetEnabled(
+					preset.agentId,
+					unfilteredAgents,
+					isAgentPresetEnabled,
+				)
+			) {
+				return;
+			}
 			const state = store.getState();
 			const activeTabId = state.activeTabId;
 			const target = options?.target ?? resolveTarget(preset.executionMode);
@@ -333,6 +345,8 @@ export function useV2PresetExecution({
 			workspaceQuery.data?.worktreePath,
 			sendToTerminal,
 			agents,
+			unfilteredAgents,
+			isAgentPresetEnabled,
 			openAgentChat,
 		],
 	);
