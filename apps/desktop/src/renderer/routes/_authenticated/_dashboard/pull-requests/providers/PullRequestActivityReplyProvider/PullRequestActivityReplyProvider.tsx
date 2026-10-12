@@ -7,15 +7,21 @@ export interface PullRequestReplyTarget {
 	author: PullRequestActivityAuthor | null;
 }
 
-export type RequestPullRequestReply = (target: PullRequestReplyTarget) => void;
+/** How a card's Reply reaches the composer at the end of the Activity section. */
+export interface PullRequestActivityReplyActions {
+	/** Answer a review thread through GitHub's reply endpoint. */
+	replyToThread: (target: PullRequestReplyTarget) => void;
+	/** Start a conversation comment that opens with this quote; GitHub threads no conversation comments. */
+	quote: (quote: string) => void;
+}
 
 const PullRequestActivityReplyContext =
-	createContext<RequestPullRequestReply | null>(null);
+	createContext<PullRequestActivityReplyActions | null>(null);
 
 export const PullRequestActivityReplyProvider =
 	PullRequestActivityReplyContext.Provider;
 
 /** Null where no composer can take a reply: the cloud route, an older host. */
-export function usePullRequestActivityReply(): RequestPullRequestReply | null {
+export function usePullRequestActivityReply(): PullRequestActivityReplyActions | null {
 	return useContext(PullRequestActivityReplyContext);
 }

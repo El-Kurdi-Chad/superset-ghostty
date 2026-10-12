@@ -7,15 +7,13 @@ import { LuArrowUpRight, LuCheck, LuCopy, LuUndo2 } from "react-icons/lu";
 import { electronTrpcClient } from "renderer/lib/trpc-client";
 import { PullRequestActivityCard } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestActivityCard";
 import { PullRequestMarkdown } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestMarkdown";
+import { PullRequestReplyAction } from "renderer/routes/_authenticated/_dashboard/pull-requests/components/PullRequestReplyAction";
 import { usePullRequestActivityLayout } from "renderer/routes/_authenticated/_dashboard/pull-requests/providers/PullRequestActivityLayoutProvider";
 import { usePullRequestActivityReply } from "renderer/routes/_authenticated/_dashboard/pull-requests/providers/PullRequestActivityReplyProvider";
 import type { NormalizedComment } from "../../../../../../components/CommentsSection/types";
 import type { DiffFocusSide } from "../../../../../../types";
 import { PullRequestCommentReply } from "./components/PullRequestCommentReply";
 import { PullRequestThreadPath } from "./components/PullRequestThreadPath";
-
-const REPLY_CLASS_NAME =
-	"rounded px-1.5 py-0.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground";
 
 export interface PullRequestCommentCardProps {
 	workspaceId: string;
@@ -39,7 +37,7 @@ export function PullRequestCommentCard({
 }: PullRequestCommentCardProps) {
 	const { t } = useLingui();
 	const layout = usePullRequestActivityLayout();
-	const requestReply = usePullRequestActivityReply();
+	const replyActions = usePullRequestActivityReply();
 	const [copied, setCopied] = useState(false);
 	const utils = workspaceTrpc.useUtils();
 	const resolve = workspaceTrpc.git.setReviewThreadResolution.useMutation({
@@ -82,9 +80,9 @@ export function PullRequestCommentCard({
 	};
 	const replyId = comment.databaseId;
 	const reply =
-		requestReply && replyId != null
+		replyActions && replyId != null
 			? () =>
-					requestReply({
+					replyActions.replyToThread({
 						commentId: replyId,
 						author: {
 							login: comment.authorLogin,
@@ -134,20 +132,7 @@ export function PullRequestCommentCard({
 							<LuCopy className="size-3.5" />
 						)}
 					</Button>
-					{reply ? (
-						<button type="button" onClick={reply} className={REPLY_CLASS_NAME}>
-							<Trans>Reply</Trans>
-						</button>
-					) : comment.url ? (
-						<a
-							href={comment.url}
-							target="_blank"
-							rel="noopener noreferrer"
-							className={REPLY_CLASS_NAME}
-						>
-							<Trans>Reply</Trans>
-						</a>
-					) : null}
+					<PullRequestReplyAction onReply={reply} href={comment.url} />
 				</>
 			}
 			replies={

@@ -1,6 +1,6 @@
 export {
+	type PullRequestActivityReplyActions,
 	PullRequestActivityReplyProvider,
 	type PullRequestReplyTarget,
-	type RequestPullRequestReply,
 	usePullRequestActivityReply,
 } from "./PullRequestActivityReplyProvider";

@@ -3,12 +3,19 @@ import { errorMessage } from "@superset/i18n/errors";
 import { toast } from "@superset/ui/sonner";
 import { useMutation } from "@tanstack/react-query";
 import { ArrowUp, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import {
+	type Ref,
+	useEffect,
+	useImperativeHandle,
+	useRef,
+	useState,
+} from "react";
 import { FaGithub } from "react-icons/fa";
 import { getHostServiceClientByUrl } from "renderer/lib/host-service-client";
 import { useInvalidatePullRequestDetail } from "../../hooks/usePullRequestDetail";
 import type { PullRequestReplyTarget } from "../../providers/PullRequestActivityReplyProvider";
 import { pullRequestAuthorLabel } from "../../utils/pullRequestAuthorLabel";
+import { appendQuoteToDraft } from "../../utils/quotePullRequestComment";
 
 export interface PullRequestCommentTarget {
 	projectId: string;
@@ -16,11 +23,17 @@ export interface PullRequestCommentTarget {
 	prNumber: number;
 }
 
+export interface PullRequestConversationComposerHandle {
+	/** Puts the quote after the conversation draft and the caret after the quote. */
+	quote: (quote: string) => void;
+}
+
 interface PullRequestConversationComposerProps {
 	target: PullRequestCommentTarget;
 	/** A review-thread comment to answer instead of the conversation. */
 	replyTo?: PullRequestReplyTarget | null;
 	onCancelReply?: () => void;
+	ref?: Ref<PullRequestConversationComposerHandle>;
 }
 
 /** The "Leave a comment" card at the end of the Activity section. Posts as the gh user;
@@ -30,6 +43,7 @@ export function PullRequestConversationComposer({
 	target,
 	replyTo = null,
 	onCancelReply,
+	ref,
 }: PullRequestConversationComposerProps) {
 	const { t } = useLingui();
 	// One draft per destination: choosing a thread to reply to must not carry
@@ -53,6 +67,27 @@ export function PullRequestConversationComposer({
 		setDrafts((current) => ({ ...current, reply: "" }));
 		if (replyCommentId !== undefined) fieldRef.current?.focus();
 	}, [replyCommentId]);
+	useImperativeHandle(
+		ref,
+		() => ({
+			quote: (quote) => {
+				setDrafts((current) => ({
+					...current,
+					conversation: appendQuoteToDraft(current.conversation, quote),
+				}));
+				const field = fieldRef.current;
+				if (!field) return;
+				field.focus();
+				// The draft lands on the next render; only then is there an end
+				// to put the caret at and scroll to.
+				requestAnimationFrame(() => {
+					field.setSelectionRange(field.value.length, field.value.length);
+					field.scrollTop = field.scrollHeight;
+				});
+			},
+		}),
+		[],
+	);
 	const post = useMutation({
 		mutationFn: async (text: string) => {
 			const client = getHostServiceClientByUrl(target.hostUrl);

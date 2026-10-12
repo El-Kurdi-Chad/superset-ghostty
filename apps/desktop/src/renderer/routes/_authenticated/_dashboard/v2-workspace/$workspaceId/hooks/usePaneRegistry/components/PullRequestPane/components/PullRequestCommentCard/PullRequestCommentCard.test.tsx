@@ -15,14 +15,16 @@ function renderCard(
 		PullRequestCommentCardProps,
 		"comment" | "replies" | "onOpenInDiff"
 	>,
-	requestReply: ((target: { commentId: number }) => void) | null = null,
+	replyToThread: ((target: { commentId: number }) => void) | null = null,
 ) {
 	return render(
 		<workspaceTrpc.Provider
 			client={workspaceTrpc.createClient({ links: [] })}
 			queryClient={new QueryClient()}
 		>
-			<PullRequestActivityReplyProvider value={requestReply}>
+			<PullRequestActivityReplyProvider
+				value={replyToThread ? { replyToThread, quote: () => {} } : null}
+			>
 				<PullRequestCommentCard workspaceId="ws" {...props} />
 			</PullRequestActivityReplyProvider>
 		</workspaceTrpc.Provider>,
@@ -88,10 +90,10 @@ describe("review cards", () => {
 		expect(onOpenInDiff).not.toHaveBeenCalled();
 	});
 	test("Reply hands the thread to the composer, or opens GitHub when nothing can take it", () => {
-		const requestReply = mock((_target: { commentId: number }) => {});
-		const inline = renderCard({ comment }, requestReply);
+		const replyToThread = mock((_target: { commentId: number }) => {});
+		const inline = renderCard({ comment }, replyToThread);
 		fireEvent.click(inline.getByRole("button", { name: "Reply" }));
-		expect(requestReply).toHaveBeenCalledWith({
+		expect(replyToThread).toHaveBeenCalledWith({
 			commentId: 4242,
 			author: { login: "reviewer", avatarUrl: undefined },
 		});
