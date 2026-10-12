@@ -39,6 +39,7 @@ function stripePlugin() {
 let calls: { method: string; params: unknown }[];
 let live: LiveSubscription | null;
 let paymentUrl: string | null;
+let managed: boolean;
 
 function fakeDeps(): AutumnBillingDeps {
 	return {
@@ -50,9 +51,23 @@ function fakeDeps(): AutumnBillingDeps {
 			calls.push({ method: "update", params });
 			return {};
 		},
-		openCustomerPortal: async (params) => {
-			calls.push({ method: "portal", params });
-			return { url: "https://billing.stripe.com/p/session/test" };
+		managedByAutumn: async () => managed,
+		cancelPortalUrl: async (subscription, returnUrl) => {
+			calls.push({
+				method: "cancelPortal",
+				params: { subscription, returnUrl },
+			});
+			return "https://billing.stripe.com/p/session/cancel";
+		},
+		switchIntervalPortalUrl: async (subscription, annual, returnUrl) => {
+			calls.push({
+				method: "switchPortal",
+				params: { subscription, annual, returnUrl },
+			});
+			return "https://billing.stripe.com/p/session/switch";
+		},
+		restoreInStripe: async (subscription) => {
+			calls.push({ method: "restoreInStripe", params: subscription });
 		},
 		ensureCustomer: async (id) => {
 			calls.push({ method: "ensureCustomer", params: id });
@@ -82,6 +97,7 @@ function liveSubscription(
 		cancelAtPeriodEnd: false,
 		cancelAt: null,
 		stripeSubscriptionId: "sub_1",
+		stripeCustomerId: "cus_1",
 		stripeScheduleId: null,
 		...overrides,
 	};
@@ -91,6 +107,7 @@ beforeEach(() => {
 	calls = [];
 	live = null;
 	paymentUrl = "https://checkout.stripe.com/c/pay/cs_test";
+	managed = true;
 });
 
 describe("released clients keep the same routes", () => {
@@ -332,7 +349,7 @@ describe("upgrade", () => {
 });
 
 describe("cancel", () => {
-	test("returns a portal url the client opens, as before", async () => {
+	test("returns Stripe's cancel page for the subscription, as before", async () => {
 		live = liveSubscription();
 		expect(
 			await cancelWithAutumn(fakeDeps(), {
@@ -340,11 +357,21 @@ describe("cancel", () => {
 				body: { returnUrl: WEB, disableRedirect: false },
 			}),
 		).toEqual({
-			url: "https://billing.stripe.com/p/session/test",
+			url: "https://billing.stripe.com/p/session/cancel",
 			redirect: true,
 		});
 		expect(calls).toEqual([
-			{ method: "portal", params: { customerId: ORG, returnUrl: WEB } },
+			{
+				method: "cancelPortal",
+				params: {
+					subscription: {
+						stripeCustomerId: "cus_1",
+						stripeSubscriptionId: "sub_1",
+						stripeScheduleId: null,
+					},
+					returnUrl: WEB,
+				},
+			},
 		]);
 	});
 
@@ -355,6 +382,44 @@ describe("cancel", () => {
 				body: { returnUrl: WEB, disableRedirect: false },
 			}),
 		).rejects.toMatchObject({ body: { code: "SUBSCRIPTION_NOT_FOUND" } });
+	});
+});
+
+describe("a subscriber Autumn does not manage yet", () => {
+	const body: UpgradeBody = {
+		plan: "pro",
+		annual: true,
+		successUrl: `${WEB}/settings/billing?success=true`,
+		cancelUrl: WEB,
+		returnUrl: WEB,
+		disableRedirect: true,
+	};
+
+	test("switching interval updates their Stripe subscription instead of starting a second one", async () => {
+		live = liveSubscription();
+		managed = false;
+		const result = await upgradeWithAutumn(fakeDeps(), {
+			userId: "user_1",
+			referenceId: ORG,
+			body,
+			baseURL: API,
+		});
+		expect(result).toEqual({
+			url: "https://billing.stripe.com/p/session/switch",
+			redirect: false,
+		});
+		expect(calls.map((call) => call.method)).toEqual(["switchPortal"]);
+	});
+
+	test("restore clears the cancel on their Stripe subscription", async () => {
+		live = liveSubscription({ cancelAtPeriodEnd: true });
+		managed = false;
+		const deps = { ...fakeDeps(), currentPlanId: async () => null };
+		await restoreWithAutumn(deps, { referenceId: ORG });
+		expect(calls.map((call) => call.method)).toEqual([
+			"restoreInStripe",
+			"sync",
+		]);
 	});
 });
 

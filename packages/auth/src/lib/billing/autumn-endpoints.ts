@@ -27,6 +27,13 @@ export interface LiveSubscription {
 	cancelAtPeriodEnd: boolean | null;
 	cancelAt: Date | null;
 	stripeSubscriptionId: string | null;
+	stripeCustomerId: string | null;
+	stripeScheduleId: string | null;
+}
+
+export interface StripeSubscriptionRef {
+	stripeCustomerId: string;
+	stripeSubscriptionId: string;
 	stripeScheduleId: string | null;
 }
 
@@ -44,10 +51,17 @@ export interface AutumnBillingDeps {
 		planId: string;
 		cancelAction: "uncancel";
 	}): Promise<unknown>;
-	openCustomerPortal(params: {
-		customerId: string;
-		returnUrl: string;
-	}): Promise<{ url: string }>;
+	managedByAutumn(organizationId: string): Promise<boolean>;
+	cancelPortalUrl(
+		subscription: StripeSubscriptionRef,
+		returnUrl: string,
+	): Promise<string>;
+	switchIntervalPortalUrl(
+		subscription: StripeSubscriptionRef,
+		annual: boolean,
+		returnUrl: string,
+	): Promise<string>;
+	restoreInStripe(subscription: StripeSubscriptionRef): Promise<void>;
 	ensureCustomer(organizationId: string): Promise<unknown>;
 	currentPlanId(organizationId: string): Promise<string | null>;
 	findLiveSubscription(
@@ -100,6 +114,17 @@ export async function upgradeWithAutumn(
 	) {
 		throw billingError("ALREADY_SUBSCRIBED_PLAN");
 	}
+	const legacy = live && stripeRef(live);
+	if (legacy && !(await deps.managedByAutumn(referenceId))) {
+		return {
+			url: await deps.switchIntervalPortalUrl(
+				legacy,
+				annual,
+				body.returnUrl ?? body.successUrl,
+			),
+			redirect: !body.disableRedirect,
+		};
+	}
 	await deps.ensureCustomer(referenceId);
 	const seats = Math.max(1, await deps.countBillableSeats(referenceId));
 	const { paymentUrl } = await deps.attach({
@@ -125,6 +150,15 @@ export async function upgradeWithAutumn(
 	};
 }
 
+function stripeRef(live: LiveSubscription): StripeSubscriptionRef | null {
+	if (!live.stripeCustomerId || !live.stripeSubscriptionId) return null;
+	return {
+		stripeCustomerId: live.stripeCustomerId,
+		stripeSubscriptionId: live.stripeSubscriptionId,
+		stripeScheduleId: live.stripeScheduleId,
+	};
+}
+
 export async function cancelWithAutumn(
 	deps: AutumnBillingDeps,
 	args: {
@@ -133,12 +167,12 @@ export async function cancelWithAutumn(
 	},
 ): Promise<{ url: string; redirect: boolean }> {
 	const live = await deps.findLiveSubscription(args.referenceId);
-	if (!live) throw billingError("SUBSCRIPTION_NOT_FOUND");
-	const { url } = await deps.openCustomerPortal({
-		customerId: args.referenceId,
-		returnUrl: args.body.returnUrl,
-	});
-	return { url, redirect: !args.body.disableRedirect };
+	const subscription = live && stripeRef(live);
+	if (!subscription) throw billingError("SUBSCRIPTION_NOT_FOUND");
+	return {
+		url: await deps.cancelPortalUrl(subscription, args.body.returnUrl),
+		redirect: !args.body.disableRedirect,
+	};
 }
 
 export async function restoreWithAutumn(
@@ -151,7 +185,8 @@ export async function restoreWithAutumn(
 	cancel_at: null;
 }> {
 	const live = await deps.findLiveSubscription(args.referenceId);
-	if (!live) throw billingError("SUBSCRIPTION_NOT_FOUND");
+	const subscription = live && stripeRef(live);
+	if (!live || !subscription) throw billingError("SUBSCRIPTION_NOT_FOUND");
 	if (live.status !== "active" && live.status !== "trialing") {
 		throw billingError("SUBSCRIPTION_NOT_ACTIVE");
 	}
@@ -159,12 +194,15 @@ export async function restoreWithAutumn(
 		throw billingError("SUBSCRIPTION_NOT_PENDING_CHANGE");
 	}
 	const planId = await deps.currentPlanId(args.referenceId);
-	if (!planId) throw billingError("SUBSCRIPTION_NOT_FOUND");
-	await deps.update({
-		customerId: args.referenceId,
-		planId,
-		cancelAction: "uncancel",
-	});
+	if (planId) {
+		await deps.update({
+			customerId: args.referenceId,
+			planId,
+			cancelAction: "uncancel",
+		});
+	} else {
+		await deps.restoreInStripe(subscription);
+	}
 	await deps.sync(args.referenceId);
 	return {
 		id: live.stripeSubscriptionId,
