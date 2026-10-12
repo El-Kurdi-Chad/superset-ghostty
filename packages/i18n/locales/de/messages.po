@@ -12246,6 +12246,9 @@ msgstr "Angeheftet"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Reiner Text"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -18722,6 +18725,9 @@ msgstr "Worktrees werden von der Festplatte entfernt; Arbeitsbereiche auf dem Ch
 
 msgid "Would you like to reassign it?"
 msgstr "Möchtest du es neu zuweisen?"
+
+msgid "Wrap lines"
+msgstr "Zeilen umbrechen"
 
 msgid "Write a comment"
 msgstr "Kommentar schreiben"

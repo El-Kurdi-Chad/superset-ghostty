@@ -12246,6 +12246,9 @@ msgstr "Připnuté"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Prostý text"
+
 msgid "Plan"
 msgstr "Tarif"
 
@@ -18722,6 +18725,9 @@ msgstr "Worktree se odstraní z disku; pracovní prostory na checkoutu projektu 
 
 msgid "Would you like to reassign it?"
 msgstr "Chcete zkratku přiřadit znovu?"
+
+msgid "Wrap lines"
+msgstr "Zalamovat řádky"
 
 msgid "Write a comment"
 msgstr "Napsat komentář"

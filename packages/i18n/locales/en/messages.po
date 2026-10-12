@@ -12246,6 +12246,9 @@ msgstr "Pinned"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Plain text"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -18722,6 +18725,9 @@ msgstr "Worktrees are removed from disk; workspaces on the project's checkout on
 
 msgid "Would you like to reassign it?"
 msgstr "Would you like to reassign it?"
+
+msgid "Wrap lines"
+msgstr "Wrap lines"
 
 msgid "Write a comment"
 msgstr "Write a comment"

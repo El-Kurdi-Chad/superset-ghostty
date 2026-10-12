@@ -12246,6 +12246,9 @@ msgstr "ピン留め済み"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "プレーンテキスト"
+
 msgid "Plan"
 msgstr "計画"
 
@@ -18722,6 +18725,9 @@ msgstr "ワークツリーはディスクから削除され、プロジェクト
 
 msgid "Would you like to reassign it?"
 msgstr "割り当て直しますか?"
+
+msgid "Wrap lines"
+msgstr "行を折り返す"
 
 msgid "Write a comment"
 msgstr "コメントを書く"

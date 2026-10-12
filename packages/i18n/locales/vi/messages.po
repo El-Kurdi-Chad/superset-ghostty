@@ -12246,6 +12246,9 @@ msgstr "Đã ghim"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Văn bản thuần"
+
 msgid "Plan"
 msgstr "Kế hoạch"
 
@@ -18722,6 +18725,9 @@ msgstr "Các worktree bị xóa khỏi ổ đĩa; các workspace trên checkout 
 
 msgid "Would you like to reassign it?"
 msgstr "Bạn có muốn gán lại không?"
+
+msgid "Wrap lines"
+msgstr "Ngắt dòng"
 
 msgid "Write a comment"
 msgstr "Viết bình luận"

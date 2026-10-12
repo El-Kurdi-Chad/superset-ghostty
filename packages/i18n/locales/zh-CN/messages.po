@@ -12246,6 +12246,9 @@ msgstr "已置顶"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "纯文本"
+
 msgid "Plan"
 msgstr "计划"
 
@@ -18722,6 +18725,9 @@ msgstr "worktree 会从磁盘中删除；位于项目检出上的工作区仅会
 
 msgid "Would you like to reassign it?"
 msgstr "要重新分配吗？"
+
+msgid "Wrap lines"
+msgstr "自动换行"
 
 msgid "Write a comment"
 msgstr "写评论"

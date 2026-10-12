@@ -12246,6 +12246,9 @@ msgstr "Tersemat"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Teks polos"
+
 msgid "Plan"
 msgstr "Paket"
 
@@ -18722,6 +18725,9 @@ msgstr "Worktree dihapus dari disk; workspace di checkout proyek hanya ditutup. 
 
 msgid "Would you like to reassign it?"
 msgstr "Ingin menetapkannya ulang?"
+
+msgid "Wrap lines"
+msgstr "Bungkus baris"
 
 msgid "Write a comment"
 msgstr "Tulis komentar"

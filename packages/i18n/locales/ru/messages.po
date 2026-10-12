@@ -12246,6 +12246,9 @@ msgstr "Закреплённые"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Простой текст"
+
 msgid "Plan"
 msgstr "План"
 
@@ -18722,6 +18725,9 @@ msgstr "Worktree удаляются с диска; рабочие области
 
 msgid "Would you like to reassign it?"
 msgstr "Переназначить?"
+
+msgid "Wrap lines"
+msgstr "Переносить строки"
 
 msgid "Write a comment"
 msgstr "Написать комментарий"

@@ -51,8 +51,35 @@ test("a fence that names a language and a path shows the path", () => {
 	).toBe("ts");
 });
 
-test("a fence that names only a language keeps its label", () => {
+test("a fence that names only a language shows the language's name and icon", () => {
 	const view = renderFence("ts");
-	expect(view.getByText("ts").className).toContain("uppercase");
-	expect(view.container.querySelector("img")).toBeNull();
+	const label = view.getByText("TypeScript");
+	expect(label.previousElementSibling?.getAttribute("src")).toContain(
+		"file-icons/",
+	);
+});
+
+test("a plain text or unmarked fence is labelled as plain text", () => {
+	for (const info of ["text", ""]) {
+		const view = renderFence(info);
+		expect(view.getByText("Plain text")).toBeTruthy();
+		expect(view.container.querySelector("img")).toBeNull();
+		view.unmount();
+	}
+});
+
+test("lines scroll sideways until the reader asks for them to wrap", () => {
+	const view = renderFence("text");
+	const overflow = () =>
+		[...view.container.querySelectorAll("*")]
+			.find((element) => element.shadowRoot)
+			?.shadowRoot?.querySelector("pre")
+			?.getAttribute("data-overflow");
+	const toggle = view.getByRole("button", { name: "Wrap lines" });
+	expect(toggle.getAttribute("aria-pressed")).toBe("false");
+	expect(overflow()).toBe("scroll");
+
+	fireEvent.click(toggle);
+	expect(toggle.getAttribute("aria-pressed")).toBe("true");
+	expect(overflow()).toBe("wrap");
 });

@@ -12246,6 +12246,9 @@ msgstr "Fissate"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Testo normale"
+
 msgid "Plan"
 msgstr "Piano"
 
@@ -18722,6 +18725,9 @@ msgstr "I worktree vengono rimossi dal disco; i workspace sul checkout del proge
 
 msgid "Would you like to reassign it?"
 msgstr "Vuoi riassegnarla?"
+
+msgid "Wrap lines"
+msgstr "A capo automatico"
 
 msgid "Write a comment"
 msgstr "Scrivi un commento"

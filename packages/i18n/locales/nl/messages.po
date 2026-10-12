@@ -12246,6 +12246,9 @@ msgstr "Vastgezet"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Platte tekst"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -18722,6 +18725,9 @@ msgstr "Worktrees worden van de schijf verwijderd; werkruimtes op de checkout va
 
 msgid "Would you like to reassign it?"
 msgstr "Wil je hem opnieuw toewijzen?"
+
+msgid "Wrap lines"
+msgstr "Regels afbreken"
 
 msgid "Write a comment"
 msgstr "Schrijf een reactie"

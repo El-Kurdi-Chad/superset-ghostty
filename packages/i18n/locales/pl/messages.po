@@ -12246,6 +12246,9 @@ msgstr "Przypięte"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Zwykły tekst"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -18722,6 +18725,9 @@ msgstr "Worktree są usuwane z dysku; obszary robocze na checkoucie projektu są
 
 msgid "Would you like to reassign it?"
 msgstr "Czy przypisać ponownie?"
+
+msgid "Wrap lines"
+msgstr "Zawijaj wiersze"
 
 msgid "Write a comment"
 msgstr "Napisz komentarz"

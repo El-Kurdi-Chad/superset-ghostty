@@ -12246,6 +12246,9 @@ msgstr "Fixadas"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Texto sem formatação"
+
 msgid "Plan"
 msgstr "Plano"
 
@@ -18722,6 +18725,9 @@ msgstr "Os worktrees são removidos do disco; as áreas de trabalho no checkout 
 
 msgid "Would you like to reassign it?"
 msgstr "Quer reatribuir?"
+
+msgid "Wrap lines"
+msgstr "Quebrar linhas"
 
 msgid "Write a comment"
 msgstr "Escrever um comentário"

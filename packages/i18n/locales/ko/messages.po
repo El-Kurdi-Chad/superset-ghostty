@@ -12246,6 +12246,9 @@ msgstr "고정됨"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "일반 텍스트"
+
 msgid "Plan"
 msgstr "계획"
 
@@ -18722,6 +18725,9 @@ msgstr "worktree는 디스크에서 제거되며, 프로젝트 체크아웃에 �
 
 msgid "Would you like to reassign it?"
 msgstr "다시 지정할까요?"
+
+msgid "Wrap lines"
+msgstr "줄 바꿈"
 
 msgid "Write a comment"
 msgstr "댓글 작성"

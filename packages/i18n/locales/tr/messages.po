@@ -12246,6 +12246,9 @@ msgstr "Sabitlenmiş"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Düz metin"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -18722,6 +18725,9 @@ msgstr "Worktree'ler diskten kaldırılır; projenin checkout'undaki çalışma 
 
 msgid "Would you like to reassign it?"
 msgstr "Yeniden atamak ister misiniz?"
+
+msgid "Wrap lines"
+msgstr "Satırları kaydır"
 
 msgid "Write a comment"
 msgstr "Yorum yaz"

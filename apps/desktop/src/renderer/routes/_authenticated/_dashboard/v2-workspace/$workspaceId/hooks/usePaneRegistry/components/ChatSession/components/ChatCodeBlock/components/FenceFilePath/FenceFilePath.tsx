@@ -1,9 +1,10 @@
+import { cn } from "@superset/ui/utils";
 import { FileIcon } from "renderer/lib/fileIcons";
 import { useChatPaneActions } from "../../../../providers/ChatPaneActionsProvider";
+import { FENCE_LABEL_CLASSNAME } from "../../constants";
 import type { FenceFile } from "../../utils/fencedCode";
 
-const PATH_CLASSNAME =
-	"min-w-0 truncate font-mono text-muted-foreground text-xs";
+const PATH_CLASSNAME = cn(FENCE_LABEL_CLASSNAME, "font-mono");
 
 export function FenceFilePath({ file }: { file: FenceFile }) {
 	const { openLink } = useChatPaneActions();
@@ -12,7 +13,10 @@ export function FenceFilePath({ file }: { file: FenceFile }) {
 			<FileIcon className="size-4 shrink-0" fileName={file.fileName} />
 			{openLink ? (
 				<button
-					className={`${PATH_CLASSNAME} underline-offset-2 hover:text-link-hover hover:underline`}
+					className={cn(
+						PATH_CLASSNAME,
+						"underline-offset-2 hover:text-link-hover hover:underline",
+					)}
 					onClick={(event) => openLink(file.href, event)}
 					title={file.path}
 					type="button"
