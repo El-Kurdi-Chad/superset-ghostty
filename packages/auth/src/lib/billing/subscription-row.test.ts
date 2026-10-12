@@ -94,39 +94,52 @@ describe("a subscription row reads the same as the Stripe plugin wrote it", () =
 });
 
 describe("notices fire when the Stripe plugin fired them", () => {
-	test("a first live subscription, or one leaving incomplete, has started", () => {
+	const live = { status: "active", cancelAtPeriodEnd: false, cancelAt: null };
+
+	test("a first subscription, or one leaving incomplete, has started", () => {
 		expect(
-			subscriptionTransitions(undefined, stripeSubscription()).started,
+			subscriptionTransitions(undefined, stripeSubscription(), false).started,
 		).toBe(true);
 		expect(
 			subscriptionTransitions(
-				{ status: "incomplete", cancelAtPeriodEnd: false, cancelAt: null },
+				{ ...live, status: "incomplete" },
 				stripeSubscription(),
+				false,
 			).started,
 		).toBe(true);
 	});
 
 	test("a subscription already live at cutover does not start again", () => {
+		expect(subscriptionTransitions(live, stripeSubscription(), false)).toEqual({
+			started: false,
+			canceled: false,
+		});
+	});
+
+	test("a recovered payment does not send a second welcome", () => {
 		expect(
 			subscriptionTransitions(
-				{ status: "active", cancelAtPeriodEnd: false, cancelAt: null },
+				{ ...live, status: "past_due" },
 				stripeSubscription(),
-			),
-		).toEqual({ started: false, canceled: false });
+				false,
+			).started,
+		).toBe(false);
+	});
+
+	test("a new subscription replacing a paying one (monthly to annual) is not a new conversion", () => {
+		expect(
+			subscriptionTransitions(undefined, stripeSubscription(), true).started,
+		).toBe(false);
 	});
 
 	test("a cancel fires once, when it first appears on an active subscription", () => {
 		const canceling = stripeSubscription({ cancel_at_period_end: true });
+		expect(subscriptionTransitions(live, canceling, false).canceled).toBe(true);
 		expect(
 			subscriptionTransitions(
-				{ status: "active", cancelAtPeriodEnd: false, cancelAt: null },
+				{ ...live, cancelAtPeriodEnd: true },
 				canceling,
-			).canceled,
-		).toBe(true);
-		expect(
-			subscriptionTransitions(
-				{ status: "active", cancelAtPeriodEnd: true, cancelAt: null },
-				canceling,
+				false,
 			).canceled,
 		).toBe(false);
 	});

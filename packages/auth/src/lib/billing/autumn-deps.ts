@@ -8,6 +8,7 @@ import { stripeClient } from "../../stripe";
 import { countBillableSeats } from "../../utils/billing";
 import type { AutumnBillingDeps } from "./autumn-endpoints";
 import {
+	completeCheckout,
 	currentAutumnPlanId,
 	ensureAutumnCustomer,
 	syncFromStripeEvent,
@@ -42,6 +43,7 @@ export function autumnBillingDeps(): AutumnBillingDeps {
 			})) ?? null,
 		countBillableSeats,
 		sync: syncOrganizationSubscription,
+		completeCheckout,
 		handleStripeWebhook: async (request) => {
 			const signature = request.headers.get("stripe-signature");
 			if (!signature) {

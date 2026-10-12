@@ -62,12 +62,14 @@ function isLive(status: string): boolean {
 export function subscriptionTransitions(
 	previous: PreviousSubscriptionState | undefined,
 	next: Stripe.Subscription,
+	organizationAlreadyPaying: boolean,
 ): { started: boolean; canceled: boolean } {
 	const previouslyCanceling = !!(
 		previous?.cancelAtPeriodEnd || previous?.cancelAt
 	);
+	const isNew = !previous || previous.status === "incomplete";
 	return {
-		started: isLive(next.status) && !(previous && isLive(previous.status)),
+		started: isLive(next.status) && isNew && !organizationAlreadyPaying,
 		canceled:
 			next.status === "active" &&
 			!!(next.cancel_at_period_end || next.cancel_at) &&

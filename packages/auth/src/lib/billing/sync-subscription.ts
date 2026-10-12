@@ -1,7 +1,8 @@
 import { db, dbWs } from "@superset/db/client";
 import { subscriptions } from "@superset/db/schema";
 import * as authSchema from "@superset/db/schema/auth";
-import { and, desc, eq, isNull, sql } from "drizzle-orm";
+import { ACTIVE_SUBSCRIPTION_STATUSES } from "@superset/shared/billing";
+import { and, desc, eq, inArray, isNull, sql } from "drizzle-orm";
 import type Stripe from "stripe";
 import { autumnClient } from "../../autumn";
 import { env } from "../../env";
@@ -23,13 +24,14 @@ import {
 } from "./subscription-row";
 
 const RECENT_STRIPE_SUBSCRIPTIONS = 10;
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 function requireAutumn() {
 	if (!autumnClient) throw new Error("AUTUMN_SECRET_KEY is not set");
 	return autumnClient;
 }
 
-async function saveStripeCustomerId(
+export async function saveStripeCustomerId(
 	organizationId: string,
 	stripeCustomerId: string | null | undefined,
 ): Promise<string | null> {
@@ -150,8 +152,13 @@ async function writeRow(
 			STRIPE_PRICES,
 		) ??
 		(isLatest ? args.autumnPlanName : null) ??
-		previous?.plan ??
-		"pro";
+		previous?.plan;
+	if (!plan) {
+		console.warn(
+			`[billing/sync] ${organizationId} subscription ${stripeSubscription.id} matches no plan; not recorded`,
+		);
+		return {};
+	}
 	const values = {
 		...subscriptionRowFromStripe(stripeSubscription),
 		plan,
@@ -213,6 +220,13 @@ export async function syncOrganizationSubscription(
 		]);
 		const autumnPlanName = planId ? legacyPlanName(planId) : null;
 		const seatSubscriptions = listed.data.filter(holdsSeats);
+		const payingRows = await tx.query.subscriptions.findMany({
+			where: and(
+				eq(subscriptions.referenceId, organizationId),
+				inArray(subscriptions.status, [...ACTIVE_SUBSCRIPTION_STATUSES]),
+			),
+			columns: { stripeSubscriptionId: true },
+		});
 		const written = [];
 		for (const [index, stripeSubscription] of seatSubscriptions.entries()) {
 			const { previous, row } = await writeRow(tx, {
@@ -221,13 +235,31 @@ export async function syncOrganizationSubscription(
 				autumnPlanName,
 				isLatest: index === 0,
 			});
-			if (row) written.push({ previous, row, stripeSubscription });
+			if (!row) continue;
+			const organizationAlreadyPaying = payingRows.some(
+				(paying) => paying.stripeSubscriptionId !== stripeSubscription.id,
+			);
+			written.push({
+				previous,
+				row,
+				stripeSubscription,
+				organizationAlreadyPaying,
+			});
 		}
 		return written;
 	});
 
-	for (const { previous, row, stripeSubscription } of changes) {
-		const transitions = subscriptionTransitions(previous, stripeSubscription);
+	for (const {
+		previous,
+		row,
+		stripeSubscription,
+		organizationAlreadyPaying,
+	} of changes) {
+		const transitions = subscriptionTransitions(
+			previous,
+			stripeSubscription,
+			organizationAlreadyPaying,
+		);
 		if (transitions.started) {
 			await notifySubscriptionStarted({
 				subscription: row,
@@ -245,14 +277,61 @@ export async function syncOrganizationSubscription(
 	}
 }
 
-export async function syncFromStripeEvent(event: Stripe.Event): Promise<void> {
-	const object = event.data.object as { customer?: string | { id: string } };
-	const customerId =
-		typeof object.customer === "string" ? object.customer : object.customer?.id;
-	if (!customerId) return;
-	const org = await db.query.organizations.findFirst({
+async function organizationForStripeCustomer(
+	customerId: string,
+	metadata: Record<string, string> | null | undefined,
+): Promise<string | null> {
+	const byCustomer = await db.query.organizations.findFirst({
 		where: eq(authSchema.organizations.stripeCustomerId, customerId),
 		columns: { id: true },
 	});
-	if (org) await syncOrganizationSubscription(org.id);
+	if (byCustomer) return byCustomer.id;
+	const customer = await stripeClient.customers.retrieve(customerId);
+	const candidates = [
+		metadata?.organizationId,
+		...(customer.deleted ? [] : Object.values(customer.metadata)),
+	].filter((value): value is string => !!value && UUID.test(value));
+	if (candidates.length === 0) return null;
+	const org = await db.query.organizations.findFirst({
+		where: inArray(authSchema.organizations.id, candidates),
+		columns: { id: true },
+	});
+	if (!org) return null;
+	await saveStripeCustomerId(org.id, customerId);
+	return org.id;
+}
+
+export async function syncFromStripeEvent(event: Stripe.Event): Promise<void> {
+	const object = event.data.object as {
+		customer?: string | { id: string } | null;
+		metadata?: Record<string, string> | null;
+	};
+	const customerId =
+		typeof object.customer === "string" ? object.customer : object.customer?.id;
+	if (!customerId) return;
+	const organizationId = await organizationForStripeCustomer(
+		customerId,
+		object.metadata,
+	);
+	if (organizationId) await syncOrganizationSubscription(organizationId);
+}
+
+export async function completeCheckout(
+	checkoutSessionId: string,
+): Promise<void> {
+	if (!checkoutSessionId.startsWith("cs_")) return;
+	const session =
+		await stripeClient.checkout.sessions.retrieve(checkoutSessionId);
+	const customerId =
+		typeof session.customer === "string"
+			? session.customer
+			: session.customer?.id;
+	if (!customerId) return;
+	const organizationId = await organizationForStripeCustomer(customerId, {
+		...(session.metadata ?? {}),
+		...(session.client_reference_id
+			? { organizationId: session.client_reference_id }
+			: {}),
+	});
+	if (organizationId) await syncOrganizationSubscription(organizationId);
 }

@@ -16,6 +16,7 @@ import {
 
 const ORG = "00000000-0000-0000-0000-0000000000aa";
 const WEB = "https://app.superset.sh";
+const API = "https://api.superset.sh/api/auth";
 
 function stripePlugin() {
 	return stripe({
@@ -65,6 +66,9 @@ function fakeDeps(): AutumnBillingDeps {
 		handleStripeWebhook: async () => {
 			calls.push({ method: "stripeWebhook", params: null });
 		},
+		completeCheckout: async (id) => {
+			calls.push({ method: "completeCheckout", params: id });
+		},
 	};
 }
 
@@ -100,6 +104,7 @@ describe("released clients keep the same routes", () => {
 		"upgradeSubscription",
 		"cancelSubscription",
 		"restoreSubscription",
+		"subscriptionSuccess",
 		"stripeWebhook",
 	] as const) {
 		test(`${key} keeps its path, method, body schema and middleware`, () => {
@@ -131,6 +136,9 @@ describe("released clients keep the same routes", () => {
 		expect(wrapped.endpoints.restoreSubscription.path).toBe(
 			"/subscription/restore",
 		);
+		expect(wrapped.endpoints.subscriptionSuccess.path).toBe(
+			"/subscription/success",
+		);
 		expect(wrapped.endpoints.stripeWebhook.path).toBe("/stripe/webhook");
 	});
 
@@ -142,9 +150,6 @@ describe("released clients keep the same routes", () => {
 		});
 		expect(result.endpoints.listActiveSubscriptions).toBe(
 			plugin.endpoints.listActiveSubscriptions,
-		);
-		expect(result.endpoints.subscriptionSuccess).toBe(
-			plugin.endpoints.subscriptionSuccess,
 		);
 		expect(result.endpoints.createBillingPortal).toBe(
 			plugin.endpoints.createBillingPortal,
@@ -200,6 +205,7 @@ describe("payloads released clients send", () => {
 			const result = await upgradeWithAutumn(fakeDeps(), {
 				userId: "user_1",
 				referenceId: ORG,
+				baseURL: API,
 				body,
 			});
 			expect(result).toEqual({
@@ -222,6 +228,7 @@ describe("upgrade", () => {
 		await upgradeWithAutumn(fakeDeps(), {
 			userId: "user_1",
 			referenceId: ORG,
+			baseURL: API,
 			body,
 		});
 		expect(calls.map((call) => call.method)).toEqual([
@@ -232,13 +239,16 @@ describe("upgrade", () => {
 			customerId: ORG,
 			planId: "pro",
 			featureQuantities: [{ featureId: "seats", quantity: 3 }],
-			successUrl: body.successUrl,
+			successUrl: `${API}/subscription/success?callbackURL=${encodeURIComponent(body.successUrl)}&checkoutSessionId={CHECKOUT_SESSION_ID}`,
 			redirectMode: "always",
 			checkoutSessionParams: {
 				cancel_url: WEB,
 				allow_promotion_codes: true,
 				billing_address_collection: "required",
 				metadata: { organizationId: ORG, initiatedByUserId: "user_1" },
+				subscription_data: {
+					metadata: { organizationId: ORG, userId: "user_1" },
+				},
 			},
 		});
 	});
@@ -247,6 +257,7 @@ describe("upgrade", () => {
 		await upgradeWithAutumn(fakeDeps(), {
 			userId: "user_1",
 			referenceId: ORG,
+			baseURL: API,
 			body: { ...body, annual: true },
 		});
 		const params = calls[1]?.params as {
@@ -262,6 +273,7 @@ describe("upgrade", () => {
 		const result = await upgradeWithAutumn(fakeDeps(), {
 			userId: "user_1",
 			referenceId: ORG,
+			baseURL: API,
 			body,
 		});
 		expect(result.url).toBe(body.successUrl);
@@ -273,6 +285,7 @@ describe("upgrade", () => {
 			upgradeWithAutumn(fakeDeps(), {
 				userId: "user_1",
 				referenceId: ORG,
+				baseURL: API,
 				body: { ...body, plan: "enterprise" },
 			}),
 		).rejects.toThrow(ENTERPRISE_CHECKOUT_MESSAGE);
@@ -284,6 +297,7 @@ describe("upgrade", () => {
 			upgradeWithAutumn(fakeDeps(), {
 				userId: "user_1",
 				referenceId: ORG,
+				baseURL: API,
 				body: { ...body, plan: "team" },
 			}),
 		).rejects.toMatchObject({
@@ -301,6 +315,7 @@ describe("upgrade", () => {
 			upgradeWithAutumn(fakeDeps(), {
 				userId: "user_1",
 				referenceId: ORG,
+				baseURL: API,
 				body,
 			}),
 		).rejects.toMatchObject({
@@ -309,6 +324,7 @@ describe("upgrade", () => {
 		await upgradeWithAutumn(fakeDeps(), {
 			userId: "user_1",
 			referenceId: ORG,
+			baseURL: API,
 			body: { ...body, annual: true },
 		});
 		expect(calls.some((call) => call.method === "attach")).toBe(true);

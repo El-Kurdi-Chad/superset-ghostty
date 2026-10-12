@@ -56,6 +56,7 @@ export interface AutumnBillingDeps {
 	countBillableSeats(organizationId: string): Promise<number>;
 	sync(organizationId: string): Promise<void>;
 	handleStripeWebhook(request: Request): Promise<void>;
+	completeCheckout(checkoutSessionId: string): Promise<void>;
 }
 
 export interface UpgradeBody {
@@ -67,9 +68,21 @@ export interface UpgradeBody {
 	disableRedirect: boolean;
 }
 
+export function checkoutSuccessUrl(
+	baseURL: string,
+	successUrl: string,
+): string {
+	return `${baseURL}/subscription/success?callbackURL=${encodeURIComponent(successUrl)}&checkoutSessionId={CHECKOUT_SESSION_ID}`;
+}
+
 export async function upgradeWithAutumn(
 	deps: AutumnBillingDeps,
-	args: { userId: string; referenceId: string; body: UpgradeBody },
+	args: {
+		userId: string;
+		referenceId: string;
+		body: UpgradeBody;
+		baseURL: string;
+	},
 ): Promise<{ url: string; redirect: boolean }> {
 	const { body, referenceId } = args;
 	if (body.plan === "enterprise") {
@@ -93,13 +106,16 @@ export async function upgradeWithAutumn(
 		customerId: referenceId,
 		planId: autumnPlanIdFor(annual),
 		featureQuantities: [{ featureId: SEATS_FEATURE_ID, quantity: seats }],
-		successUrl: body.successUrl,
+		successUrl: checkoutSuccessUrl(args.baseURL, body.successUrl),
 		redirectMode: "always",
 		checkoutSessionParams: {
 			cancel_url: body.cancelUrl,
 			allow_promotion_codes: !annual,
 			billing_address_collection: "required",
 			metadata: { organizationId: referenceId, initiatedByUserId: args.userId },
+			subscription_data: {
+				metadata: { organizationId: referenceId, userId: args.userId },
+			},
 		},
 	});
 	if (!paymentUrl) await deps.sync(referenceId);
@@ -162,6 +178,7 @@ interface StripePluginShape {
 	endpoints: {
 		stripeWebhook: unknown;
 		upgradeSubscription?: unknown;
+		subscriptionSuccess?: unknown;
 		cancelSubscription?: unknown;
 		restoreSubscription?: unknown;
 	};
@@ -169,7 +186,10 @@ interface StripePluginShape {
 
 interface ExistingEndpoint {
 	path: string;
-	options: { method: "POST"; use?: unknown[] } & Record<string, unknown>;
+	options: { method: "GET" | "POST"; use?: unknown[] } & Record<
+		string,
+		unknown
+	>;
 }
 
 const injectedMiddlewareCount =
@@ -195,6 +215,7 @@ function sameRoute(endpoint: unknown): ExistingEndpoint {
 interface ReferencedContext {
 	body: Record<string, unknown>;
 	context: {
+		baseURL: string;
 		referenceId: string;
 		session: { user: { id: string } };
 	};
@@ -210,6 +231,7 @@ export function withAutumnBilling<Plugin extends StripePluginShape>(
 	const cancel = sameRoute(endpoints.cancelSubscription);
 	const restore = sameRoute(endpoints.restoreSubscription);
 	const webhook = sameRoute(endpoints.stripeWebhook);
+	const success = sameRoute(endpoints.subscriptionSuccess);
 	return {
 		...plugin,
 		endpoints: {
@@ -224,6 +246,7 @@ export function withAutumnBilling<Plugin extends StripePluginShape>(
 							userId: context.session.user.id,
 							referenceId: context.referenceId,
 							body: body as unknown as UpgradeBody,
+							baseURL: context.baseURL,
 						}),
 					);
 				},
@@ -251,6 +274,26 @@ export function withAutumnBilling<Plugin extends StripePluginShape>(
 							referenceId: context.referenceId,
 						}),
 					);
+				},
+			),
+			subscriptionSuccess: createAuthEndpoint(
+				success.path,
+				success.options,
+				async (ctx) => {
+					const query = (ctx.query ?? {}) as {
+						callbackURL?: string;
+						checkoutSessionId?: string;
+					};
+					const callbackURL = query.callbackURL || "/";
+					if (query.checkoutSessionId) {
+						await options
+							.deps()
+							.completeCheckout(query.checkoutSessionId)
+							.catch((error) =>
+								console.error("[billing/checkout-success] sync failed", error),
+							);
+					}
+					throw ctx.redirect(callbackURL);
 				},
 			),
 			stripeWebhook: createAuthEndpoint(

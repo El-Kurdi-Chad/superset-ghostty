@@ -2,7 +2,6 @@ import { describe, expect, test } from "bun:test";
 import { sessionEndedAt } from "../../lib/sandbox/vercel";
 import {
 	boxMinutes,
-	dedupeMayHaveExpired,
 	initialReportedMs,
 	meteringCutoff,
 	observedMs,
@@ -19,7 +18,6 @@ const row = {
 	observedMs: 0,
 	reportedMs: 0,
 	inflightToMs: null as number | null,
-	inflightSince: null as Date | null,
 	createdAt: new Date(0),
 	updatedAt: new Date(0),
 };
@@ -113,14 +111,6 @@ describe("meter", () => {
 		expect(
 			initialReportedMs(recent, now, { reporting: false, firstSight: false }),
 		).toBe(540_000);
-	});
-
-	test("a range in flight past Autumn's dedupe window is checked before it is resent", () => {
-		const now = Date.UTC(2026, 9, 10);
-		const hour = 60 * 60 * 1000;
-		expect(dedupeMayHaveExpired(null, now)).toBe(false);
-		expect(dedupeMayHaveExpired(new Date(now - 2 * hour), now)).toBe(false);
-		expect(dedupeMayHaveExpired(new Date(now - 21 * hour), now)).toBe(true);
 	});
 
 	test("a range keeps the same key across resends", () => {

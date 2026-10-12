@@ -1012,7 +1012,6 @@ export const cloudWorkspaceSessions = pgTable(
 		observedMs: integer("observed_ms").notNull().default(0),
 		reportedMs: integer("reported_ms").notNull().default(0),
 		inflightToMs: integer("inflight_to_ms"),
-		inflightSince: timestamp("inflight_since", { withTimezone: true }),
 		createdAt: timestamp("created_at", { withTimezone: true })
 			.notNull()
 			.defaultNow(),
