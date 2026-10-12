@@ -40,6 +40,7 @@ import { useLoadOlderOnReach } from "./hooks/useLoadOlderOnReach";
 import { useNearRows } from "./hooks/useNearRows";
 import { useScrollAnchorKey } from "./hooks/useScrollAnchorKey";
 import { useScrollbarGutter } from "./hooks/useScrollbarGutter";
+import { copySourceText } from "./utils/copySourceText";
 import { lastReplyKeys } from "./utils/lastReplyKeys";
 import { type TranscriptRow, transcriptRows } from "./utils/transcriptRows";
 
@@ -273,6 +274,7 @@ export function Transcript({
 					"min-h-0 flex-1 overflow-y-auto [scrollbar-gutter:stable_both-edges]",
 					CHAT_SCROLLER_GUTTER_CLASSNAME,
 				)}
+				onCopy={copySourceText}
 				onKeyDown={onViewportKeyDown}
 				onPointerDown={onViewportPointerDown}
 				onTouchMove={markReaderScroll}
