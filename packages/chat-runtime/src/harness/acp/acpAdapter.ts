@@ -47,7 +47,7 @@ import type {
 	AcpTransportHandlers,
 	SpawnAcpOptions,
 } from "./rpcClient";
-import { AcpRpcClient, spawnAcpTransport } from "./rpcClient";
+import { AcpRpcClient, AcpRpcError, spawnAcpTransport } from "./rpcClient";
 import type { AcpConfigSelectOption, AcpElicitationProperty } from "./wire";
 import {
 	ACP_STEERING_METHOD,
@@ -177,6 +177,17 @@ export type AcpImageStoreContext = {
 };
 
 const SELECTION_WAIT_MS = 5000;
+const STARTUP_TIMEOUT_MS = 120_000;
+const REQUEST_TIMEOUT_MS = 30_000;
+const STDERR_TAIL_CHARS = 4000;
+
+function sessionMissing(error: unknown): boolean {
+	return (
+		error instanceof AcpRpcError &&
+		(error.code === -32002 ||
+			/not found|unknown session|no rollout/i.test(error.message))
+	);
+}
 
 export type AcpAdapterOptions = SpawnAcpOptions & {
 	launch?: () => Promise<Pick<SpawnAcpOptions, "command" | "args" | "env">>;
@@ -184,6 +195,8 @@ export type AcpAdapterOptions = SpawnAcpOptions & {
 	defaultModeId?: string;
 	/** How long a prompt waits for mode and option changes the agent has not answered. */
 	selectionWaitMs?: number;
+	startupTimeoutMs?: number;
+	requestTimeoutMs?: number;
 	resolveAttachment?: (attachmentId: string) => Promise<AcpAttachment | null>;
 	/** Without it, images the agent sends are dropped. */
 	storeImage?: (
@@ -394,6 +407,7 @@ export class AcpAdapter implements HarnessAdapter {
 	private unkeyedImageSequence = 0;
 	private queuedPrompts: UserContent[][] = [];
 	private disposed = false;
+	private stderrTail = "";
 
 	constructor(private readonly options: AcpAdapterOptions) {
 		this.backgroundTasks = new BackgroundTasks(
@@ -441,11 +455,15 @@ export class AcpAdapter implements HarnessAdapter {
 		const client = this.client;
 		const sessionId = this.sessionId;
 		if (!client || !sessionId || !this.canSteer()) return false;
-		const response = await client.request(ACP_STEERING_METHOD, {
-			sessionId,
-			prompt: await this.toAcpPrompt(content),
-			_meta: { steering: { idleBehavior: "promptRequired" } },
-		});
+		const response = await client.request(
+			ACP_STEERING_METHOD,
+			{
+				sessionId,
+				prompt: await this.toAcpPrompt(content),
+				_meta: { steering: { idleBehavior: "promptRequired" } },
+			},
+			this.requestTimeoutMs(),
+		);
 		const outcome = acpSteeringResponseSchema.safeParse(response).data?.outcome;
 		if (outcome === "injected") {
 			this.steeredCyclePending = true;
@@ -459,6 +477,9 @@ export class AcpAdapter implements HarnessAdapter {
 		if (!this.client || !this.sessionId) return;
 		if (this.currentTurn?.status !== "running") return;
 		this.client.notify("session/cancel", { sessionId: this.sessionId });
+		if (this.cancelPendingApprovals(this.currentTurn.id)) {
+			this.emitSession({ status: "running" });
+		}
 	}
 
 	respondToApproval(approvalId: string, decision: Decision): void {
@@ -504,16 +525,21 @@ export class AcpAdapter implements HarnessAdapter {
 		// and `config_option_update` is what told us which one.
 		const pending =
 			this.negotiatedVersion >= 2 && this.modeConfigId
-				? this.client.request("session/set_config_option", {
-						sessionId: this.sessionId,
-						configId: this.modeConfigId,
-						type: "id",
-						value: modeId,
-					})
-				: this.client.request("session/set_mode", {
-						sessionId: this.sessionId,
-						modeId,
-					});
+				? this.client.request(
+						"session/set_config_option",
+						{
+							sessionId: this.sessionId,
+							configId: this.modeConfigId,
+							type: "id",
+							value: modeId,
+						},
+						this.requestTimeoutMs(),
+					)
+				: this.client.request(
+						"session/set_mode",
+						{ sessionId: this.sessionId, modeId },
+						this.requestTimeoutMs(),
+					);
 		this.trackSelection(pending);
 		void pending.catch((error: Error) => {
 			if (previous && this.modeId === modeId) {
@@ -568,12 +594,16 @@ export class AcpAdapter implements HarnessAdapter {
 			configOptions: this.configOptions,
 			...(configId === this.modeConfigId ? { modeId: value } : {}),
 		});
-		const request = client.request("session/set_config_option", {
-			sessionId,
-			configId,
-			value,
-			...(this.negotiatedVersion >= 2 ? { type: "id" } : {}),
-		});
+		const request = client.request(
+			"session/set_config_option",
+			{
+				sessionId,
+				configId,
+				value,
+				...(this.negotiatedVersion >= 2 ? { type: "id" } : {}),
+			},
+			this.requestTimeoutMs(),
+		);
 		this.trackSelection(request);
 		request
 			.then((response) => this.handleConfigOptions(response))
@@ -590,10 +620,11 @@ export class AcpAdapter implements HarnessAdapter {
 	async stopBackgroundTask(taskId: string): Promise<boolean> {
 		if (!this.client || !this.sessionId) return false;
 		if (!this.backgroundTasks.canStop(taskId)) return false;
-		const response = await this.client.request(AIR_ASYNC_TASK_STOP_METHOD, {
-			sessionId: this.sessionId,
-			asyncTaskId: taskId,
-		});
+		const response = await this.client.request(
+			AIR_ASYNC_TASK_STOP_METHOD,
+			{ sessionId: this.sessionId, asyncTaskId: taskId },
+			this.requestTimeoutMs(),
+		);
 		return (response as { stopped?: unknown } | null)?.stopped === true;
 	}
 
@@ -605,11 +636,11 @@ export class AcpAdapter implements HarnessAdapter {
 	async fork(): Promise<string | null> {
 		if (!this.client || !this.sessionId) return null;
 		if (!this.supportsSessionCapability("fork")) return null;
-		const response = await this.client.request("session/fork", {
-			sessionId: this.sessionId,
-			cwd: this.cwd,
-			mcpServers: [],
-		});
+		const response = await this.client.request(
+			"session/fork",
+			{ sessionId: this.sessionId, cwd: this.cwd, mcpServers: [] },
+			this.requestTimeoutMs(),
+		);
 		const parsed = acpNewSessionResponseSchema.safeParse(response);
 		return parsed.success ? parsed.data.sessionId : null;
 	}
@@ -653,7 +684,9 @@ export class AcpAdapter implements HarnessAdapter {
 				},
 				onNotification: (notification) => this.handleNotification(notification),
 				onServerRequest: (request) => this.handleServerRequest(request),
-				onStderr: () => undefined,
+				onStderr: (chunk) => {
+					this.stderrTail = (this.stderrTail + chunk).slice(-STDERR_TAIL_CHARS);
+				},
 				onDispatchError: (error, method) =>
 					this.emitNotice(
 						"error",
@@ -663,24 +696,30 @@ export class AcpAdapter implements HarnessAdapter {
 			});
 			this.client = client;
 
-			const initialized = await client.request("initialize", {
-				protocolVersion: LATEST_PROTOCOL_VERSION,
-				// v2 requires `info` and renamed `clientCapabilities` to
-				// `capabilities`, so both names go out and one request serves either
-				// side of the bump.
-				info: CLIENT_INFO,
-				// v2 moved fs and terminal out of client capabilities entirely.
-				// Without form elicitation, claude-agent-acp drops AskUserQuestion.
-				capabilities: { elicitation: { form: {} }, _meta: AIR_CLIENT_META },
-				// Do not advertise fs/terminal: the agent falls back to its own
-				// Read/Edit/Bash tools, which run headless in the workspace.
-				clientCapabilities: {
-					fs: { readTextFile: false, writeTextFile: false },
-					terminal: false,
-					elicitation: { form: {} },
-					_meta: AIR_CLIENT_META,
+			const startupTimeoutMs =
+				this.options.startupTimeoutMs ?? STARTUP_TIMEOUT_MS;
+			const initialized = await client.request(
+				"initialize",
+				{
+					protocolVersion: LATEST_PROTOCOL_VERSION,
+					// v2 requires `info` and renamed `clientCapabilities` to
+					// `capabilities`, so both names go out and one request serves either
+					// side of the bump.
+					info: CLIENT_INFO,
+					// v2 moved fs and terminal out of client capabilities entirely.
+					// Without form elicitation, claude-agent-acp drops AskUserQuestion.
+					capabilities: { elicitation: { form: {} }, _meta: AIR_CLIENT_META },
+					// Do not advertise fs/terminal: the agent falls back to its own
+					// Read/Edit/Bash tools, which run headless in the workspace.
+					clientCapabilities: {
+						fs: { readTextFile: false, writeTextFile: false },
+						terminal: false,
+						elicitation: { form: {} },
+						_meta: AIR_CLIENT_META,
+					},
 				},
-			});
+				startupTimeoutMs,
+			);
 
 			const negotiated = acpInitializeResponseSchema.safeParse(initialized);
 			if (negotiated.success) {
@@ -700,28 +739,35 @@ export class AcpAdapter implements HarnessAdapter {
 				this.replaying = true;
 				this.loadingSessionId = startOptions.resume.harnessSessionId;
 				try {
-					response = await client.request("session/load", {
-						sessionId: startOptions.resume.harnessSessionId,
-						cwd: startOptions.cwd,
-						mcpServers: [],
-					});
+					response = await client.request(
+						"session/load",
+						{
+							sessionId: startOptions.resume.harnessSessionId,
+							cwd: startOptions.cwd,
+							mcpServers: [],
+						},
+						startupTimeoutMs,
+					);
 					resumed = true;
 				} catch (loadError) {
-					// An agent that was started but never prompted has a session id and
-					// no transcript behind it, so loading one answers "not found".
-					// There is no conversation to lose in that case, and none to
-					// recover in the other, so opening a new session is the only thing
-					// left to do either way — do it, and say so quietly rather than
-					// handing back an error the reader cannot act on.
+					// A session that was started but never prompted has no transcript,
+					// so the agent answers "not found". Any other failure keeps the
+					// conversation, and a new session would hide it from the agent.
+					if (!sessionMissing(loadError)) {
+						throw new Error(
+							`Could not reopen this conversation. ${(loadError as Error).message}`,
+						);
+					}
 					this.emitNotice(
 						"info",
 						"No earlier conversation to open, so this is a new one.",
 					);
 					console.warn("[acp] session/load failed", loadError);
-					response = await client.request("session/new", {
-						cwd: startOptions.cwd,
-						mcpServers: [],
-					});
+					response = await client.request(
+						"session/new",
+						{ cwd: startOptions.cwd, mcpServers: [] },
+						startupTimeoutMs,
+					);
 				} finally {
 					this.replaying = false;
 					this.loadingSessionId = null;
@@ -730,10 +776,11 @@ export class AcpAdapter implements HarnessAdapter {
 					this.flushOpenText();
 				}
 			} else {
-				response = await client.request("session/new", {
-					cwd: startOptions.cwd,
-					mcpServers: [],
-				});
+				response = await client.request(
+					"session/new",
+					{ cwd: startOptions.cwd, mcpServers: [] },
+					startupTimeoutMs,
+				);
 			}
 
 			// session/load returns null after replaying history via session/update.
@@ -746,6 +793,7 @@ export class AcpAdapter implements HarnessAdapter {
 				this.emitNotice("error", "acp agent returned no session id");
 				this.emitSession({ status: "dead" });
 				this.queue.close();
+				void client.close();
 				return;
 			}
 
@@ -774,9 +822,10 @@ export class AcpAdapter implements HarnessAdapter {
 			const queued = this.queuedPrompts.splice(0, this.queuedPrompts.length);
 			for (const content of queued) await this.runTurn(content);
 		} catch (error) {
-			this.emitNotice("error", this.authAwareMessage(error));
+			this.emitNotice("error", this.withStderr(this.authAwareMessage(error)));
 			this.emitSession({ status: "dead" });
 			this.queue.close();
+			void this.client?.close();
 		}
 	}
 
@@ -1775,14 +1824,36 @@ export class AcpAdapter implements HarnessAdapter {
 			this.finishSubagent(sessionId, "failed");
 		}
 		this.backgroundTasks.clear();
-		this.emitNotice("error", `acp agent exited (code ${code ?? "null"})`);
+		const message = `acp agent exited (code ${code ?? "null"})`;
+		if (this.stderrTail) console.warn(`[acp] ${message}\n${this.stderrTail}`);
+		if (this.currentTurn?.status === "running") {
+			this.flushOpenText();
+			this.emitTurn({
+				...this.currentTurn,
+				status: "failed",
+				error: { message },
+				completedAtMs: this.now(),
+			});
+		}
+		this.emitNotice("error", this.withStderr(message));
 		this.emitSession({ status: "dead" });
 		this.queue.close();
 	}
 
-	private cancelPendingApprovals(turnId: string): void {
+	private withStderr(message: string): string {
+		const tail = this.stderrTail.trim();
+		return tail ? `${message}\n\n${tail}` : message;
+	}
+
+	private requestTimeoutMs(): number {
+		return this.options.requestTimeoutMs ?? REQUEST_TIMEOUT_MS;
+	}
+
+	private cancelPendingApprovals(turnId: string): boolean {
+		let cancelled = false;
 		for (const [approvalId, pending] of [...this.pendingApprovals]) {
 			if (pending.turnId !== turnId) continue;
+			cancelled = true;
 			this.pendingApprovals.delete(approvalId);
 			this.client?.respond(
 				pending.requestId,
@@ -1793,6 +1864,7 @@ export class AcpAdapter implements HarnessAdapter {
 				pending.turnId,
 			);
 		}
+		return cancelled;
 	}
 
 	private dropCancelledRequest(params: unknown): void {

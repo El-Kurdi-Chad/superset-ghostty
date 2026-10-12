@@ -22,6 +22,10 @@ class FakeAcpAgent {
 	/** Answer session/load with "Resource not found", as a never-prompted
 	 * session does. */
 	loadFails = false;
+	/** Answer session/load with this error instead. */
+	loadError: { code: number; message: string } | null = null;
+	/** Answer nothing, as an agent stuck on a login prompt does. */
+	silent = false;
 	/** What the agent answers `initialize` with; older agents answer 1. */
 	protocolVersion = 2;
 	/** Session capabilities advertised at initialize; both shipped agents fork. */
@@ -64,6 +68,10 @@ class FakeAcpAgent {
 
 	exit(code: number): void {
 		this.handlers.onExit(code, null);
+	}
+
+	stderr(chunk: string): void {
+		this.handlers.onStderr(chunk);
 	}
 
 	notify(sessionId: string, update: Record<string, unknown>): void {
@@ -137,6 +145,7 @@ class FakeAcpAgent {
 		};
 		this.sent.push(frame as Record<string, unknown>);
 		if (frame.id === undefined || frame.method === undefined) return;
+		if (this.silent) return;
 
 		queueMicrotask(() => {
 			if (frame.method === "initialize") {
@@ -177,6 +186,8 @@ class FakeAcpAgent {
 				}
 			} else if (frame.method === "session/fork") {
 				this.respond(frame.id as number, { sessionId: "sess-forked" });
+			} else if (frame.method === "session/load" && this.loadError) {
+				this.deliver({ jsonrpc: "2.0", id: frame.id, error: this.loadError });
 			} else if (frame.method === "session/load" && this.loadFails) {
 				this.deliver({
 					jsonrpc: "2.0",
@@ -276,7 +287,10 @@ function startAdapter(
 	selections: { modelId?: string; modeId?: string } = {},
 	adapterOptions: Pick<
 		AcpAdapterOptions,
-		"defaultModeId" | "selectionWaitMs" | "backgroundDetailIntervalMs"
+		| "defaultModeId"
+		| "selectionWaitMs"
+		| "backgroundDetailIntervalMs"
+		| "startupTimeoutMs"
 	> = {},
 ): { adapter: AcpAdapter; events: AdapterEvent[] } {
 	let counter = 0;
@@ -2880,6 +2894,106 @@ describe("AcpAdapter images", () => {
 		const call = lastToolCall(events);
 		expect(call?.content).toEqual([]);
 		expect(call?.attachments).toBeUndefined();
+
+		await adapter.dispose();
+	});
+});
+
+describe("AcpAdapter when the agent fails", () => {
+	it("fails the running turn when the agent exits mid-turn", async () => {
+		const agent = new FakeAcpAgent();
+		agent.holdPrompts = true;
+		const { adapter, events } = startAdapter(agent);
+		await flush();
+		adapter.prompt([{ type: "text", text: "hi" }]);
+		await flush();
+
+		agent.exit(1);
+		await flush();
+
+		const turns = events.flatMap((e) => (e.kind === "turn" ? [e.turn] : []));
+		expect(turns.at(-1)?.status).toBe("failed");
+		expect(sessionsOf(events).at(-1)?.status).toBe("dead");
+
+		await adapter.dispose();
+	});
+
+	it("shows what the agent wrote to stderr when it exits", async () => {
+		const agent = new FakeAcpAgent();
+		const { adapter, events } = startAdapter(agent);
+		await flush();
+
+		agent.stderr("Error: ANTHROPIC_API_KEY is invalid\n");
+		agent.exit(1);
+		await flush();
+
+		const notice = itemsOf(events).find((i) => i.kind === "notice");
+		expect(textOf(notice)).toContain("ANTHROPIC_API_KEY is invalid");
+
+		await adapter.dispose();
+	});
+
+	it("keeps a resume dead when the load fails for a reason other than a missing session", async () => {
+		const agent = new FakeAcpAgent();
+		agent.loadError = { code: -32603, message: "Internal error: fetch failed" };
+		const { adapter, events } = startAdapter(agent, "sess-1");
+		await flush(40);
+
+		expect(agent.sent.map((f) => f.method)).toEqual([
+			"initialize",
+			"session/load",
+		]);
+		expect(sessionsOf(events).at(-1)?.status).toBe("dead");
+
+		await adapter.dispose();
+	});
+
+	it("opens a new session when the agent does not know the session id", async () => {
+		const agent = new FakeAcpAgent();
+		agent.loadError = { code: -32602, message: "Unknown sessionId: sess-1" };
+		const { adapter, events } = startAdapter(agent, "sess-1");
+		await flush(40);
+
+		expect(agent.sent.map((f) => f.method)).toContain("session/new");
+		expect(sessionsOf(events).at(-1)?.status).toBe("idle");
+
+		await adapter.dispose();
+	});
+
+	it("gives up on an agent that does not answer at startup", async () => {
+		const agent = new FakeAcpAgent();
+		agent.silent = true;
+		const { adapter, events } = startAdapter(
+			agent,
+			undefined,
+			{},
+			{ startupTimeoutMs: 5 },
+		);
+		await new Promise((resolve) => setTimeout(resolve, 20));
+
+		expect(sessionsOf(events).at(-1)?.status).toBe("dead");
+		const notice = itemsOf(events).find((i) => i.kind === "notice");
+		expect(textOf(notice)).toContain("did not answer");
+
+		await adapter.dispose();
+	});
+
+	it("answers a pending approval as cancelled when the turn is stopped", async () => {
+		const agent = new FakeAcpAgent();
+		agent.holdPrompts = true;
+		const { adapter } = startAdapter(agent);
+		await flush();
+		adapter.prompt([{ type: "text", text: "run the tests" }]);
+		await flush();
+		const requestId = agent.requestPermission("sess-1", "tc-1");
+		await flush();
+
+		adapter.cancelTurn();
+
+		expect(agent.sent.map((f) => f.method)).toContain("session/cancel");
+		expect(agent.responseTo(requestId)?.result).toEqual({
+			outcome: { outcome: "cancelled" },
+		});
 
 		await adapter.dispose();
 	});
