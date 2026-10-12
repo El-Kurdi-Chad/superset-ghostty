@@ -2,7 +2,7 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { errorMessage } from "@superset/i18n/errors";
 import { toast } from "@superset/ui/sonner";
 import { useMutation } from "@tanstack/react-query";
-import { ArrowUp, X } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 import {
 	type Ref,
 	useEffect,
@@ -13,8 +13,6 @@ import {
 import { FaGithub } from "react-icons/fa";
 import { getHostServiceClientByUrl } from "renderer/lib/host-service-client";
 import { useInvalidatePullRequestDetail } from "../../hooks/usePullRequestDetail";
-import type { PullRequestReplyTarget } from "../../providers/PullRequestActivityReplyProvider";
-import { pullRequestAuthorLabel } from "../../utils/pullRequestAuthorLabel";
 import { appendQuoteToDraft } from "../../utils/quotePullRequestComment";
 
 export interface PullRequestCommentTarget {
@@ -24,66 +22,65 @@ export interface PullRequestCommentTarget {
 }
 
 export interface PullRequestConversationComposerHandle {
-	/** Puts the quote after the conversation draft and the caret after the quote. */
+	focus: () => void;
+	/** Puts the quote after what is written and the caret after the quote. */
 	quote: (quote: string) => void;
 }
 
 interface PullRequestConversationComposerProps {
 	target: PullRequestCommentTarget;
-	/** A review-thread comment to answer instead of the conversation. */
-	replyTo?: PullRequestReplyTarget | null;
-	onCancelReply?: () => void;
+	/** A comment of the review thread to answer (GitHub's REST id); without it the comment goes to the conversation. */
+	threadCommentId?: number;
+	/** What the box opens with: the quote a reply to a conversation comment starts from. */
+	initialBody?: string;
+	/** Set for a reply opened under a card: the box takes focus, offers Cancel, and closes once the reply posts. */
+	onClose?: () => void;
 	ref?: Ref<PullRequestConversationComposerHandle>;
 }
 
-/** The "Leave a comment" card at the end of the Activity section. Posts as the gh user;
- *  Enter sends, Shift+Enter breaks a line (comments accept markdown). With a reply
- *  target it answers that review thread instead. */
+function placeCaretAtEnd(field: HTMLTextAreaElement) {
+	field.setSelectionRange(field.value.length, field.value.length);
+	field.scrollTop = field.scrollHeight;
+}
+
+/**
+ * The comment box of the Activity section: "Leave a comment" at its end, and
+ * the reply box that opens under a card. Posts as the gh user; Enter sends,
+ * Shift+Enter breaks a line (comments accept markdown).
+ */
 export function PullRequestConversationComposer({
 	target,
-	replyTo = null,
-	onCancelReply,
+	threadCommentId,
+	initialBody = "",
+	onClose,
 	ref,
 }: PullRequestConversationComposerProps) {
 	const { t } = useLingui();
-	// One draft per destination: choosing a thread to reply to must not carry
-	// a half-written conversation comment along, and cancelling the reply
-	// brings that comment back.
-	const [drafts, setDrafts] = useState({ conversation: "", reply: "" });
-	const body = replyTo ? drafts.reply : drafts.conversation;
-	const setBody = (text: string) =>
-		setDrafts((current) =>
-			replyTo
-				? { ...current, reply: text }
-				: { ...current, conversation: text },
-		);
+	const isReply = onClose !== undefined;
+	const [body, setBody] = useState(initialBody);
 	const fieldRef = useRef<HTMLTextAreaElement>(null);
 	// mutation.isPending updates on React's schedule, too late to stop a
 	// rapid double Enter from posting twice.
 	const submittingRef = useRef(false);
 	const invalidate = useInvalidatePullRequestDetail(target);
-	const replyCommentId = replyTo?.commentId;
 	useEffect(() => {
-		setDrafts((current) => ({ ...current, reply: "" }));
-		if (replyCommentId !== undefined) fieldRef.current?.focus();
-	}, [replyCommentId]);
+		const field = fieldRef.current;
+		if (!isReply || !field) return;
+		field.focus();
+		placeCaretAtEnd(field);
+	}, [isReply]);
 	useImperativeHandle(
 		ref,
 		() => ({
+			focus: () => fieldRef.current?.focus(),
 			quote: (quote) => {
-				setDrafts((current) => ({
-					...current,
-					conversation: appendQuoteToDraft(current.conversation, quote),
-				}));
+				setBody((current) => appendQuoteToDraft(current, quote));
 				const field = fieldRef.current;
 				if (!field) return;
 				field.focus();
 				// The draft lands on the next render; only then is there an end
 				// to put the caret at and scroll to.
-				requestAnimationFrame(() => {
-					field.setSelectionRange(field.value.length, field.value.length);
-					field.scrollTop = field.scrollHeight;
-				});
+				requestAnimationFrame(() => placeCaretAtEnd(field));
 			},
 		}),
 		[],
@@ -91,11 +88,11 @@ export function PullRequestConversationComposer({
 	const post = useMutation({
 		mutationFn: async (text: string) => {
 			const client = getHostServiceClientByUrl(target.hostUrl);
-			if (replyTo) {
+			if (threadCommentId !== undefined) {
 				await client.pullRequests.replyToThread.mutate({
 					projectId: target.projectId,
 					prNumber: target.prNumber,
-					commentId: replyTo.commentId,
+					commentId: threadCommentId,
 					body: text,
 				});
 				return;
@@ -108,12 +105,12 @@ export function PullRequestConversationComposer({
 		},
 		onSuccess: () => {
 			setBody("");
-			onCancelReply?.();
+			onClose?.();
 			void invalidate();
 		},
 		onError: (error) => {
 			toast.error(
-				replyTo
+				isReply
 					? t({ message: "Couldn't post reply" })
 					: t({ message: "Couldn't post comment" }),
 				{ description: errorMessage(error) },
@@ -131,27 +128,11 @@ export function PullRequestConversationComposer({
 			},
 		});
 	};
-	const placeholder = replyTo
+	const placeholder = isReply
 		? t({ message: "Write a reply" })
 		: t({ message: "Leave a comment" });
-	const replyingTo = replyTo ? pullRequestAuthorLabel(replyTo.author) : null;
 	return (
 		<div className="rounded-xl border border-border/60 bg-background shadow-sm">
-			{replyingTo ? (
-				<div className="flex items-center gap-2 px-3 pt-2 text-[11px] text-muted-foreground">
-					<span className="min-w-0 truncate">
-						<Trans>Replying to {replyingTo}</Trans>
-					</span>
-					<button
-						type="button"
-						aria-label={t({ message: "Cancel reply" })}
-						onClick={onCancelReply}
-						className="flex size-5 shrink-0 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-					>
-						<X className="size-3" />
-					</button>
-				</div>
-			) : null}
 			<textarea
 				ref={fieldRef}
 				rows={Math.max(3, Math.min(8, body.split("\n").length))}
@@ -179,11 +160,20 @@ export function PullRequestConversationComposer({
 				>
 					<FaGithub className="size-3" />
 				</span>
+				{onClose ? (
+					<button
+						type="button"
+						onClick={onClose}
+						className="h-7 shrink-0 rounded-md px-2 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+					>
+						<Trans>Cancel</Trans>
+					</button>
+				) : null}
 				<button
 					type="button"
 					disabled={!canSubmit}
 					aria-label={
-						replyTo
+						isReply
 							? t({ message: "Post reply" })
 							: t({ message: "Post comment" })
 					}

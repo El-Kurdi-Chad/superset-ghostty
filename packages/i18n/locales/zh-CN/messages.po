@@ -3252,9 +3252,6 @@ msgstr "取消编辑"
 msgid "Cancel plan"
 msgstr "取消方案"
 
-msgid "Cancel reply"
-msgstr "取消回复"
-
 msgid "Canceled"
 msgstr "已取消"
 
@@ -13412,9 +13409,6 @@ msgstr "回复"
 
 msgid "Reply to thread…"
 msgstr "回复讨论串…"
-
-msgid "Replying to {replyingTo}"
-msgstr "回复 {replyingTo}"
 
 msgid "repo"
 msgstr "仓库"

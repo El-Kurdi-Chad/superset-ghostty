@@ -1,7 +1,7 @@
-import { afterEach, describe, expect, test } from "bun:test";
+import { afterEach, describe, expect, mock, test } from "bun:test";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { act, cleanup, fireEvent, render } from "@testing-library/react";
-import { createRef } from "react";
+import { type ComponentProps, createRef } from "react";
 import {
 	PullRequestConversationComposer,
 	type PullRequestConversationComposerHandle,
@@ -12,49 +12,59 @@ afterEach(cleanup);
 const target = { projectId: "p1", hostUrl: "http://host.test", prNumber: 1 };
 
 function renderComposer(
-	replyTo: { commentId: number; author: { login: string } } | null = null,
+	props: Omit<
+		ComponentProps<typeof PullRequestConversationComposer>,
+		"target" | "ref"
+	> = {},
 ) {
 	const handle = createRef<PullRequestConversationComposerHandle>();
-	const client = new QueryClient();
-	const composer = (
-		reply: { commentId: number; author: { login: string } } | null,
-	) => (
-		<QueryClientProvider client={client}>
+	const view = render(
+		<QueryClientProvider client={new QueryClient()}>
 			<PullRequestConversationComposer
 				ref={handle}
 				target={target}
-				replyTo={reply}
+				{...props}
 			/>
-		</QueryClientProvider>
+		</QueryClientProvider>,
 	);
-	const view = render(composer(replyTo));
 	return {
 		view,
 		handle,
 		field: () => view.getByRole("textbox") as HTMLTextAreaElement,
-		setReplyTo: (
-			reply: { commentId: number; author: { login: string } } | null,
-		) => view.rerender(composer(reply)),
 	};
 }
 
-describe("the Activity composer", () => {
-	test("a quote lands after the conversation draft and the field takes focus", () => {
-		const { handle, field } = renderComposer();
-		fireEvent.change(field(), { target: { value: "Half a thought" } });
-		act(() => handle.current?.quote("> LGTM"));
-		expect(field().value).toBe("Half a thought\n\n> LGTM\n\n");
-		expect(document.activeElement).toBe(field());
+describe("the Activity comment box", () => {
+	test("at the end of the section it is a plain comment box that leaves focus alone", () => {
+		const { view, field } = renderComposer();
+		expect(field().placeholder).toBe("Leave a comment");
+		expect(view.getByRole("button", { name: "Post comment" })).toBeTruthy();
+		expect(view.queryByRole("button", { name: "Cancel" })).toBeNull();
+		expect(document.activeElement).not.toBe(field());
 	});
 
-	test("a thread reply has its own draft, and the conversation draft comes back", () => {
-		const { field, setReplyTo, view } = renderComposer();
-		fireEvent.change(field(), { target: { value: "For the conversation" } });
-		setReplyTo({ commentId: 7, author: { login: "maya" } });
-		expect(field().value).toBe("");
-		expect(view.getByText("Replying to maya")).toBeTruthy();
-		fireEvent.change(field(), { target: { value: "For the thread" } });
-		setReplyTo(null);
-		expect(field().value).toBe("For the conversation");
+	test("under a card it opens on the quote with the caret after it, and Cancel closes it", () => {
+		const onClose = mock(() => {});
+		const { view, field } = renderComposer({
+			initialBody: "> LGTM\n\n",
+			onClose,
+		});
+		expect(field().placeholder).toBe("Write a reply");
+		expect(field().value).toBe("> LGTM\n\n");
+		expect(document.activeElement).toBe(field());
+		expect(field().selectionStart).toBe("> LGTM\n\n".length);
+		expect(view.getByRole("button", { name: "Post reply" })).toBeTruthy();
+		fireEvent.click(view.getByRole("button", { name: "Cancel" }));
+		expect(onClose).toHaveBeenCalledTimes(1);
+	});
+
+	test("a second quote joins what is already written", () => {
+		const { handle, field } = renderComposer({
+			initialBody: "> first\n\n",
+			onClose: () => {},
+		});
+		fireEvent.change(field(), { target: { value: "> first\n\nAgreed." } });
+		act(() => handle.current?.quote("> second"));
+		expect(field().value).toBe("> first\n\nAgreed.\n\n> second\n\n");
 	});
 });

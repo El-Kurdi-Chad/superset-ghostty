@@ -6,28 +6,37 @@ const reactActGlobal = globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean };
 const previousActEnvironment = reactActGlobal.IS_REACT_ACT_ENVIRONMENT;
 reactActGlobal.IS_REACT_ACT_ENVIRONMENT = true;
 const { cleanup, fireEvent, render } = await import("@testing-library/react");
-const { QueryClient } = await import("@tanstack/react-query");
+const { QueryClient, QueryClientProvider } = await import(
+	"@tanstack/react-query"
+);
 const { workspaceTrpc } = await import("@superset/workspace-client");
 const { PullRequestCommentCard } = await import("./PullRequestCommentCard");
+
+const replyTarget = {
+	projectId: "p1",
+	hostUrl: "http://host.test",
+	prNumber: 1,
+};
 
 function renderCard(
 	props: Pick<
 		PullRequestCommentCardProps,
 		"comment" | "replies" | "onOpenInDiff"
 	>,
-	replyToThread: ((target: { commentId: number }) => void) | null = null,
+	canReply = false,
 ) {
+	const queryClient = new QueryClient();
 	return render(
-		<workspaceTrpc.Provider
-			client={workspaceTrpc.createClient({ links: [] })}
-			queryClient={new QueryClient()}
-		>
-			<PullRequestActivityReplyProvider
-				value={replyToThread ? { replyToThread, quote: () => {} } : null}
+		<QueryClientProvider client={queryClient}>
+			<workspaceTrpc.Provider
+				client={workspaceTrpc.createClient({ links: [] })}
+				queryClient={queryClient}
 			>
-				<PullRequestCommentCard workspaceId="ws" {...props} />
-			</PullRequestActivityReplyProvider>
-		</workspaceTrpc.Provider>,
+				<PullRequestActivityReplyProvider value={canReply ? replyTarget : null}>
+					<PullRequestCommentCard workspaceId="ws" {...props} />
+				</PullRequestActivityReplyProvider>
+			</workspaceTrpc.Provider>
+		</QueryClientProvider>,
 	);
 }
 afterEach(cleanup);
@@ -89,14 +98,24 @@ describe("review cards", () => {
 		fireEvent.click(body);
 		expect(onOpenInDiff).not.toHaveBeenCalled();
 	});
-	test("Reply hands the thread to the composer, or opens GitHub when nothing can take it", () => {
-		const replyToThread = mock((_target: { commentId: number }) => {});
-		const inline = renderCard({ comment }, replyToThread);
+	test("Reply opens an empty box under the thread, or opens GitHub when nothing can take it", () => {
+		const inline = renderCard({ comment }, true);
+		expect(inline.queryByRole("textbox")).toBeNull();
 		fireEvent.click(inline.getByRole("button", { name: "Reply" }));
-		expect(replyToThread).toHaveBeenCalledWith({
-			commentId: 4242,
-			author: { login: "reviewer", avatarUrl: undefined },
-		});
+		const box = inline.getByRole("textbox") as HTMLTextAreaElement;
+		const body = inline.getByText(/Keep the/);
+		expect(
+			Boolean(
+				body.compareDocumentPosition(box) & Node.DOCUMENT_POSITION_FOLLOWING,
+			),
+		).toBe(true);
+		expect(box.placeholder).toBe("Write a reply");
+		expect(box.value).toBe("");
+		expect(document.activeElement).toBe(box);
+		fireEvent.click(inline.getByRole("button", { name: "Reply" }));
+		expect(inline.getAllByRole("textbox")).toHaveLength(1);
+		fireEvent.click(inline.getByRole("button", { name: "Cancel" }));
+		expect(inline.queryByRole("textbox")).toBeNull();
 		inline.unmount();
 		const fallback = renderCard({ comment });
 		expect(fallback.getByRole("link", { name: "Reply" })).toHaveProperty(

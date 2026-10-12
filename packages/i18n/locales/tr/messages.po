@@ -3252,9 +3252,6 @@ msgstr "Düzenlemeleri iptal et"
 msgid "Cancel plan"
 msgstr "Planı iptal et"
 
-msgid "Cancel reply"
-msgstr "Yanıtı iptal et"
-
 msgid "Canceled"
 msgstr "İptal edildi"
 
@@ -13412,9 +13409,6 @@ msgstr "Yanıtla"
 
 msgid "Reply to thread…"
 msgstr "Konuya yanıt verin…"
-
-msgid "Replying to {replyingTo}"
-msgstr "{replyingTo} kullanıcısına yanıt"
 
 msgid "repo"
 msgstr "depo"

@@ -2,19 +2,14 @@ import { plural } from "@lingui/core/macro";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { Skeleton } from "@superset/ui/skeleton";
 import { ArrowUpRight, LoaderCircle } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { useMemo } from "react";
 import type { PullRequestDetail } from "../../hooks/usePullRequestDetail";
 import { PullRequestActivityLayoutProvider } from "../../providers/PullRequestActivityLayoutProvider";
-import {
-	type PullRequestActivityReplyActions,
-	PullRequestActivityReplyProvider,
-	type PullRequestReplyTarget,
-} from "../../providers/PullRequestActivityReplyProvider";
+import { PullRequestActivityReplyProvider } from "../../providers/PullRequestActivityReplyProvider";
 import { PullRequestActivityAvatar } from "../PullRequestActivityAvatar";
 import {
 	type PullRequestCommentTarget,
 	PullRequestConversationComposer,
-	type PullRequestConversationComposerHandle,
 } from "../PullRequestConversationComposer";
 import { PullRequestActivityComment } from "./components/PullRequestActivityComment";
 import { PullRequestCommitRun } from "./components/PullRequestCommitRun";
@@ -44,7 +39,8 @@ interface PullRequestActivityProps {
 
 /**
  * The Activity section: comments, reviews, commits and the pane's review
- * threads on one rail, oldest first, with the composer last. A narrow pane
+ * threads on one rail, oldest first, with the composer last. A card's Reply
+ * opens its own box under that card. A narrow pane
  * trades the rail and its cards for folded rows. Older hosts and the cloud
  * route send no comments or commits; without threads or a composer there is
  * then nothing to show.
@@ -56,22 +52,6 @@ export function PullRequestActivity({
 }: PullRequestActivityProps) {
 	const { t } = useLingui();
 	const { ref: sectionRef, layout } = usePullRequestActivityWidthLayout();
-	const [replyTo, setReplyTo] = useState<PullRequestReplyTarget | null>(null);
-	const composerRef = useRef<PullRequestConversationComposerHandle>(null);
-	const canReply = commentTarget !== null;
-	const replyActions = useMemo<PullRequestActivityReplyActions | null>(
-		() =>
-			canReply
-				? {
-						replyToThread: setReplyTo,
-						quote: (quote) => {
-							setReplyTo(null);
-							composerRef.current?.quote(quote);
-						},
-					}
-				: null,
-		[canReply],
-	);
 	const items = useMemo(
 		() =>
 			buildPullRequestTimeline({
@@ -135,7 +115,7 @@ export function PullRequestActivity({
 				</p>
 			) : null}
 			<PullRequestActivityLayoutProvider value={layout}>
-				<PullRequestActivityReplyProvider value={replyActions}>
+				<PullRequestActivityReplyProvider value={commentTarget}>
 					{items.length > 0 ? (
 						<ol
 							className={
@@ -233,12 +213,7 @@ export function PullRequestActivity({
 			) : null}
 			{commentTarget ? (
 				<div className="mt-4">
-					<PullRequestConversationComposer
-						ref={composerRef}
-						target={commentTarget}
-						replyTo={replyTo}
-						onCancelReply={() => setReplyTo(null)}
-					/>
+					<PullRequestConversationComposer target={commentTarget} />
 				</div>
 			) : null}
 		</section>
