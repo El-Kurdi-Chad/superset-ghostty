@@ -1,34 +1,10 @@
+import { decodeHTML, decodeHTMLAttribute } from "entities";
+
 const MAX_TITLE_LENGTH = 240;
 const ATTRIBUTE =
 	/([^\s"'<>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
-const NAMED_ENTITIES: Record<string, string> = {
-	amp: "&",
-	lt: "<",
-	gt: ">",
-	quot: '"',
-	apos: "'",
-	nbsp: " ",
-};
-
-function decodeEntities(text: string): string {
-	return text.replace(
-		/&(#x[0-9a-f]{1,6}|#\d{1,7}|[a-z]{2,8});/gi,
-		(whole, entity: string) => {
-			if (!entity.startsWith("#")) {
-				return NAMED_ENTITIES[entity.toLowerCase()] ?? whole;
-			}
-			const code = /^#x/i.test(entity)
-				? Number.parseInt(entity.slice(2), 16)
-				: Number.parseInt(entity.slice(1), 10);
-			const isScalar =
-				code > 0 && code <= 0x10ffff && !(code >= 0xd800 && code <= 0xdfff);
-			return isScalar ? String.fromCodePoint(code) : whole;
-		},
-	);
-}
-
 function cleanText(value: string): string | null {
-	const text = decodeEntities(value.replace(/<[^>]*>/g, ""))
+	const text = decodeHTML(value.replace(/<[^>]*>/g, ""))
 		.replace(/\s+/g, " ")
 		.trim();
 	return text ? Array.from(text).slice(0, MAX_TITLE_LENGTH).join("") : null;
@@ -70,7 +46,7 @@ export function documentTitle(html: string): string | null {
 export function documentIconHrefs(html: string): string[] {
 	return openingTags(html, "link").flatMap((link) => {
 		const rel = (link.get("rel") ?? "").toLowerCase().split(/\s+/);
-		const href = decodeEntities(link.get("href") ?? "").trim();
+		const href = decodeHTMLAttribute(link.get("href") ?? "").trim();
 		if (!rel.includes("icon") || !href) return [];
 		const isSvg =
 			link.get("type")?.toLowerCase() === "image/svg+xml" ||

@@ -23,6 +23,16 @@ describe("documentTitle", () => {
 		).toBe("Example docs & API — v2");
 	});
 
+	it("decodes HTML named entities in social and document titles", () => {
+		const title =
+			"Docs &mdash; Example &copy; &hellip; &CounterClockwiseContourIntegral;";
+		const expected = "Docs — Example © … ∳";
+		expect(documentTitle(`<title>${title}</title>`)).toBe(expected);
+		expect(documentTitle(`<meta property="og:title" content="${title}">`)).toBe(
+			expected,
+		);
+	});
+
 	it("skips an empty social title and caps the length", () => {
 		const long = "x".repeat(500);
 		const html = `<meta property="og:title" content=" "><title>${long}</title>`;
