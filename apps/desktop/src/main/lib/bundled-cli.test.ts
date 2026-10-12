@@ -14,9 +14,12 @@ import path from "node:path";
 import {
 	BUNDLED_CLI_SHIM_MARKER,
 	buildBundledCliShim,
+	buildBundledPdevShim,
 	getBundledCliBinaryName,
 	getBundledCliShimName,
 	installBundledCliShim,
+	installBundledPdevShim,
+	resolveBundledPdevPath,
 } from "./bundled-cli";
 
 describe("bundled CLI", () => {
@@ -109,5 +112,84 @@ describe("bundled CLI", () => {
 		});
 
 		expect(status).toBe("missing");
+	});
+});
+
+describe("bundled pdev", () => {
+	let tempDir: string;
+	let binDir: string;
+	let bundledPdevPath: string;
+
+	beforeEach(() => {
+		tempDir = mkdtempSync(path.join(tmpdir(), "superset-bundled-pdev-"));
+		binDir = path.join(tempDir, "bin");
+		bundledPdevPath = path.join(tempDir, "resources", "bin", "pdev", "pdev");
+		mkdirSync(path.dirname(bundledPdevPath), { recursive: true });
+		writeFileSync(bundledPdevPath, "#!/bin/sh\n", { mode: 0o755 });
+	});
+
+	afterEach(() => {
+		rmSync(tempDir, { recursive: true, force: true });
+	});
+
+	it("exports the gateway only when one is configured", () => {
+		const withGateway = buildBundledPdevShim(
+			bundledPdevPath,
+			"darwin",
+			"http://localhost:8787",
+		);
+		const withoutGateway = buildBundledPdevShim(bundledPdevPath, "darwin");
+
+		expect(withGateway).toContain(
+			"export PDEV_GATEWAY_URL='http://localhost:8787'\n",
+		);
+		expect(withGateway).toContain(`exec '${bundledPdevPath}' "$@"`);
+		expect(withoutGateway).not.toContain("PDEV_GATEWAY_URL");
+		expect(withoutGateway).toContain(BUNDLED_CLI_SHIM_MARKER);
+	});
+
+	it("installs a managed pdev shim next to the superset shim", () => {
+		const status = installBundledPdevShim({
+			binDir,
+			bundledPdevPath,
+			platform: "darwin",
+		});
+		const shimPath = path.join(binDir, "pdev");
+
+		expect(status).toBe("installed");
+		expect(readFileSync(shimPath, "utf-8")).toContain(
+			`exec '${bundledPdevPath}' "$@"`,
+		);
+		expect(statSync(shimPath).mode & 0o111).not.toBe(0);
+	});
+
+	it("does not overwrite a pdev the user installed", () => {
+		const shimPath = path.join(binDir, "pdev");
+		mkdirSync(binDir, { recursive: true });
+		writeFileSync(shimPath, "#!/bin/sh\necho mine\n", { mode: 0o755 });
+
+		const status = installBundledPdevShim({
+			binDir,
+			bundledPdevPath,
+			platform: "darwin",
+		});
+
+		expect(status).toBe("skipped");
+		expect(readFileSync(shimPath, "utf-8")).toBe("#!/bin/sh\necho mine\n");
+	});
+
+	it("installs nothing when pdev is not bundled", () => {
+		const status = installBundledPdevShim({
+			binDir,
+			bundledPdevPath: path.join(tempDir, "missing", "pdev"),
+			platform: "darwin",
+		});
+
+		expect(status).toBe("missing");
+		expect(existsSync(path.join(binDir, "pdev"))).toBe(false);
+	});
+
+	it("is never bundled on Windows", () => {
+		expect(resolveBundledPdevPath("win32")).toBeNull();
 	});
 });
