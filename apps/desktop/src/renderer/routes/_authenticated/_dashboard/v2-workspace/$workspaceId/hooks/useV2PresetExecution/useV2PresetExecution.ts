@@ -4,8 +4,13 @@ import type { CreatePaneInput, Pane, WorkspaceStore } from "@superset/panes";
 import { toast } from "@superset/ui/sonner";
 import { workspaceTrpc } from "@superset/workspace-client";
 import { useLiveQuery } from "@tanstack/react-db";
+import { useQuery } from "@tanstack/react-query";
 import { useCallback, useMemo } from "react";
-import { useV2AgentConfigs } from "renderer/hooks/useV2AgentConfigs";
+import { useIsAgentPresetEnabled } from "renderer/hooks/useIsAgentPresetEnabled";
+import {
+	useV2AgentConfigs,
+	v2AgentConfigsQueryOptions,
+} from "renderer/hooks/useV2AgentConfigs";
 import {
 	findLinkedAgent,
 	resolvePresetLaunchCommands,
@@ -106,7 +111,7 @@ export function useV2PresetExecution({
 	);
 	const sendToTerminal = workspaceTrpc.terminal.send.useMutation();
 
-	const { data: allPresets = [] } = useLiveQuery(
+	const { data: storedPresets = [] } = useLiveQuery(
 		(query) =>
 			query
 				.from({ v2TerminalPresets: collections.v2TerminalPresets })
@@ -119,6 +124,20 @@ export function useV2PresetExecution({
 	// already invalidated by mutations in the agents settings page.
 	const { activeHostUrl } = useLocalHostService();
 	const { data: agents = [] } = useV2AgentConfigs(activeHostUrl);
+	const { data: unfilteredAgents } = useQuery({
+		...v2AgentConfigsQueryOptions(activeHostUrl),
+		enabled: !!activeHostUrl,
+	});
+	const isAgentPresetEnabled = useIsAgentPresetEnabled();
+	const allPresets = useMemo(
+		() =>
+			storedPresets.filter((preset) => {
+				if (!preset.agentId) return true;
+				const linked = findLinkedAgent(unfilteredAgents, preset.agentId);
+				return isAgentPresetEnabled(linked?.presetId ?? preset.agentId);
+			}),
+		[storedPresets, unfilteredAgents, isAgentPresetEnabled],
+	);
 
 	const matchedPresets = useMemo(
 		() => filterMatchingPresetsForProject(allPresets, projectId),
