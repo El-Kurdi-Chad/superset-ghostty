@@ -198,9 +198,7 @@ export function PresetsBar() {
 		[matchedPresets],
 	);
 	const managedPresets = useMemo(() => {
-		const templateNames = new Set(
-			quickAddTemplates.map((t) => t.name),
-		);
+		const templateNames = new Set(quickAddTemplates.map((t) => t.name));
 		const primaryTemplatePresetIds = new Set(
 			quickAddTemplates.flatMap((template) => {
 				const match = presetsByName.get(template.name)?.[0];
