@@ -1,14 +1,9 @@
 import { useLingui } from "@lingui/react/macro";
 import { Spinner } from "@superset/ui/spinner";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@superset/ui/tooltip";
 import { cn } from "@superset/ui/utils";
-import {
-	type KeyboardEvent,
-	type ReactNode,
-	type RefObject,
-	useEffect,
-} from "react";
+import { type KeyboardEvent, type RefObject, useEffect } from "react";
 import { HiChevronDown, HiChevronUp, HiMiniXMark } from "react-icons/hi2";
+import { FindButton } from "./components/FindButton";
 
 export type TranscriptFindBarProps = {
 	isOpen: boolean;
@@ -23,35 +18,6 @@ export type TranscriptFindBarProps = {
 	onPrevious: () => void;
 	onClose: () => void;
 };
-
-function FindButton({
-	children,
-	disabled,
-	label,
-	onClick,
-}: {
-	children: ReactNode;
-	disabled?: boolean;
-	label: string;
-	onClick: () => void;
-}) {
-	return (
-		<Tooltip>
-			<TooltipTrigger asChild>
-				<button
-					aria-label={label}
-					className="rounded p-1 text-muted-foreground transition-colors hover:bg-muted-foreground/20 hover:text-foreground disabled:pointer-events-none disabled:opacity-40"
-					disabled={disabled}
-					onClick={onClick}
-					type="button"
-				>
-					{children}
-				</button>
-			</TooltipTrigger>
-			<TooltipContent side="bottom">{label}</TooltipContent>
-		</Tooltip>
-	);
-}
 
 /**
  * The find bar over the transcript, in the shape of the terminal's: an input,
@@ -80,11 +46,13 @@ export function TranscriptFindBar({
 
 	if (!isOpen) return null;
 
-	const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+	const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+		if (event.nativeEvent.isComposing) return;
 		if (event.key === "Escape") {
 			event.preventDefault();
+			event.stopPropagation();
 			onClose();
-		} else if (event.key === "Enter") {
+		} else if (event.key === "Enter" && event.target === inputRef.current) {
 			event.preventDefault();
 			if (event.shiftKey) onPrevious();
 			else onNext();
@@ -103,6 +71,7 @@ export function TranscriptFindBar({
 
 	return (
 		<search
+			onKeyDown={onKeyDown}
 			aria-label={t({ message: "Find in Chat" })}
 			className="absolute top-1 right-1 z-10 flex max-w-[calc(100%-0.5rem)] items-center rounded bg-popover/95 pl-2 pr-0.5 shadow-lg ring-1 ring-border/40 backdrop-blur"
 		>
@@ -112,7 +81,6 @@ export function TranscriptFindBar({
 				autoCorrect="off"
 				className="h-6 w-28 min-w-0 flex-shrink bg-transparent text-foreground text-sm placeholder:text-muted-foreground focus:outline-none"
 				onChange={(event) => onQueryChange(event.target.value)}
-				onKeyDown={onKeyDown}
 				placeholder={t({ message: "Find" })}
 				ref={inputRef}
 				spellCheck={false}

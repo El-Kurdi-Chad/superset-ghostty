@@ -9,11 +9,11 @@ import {
 import { cn } from "@superset/ui/utils";
 import { ChevronRight, CircleDashed } from "lucide-react";
 import type { ReactNode } from "react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { PluginIcon } from "renderer/components/PluginIcon";
 import { usePluginMentionOptions } from "renderer/hooks/usePluginMentionOptions";
-import { fileChangeOf } from "../../utils/fileChange";
 import { toolKindIcon } from "../../utils/toolKindIcon";
+import { toolTitle } from "../../utils/toolTitle";
 import { ToolContentList } from "../ToolContentList";
 import { FileChangeTitle } from "./components/FileChangeTitle";
 import { StatusWord } from "./components/StatusWord";
@@ -39,29 +39,24 @@ export function ToolCallRow({
 	const Icon = toolKindIcon(item.toolKind);
 	const running = item.status === "running";
 	const command = item.toolKind === "execute";
-	const change = useMemo(() => fileChangeOf(item), [item]);
 	const installedPlugins = usePluginMentionOptions();
 	const mcpServer = item.mcpServer;
 	const plugin = mcpServer
 		? installedPlugins.find((candidate) => candidate.name === mcpServer.name)
 		: undefined;
 
+	const { change, label } = toolTitle(item, t, Boolean(plugin));
 	let title: ReactNode;
 	if (change) {
-		title = <FileChangeTitle change={change} item={item} running={running} />;
+		title = (
+			<FileChangeTitle
+				change={change}
+				item={item}
+				running={running}
+				verb={label}
+			/>
+		);
 	} else {
-		// The translator names a command "Terminal" until the command itself
-		// arrives a beat later; "Running" says more in the meantime.
-		const rawMcpTitle =
-			!item.title ||
-			item.title.startsWith("mcp__") ||
-			item.title === `${mcpServer?.tool} (${mcpServer?.name})`;
-		const label =
-			plugin && mcpServer && rawMcpTitle
-				? mcpServer.tool
-				: running && command && item.title === "Terminal"
-					? t({ message: "Running" })
-					: item.title;
 		const face = command ? "font-mono text-[13px]" : undefined;
 		title = running ? (
 			<span className="min-w-0 truncate">

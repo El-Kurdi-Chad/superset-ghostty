@@ -4,10 +4,24 @@ import {
 	type SessionSnapshot,
 	userMessageText,
 } from "@superset/chat/core";
-import { type Item, isKnownItem } from "@superset/chat/protocol";
+import { type Item, isKnownItem, type ToolCall } from "@superset/chat/protocol";
 import { parseAttachmentTags } from "../../../../utils/attachmentTags";
 import { thoughtSummary } from "../../components/ReasoningRow/utils/thoughtSummary";
+import { textMatches } from "../textMatches";
+import { toolTitleText } from "../toolTitle";
 import type { TranscriptRow } from "../transcriptRows";
+import { markdownText } from "./utils/markdownText";
+
+const markdownCache = new WeakMap<Item, { source: string; text: string }>();
+
+function agentText(item: Item, snapshot: SessionSnapshot): string {
+	const source = displayText(snapshot, item.id);
+	const cached = markdownCache.get(item);
+	if (cached?.source === source) return cached.text;
+	const text = markdownText(source);
+	markdownCache.set(item, { source, text });
+	return text;
+}
 
 /** One stretch of transcript text the find bar searches, as its row shows it. */
 export type FindSegment = {
@@ -31,6 +45,7 @@ function itemText(
 	item: Item,
 	snapshot: SessionSnapshot,
 	harness: string | undefined,
+	formatToolTitle: (item: ToolCall) => string,
 ): string {
 	if (!isKnownItem(item)) return "";
 	switch (item.kind) {
@@ -40,11 +55,11 @@ function itemText(
 			return parseAttachmentTags(raw).text;
 		}
 		case "agent_message":
-			return displayText(snapshot, item.id);
+			return agentText(item, snapshot);
 		case "reasoning":
 			return thoughtSummary(displayText(snapshot, item.id));
 		case "tool_call":
-			return item.title;
+			return formatToolTitle(item);
 		case "plan":
 			return item.entries.map((entry) => entry.text).join("\n");
 		default:
@@ -60,12 +75,17 @@ export function findSegments(
 	rows: readonly TranscriptRow[],
 	snapshot: SessionSnapshot,
 	harness: string | undefined,
+	formatToolTitle: (item: ToolCall) => string = toolTitleText,
 ): FindSegment[] {
 	const segments: FindSegment[] = [];
 	for (const row of rows) {
 		if (row.kind === "tool_run") {
 			for (const tool of row.items) {
-				segments.push({ rowKey: row.key, itemId: tool.id, text: tool.title });
+				segments.push({
+					rowKey: row.key,
+					itemId: tool.id,
+					text: formatToolTitle(tool),
+				});
 			}
 			continue;
 		}
@@ -77,23 +97,14 @@ export function findSegments(
 			continue;
 		}
 		if (row.kind !== "item") continue;
-		const text = itemText(row.item, snapshot, harness);
+		const text = itemText(row.item, snapshot, harness, formatToolTitle);
 		if (text) segments.push({ rowKey: row.key, itemId: row.item.id, text });
 	}
 	return segments;
 }
 
 export function countOccurrences(haystack: string, needle: string): number {
-	if (!needle) return 0;
-	let count = 0;
-	for (
-		let index = haystack.indexOf(needle);
-		index !== -1;
-		index = haystack.indexOf(needle, index + needle.length)
-	) {
-		count += 1;
-	}
-	return count;
+	return textMatches(haystack, needle).length;
 }
 
 export function findMatches(
@@ -103,7 +114,7 @@ export function findMatches(
 	if (!needle) return [];
 	const matches: FindMatch[] = [];
 	for (const segment of segments) {
-		const count = countOccurrences(segment.text.toLowerCase(), needle);
+		const count = countOccurrences(segment.text, needle);
 		for (let occurrence = 0; occurrence < count; occurrence += 1) {
 			matches.push({
 				rowKey: segment.rowKey,

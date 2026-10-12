@@ -5,7 +5,9 @@ import { createRef } from "react";
 	globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
 ).IS_REACT_ACT_ENVIRONMENT = true;
 
-const { cleanup, fireEvent, render } = await import("@testing-library/react");
+const { act, cleanup, fireEvent, render } = await import(
+	"@testing-library/react"
+);
 const { TranscriptFindBar } = await import("./TranscriptFindBar");
 type Props = import("./TranscriptFindBar").TranscriptFindBarProps;
 
@@ -67,4 +69,14 @@ test("a query with no hits says so, unless older pages are still loading", () =>
 	cleanup();
 	const loading = renderBar({ matchCount: 0, currentIndex: -1, loading: true });
 	expect(loading.getByText("Loading…")).toBeTruthy();
+});
+
+test("Esc closes after keyboard focus moves to a navigation button", () => {
+	const { getByRole, onClose, onNext } = renderBar();
+	const next = getByRole("button", { name: "Next (Enter)" });
+	act(() => next.focus());
+	fireEvent.click(next);
+	fireEvent.keyDown(next, { key: "Escape" });
+	expect(onNext).toHaveBeenCalledTimes(1);
+	expect(onClose).toHaveBeenCalledTimes(1);
 });

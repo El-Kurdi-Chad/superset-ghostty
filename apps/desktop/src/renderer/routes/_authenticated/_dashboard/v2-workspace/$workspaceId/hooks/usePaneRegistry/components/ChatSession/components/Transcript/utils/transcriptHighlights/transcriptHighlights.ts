@@ -1,3 +1,4 @@
+import { textMatches } from "../textMatches";
 import type { FindMatch } from "../transcriptFind";
 
 /** Marks the element that renders an item's searchable text; its value is the item id. */
@@ -99,14 +100,8 @@ export function textRanges(root: Element, needle: string): Range[] {
 	if (!needle) return [];
 	const ranges: Range[] = [];
 	for (const run of textRuns(root)) {
-		const haystack = run.text.toLowerCase();
-		if (haystack.length !== run.text.length) continue;
-		for (
-			let from = haystack.indexOf(needle);
-			from !== -1;
-			from = haystack.indexOf(needle, from + needle.length)
-		) {
-			const range = rangeIn(run, from, from + needle.length);
+		for (const { start, end } of textMatches(run.text, needle)) {
+			const range = rangeIn(run, start, end);
 			if (range) ranges.push(range);
 		}
 	}

@@ -1,5 +1,11 @@
-import { afterEach, expect, mock, test } from "bun:test";
-import { emptySnapshot, type SessionSnapshot } from "@superset/chat/core";
+import { afterEach, expect, mock, spyOn, test } from "bun:test";
+import {
+	emptySnapshot,
+	outlineSnapshot,
+	type SessionSnapshot,
+	snapshotFromOutline,
+	withItemBodies,
+} from "@superset/chat/core";
 import type {
 	AgentMessage,
 	Item,
@@ -59,6 +65,7 @@ function renderFind(overrides: Partial<Options> = {}) {
 	const scrollToMessage = mock<Options["scrollToMessage"]>(() => true);
 	const onToggleEntry = mock<Options["onToggleEntry"]>(() => {});
 	const onClose = mock<() => void>(() => {});
+	const onRequestItemBodies = mock<Options["onRequestItemBodies"]>(() => {});
 	const items = [ask, reply];
 	const initial: Options = {
 		rows: items.map(itemRow),
@@ -69,13 +76,21 @@ function renderFind(overrides: Partial<Options> = {}) {
 		onToggleEntry,
 		scrollToMessage,
 		onClose,
+		onRequestItemBodies,
 		debounceMs: 0,
 		...overrides,
 	};
 	const view = renderHook((options: Options) => useTranscriptFind(options), {
 		initialProps: initial,
 	});
-	return { ...view, initial, scrollToMessage, onToggleEntry, onClose };
+	return {
+		...view,
+		initial,
+		scrollToMessage,
+		onToggleEntry,
+		onClose,
+		onRequestItemBodies,
+	};
 }
 
 test("a settled query counts every hit, lands on the first and steps around", async () => {
@@ -241,5 +256,92 @@ test("paints the current hit, and again after a jump lands on the same hit", asy
 		viewport.remove();
 		restore("CSS", previous.CSS);
 		restore("Highlight", previous.Highlight);
+	}
+});
+
+test("search loads omitted tool bodies even when the outline has all turns", async () => {
+	const longTool = { ...tool, title: `${"command ".repeat(30)}unique-file.ts` };
+	const full = snapshotOf([longTool]);
+	const outline = snapshotFromOutline(outlineSnapshot(full));
+	const outlined = outline.items.get(longTool.id);
+	if (!outlined) throw new Error("Missing outlined tool");
+	const { result, rerender, initial, onRequestItemBodies } = renderFind({
+		rows: [itemRow(outlined.item)],
+		snapshot: outline,
+	});
+	expect(onRequestItemBodies).not.toHaveBeenCalled();
+	act(() => {
+		result.current.open();
+		result.current.setQuery("unique-file.ts");
+	});
+	await settle();
+	expect(result.current.loading).toBe(true);
+	expect(result.current.matchCount).toBe(0);
+	expect(onRequestItemBodies).toHaveBeenCalledWith([longTool.id]);
+
+	rerender({
+		...initial,
+		rows: [itemRow(longTool)],
+		snapshot: withItemBodies(outline, [...full.items.values()]),
+	});
+	await settle();
+	expect(result.current.loading).toBe(false);
+	expect(result.current.matchCount).toBe(1);
+	expect(result.current.currentRowKey).toBe(longTool.id);
+});
+
+test("continuous streaming refreshes matches without waiting for a pause", () => {
+	let now = 0;
+	let nextId = 0;
+	const timers = new Map<number, { at: number; run: () => void }>();
+	const setClockTimeout = ((run: () => void, delay = 0) => {
+		const id = ++nextId;
+		timers.set(id, { at: now + delay, run });
+		return id as unknown as ReturnType<typeof setTimeout>;
+	}) as typeof setTimeout;
+	const schedule = spyOn(globalThis, "setTimeout").mockImplementation(
+		setClockTimeout,
+	);
+	const cancel = spyOn(globalThis, "clearTimeout").mockImplementation((id) => {
+		timers.delete(Number(id));
+	});
+	const advance = (ms: number) =>
+		act(() => {
+			now += ms;
+			for (const [id, timer] of [...timers]) {
+				if (timer.at > now) continue;
+				timers.delete(id);
+				timer.run();
+			}
+		});
+	try {
+		const first = { ...reply, text: "login" };
+		const { result, rerender, initial, unmount } = renderFind({
+			rows: [itemRow(first)],
+			snapshot: snapshotOf([first]),
+			debounceMs: 150,
+		});
+		act(() => {
+			result.current.open();
+			result.current.setQuery("login");
+		});
+		advance(150);
+		expect(result.current.matchCount).toBe(1);
+		for (let i = 0; i < 4; i += 1) {
+			const streamed = { ...reply, text: `login login ${i}` };
+			rerender({
+				...initial,
+				rows: [itemRow(streamed)],
+				snapshot: snapshotOf([streamed]),
+			});
+			advance(100);
+		}
+		expect(result.current.matchCount).toBe(2);
+		expect(result.current.currentIndex).toBe(0);
+		unmount();
+	} finally {
+		cleanup();
+		schedule.mockRestore();
+		cancel.mockRestore();
 	}
 });

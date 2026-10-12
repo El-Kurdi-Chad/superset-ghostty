@@ -156,3 +156,45 @@ describe("findMatches", () => {
 test("countOccurrences does not overlap hits", () => {
 	expect(countOccurrences("aaaa", "aa")).toBe(2);
 });
+
+test("searches displayed Markdown phrases without counting hidden link URLs", () => {
+	const markdown: AgentMessage = {
+		...reply,
+		text: "The **login** page uses [login](https://example.com/login).",
+	};
+	const segments = findSegments(
+		[itemRow(markdown)],
+		snapshotOf([markdown]),
+		undefined,
+	);
+	expect(findMatches(segments, "login page")).toHaveLength(1);
+	expect(findMatches(segments, "login")).toHaveLength(2);
+	expect(findMatches(segments, "example.com")).toHaveLength(0);
+});
+
+test("searches file change labels and filenames inside a collapsed tool run", () => {
+	const edit: ToolCall = {
+		...tool("edit", "Edit"),
+		content: [
+			{
+				type: "diff",
+				path: "/project/login.ts",
+				oldText: "old",
+				newText: "new",
+			},
+		],
+	};
+	const rows: TranscriptRow[] = [
+		{
+			kind: "tool_run",
+			key: "tools",
+			groupStart: false,
+			items: [edit],
+			defaultCollapsed: true,
+		},
+	];
+	const segments = findSegments(rows, snapshotOf([edit]), undefined);
+	expect(findMatches(segments, "edited login.ts")).toEqual([
+		{ rowKey: "tools", itemId: "edit", occurrence: 0 },
+	]);
+});

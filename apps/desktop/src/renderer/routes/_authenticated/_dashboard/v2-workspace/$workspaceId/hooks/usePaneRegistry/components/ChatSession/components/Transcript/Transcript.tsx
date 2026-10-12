@@ -29,6 +29,7 @@ import {
 	useState,
 } from "react";
 import { env } from "renderer/env.renderer";
+import { usePluginMentionOptions } from "renderer/hooks/usePluginMentionOptions";
 import {
 	CHAT_COLUMN_CLASSNAME,
 	CHAT_SCROLLER_GUTTER_CLASSNAME,
@@ -116,6 +117,11 @@ export function Transcript({
 	snapshot,
 }: TranscriptProps) {
 	const { t } = useLingui();
+	const plugins = usePluginMentionOptions();
+	const installedPluginNames = useMemo(
+		() => new Set(plugins.map((plugin) => plugin.name)),
+		[plugins],
+	);
 	const [viewportRef, scrollbarGutter, viewport] =
 		useScrollbarGutter<HTMLDivElement>();
 	const scroller = useMessageScroller();
@@ -233,6 +239,8 @@ export function Transcript({
 
 	const find = useTranscriptFind({
 		rows,
+		onRequestItemBodies,
+		installedPluginNames,
 		snapshot,
 		viewport,
 		isActive,
@@ -298,7 +306,9 @@ export function Transcript({
 				currentIndex={find.currentIndex}
 				inputRef={find.inputRef}
 				isOpen={find.isOpen}
-				loading={find.isOpen && hasOlder && !olderPages.failed}
+				loading={
+					find.loading || (find.isOpen && hasOlder && !olderPages.failed)
+				}
 				matchCount={find.matchCount}
 				onClose={find.close}
 				onNext={find.next}

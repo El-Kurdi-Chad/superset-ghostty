@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, test } from "bun:test";
+import { findMatches } from "../transcriptFind";
 import { collectHighlights, textRanges } from "./transcriptHighlights";
 
 function mount(html: string): HTMLElement {
@@ -51,4 +52,22 @@ describe("collectHighlights", () => {
 		});
 		expect(plan.current?.toString()).toBe("world");
 	});
+});
+
+test("case folding preserves highlight offsets after and within a dotted capital I", () => {
+	const text = "İstanbul login İLOGIN";
+	const root = mount(`<div data-find-item="a"><p>${text}</p></div>`);
+	const segments = [{ rowKey: "a", itemId: "a", text }];
+	const matches = findMatches(segments, "login");
+	const plan = collectHighlights(root, "login", matches[1] ?? null);
+	expect(plan.ranges.map((range) => range.toString())).toEqual([
+		"login",
+		"LOGIN",
+	]);
+	expect(plan.ranges).toHaveLength(matches.length);
+	expect(plan.current?.startOffset).toBe(text.indexOf("LOGIN"));
+	expect(textRanges(root, "i\u0307").map((range) => range.toString())).toEqual([
+		"İ",
+		"İ",
+	]);
 });

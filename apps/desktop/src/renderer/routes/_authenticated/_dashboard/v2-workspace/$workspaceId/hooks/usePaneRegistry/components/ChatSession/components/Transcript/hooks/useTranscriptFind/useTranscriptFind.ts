@@ -1,4 +1,6 @@
-import type { SessionSnapshot } from "@superset/chat/core";
+import { useLingui } from "@lingui/react/macro";
+import { hasOmittedBody, type SessionSnapshot } from "@superset/chat/core";
+import type { ToolCall } from "@superset/chat/protocol";
 import type { useMessageScroller } from "@superset/chat-ui/MessageScroller";
 import {
 	type RefObject,
@@ -10,6 +12,7 @@ import {
 } from "react";
 import { useDebouncedValue } from "renderer/hooks/useDebouncedValue";
 import { useHotkey } from "renderer/hotkeys";
+import { toolTitleText } from "../../utils/toolTitle";
 import {
 	type FindMatch,
 	findMatches,
@@ -24,7 +27,10 @@ import {
 } from "../../utils/transcriptHighlights";
 import { rowMessageId, type TranscriptRow } from "../../utils/transcriptRows";
 
+import { useThrottledValue } from "./hooks/useThrottledValue";
+
 const DEBOUNCE_MS = 150;
+const NO_PLUGINS: ReadonlySet<string> = new Set();
 /** Rows near the viewport finish laying out over a frame or two after a jump. */
 const REVEAL_FRAMES = 3;
 /** Keeps a revealed hit clear of the find bar and the pane edges. */
@@ -40,6 +46,8 @@ type Reveal = { match: FindMatch; messageId: string; frames: number };
 export type UseTranscriptFindOptions = {
 	rows: readonly TranscriptRow[];
 	snapshot: SessionSnapshot;
+	onRequestItemBodies: (itemIds: readonly string[]) => void;
+	installedPluginNames?: ReadonlySet<string>;
 	viewport: HTMLElement | null;
 	isActive: boolean;
 	isEntryCollapsed: (entryKey: string, defaultCollapsed: boolean) => boolean;
@@ -52,6 +60,7 @@ export type UseTranscriptFindOptions = {
 
 export type TranscriptFind = {
 	isOpen: boolean;
+	loading: boolean;
 	open: () => void;
 	close: () => void;
 	query: string;
@@ -93,6 +102,8 @@ function revealRect(viewport: HTMLElement, rect: DOMRect, center: boolean) {
 export function useTranscriptFind({
 	rows,
 	snapshot,
+	onRequestItemBodies,
+	installedPluginNames = NO_PLUGINS,
 	viewport,
 	isActive,
 	isEntryCollapsed,
@@ -101,20 +112,48 @@ export function useTranscriptFind({
 	onClose,
 	debounceMs = DEBOUNCE_MS,
 }: UseTranscriptFindOptions): TranscriptFind {
+	const { t } = useLingui();
 	const [isOpen, setIsOpen] = useState(false);
 	const [query, setQuery] = useState("");
 	const [current, setCurrent] = useState<Current | null>(null);
 	const [jumps, setJumps] = useState(0);
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	// Segments stay current while the bar is closed, so reopening it with the
-	// last query counts at once instead of after the debounce.
-	const harness = snapshot.session?.harness;
-	const liveSegments = useMemo(
-		() => findSegments(rows, snapshot, harness),
-		[rows, snapshot, harness],
+	const omittedItemIds = useMemo(
+		() =>
+			[...snapshot.items.values()]
+				.filter(({ item }) => hasOmittedBody(item))
+				.map(({ item }) => item.id),
+		[snapshot.items],
 	);
-	const segments = useDebouncedValue(liveSegments, debounceMs);
+	useEffect(() => {
+		if (isOpen && omittedItemIds.length > 0) {
+			onRequestItemBodies(omittedItemIds);
+		}
+	}, [isOpen, omittedItemIds, onRequestItemBodies]);
+
+	const source = useMemo(() => ({ rows, snapshot }), [rows, snapshot]);
+	const indexed = useThrottledValue(source, debounceMs);
+	const formatToolTitle = useCallback(
+		(item: ToolCall) =>
+			toolTitleText(
+				item,
+				t,
+				item.mcpServer !== undefined &&
+					installedPluginNames.has(item.mcpServer.name),
+			),
+		[t, installedPluginNames],
+	);
+	const segments = useMemo(
+		() =>
+			findSegments(
+				indexed.rows,
+				indexed.snapshot,
+				indexed.snapshot.session?.harness,
+				formatToolTitle,
+			),
+		[indexed, formatToolTitle],
+	);
 	const settledNeedle = useDebouncedValue(findNeedle(query), debounceMs);
 	const needle = isOpen ? settledNeedle : "";
 	const matches = useMemo(
@@ -298,6 +337,7 @@ export function useTranscriptFind({
 
 	return {
 		isOpen,
+		loading: isOpen && omittedItemIds.length > 0,
 		open,
 		close,
 		query,

@@ -1,4 +1,3 @@
-import { useLingui } from "@lingui/react/macro";
 import type { ToolCall } from "@superset/chat/protocol";
 import { ShimmerLabel } from "@superset/ui/ai-elements/shimmer-label";
 import { useMemo } from "react";
@@ -15,27 +14,17 @@ export function FileChangeTitle({
 	change,
 	item,
 	running,
+	verb,
 }: {
 	change: FileChange;
 	item: ToolCall;
 	running: boolean;
+	verb: string;
 }) {
-	const { t } = useLingui();
 	const stats = useMemo(() => {
 		const diff = item.content.find((content) => content.type === "diff");
 		return diff && diff.type === "diff" ? diffStats(diff) : null;
 	}, [item.content]);
-	const verb = running
-		? change.kind === "added"
-			? t({ message: "Creating", context: "file change" })
-			: change.kind === "deleted"
-				? t({ message: "Deleting", context: "file change" })
-				: t({ message: "Editing", context: "file change" })
-		: change.kind === "added"
-			? t({ message: "Created", context: "file change" })
-			: change.kind === "deleted"
-				? t({ message: "Deleted", context: "file change" })
-				: t({ message: "Edited", context: "file change" });
 	return (
 		<>
 			<span className="shrink-0">
@@ -46,7 +35,7 @@ export function FileChangeTitle({
 				) : (
 					verb
 				)}
-			</span>
+			</span>{" "}
 			<span
 				className="min-w-0 truncate rounded bg-foreground/[0.06] px-1 py-0.5 font-mono text-[13px] text-foreground/70"
 				title={change.path}
