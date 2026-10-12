@@ -111,7 +111,25 @@ describe("build-bundled-pdev", () => {
 		expect(requested).toEqual([
 			`https://github.com/superset-sh/pdev/releases/download/v0.1.0/${assetName}`,
 		]);
-		expect(isBundled(destDir, assetName)).toBe(true);
+		expect(isBundled(destDir, `${assetName} sha256:${sha256}`)).toBe(true);
+	});
+
+	it("downloads again when a cached bundle was not verified with the pinned SHA-256", async () => {
+		const assetName = "pdev-0.1.0-linux-x64.tar.gz";
+		const bytes = readFileSync(packSource());
+		const sha256 = createHash("sha256").update(bytes).digest("hex");
+		await extractPdevTarball(packSource(), destDir, assetName);
+		let downloads = 0;
+		const fetcher = (async () => {
+			downloads++;
+			return new Response(bytes);
+		}) as unknown as typeof fetch;
+		const env = { TARGET_PLATFORM: "linux", TARGET_ARCH: "x64" };
+
+		await main(env, destDir, fetcher, { [assetName]: sha256 });
+		await main(env, destDir, fetcher, { [assetName]: sha256 });
+
+		expect(downloads).toBe(1);
 	});
 
 	it("refuses an archive whose SHA-256 does not match", async () => {

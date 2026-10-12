@@ -142,7 +142,8 @@ export async function main(
 		return;
 	}
 
-	if (isBundled(destDir, assetName)) {
+	const bundledFrom = `${assetName} sha256:${expectedSha256}`;
+	if (isBundled(destDir, bundledFrom)) {
 		console.log(`[desktop] bundled pdev is up to date (${assetName})`);
 		return;
 	}
@@ -152,7 +153,7 @@ export async function main(
 	try {
 		const tarball = join(downloadDir, assetName);
 		await downloadAsset(assetName, expectedSha256, tarball, fetcher);
-		await extractPdevTarball(tarball, destDir, assetName);
+		await extractPdevTarball(tarball, destDir, bundledFrom);
 		console.log(`[desktop] bundled pdev written to ${destDir}`);
 	} catch (error) {
 		if (required) throw error;
