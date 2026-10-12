@@ -7,6 +7,7 @@ import {
 	type AgentDefinitionId,
 	getEnabledAgentConfigs,
 	indexResolvedAgentConfigs,
+	type ResolvedAgentConfig,
 } from "@superset/shared/agent-settings";
 import { sanitizeBranchNameWithMaxLength } from "@superset/shared/workspace-launch";
 import {
@@ -47,6 +48,7 @@ import { AgentSelect } from "renderer/components/AgentSelect";
 import { LinkedIssuePill } from "renderer/components/LinkedIssuePill";
 import { useAgentLaunchPreferences } from "renderer/hooks/useAgentLaunchPreferences";
 import { PLATFORM } from "renderer/hotkeys";
+import { useIsAgentPresetEnabled } from "renderer/hooks/useIsAgentPresetEnabled";
 import { electronTrpc } from "renderer/lib/electron-trpc";
 import { resolveEffectiveWorkspaceBaseBranch } from "renderer/lib/workspaceBaseBranch";
 import { navigateToWorkspace } from "renderer/routes/_authenticated/_dashboard/utils/workspace-navigation";
@@ -308,7 +310,16 @@ function PromptGroupInner({
 		linkedIssues,
 		linkedPR,
 	} = draft;
-	const agentPresetsQuery = electronTrpc.settings.getAgentPresets.useQuery();
+	const isAgentPresetEnabled = useIsAgentPresetEnabled();
+	const selectEnabledPresets = useCallback(
+		(presets: ResolvedAgentConfig[]) =>
+			presets.filter((preset) => isAgentPresetEnabled(preset.id)),
+		[isAgentPresetEnabled],
+	);
+	const agentPresetsQuery = electronTrpc.settings.getAgentPresets.useQuery(
+		undefined,
+		{ select: selectEnabledPresets },
+	);
 	const agentPresets = agentPresetsQuery.data ?? [];
 	const enabledAgentPresets = useMemo(
 		() => getEnabledAgentConfigs(agentPresets),

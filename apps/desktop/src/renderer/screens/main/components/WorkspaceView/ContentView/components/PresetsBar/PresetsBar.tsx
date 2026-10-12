@@ -22,6 +22,7 @@ import {
 	useIsDarkTheme,
 } from "renderer/assets/app-icons/preset-icons";
 import { HotkeyMenuShortcut } from "renderer/components/HotkeyMenuShortcut";
+import { useIsAgentPresetEnabled } from "renderer/hooks/useIsAgentPresetEnabled";
 import { electronTrpc } from "renderer/lib/electron-trpc";
 import { usePresets } from "renderer/react-query/presets";
 import { WorkspaceRunButton } from "renderer/routes/_authenticated/_dashboard/components/TopBar/components/WorkspaceRunButton";
@@ -128,6 +129,14 @@ export function PresetsBar() {
 	const { workspaceId } = useParams({ strict: false });
 	const navigate = useNavigate();
 	const isDark = useIsDarkTheme();
+	const isAgentPresetEnabled = useIsAgentPresetEnabled();
+	const quickAddTemplates = useMemo(
+		() =>
+			QUICK_ADD_PRESET_TEMPLATES.filter((template) =>
+				isAgentPresetEnabled(template.name),
+			),
+		[isAgentPresetEnabled],
+	);
 	const { showPresetsBar, setShowPresetsBar } = useShowPresetsBar();
 	const { data: workspace } = electronTrpc.workspaces.get.useQuery(
 		{ id: workspaceId ?? "" },
@@ -190,15 +199,15 @@ export function PresetsBar() {
 	);
 	const managedPresets = useMemo(() => {
 		const templateNames = new Set(
-			QUICK_ADD_PRESET_TEMPLATES.map((t) => t.name),
+			quickAddTemplates.map((t) => t.name),
 		);
 		const primaryTemplatePresetIds = new Set(
-			QUICK_ADD_PRESET_TEMPLATES.flatMap((template) => {
+			quickAddTemplates.flatMap((template) => {
 				const match = presetsByName.get(template.name)?.[0];
 				return match ? [match.id] : [];
 			}),
 		);
-		const fromTemplates = QUICK_ADD_PRESET_TEMPLATES.map((template) => ({
+		const fromTemplates = quickAddTemplates.map((template) => ({
 			key: `template:${template.name}`,
 			name: template.name,
 			preset: presetsByName.get(template.name)?.[0],
@@ -219,7 +228,7 @@ export function PresetsBar() {
 				iconName: preset.name,
 			}));
 		return [...fromTemplates, ...customExisting];
-	}, [matchedPresets, presetsByName]);
+	}, [matchedPresets, presetsByName, quickAddTemplates]);
 
 	useEffect(() => {
 		const serverPinnedPresetIds = getPinnedPresetOrder(matchedPresets);
