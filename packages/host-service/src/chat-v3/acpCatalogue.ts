@@ -68,7 +68,7 @@ export const ACP_HARNESSES: Record<string, AcpHarness> = {
 		binary: "pdev",
 		args: ["acp"],
 		minVersion: UNGATED_VERSION,
-		note: "Ungated: 0.1.0, the first release with `pdev acp`, is the only one and is not published, so there is no older build to reject and no upgrade command. `pdev acp` is its own ACP server, so no adapter. It needs PDEV_TOKEN in the environment.",
+		note: "Ungated: 0.1.0, the first release with `pdev acp`, is the only one and is not published, so there is no older build to reject and no upgrade command. `pdev acp` is its own ACP server, so no adapter. The desktop bundles it and needs no env: pdev signs in to the router through the superset CLI on PATH.",
 	},
 };
 
