@@ -1,3 +1,4 @@
+import { MAX_CHAT_IMAGE_BYTES } from "@superset/shared/attachment-limits";
 import { Badge } from "@superset/ui/badge";
 import { workspaceTrpc } from "@superset/workspace-client";
 import { useState } from "react";
@@ -8,7 +9,6 @@ import { LargeImageTile } from "./components/LargeImageTile";
 import { PreviewableImage } from "./components/PreviewableImage";
 
 const MAX_THUMBNAIL_BYTES = 5 * 1024 * 1024;
-const MAX_PREVIEW_BYTES = 25 * 1024 * 1024;
 
 export function AttachmentImage({
 	alt,
@@ -48,7 +48,7 @@ export function AttachmentImage({
 		{
 			workspaceId: workspaceId ?? "",
 			absolutePath,
-			maxBytes: MAX_PREVIEW_BYTES,
+			maxBytes: MAX_CHAT_IMAGE_BYTES,
 		},
 		{
 			...readOptions,

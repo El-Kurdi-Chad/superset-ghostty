@@ -2,7 +2,11 @@ import { describe, expect, it } from "bun:test";
 import type { Item } from "@superset/chat/protocol";
 import { AGENT_DEFAULT_MODE } from "@superset/chat/protocol";
 import type { AdapterEvent } from "../types";
-import { AcpAdapter, type AcpAdapterOptions } from "./acpAdapter";
+import {
+	AcpAdapter,
+	type AcpAdapterOptions,
+	type AcpImageStoreContext,
+} from "./acpAdapter";
 import { AIR_CLIENT_META } from "./air";
 import type { AcpImageSource } from "./imageBlocks";
 import type { AcpTransport, AcpTransportHandlers } from "./rpcClient";
@@ -24,6 +28,7 @@ class FakeAcpAgent {
 	sessionCapabilities: Record<string, unknown> | null = { fork: {} };
 	/** Replay history with v2's whole-message variants instead of chunks. */
 	wholeMessageReplay = false;
+	replayUpdates: Record<string, unknown>[] | null = null;
 	foreignUpdateDuringLoad: Record<string, unknown> | null = null;
 	newSessionConfigOptions: Array<Record<string, unknown>> | null = null;
 	/** v1's session/new `modes` block; v2 agents report the mode as a config option. */
@@ -178,6 +183,10 @@ class FakeAcpAgent {
 					id: frame.id,
 					error: { code: -32002, message: "Resource not found: sess-1" },
 				});
+			} else if (frame.method === "session/load" && this.replayUpdates) {
+				const sessionId = (frame.params as { sessionId: string }).sessionId;
+				for (const update of this.replayUpdates) this.notify(sessionId, update);
+				this.respond(frame.id as number, null);
 			} else if (frame.method === "session/load" && this.wholeMessageReplay) {
 				const sessionId = (frame.params as { sessionId: string }).sessionId;
 				this.notify(sessionId, {
@@ -2564,6 +2573,7 @@ describe("AcpAdapter images", () => {
 	const startWithStore = (
 		agent: FakeAcpAgent,
 		storeImage: AcpAdapterOptions["storeImage"],
+		resume?: { harnessSessionId: string },
 	) => {
 		const adapter = new AcpAdapter({
 			command: "fake",
@@ -2573,7 +2583,10 @@ describe("AcpAdapter images", () => {
 			mintId: () => "id-1",
 		});
 		const events: AdapterEvent[] = [];
-		void collect(adapter.start({ cwd: "/work" }), events);
+		void collect(
+			adapter.start({ cwd: "/work", ...(resume ? { resume } : {}) }),
+			events,
+		);
 		return { adapter, events };
 	};
 
@@ -2636,7 +2649,11 @@ describe("AcpAdapter images", () => {
 		await adapter.dispose();
 	});
 
-	it("keeps a linked image file as an attachment and holds it across later updates", async () => {
+	it.each([
+		"file:///tmp/shots/home.png",
+		"file://localhost/tmp/shots/home.png",
+		"/tmp/shots/home.png",
+	])("keeps linked image %s across later updates", async (uri) => {
 		const agent = new FakeAcpAgent();
 		const { adapter, events } = startWithStore(agent, (source) =>
 			source.kind === "file"
@@ -2654,7 +2671,7 @@ describe("AcpAdapter images", () => {
 					type: "content",
 					content: {
 						type: "resource_link",
-						uri: "file:///tmp/shots/home.png",
+						uri,
 						name: "home.png",
 						mimeType: "image/png",
 					},
@@ -2680,6 +2697,59 @@ describe("AcpAdapter images", () => {
 		]);
 
 		await adapter.dispose();
+	});
+
+	it("gives linked tool and message images stable storage references during session replay", async () => {
+		const content = { type: "resource_link", uri: "file:///tmp/shot.png" };
+		const updates = [
+			{
+				sessionUpdate: "tool_call_update",
+				toolCallId: "read-1",
+				content: [{ type: "content", content }],
+			},
+			{ sessionUpdate: "agent_message_chunk", messageId: "message-1", content },
+			{
+				sessionUpdate: "agent_message",
+				messageId: "message-1",
+				content: [content],
+			},
+			{ sessionUpdate: "agent_message_chunk", content },
+		];
+		const references: AcpImageStoreContext[] = [];
+		const storeImage: NonNullable<AcpAdapterOptions["storeImage"]> = (
+			_source,
+			_cwd,
+			context,
+		) => {
+			if (context) references.push(context);
+			return { path: ".superset/attachments/shot.png" };
+		};
+		const agent = new FakeAcpAgent();
+		const live = startWithStore(agent, storeImage);
+		await flush();
+		for (const update of updates) agent.notify("sess-1", update);
+		await flush();
+		await live.adapter.dispose();
+		const liveReferences = references.splice(0);
+		const resumedAgent = new FakeAcpAgent();
+		resumedAgent.replayUpdates = updates;
+		const resumed = startWithStore(resumedAgent, storeImage, {
+			harnessSessionId: "sess-1",
+		});
+		await flush();
+		expect(liveReferences.map((context) => context?.referenceId)).toEqual([
+			"tool:read-1",
+			"message:message-1",
+			"message:message-1",
+			"image:0",
+		]);
+		expect(references).toEqual(
+			liveReferences.map((context) => ({ ...context, replaying: true })),
+		);
+		expect(references.every((context) => context?.sessionId === "sess-1")).toBe(
+			true,
+		);
+		await resumed.adapter.dispose();
 	});
 
 	it("keeps an image block streamed inside an agent message", async () => {
@@ -2764,6 +2834,7 @@ describe("AcpAdapter images", () => {
 			rawOutput: [
 				{
 					type: "image",
+					data: PNG_BASE64,
 					source: {
 						type: "base64",
 						media_type: "image/png",
@@ -2778,6 +2849,7 @@ describe("AcpAdapter images", () => {
 		expect(call?.rawOutput).toEqual([
 			{
 				type: "image",
+				data: "",
 				source: { type: "base64", media_type: "image/png", data: "" },
 			},
 		]);

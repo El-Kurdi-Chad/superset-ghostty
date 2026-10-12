@@ -1,3 +1,5 @@
+import { isAbsolute } from "node:path";
+import { fileURLToPath } from "node:url";
 import type { AcpContentBlock } from "../wire";
 
 export type AcpImageSource =
@@ -26,9 +28,13 @@ function mimeOfPath(path: string): string | null {
 }
 
 function localPathOf(uri: unknown): string | null {
-	if (typeof uri !== "string" || !uri.startsWith("file://")) return null;
+	if (typeof uri !== "string") return null;
+	if (isAbsolute(uri)) return uri;
 	try {
-		return decodeURIComponent(uri.slice("file://".length));
+		const url = new URL(uri);
+		// Bun's fileURLToPath tolerates malformed escapes that Node rejects.
+		decodeURIComponent(url.pathname);
+		return fileURLToPath(url);
 	} catch {
 		return null;
 	}
@@ -88,20 +94,21 @@ export function withoutImageData(raw: unknown): unknown {
 	}
 	if (raw === null || typeof raw !== "object") return raw;
 	const record = raw as Record<string, unknown>;
+	let sanitized = record;
 	if (isImageBlock(record)) {
-		if (typeof record.data === "string") return { ...record, data: "" };
+		if (typeof record.data === "string") sanitized = { ...sanitized, data: "" };
 		const source = record.source;
 		if (
 			source &&
 			typeof source === "object" &&
 			typeof (source as Record<string, unknown>).data === "string"
 		) {
-			return { ...record, source: { ...source, data: "" } };
+			sanitized = { ...sanitized, source: { ...source, data: "" } };
 		}
 	}
-	let changed = false;
+	let changed = sanitized !== record;
 	const next: Record<string, unknown> = {};
-	for (const [key, value] of Object.entries(record)) {
+	for (const [key, value] of Object.entries(sanitized)) {
 		const replaced = withoutImageData(value);
 		if (replaced !== value) changed = true;
 		next[key] = replaced;

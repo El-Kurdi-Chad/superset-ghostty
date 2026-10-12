@@ -1,8 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it } from "bun:test";
 import {
+	closeSync,
 	existsSync,
+	ftruncateSync,
 	mkdirSync,
 	mkdtempSync,
+	openSync,
 	readdirSync,
 	readFileSync,
 	rmSync,
@@ -10,6 +13,7 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { MAX_CHAT_IMAGE_BYTES } from "@superset/shared/attachment-limits";
 import { storeAgentImage } from "./agentImages";
 
 const PNG = new Uint8Array([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 1]);
@@ -56,7 +60,7 @@ describe("storeAgentImage", () => {
 		expect(readdirSync(dir)).toHaveLength(3);
 	});
 
-	it("copies a linked file in, and answers one already in the attachments dir as it is", () => {
+	it("copies linked files, including ones already in the attachments directory", () => {
 		const linked = join(outside, "home page.png");
 		writeFileSync(linked, PNG);
 		const copied = storeAgentImage(
@@ -77,21 +81,94 @@ describe("storeAgentImage", () => {
 			storeAgentImage(
 				{ kind: "file", mimeType: "image/png", path: join(dir, "upload.png") },
 				cwd,
-			),
-		).toEqual({ path: ".superset/attachments/upload.png" });
+			)?.path,
+		).toMatch(/^\.superset\/attachments\/upload-[0-9a-f]{12}\.png$/);
 	});
 
-	it("skips a linked file over the size cap", () => {
-		const linked = join(outside, "huge.png");
+	it.each([
+		"outside",
+		"attachments",
+	])("skips an over-cap file in %s", (location) => {
+		const dir =
+			location === "outside" ? outside : join(cwd, ".superset", "attachments");
+		mkdirSync(dir, { recursive: true });
+		const linked = join(dir, "huge.png");
 		writeFileSync(linked, PNG);
 		expect(
 			storeAgentImage(
 				{ kind: "file", mimeType: "image/png", path: linked },
 				cwd,
+				undefined,
 				PNG.byteLength - 1,
 			),
 		).toBe(null);
-		expect(existsSync(join(cwd, ".superset"))).toBe(false);
+		if (location === "outside")
+			expect(existsSync(join(cwd, ".superset"))).toBe(false);
+	});
+
+	it("rejects non-files even when they already live in the attachments directory", () => {
+		const path = join(cwd, ".superset", "attachments", "directory.png");
+		mkdirSync(path, { recursive: true });
+		expect(
+			storeAgentImage({ kind: "file", mimeType: "image/png", path }, cwd),
+		).toBeNull();
+	});
+
+	it("rejects files beyond the shared preview size cap", () => {
+		const path = join(cwd, ".superset", "attachments", "large.png");
+		mkdirSync(join(cwd, ".superset", "attachments"), { recursive: true });
+		writeFileSync(path, PNG);
+		const fd = openSync(path, "r+");
+		try {
+			ftruncateSync(fd, MAX_CHAT_IMAGE_BYTES + 1);
+			expect(
+				storeAgentImage({ kind: "file", mimeType: "image/png", path }, cwd),
+			).toBeNull();
+		} finally {
+			closeSync(fd);
+		}
+	});
+
+	it.each([
+		"outside",
+		"attachments",
+	])("restores each tool's stored copy when a source in %s changes or disappears", (location) => {
+		const dir =
+			location === "outside" ? outside : join(cwd, ".superset", "attachments");
+		mkdirSync(dir, { recursive: true });
+		const path = join(dir, "shot.png");
+		const source = { kind: "file" as const, mimeType: "image/png", path };
+		const firstContext = {
+			sessionId: "session-1",
+			referenceId: "tool:read-1",
+			replaying: false,
+		};
+		const secondContext = { ...firstContext, referenceId: "tool:read-2" };
+		writeFileSync(path, PNG);
+		const first = storeAgentImage(source, cwd, firstContext);
+		writeFileSync(path, new Uint8Array([...PNG, 2]));
+		const second = storeAgentImage(source, cwd, secondContext);
+		expect(first?.path).not.toBe(second?.path);
+		expect(
+			storeAgentImage(source, cwd, { ...firstContext, replaying: true }),
+		).toEqual(first);
+		rmSync(path);
+		expect(
+			storeAgentImage(source, cwd, { ...firstContext, replaying: true }),
+		).toEqual(first);
+		expect(
+			storeAgentImage(source, cwd, { ...secondContext, replaying: true }),
+		).toEqual(second);
+		expect(
+			storeAgentImage(source, cwd, {
+				...firstContext,
+				sessionId: "session-2",
+				replaying: true,
+			}),
+		).toBeNull();
+		expect(readFileSync(join(cwd, first?.path ?? ""))).toEqual(
+			Buffer.from(PNG),
+		);
 	});
 
 	it("answers null for a file it cannot read or an empty image", () => {

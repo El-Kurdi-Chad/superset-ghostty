@@ -1,4 +1,7 @@
 import { describe, expect, it } from "bun:test";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 import { imageSourceOf, withoutImageData } from "./imageBlocks";
 
 describe("imageSourceOf", () => {
@@ -52,9 +55,45 @@ describe("imageSourceOf", () => {
 			imageSourceOf({ type: "resource_link", uri: "file:///tmp/100%.png" }),
 		).toBe(null);
 	});
+
+	it("accepts absolute file paths without URL-decoding their names", () => {
+		const path = join(tmpdir(), "shot 100% #1.png");
+		expect(imageSourceOf({ type: "resource_link", uri: path })).toEqual({
+			kind: "file",
+			mimeType: "image/png",
+			path,
+		});
+	});
+
+	it("decodes local file URLs with a localhost authority", () => {
+		const path = join(tmpdir(), "shot #1.png");
+		const uri = pathToFileURL(path);
+		uri.hostname = "localhost";
+		expect(imageSourceOf({ type: "resource_link", uri: uri.href })).toEqual({
+			kind: "file",
+			mimeType: "image/png",
+			path,
+		});
+	});
 });
 
 describe("withoutImageData", () => {
+	it("empties both payload fields and any nested image blocks", () => {
+		const raw = {
+			type: "image",
+			data: "QUJD",
+			source: { type: "base64", data: "REVG" },
+			preview: { type: "image", data: "R0hJ" },
+		};
+		expect(withoutImageData(raw)).toEqual({
+			type: "image",
+			data: "",
+			source: { type: "base64", data: "" },
+			preview: { type: "image", data: "" },
+		});
+		expect(raw.source.data).toBe("REVG");
+	});
+
 	it("empties inline image payloads in either shape and leaves the rest alone", () => {
 		const raw = {
 			content: [

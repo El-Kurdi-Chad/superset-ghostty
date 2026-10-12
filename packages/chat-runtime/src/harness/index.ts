@@ -1,6 +1,7 @@
 export type {
 	AcpAdapterOptions,
 	AcpImageSource,
+	AcpImageStoreContext,
 	AcpStoredImage,
 } from "./acp";
 export { AcpAdapter, createAcpAdapter } from "./acp";

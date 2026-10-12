@@ -170,6 +170,12 @@ export type AcpAttachment = {
 /** `path` is relative to the session cwd. */
 export type AcpStoredImage = { path: string };
 
+export type AcpImageStoreContext = {
+	sessionId: string;
+	referenceId: string;
+	replaying: boolean;
+};
+
 const SELECTION_WAIT_MS = 5000;
 
 export type AcpAdapterOptions = SpawnAcpOptions & {
@@ -180,7 +186,11 @@ export type AcpAdapterOptions = SpawnAcpOptions & {
 	selectionWaitMs?: number;
 	resolveAttachment?: (attachmentId: string) => Promise<AcpAttachment | null>;
 	/** Without it, images the agent sends are dropped. */
-	storeImage?: (image: AcpImageSource, cwd: string) => AcpStoredImage | null;
+	storeImage?: (
+		image: AcpImageSource,
+		cwd: string,
+		context?: AcpImageStoreContext,
+	) => AcpStoredImage | null;
 	onSpawn?: (pid: number) => void;
 	backgroundDetailIntervalMs?: number;
 	now?: () => number;
@@ -381,6 +391,7 @@ export class AcpAdapter implements HarnessAdapter {
 	private readonly selectionsInFlight = new Set<Promise<void>>();
 	private configOptions: SessionConfigOption[] = [];
 	private replaying = false;
+	private unkeyedImageSequence = 0;
 	private queuedPrompts: UserContent[][] = [];
 	private disposed = false;
 
@@ -1005,7 +1016,10 @@ export class AcpAdapter implements HarnessAdapter {
 		messageId: string | null = null,
 	): void {
 		if (kind === "agent_message" && content && content.type !== "text") {
-			const attachment = this.attachmentOf(content);
+			const attachment = this.attachmentOf(
+				content,
+				messageId ? `message:${messageId}` : undefined,
+			);
 			if (!attachment) return;
 			const open = this.openMessage(kind, turnId, messageId);
 			open.attachments.push(attachment);
@@ -1081,7 +1095,10 @@ export class AcpAdapter implements HarnessAdapter {
 			open.text = messageText(parsed.data.content ?? []);
 			open.attachments =
 				kind === "agent_message"
-					? this.attachmentsOf(parsed.data.content ?? [])
+					? this.attachmentsOf(
+							parsed.data.content ?? [],
+							`message:${parsed.data.messageId}`,
+						)
 					: [];
 		}
 		this.flushOpenText();
@@ -1143,7 +1160,9 @@ export class AcpAdapter implements HarnessAdapter {
 		// Patch semantics in both versions: an omitted field leaves the stored
 		// value alone, and v2 added null to clear it.
 		const body =
-			update.content === undefined ? null : this.toolBody(update.content ?? []);
+			update.content === undefined
+				? null
+				: this.toolBody(update.content ?? [], update.toolCallId);
 		const content = body ? body.content : (prior?.content ?? []);
 		const attachments = body ? body.attachments : (prior?.attachments ?? []);
 		const locations =
@@ -1212,7 +1231,7 @@ export class AcpAdapter implements HarnessAdapter {
 		this.flushOpenText();
 		const { toolCallId, content } = parsed.data;
 		const prior = this.toolCalls.get(toolCallId);
-		const body = this.toolBody([content]);
+		const body = this.toolBody([content], toolCallId);
 		const attachments = [...(prior?.attachments ?? []), ...body.attachments];
 		const item: ToolCall = {
 			id: toolCallId,
@@ -1236,7 +1255,10 @@ export class AcpAdapter implements HarnessAdapter {
 		this.emitItem(item, turnId);
 	}
 
-	private toolBody(content: AcpToolCallContent[]): {
+	private toolBody(
+		content: AcpToolCallContent[],
+		toolCallId: string,
+	): {
 		content: ToolContent[];
 		attachments: ItemAttachment[];
 	} {
@@ -1246,7 +1268,10 @@ export class AcpAdapter implements HarnessAdapter {
 			if (entry.type === "content" && entry.content?.type === "text") {
 				mapped.push({ type: "text", text: entry.content.text ?? "" });
 			} else if (entry.type === "content") {
-				const attachment = this.attachmentOf(entry.content);
+				const attachment = this.attachmentOf(
+					entry.content,
+					`tool:${toolCallId}`,
+				);
 				if (attachment) attachments.push(attachment);
 			} else if (
 				entry.type === "diff" &&
@@ -1276,21 +1301,34 @@ export class AcpAdapter implements HarnessAdapter {
 		return { content: mapped, attachments };
 	}
 
-	private attachmentsOf(content: readonly AcpContentBlock[]): ItemAttachment[] {
+	private attachmentsOf(
+		content: readonly AcpContentBlock[],
+		referenceId: string,
+	): ItemAttachment[] {
 		return content.flatMap((block) => {
-			const attachment = this.attachmentOf(block);
+			const attachment = this.attachmentOf(block, referenceId);
 			return attachment ? [attachment] : [];
 		});
 	}
 
 	private attachmentOf(
 		block: AcpContentBlock | undefined,
+		referenceId?: string,
 	): ItemAttachment | null {
 		const source = imageSourceOf(block);
 		if (!source) return null;
+		const sessionId = this.sessionId ?? this.loadingSessionId;
+		const context =
+			source.kind === "file" && sessionId
+				? {
+						sessionId,
+						referenceId: referenceId ?? `image:${this.unkeyedImageSequence++}`,
+						replaying: this.replaying,
+					}
+				: undefined;
 		let stored: AcpStoredImage | null = null;
 		try {
-			stored = this.options.storeImage?.(source, this.cwd) ?? null;
+			stored = this.options.storeImage?.(source, this.cwd, context) ?? null;
 		} catch (error) {
 			console.warn("[acp] could not keep an image the agent sent", error);
 		}

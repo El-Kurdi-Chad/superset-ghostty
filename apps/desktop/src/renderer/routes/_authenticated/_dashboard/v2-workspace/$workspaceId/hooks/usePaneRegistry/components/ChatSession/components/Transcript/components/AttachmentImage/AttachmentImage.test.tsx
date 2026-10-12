@@ -1,5 +1,6 @@
 import { afterAll, afterEach, describe, expect, test } from "bun:test";
 import type { AppRouter } from "@superset/host-service/trpc";
+import { MAX_CHAT_IMAGE_BYTES } from "@superset/shared/attachment-limits";
 import type { TRPCLink } from "@trpc/client";
 
 const reactActGlobal = globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean };
@@ -81,7 +82,9 @@ describe("AttachmentImage", () => {
 	});
 
 	test("a file over the cap shows a placeholder that opens the overlay from a larger read", async () => {
-		const view = renderImage((maxBytes) => read(maxBytes <= THUMBNAIL_CAP));
+		const view = renderImage((maxBytes) =>
+			read(maxBytes < MAX_CHAT_IMAGE_BYTES),
+		);
 		const button = await waitFor(() => view.getByRole("button", tile));
 		expect(button.querySelector("img")).toBeNull();
 
