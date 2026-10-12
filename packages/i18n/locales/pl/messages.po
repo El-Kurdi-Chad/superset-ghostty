@@ -2607,6 +2607,9 @@ msgstr "Załączniki wymagają hosta online"
 msgid "Attempt before checks pass"
 msgstr "Spróbuj przed przejściem kontroli"
 
+msgid "Attempted changes"
+msgstr "Próbowane zmiany"
+
 msgid "Attention queue"
 msgstr "Kolejka uwagi"
 
@@ -3365,6 +3368,9 @@ msgstr "Zmień logo organizacji"
 
 msgid "Change organization slug"
 msgstr "Zmień slug organizacji"
+
+msgid "Change preview"
+msgstr "Podgląd zmian"
 
 msgid "Change priority"
 msgstr "Zmień priorytet"

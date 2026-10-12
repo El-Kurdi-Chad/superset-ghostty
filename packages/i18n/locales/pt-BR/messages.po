@@ -2607,6 +2607,9 @@ msgstr "Anexos precisam de um host online"
 msgid "Attempt before checks pass"
 msgstr "Tentar antes de as verificações passarem"
 
+msgid "Attempted changes"
+msgstr "Alterações tentadas"
+
 msgid "Attention queue"
 msgstr "Fila de atenção"
 
@@ -3365,6 +3368,9 @@ msgstr "Trocar o logo da organização"
 
 msgid "Change organization slug"
 msgstr "Alterar o slug da organização"
+
+msgid "Change preview"
+msgstr "Prévia das alterações"
 
 msgid "Change priority"
 msgstr "Alterar prioridade"

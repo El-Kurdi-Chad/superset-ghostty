@@ -2607,6 +2607,9 @@ msgstr "Los adjuntos requieren un host en línea"
 msgid "Attempt before checks pass"
 msgstr "Intentar antes de las comprobaciones"
 
+msgid "Attempted changes"
+msgstr "Cambios intentados"
+
 msgid "Attention queue"
 msgstr "Cola de atención"
 
@@ -3365,6 +3368,9 @@ msgstr "Cambiar el logotipo de la organización"
 
 msgid "Change organization slug"
 msgstr "Cambiar el slug de la organización"
+
+msgid "Change preview"
+msgstr "Vista previa de cambios"
 
 msgid "Change priority"
 msgstr "Cambiar prioridad"

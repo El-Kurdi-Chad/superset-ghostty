@@ -2607,6 +2607,9 @@ msgstr "Для вложений нужен хост в сети"
 msgid "Attempt before checks pass"
 msgstr "Попробовать до прохождения проверок"
 
+msgid "Attempted changes"
+msgstr "Попытка изменений"
+
 msgid "Attention queue"
 msgstr "Очередь внимания"
 
@@ -3365,6 +3368,9 @@ msgstr "Сменить логотип организации"
 
 msgid "Change organization slug"
 msgstr "Изменить slug организации"
+
+msgid "Change preview"
+msgstr "Предпросмотр изменений"
 
 msgid "Change priority"
 msgstr "Изменить приоритет"

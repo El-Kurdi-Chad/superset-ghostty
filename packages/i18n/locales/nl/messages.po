@@ -2607,6 +2607,9 @@ msgstr "Bijlagen vereisen een online host"
 msgid "Attempt before checks pass"
 msgstr "Proberen vóór de checks slagen"
 
+msgid "Attempted changes"
+msgstr "Geprobeerde wijzigingen"
+
 msgid "Attention queue"
 msgstr "Aandachtswachtrij"
 
@@ -3365,6 +3368,9 @@ msgstr "Logo van organisatie wijzigen"
 
 msgid "Change organization slug"
 msgstr "Slug van organisatie wijzigen"
+
+msgid "Change preview"
+msgstr "Wijzigingsvoorbeeld"
 
 msgid "Change priority"
 msgstr "Prioriteit wijzigen"

@@ -2607,6 +2607,9 @@ msgstr "附件需要主機線上"
 msgid "Attempt before checks pass"
 msgstr "在檢查通過前就嘗試"
 
+msgid "Attempted changes"
+msgstr "嘗試的變更"
+
 msgid "Attention queue"
 msgstr "待處理佇列"
 
@@ -3365,6 +3368,9 @@ msgstr "更改組織logo"
 
 msgid "Change organization slug"
 msgstr "更改組織slug"
+
+msgid "Change preview"
+msgstr "變更預覽"
 
 msgid "Change priority"
 msgstr "變更優先順序"

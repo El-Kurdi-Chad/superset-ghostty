@@ -2607,6 +2607,9 @@ msgstr "Anhänge brauchen einen Host, der online ist"
 msgid "Attempt before checks pass"
 msgstr "Versuchen, bevor die Prüfungen bestanden sind"
 
+msgid "Attempted changes"
+msgstr "Versuchte Änderungen"
+
 msgid "Attention queue"
 msgstr "Warteschlange für Aufmerksamkeit"
 
@@ -3365,6 +3368,9 @@ msgstr "Organisationslogo ändern"
 
 msgid "Change organization slug"
 msgstr "Organisations-Slug ändern"
+
+msgid "Change preview"
+msgstr "Änderungsvorschau"
 
 msgid "Change priority"
 msgstr "Priorität ändern"

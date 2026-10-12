@@ -2607,6 +2607,9 @@ msgstr "첨부하려면 호스트가 온라인이어야 합니다"
 msgid "Attempt before checks pass"
 msgstr "검사 통과 전에 시도"
 
+msgid "Attempted changes"
+msgstr "시도한 변경"
+
 msgid "Attention queue"
 msgstr "확인 대기열"
 
@@ -3365,6 +3368,9 @@ msgstr "조직 로고 변경"
 
 msgid "Change organization slug"
 msgstr "조직 슬러그 변경"
+
+msgid "Change preview"
+msgstr "변경 미리보기"
 
 msgid "Change priority"
 msgstr "우선순위 변경"

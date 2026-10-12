@@ -2607,6 +2607,9 @@ msgstr "Ekler için çevrimiçi bir host gerekir"
 msgid "Attempt before checks pass"
 msgstr "Kontroller geçmeden dene"
 
+msgid "Attempted changes"
+msgstr "Denenen değişiklikler"
+
 msgid "Attention queue"
 msgstr "İlgi kuyruğu"
 
@@ -3365,6 +3368,9 @@ msgstr "Kuruluş logosunu değiştir"
 
 msgid "Change organization slug"
 msgstr "Kuruluş slug'ını değiştir"
+
+msgid "Change preview"
+msgstr "Değişiklik önizlemesi"
 
 msgid "Change priority"
 msgstr "Önceliği değiştir"

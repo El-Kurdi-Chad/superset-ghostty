@@ -2607,6 +2607,9 @@ msgstr "Přílohy vyžadují hosta online"
 msgid "Attempt before checks pass"
 msgstr "Zkusit ještě před dokončením kontrol"
 
+msgid "Attempted changes"
+msgstr "Pokus o změny"
+
 msgid "Attention queue"
 msgstr "Fronta pozornosti"
 
@@ -3365,6 +3368,9 @@ msgstr "Změnit logo organizace"
 
 msgid "Change organization slug"
 msgstr "Změnit slug organizace"
+
+msgid "Change preview"
+msgstr "Náhled změn"
 
 msgid "Change priority"
 msgstr "Změnit prioritu"

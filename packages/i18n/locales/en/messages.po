@@ -2607,6 +2607,9 @@ msgstr "Attachments need an online host"
 msgid "Attempt before checks pass"
 msgstr "Attempt before checks pass"
 
+msgid "Attempted changes"
+msgstr "Attempted changes"
+
 msgid "Attention queue"
 msgstr "Attention queue"
 
@@ -3365,6 +3368,9 @@ msgstr "Change organization logo"
 
 msgid "Change organization slug"
 msgstr "Change organization slug"
+
+msgid "Change preview"
+msgstr "Change preview"
 
 msgid "Change priority"
 msgstr "Change priority"

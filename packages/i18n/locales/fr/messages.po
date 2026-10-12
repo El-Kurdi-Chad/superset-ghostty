@@ -2607,6 +2607,9 @@ msgstr "Les pièces jointes nécessitent un hôte en ligne"
 msgid "Attempt before checks pass"
 msgstr "Tenter avant la réussite des vérifications"
 
+msgid "Attempted changes"
+msgstr "Modifications tentées"
+
 msgid "Attention queue"
 msgstr "File d'attention"
 
@@ -3365,6 +3368,9 @@ msgstr "Changer le logo de l'organisation"
 
 msgid "Change organization slug"
 msgstr "Changer le slug de l'organisation"
+
+msgid "Change preview"
+msgstr "Aperçu des modifications"
 
 msgid "Change priority"
 msgstr "Changer la priorité"

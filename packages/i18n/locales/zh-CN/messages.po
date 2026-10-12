@@ -2607,6 +2607,9 @@ msgstr "附件需要主机在线"
 msgid "Attempt before checks pass"
 msgstr "在检查通过前就尝试"
 
+msgid "Attempted changes"
+msgstr "尝试的更改"
+
 msgid "Attention queue"
 msgstr "待处理队列"
 
@@ -3365,6 +3368,9 @@ msgstr "更改组织logo"
 
 msgid "Change organization slug"
 msgstr "更改组织slug"
+
+msgid "Change preview"
+msgstr "变更预览"
 
 msgid "Change priority"
 msgstr "更改优先级"

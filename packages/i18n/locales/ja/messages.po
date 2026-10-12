@@ -2607,6 +2607,9 @@ msgstr "添付にはオンラインのホストが必要です"
 msgid "Attempt before checks pass"
 msgstr "チェック通過前に実行"
 
+msgid "Attempted changes"
+msgstr "試みた変更"
+
 msgid "Attention queue"
 msgstr "アテンションキュー"
 
@@ -3365,6 +3368,9 @@ msgstr "組織のロゴを変更"
 
 msgid "Change organization slug"
 msgstr "組織スラッグを変更"
+
+msgid "Change preview"
+msgstr "変更のプレビュー"
 
 msgid "Change priority"
 msgstr "優先度を変更"

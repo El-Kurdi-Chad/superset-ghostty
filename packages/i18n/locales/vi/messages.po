@@ -2607,6 +2607,9 @@ msgstr "Đính kèm cần một host đang trực tuyến"
 msgid "Attempt before checks pass"
 msgstr "Thử trước khi các check qua"
 
+msgid "Attempted changes"
+msgstr "Thay đổi đã thử"
+
 msgid "Attention queue"
 msgstr "Hàng chờ cần chú ý"
 
@@ -3365,6 +3368,9 @@ msgstr "Đổi logo tổ chức"
 
 msgid "Change organization slug"
 msgstr "Đổi slug tổ chức"
+
+msgid "Change preview"
+msgstr "Xem trước thay đổi"
 
 msgid "Change priority"
 msgstr "Đổi mức ưu tiên"

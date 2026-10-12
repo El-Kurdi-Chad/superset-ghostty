@@ -2607,6 +2607,9 @@ msgstr "Lampiran memerlukan host yang online"
 msgid "Attempt before checks pass"
 msgstr "Coba sebelum check lulus"
 
+msgid "Attempted changes"
+msgstr "Perubahan yang dicoba"
+
 msgid "Attention queue"
 msgstr "Antrean perhatian"
 
@@ -3365,6 +3368,9 @@ msgstr "Ganti logo organisasi"
 
 msgid "Change organization slug"
 msgstr "Ubah slug organisasi"
+
+msgid "Change preview"
+msgstr "Pratinjau perubahan"
 
 msgid "Change priority"
 msgstr "Ubah prioritas"
