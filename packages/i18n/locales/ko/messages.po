@@ -15965,6 +15965,9 @@ msgstr "Superset은 Superset으로 개발됩니다. 우리가 가장 열심히 �
 msgid "Superset is designed to work with your existing tool, we natively support deep-linking to IDEs like Cursor so you can open your workspaces and files in your IDE."
 msgstr "Superset은 기존 도구와 함께 쓰도록 만들었습니다. Cursor 같은 IDE로의 딥링크를 기본 지원하므로 워크스페이스와 파일을 쓰던 IDE에서 열 수 있습니다."
 
+msgid "Superset is getting a new name soon."
+msgstr "Superset의 이름이 곧 바뀝니다."
+
 msgid "Superset is open source. If it's helped you today, a GitHub star helps other developers find it."
 msgstr "Superset은 오픈 소스입니다. 오늘 도움이 되었다면 GitHub 스타가 다른 개발자들이 Superset을 발견하는 데 도움이 됩니다."
 

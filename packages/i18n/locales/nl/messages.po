@@ -15965,6 +15965,9 @@ msgstr "Superset wordt gebouwd in Superset, dus we zijn zelf onze belangrijkste 
 msgid "Superset is designed to work with your existing tool, we natively support deep-linking to IDEs like Cursor so you can open your workspaces and files in your IDE."
 msgstr "Superset is gemaakt om samen te werken met je bestaande tool; we ondersteunen deeplinks naar IDE's zoals Cursor, zodat je je werkruimtes en bestanden in je IDE kunt openen."
 
+msgid "Superset is getting a new name soon."
+msgstr "Superset krijgt binnenkort een nieuwe naam."
+
 msgid "Superset is open source. If it's helped you today, a GitHub star helps other developers find it."
 msgstr "Superset is open source. Als het je vandaag geholpen heeft, helpt een GitHub-ster andere ontwikkelaars het te vinden."
 
