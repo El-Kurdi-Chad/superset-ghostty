@@ -1,29 +1,71 @@
 import { afterEach, describe, expect, mock, test } from "bun:test";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { act, cleanup, fireEvent, render } from "@testing-library/react";
+import {
+	act,
+	cleanup,
+	fireEvent,
+	render,
+	waitFor,
+} from "@testing-library/react";
+import { initTRPC } from "@trpc/server";
+import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { type ComponentProps, createRef } from "react";
+import superjson from "superjson";
 import {
 	PullRequestConversationComposer,
 	type PullRequestConversationComposerHandle,
 } from "./PullRequestConversationComposer";
 
-afterEach(cleanup);
+let stopHost: (() => void) | undefined;
+
+afterEach(() => {
+	cleanup();
+	stopHost?.();
+	stopHost = undefined;
+});
 
 const target = { projectId: "p1", hostUrl: "http://host.test", prNumber: 1 };
+
+function startHost() {
+	const posted: { procedure: string; input: unknown }[] = [];
+	const t = initTRPC.create({ transformer: superjson });
+	const record = (procedure: string) =>
+		t.procedure
+			.input((input) => input)
+			.mutation(({ input }) => {
+				posted.push({ procedure, input });
+				return null;
+			});
+	const router = t.router({
+		pullRequests: t.router({
+			addComment: record("addComment"),
+			replyToThread: record("replyToThread"),
+		}),
+	});
+	const server = Bun.serve({
+		port: 0,
+		hostname: "127.0.0.1",
+		fetch: (request) =>
+			fetchRequestHandler({ endpoint: "/trpc", req: request, router }),
+	});
+	stopHost = () => void server.stop(true);
+	return { posted, url: `http://127.0.0.1:${server.port}` };
+}
 
 function renderComposer(
 	props: Omit<
 		ComponentProps<typeof PullRequestConversationComposer>,
 		"target" | "ref"
-	> = {},
+	> & { hostUrl?: string } = {},
 ) {
+	const { hostUrl, ...composerProps } = props;
 	const handle = createRef<PullRequestConversationComposerHandle>();
 	const view = render(
 		<QueryClientProvider client={new QueryClient()}>
 			<PullRequestConversationComposer
 				ref={handle}
-				target={target}
-				{...props}
+				target={hostUrl ? { ...target, hostUrl } : target}
+				{...composerProps}
 			/>
 		</QueryClientProvider>,
 	);
@@ -66,5 +108,46 @@ describe("the Activity comment box", () => {
 		fireEvent.change(field(), { target: { value: "> first\n\nAgreed." } });
 		act(() => handle.current?.quote("> second"));
 		expect(field().value).toBe("> first\n\nAgreed.\n\n> second\n\n");
+	});
+
+	test("Shift+Enter stays in the pill; Enter posts the comment and empties it", async () => {
+		const host = startHost();
+		const { field } = renderComposer({ hostUrl: host.url });
+		fireEvent.change(field(), { target: { value: "Looks good.\n" } });
+		expect(fireEvent.keyDown(field(), { key: "Enter", shiftKey: true })).toBe(
+			true,
+		);
+		expect(fireEvent.keyDown(field(), { key: "Enter" })).toBe(false);
+		await waitFor(() => expect(field().value).toBe(""));
+		expect(host.posted).toEqual([
+			{
+				procedure: "addComment",
+				input: { projectId: "p1", prNumber: 1, body: "Looks good." },
+			},
+		]);
+	});
+
+	test("Enter in a reply box answers its thread and closes the box", async () => {
+		const host = startHost();
+		const onClose = mock(() => {});
+		const { field } = renderComposer({
+			hostUrl: host.url,
+			threadCommentId: 42,
+			onClose,
+		});
+		fireEvent.change(field(), { target: { value: "Done in the next push." } });
+		fireEvent.keyDown(field(), { key: "Enter" });
+		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
+		expect(host.posted).toEqual([
+			{
+				procedure: "replyToThread",
+				input: {
+					projectId: "p1",
+					prNumber: 1,
+					commentId: 42,
+					body: "Done in the next push.",
+				},
+			},
+		]);
 	});
 });

@@ -1,8 +1,8 @@
-import { Trans, useLingui } from "@lingui/react/macro";
+import { useLingui } from "@lingui/react/macro";
 import { errorMessage } from "@superset/i18n/errors";
 import { toast } from "@superset/ui/sonner";
 import { useMutation } from "@tanstack/react-query";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, X } from "lucide-react";
 import {
 	type Ref,
 	useEffect,
@@ -44,9 +44,10 @@ function placeCaretAtEnd(field: HTMLTextAreaElement) {
 }
 
 /**
- * The comment box of the Activity section: "Leave a comment" at its end, and
- * the reply box that opens under a card. Posts as the gh user; Enter sends,
- * Shift+Enter breaks a line (comments accept markdown).
+ * The comment pill of the Activity section: "Leave a comment" at its end, and
+ * the reply box that opens under a card. One line tall until the draft needs
+ * more. Posts as the gh user; Enter sends, Shift+Enter breaks a line
+ * (comments accept markdown).
  */
 export function PullRequestConversationComposer({
 	target,
@@ -132,10 +133,16 @@ export function PullRequestConversationComposer({
 		? t({ message: "Write a reply" })
 		: t({ message: "Leave a comment" });
 	return (
-		<div className="rounded-xl border border-border/60 bg-background shadow-sm">
+		<div className="flex items-end gap-2 rounded-3xl border border-border/60 bg-background py-1 pl-3 pr-1.5 shadow-sm">
+			<span
+				className="mb-1.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground"
+				title={t({ message: "Commenting as your GitHub account" })}
+			>
+				<FaGithub className="size-3" />
+			</span>
 			<textarea
 				ref={fieldRef}
-				rows={Math.max(3, Math.min(8, body.split("\n").length))}
+				rows={1}
 				value={body}
 				disabled={post.isPending}
 				placeholder={placeholder}
@@ -151,38 +158,32 @@ export function PullRequestConversationComposer({
 						submit();
 					}
 				}}
-				className="block w-full resize-none bg-transparent px-3 pt-3 text-sm outline-none placeholder:text-muted-foreground disabled:opacity-60"
+				className="field-sizing-content max-h-33 min-w-0 flex-1 resize-none bg-transparent py-1.5 text-sm outline-none placeholder:text-muted-foreground disabled:opacity-60"
 			/>
-			<div className="flex items-center justify-end gap-1.5 px-2 pb-2">
-				<span
-					className="mr-auto flex items-center gap-1.5 pl-1 text-[11px] text-muted-foreground"
-					title={t({ message: "Commenting as your GitHub account" })}
-				>
-					<FaGithub className="size-3" />
-				</span>
-				{onClose ? (
-					<button
-						type="button"
-						onClick={onClose}
-						className="h-7 shrink-0 rounded-md px-2 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-					>
-						<Trans>Cancel</Trans>
-					</button>
-				) : null}
+			{onClose ? (
 				<button
 					type="button"
-					disabled={!canSubmit}
-					aria-label={
-						isReply
-							? t({ message: "Post reply" })
-							: t({ message: "Post comment" })
-					}
-					onClick={submit}
-					className="flex size-7 shrink-0 items-center justify-center rounded-md border border-border/60 bg-muted/60 text-foreground transition-colors hover:bg-muted disabled:opacity-40"
+					aria-label={t({ message: "Cancel" })}
+					title={t({ message: "Cancel" })}
+					onClick={onClose}
+					className="mb-0.5 flex size-7 shrink-0 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
 				>
-					<ArrowUp strokeWidth={2.25} className="size-4" />
+					<X className="size-4" />
 				</button>
-			</div>
+			) : null}
+			<button
+				type="button"
+				disabled={!canSubmit}
+				aria-label={
+					isReply
+						? t({ message: "Post reply" })
+						: t({ message: "Post comment" })
+				}
+				onClick={submit}
+				className="mb-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground transition-opacity disabled:opacity-35"
+			>
+				<ArrowUp strokeWidth={2.25} className="size-4" />
+			</button>
 		</div>
 	);
 }
