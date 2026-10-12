@@ -8,11 +8,13 @@ import {
 } from "renderer/screens/main/components/WorkspaceView/utils/code-theme";
 import { useResolvedTheme } from "renderer/stores/theme";
 import { CopyButton } from "../CopyButton";
+import { FenceFilePath } from "./components/FenceFilePath";
 import {
-	fenceLanguage,
+	fenceInfo,
 	fenceText,
 	isDiffLanguage,
 	isSingleFilePatch,
+	parseFence,
 } from "./utils/fencedCode";
 
 const CHAT_CODE_FONT_SIZE = 12;
@@ -30,12 +32,16 @@ type FencedCodeProps = ComponentProps<"code"> & {
  * A fenced block in agent prose, rendered by the same highlighter as the
  * diff card and the file viewer so code reads the same wherever it appears:
  * a quiet label and a copy button, then the code, wrapped rather than
- * scrolled. A fence marked `diff` that is a real patch renders as one.
+ * scrolled. A fence marked `diff` that is a real patch renders as one, and a
+ * fence that names a file shows the file in place of the label.
  */
 export function ChatCodeBlock({ children, className }: FencedCodeProps) {
 	const { t } = useLingui();
 	const activeTheme = useResolvedTheme();
-	const language = fenceLanguage(className);
+	const { language, file } = useMemo(
+		() => parseFence(fenceInfo(className)),
+		[className],
+	);
 	const text = useMemo(() => fenceText(children), [children]);
 	const asPatch = useMemo(
 		() => isDiffLanguage(language) && isSingleFilePatch(text),
@@ -57,10 +63,14 @@ export function ChatCodeBlock({ children, className }: FencedCodeProps) {
 			className="mb-2 overflow-hidden rounded-lg border border-border/60 bg-background"
 			data-chat-code-block={language ?? ""}
 		>
-			<div className="flex items-center justify-between py-1 pr-1.5 pl-3">
-				<span className="font-mono text-muted-foreground text-xs uppercase">
-					{language ?? ""}
-				</span>
+			<div className="flex items-center justify-between gap-2 py-1 pr-1.5 pl-3">
+				{file ? (
+					<FenceFilePath file={file} />
+				) : (
+					<span className="font-mono text-muted-foreground text-xs uppercase">
+						{language ?? ""}
+					</span>
+				)}
 				<CopyButton
 					iconClassName="size-3"
 					label={t({ message: "Copy code" })}
@@ -75,11 +85,15 @@ export function ChatCodeBlock({ children, className }: FencedCodeProps) {
 				/>
 			) : (
 				<File
-					file={{
-						name: `snippet.${language ?? "txt"}`,
-						contents: text,
-						lang: language ?? "text",
-					}}
+					file={
+						file && !language
+							? { name: file.fileName, contents: text }
+							: {
+									name: `snippet.${language ?? "txt"}`,
+									contents: text,
+									lang: language ?? "text",
+								}
+					}
 					options={{ ...options, disableLineNumbers: true }}
 					style={style}
 				/>
