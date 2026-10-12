@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {Chiusa # porta} other {Chiuse # porte}}"
 msgid "{closedCount} closed"
 msgstr "{closedCount} chiusi"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commit}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} controlli su {0} completati"
@@ -744,6 +747,9 @@ msgstr "{count, plural, one {# passaggio} other {# passaggi}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree in questo repository non ha un workspace. Verrà importato come workspace.} other {# worktree in questo repository non hanno un workspace. Verranno importati come workspace.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {ha aggiunto un commit} other {ha aggiunto # commit}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {Creato # workspace} other {Creati # workspace}}"
@@ -3245,6 +3251,9 @@ msgstr "Annulla le modifiche"
 
 msgid "Cancel plan"
 msgstr "Disdici il piano"
+
+msgid "Cancel reply"
+msgstr "Annulla risposta"
 
 msgid "Canceled"
 msgstr "Annullati"
@@ -6073,6 +6082,9 @@ msgstr "Nascondi i suggerimenti"
 
 msgid "Dismissed"
 msgstr "Respinta"
+
+msgid "dismissed their review"
+msgstr "ha annullato la propria revisione"
 
 msgid "Display"
 msgstr "Visualizzazione"
@@ -10779,9 +10791,6 @@ msgstr "Nessun risultato per “{query}”"
 msgid "No results found."
 msgstr "Nessun risultato trovato."
 
-msgid "No review body."
-msgstr "Nessun testo di revisione."
-
 msgid "No Reviewers Assigned"
 msgstr "Nessun revisore assegnato"
 
@@ -12237,6 +12246,9 @@ msgstr "Fissate"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Testo normale"
+
 msgid "Plan"
 msgstr "Piano"
 
@@ -12352,6 +12364,9 @@ msgstr "Pubblica"
 
 msgid "Post comment"
 msgstr "Pubblica il commento"
+
+msgid "Post reply"
+msgstr "Pubblica la risposta"
 
 msgid "PR"
 msgstr "PR"
@@ -13400,6 +13415,9 @@ msgstr "Rispondi"
 
 msgid "Reply to thread…"
 msgstr "Rispondi al thread…"
+
+msgid "Replying to {replyingTo}"
+msgstr "In risposta a {replyingTo}"
 
 msgid "repo"
 msgstr "repo"
@@ -18708,6 +18726,9 @@ msgstr "I worktree vengono rimossi dal disco; i workspace sul checkout del proge
 msgid "Would you like to reassign it?"
 msgstr "Vuoi riassegnarla?"
 
+msgid "Wrap lines"
+msgstr "A capo automatico"
+
 msgid "Write a comment"
 msgstr "Scrivi un commento"
 
@@ -18719,6 +18740,9 @@ msgstr "Scrivi una nota e scegli un agente. La nota arriva con il codice dell'el
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Scrivi un prompt e scegli una pianificazione. Ogni esecuzione apre un workspace che puoi rivedere e continuare."
+
+msgid "Write a reply"
+msgstr "Scrivi una risposta"
 
 msgid "Write a reply…"
 msgstr "Scrivi una risposta…"

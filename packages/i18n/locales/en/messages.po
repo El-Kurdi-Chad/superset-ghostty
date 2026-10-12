@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {Closed # port} other {Closed # ports}}"
 msgid "{closedCount} closed"
 msgstr "{closedCount} closed"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commits}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} of {0} checks complete"
@@ -744,6 +747,9 @@ msgstr "{count, plural, one {# step} other {# steps}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {added a commit} other {added # commits}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {Created # workspace} other {Created # workspaces}}"
@@ -3245,6 +3251,9 @@ msgstr "Cancel edits"
 
 msgid "Cancel plan"
 msgstr "Cancel plan"
+
+msgid "Cancel reply"
+msgstr "Cancel reply"
 
 msgid "Canceled"
 msgstr "Canceled"
@@ -6073,6 +6082,9 @@ msgstr "Dismiss suggestions"
 
 msgid "Dismissed"
 msgstr "Dismissed"
+
+msgid "dismissed their review"
+msgstr "dismissed their review"
 
 msgid "Display"
 msgstr "Display"
@@ -10779,9 +10791,6 @@ msgstr "No results for “{query}”"
 msgid "No results found."
 msgstr "No results found."
 
-msgid "No review body."
-msgstr "No review body."
-
 msgid "No Reviewers Assigned"
 msgstr "No Reviewers Assigned"
 
@@ -12237,6 +12246,9 @@ msgstr "Pinned"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Plain text"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -12352,6 +12364,9 @@ msgstr "Post"
 
 msgid "Post comment"
 msgstr "Post comment"
+
+msgid "Post reply"
+msgstr "Post reply"
 
 msgid "PR"
 msgstr "PR"
@@ -13400,6 +13415,9 @@ msgstr "Reply"
 
 msgid "Reply to thread…"
 msgstr "Reply to thread…"
+
+msgid "Replying to {replyingTo}"
+msgstr "Replying to {replyingTo}"
 
 msgid "repo"
 msgstr "repo"
@@ -18708,6 +18726,9 @@ msgstr "Worktrees are removed from disk; workspaces on the project's checkout on
 msgid "Would you like to reassign it?"
 msgstr "Would you like to reassign it?"
 
+msgid "Wrap lines"
+msgstr "Wrap lines"
+
 msgid "Write a comment"
 msgstr "Write a comment"
 
@@ -18719,6 +18740,9 @@ msgstr "Write a note and pick an agent. Your note arrives with the element's cod
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
+
+msgid "Write a reply"
+msgstr "Write a reply"
 
 msgid "Write a reply…"
 msgstr "Write a reply…"

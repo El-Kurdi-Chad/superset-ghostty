@@ -101,7 +101,9 @@ describe("AttachmentImage", () => {
 			return read(true);
 		});
 		fireEvent.click(await waitFor(() => view.getByRole("button", tile)));
-		await waitFor(() => expect(view.queryByRole("button", tile)).toBeNull());
+		await waitFor(() =>
+			expect(view.queryAllByRole("button", tile).length).toBe(0),
+		);
 		expect(view.getByText("big.png")).toBeTruthy();
 	});
 });

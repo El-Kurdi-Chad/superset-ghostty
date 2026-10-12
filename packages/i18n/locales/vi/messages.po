@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {Đã đóng # cổng} other {Đã đóng # c�
 msgid "{closedCount} closed"
 msgstr "{closedCount} đã đóng"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commit}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} trong {0} check đã xong"
@@ -744,6 +747,9 @@ msgstr "{count, plural, other {# bước}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree trong repository này chưa có workspace. Nó sẽ được nhập thành workspace.} other {# worktree trong repository này chưa có workspace. Chúng sẽ được nhập thành workspace.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {đã thêm một commit} other {đã thêm # commit}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {Đã tạo # workspace} other {Đã tạo # workspace}}"
@@ -3245,6 +3251,9 @@ msgstr "Hủy chỉnh sửa"
 
 msgid "Cancel plan"
 msgstr "Hủy gói"
+
+msgid "Cancel reply"
+msgstr "Hủy trả lời"
 
 msgid "Canceled"
 msgstr "Đã hủy"
@@ -6073,6 +6082,9 @@ msgstr "Bỏ qua gợi ý"
 
 msgid "Dismissed"
 msgstr "Đã bỏ qua"
+
+msgid "dismissed their review"
+msgstr "đã hủy review của mình"
 
 msgid "Display"
 msgstr "Hiển thị"
@@ -10779,9 +10791,6 @@ msgstr "Không có kết quả cho “{query}”"
 msgid "No results found."
 msgstr "Không tìm thấy kết quả nào."
 
-msgid "No review body."
-msgstr "Không có nội dung review."
-
 msgid "No Reviewers Assigned"
 msgstr "Chưa gán người review"
 
@@ -12237,6 +12246,9 @@ msgstr "Đã ghim"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Văn bản thuần"
+
 msgid "Plan"
 msgstr "Kế hoạch"
 
@@ -12352,6 +12364,9 @@ msgstr "Đăng"
 
 msgid "Post comment"
 msgstr "Đăng bình luận"
+
+msgid "Post reply"
+msgstr "Đăng trả lời"
 
 msgid "PR"
 msgstr "PR"
@@ -13400,6 +13415,9 @@ msgstr "Trả lời"
 
 msgid "Reply to thread…"
 msgstr "Trả lời luồng…"
+
+msgid "Replying to {replyingTo}"
+msgstr "Đang trả lời {replyingTo}"
 
 msgid "repo"
 msgstr "repo"
@@ -18708,6 +18726,9 @@ msgstr "Các worktree bị xóa khỏi ổ đĩa; các workspace trên checkout 
 msgid "Would you like to reassign it?"
 msgstr "Bạn có muốn gán lại không?"
 
+msgid "Wrap lines"
+msgstr "Ngắt dòng"
+
 msgid "Write a comment"
 msgstr "Viết bình luận"
 
@@ -18719,6 +18740,9 @@ msgstr "Viết ghi chú và chọn một agent. Ghi chú của bạn được g�
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Viết một prompt và chọn lịch. Mỗi lượt chạy mở một workspace để bạn xem lại và tiếp tục."
+
+msgid "Write a reply"
+msgstr "Viết câu trả lời"
 
 msgid "Write a reply…"
 msgstr "Viết trả lời…"

@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {Zamknięto # port} few {Zamknięto # porty} m
 msgid "{closedCount} closed"
 msgstr "{closedCount} zamkniętych"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} few {# commity} many {# commitów} other {# commita}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} z {0} kontroli ukończonych"
@@ -744,6 +747,9 @@ msgstr "{count, plural, one {# krok} few {# kroki} many {# kroków} other {# kro
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree w tym repozytorium nie ma obszaru roboczego. Zostanie zaimportowany jako obszar roboczy.} few {# worktree w tym repozytorium nie mają obszaru roboczego. Zostaną zaimportowane jako obszary robocze.} many {# worktree w tym repozytorium nie ma obszaru roboczego. Zostaną zaimportowane jako obszary robocze.} other {# worktree w tym repozytorium nie ma obszaru roboczego. Zostaną zaimportowane jako obszary robocze.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {dodał(a) commit} few {dodał(a) # commity} many {dodał(a) # commitów} other {dodał(a) # commita}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {Utworzono # obszar roboczy} few {Utworzono # obszary robocze} many {Utworzono # obszarów roboczych} other {Utworzono # obszaru roboczego}}"
@@ -3245,6 +3251,9 @@ msgstr "Anuluj edycję"
 
 msgid "Cancel plan"
 msgstr "Anuluj plan"
+
+msgid "Cancel reply"
+msgstr "Anuluj odpowiedź"
 
 msgid "Canceled"
 msgstr "Anulowane"
@@ -6073,6 +6082,9 @@ msgstr "Ukryj sugestie"
 
 msgid "Dismissed"
 msgstr "Odrzucony"
+
+msgid "dismissed their review"
+msgstr "odrzucił(a) swoją recenzję"
 
 msgid "Display"
 msgstr "Wyświetlanie"
@@ -10779,9 +10791,6 @@ msgstr "Brak wyników dla „{query}”"
 msgid "No results found."
 msgstr "Nie znaleziono wyników."
 
-msgid "No review body."
-msgstr "Brak treści recenzji."
-
 msgid "No Reviewers Assigned"
 msgstr "Nie przypisano recenzentów"
 
@@ -12237,6 +12246,9 @@ msgstr "Przypięte"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Zwykły tekst"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -12352,6 +12364,9 @@ msgstr "Opublikuj"
 
 msgid "Post comment"
 msgstr "Opublikuj komentarz"
+
+msgid "Post reply"
+msgstr "Opublikuj odpowiedź"
 
 msgid "PR"
 msgstr "PR"
@@ -13400,6 +13415,9 @@ msgstr "Odpowiedz"
 
 msgid "Reply to thread…"
 msgstr "Odpowiedz w wątku…"
+
+msgid "Replying to {replyingTo}"
+msgstr "Odpowiedź dla {replyingTo}"
 
 msgid "repo"
 msgstr "repo"
@@ -18708,6 +18726,9 @@ msgstr "Worktree są usuwane z dysku; obszary robocze na checkoucie projektu są
 msgid "Would you like to reassign it?"
 msgstr "Czy przypisać ponownie?"
 
+msgid "Wrap lines"
+msgstr "Zawijaj wiersze"
+
 msgid "Write a comment"
 msgstr "Napisz komentarz"
 
@@ -18719,6 +18740,9 @@ msgstr "Napisz notatkę i wybierz agenta. Notatka dotrze razem z kodem elementu 
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Napisz prompt i wybierz harmonogram. Każde uruchomienie otwiera obszar roboczy, który możesz przejrzeć i kontynuować."
+
+msgid "Write a reply"
+msgstr "Napisz odpowiedź"
 
 msgid "Write a reply…"
 msgstr "Napisz odpowiedź…"

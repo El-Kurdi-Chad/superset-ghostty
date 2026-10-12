@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {已关闭#个端口} other {已关闭#个端�
 msgid "{closedCount} closed"
 msgstr "{closedCount}项未开启"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {#个提交} other {#个提交}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{0}项检查中已完成{completed}项"
@@ -744,6 +747,9 @@ msgstr "{count, plural, other {# 个步骤}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {此仓库中有#个worktree没有对应的工作区，将被导入为工作区。} other {此仓库中有#个worktree没有对应的工作区，将被导入为工作区。}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {添加了#个提交} other {添加了#个提交}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {已创建#个工作区} other {已创建#个工作区}}"
@@ -3245,6 +3251,9 @@ msgstr "取消编辑"
 
 msgid "Cancel plan"
 msgstr "取消方案"
+
+msgid "Cancel reply"
+msgstr "取消回复"
 
 msgid "Canceled"
 msgstr "已取消"
@@ -6073,6 +6082,9 @@ msgstr "忽略建议"
 
 msgid "Dismissed"
 msgstr "已忽略"
+
+msgid "dismissed their review"
+msgstr "撤销了评审"
 
 msgid "Display"
 msgstr "显示"
@@ -10779,9 +10791,6 @@ msgstr "没有“{query}”的结果"
 msgid "No results found."
 msgstr "未找到结果。"
 
-msgid "No review body."
-msgstr "没有评审内容。"
-
 msgid "No Reviewers Assigned"
 msgstr "未指派审查者"
 
@@ -12237,6 +12246,9 @@ msgstr "已置顶"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "纯文本"
+
 msgid "Plan"
 msgstr "计划"
 
@@ -12352,6 +12364,9 @@ msgstr "发布"
 
 msgid "Post comment"
 msgstr "发表评论"
+
+msgid "Post reply"
+msgstr "发表回复"
 
 msgid "PR"
 msgstr "PR"
@@ -13400,6 +13415,9 @@ msgstr "回复"
 
 msgid "Reply to thread…"
 msgstr "回复讨论串…"
+
+msgid "Replying to {replyingTo}"
+msgstr "回复 {replyingTo}"
 
 msgid "repo"
 msgstr "仓库"
@@ -18708,6 +18726,9 @@ msgstr "worktree 会从磁盘中删除；位于项目检出上的工作区仅会
 msgid "Would you like to reassign it?"
 msgstr "要重新分配吗？"
 
+msgid "Wrap lines"
+msgstr "自动换行"
+
 msgid "Write a comment"
 msgstr "写评论"
 
@@ -18719,6 +18740,9 @@ msgstr "写一条备注并选择智能体。备注会连同该元素的代码和
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "写好提示词并选择计划。每次运行都会打开一个工作区，你可以审阅并继续。"
+
+msgid "Write a reply"
+msgstr "写回复"
 
 msgid "Write a reply…"
 msgstr "写一条回复…"

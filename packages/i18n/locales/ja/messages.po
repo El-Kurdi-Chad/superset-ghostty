@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {#個のポートを閉じました} other {#�
 msgid "{closedCount} closed"
 msgstr "{closedCount}件未通過"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {#件のコミット} other {#件のコミット}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{0}件中{completed}件のチェックが完了"
@@ -744,6 +747,9 @@ msgstr "{count, plural, other {#ステップ}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {このリポジトリの#件のワークツリーにワークスペースがありません。ワークスペースとしてインポートされます。} other {このリポジトリの#件のワークツリーにワークスペースがありません。ワークスペースとしてインポートされます。}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {が#件のコミットを追加しました} other {が#件のコミットを追加しました}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {#件のワークスペースを作成しました} other {#件のワークスペースを作成しました}}"
@@ -3245,6 +3251,9 @@ msgstr "編集をキャンセル"
 
 msgid "Cancel plan"
 msgstr "プランをキャンセル"
+
+msgid "Cancel reply"
+msgstr "返信をキャンセル"
 
 msgid "Canceled"
 msgstr "キャンセル済み"
@@ -6073,6 +6082,9 @@ msgstr "提案を閉じる"
 
 msgid "Dismissed"
 msgstr "却下"
+
+msgid "dismissed their review"
+msgstr "がレビューを取り下げました"
 
 msgid "Display"
 msgstr "表示"
@@ -10779,9 +10791,6 @@ msgstr "「{query}」に一致する結果はありません"
 msgid "No results found."
 msgstr "結果が見つかりません。"
 
-msgid "No review body."
-msgstr "レビュー本文はありません。"
-
 msgid "No Reviewers Assigned"
 msgstr "レビュアーの割り当てなし"
 
@@ -12237,6 +12246,9 @@ msgstr "ピン留め済み"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "プレーンテキスト"
+
 msgid "Plan"
 msgstr "計画"
 
@@ -12352,6 +12364,9 @@ msgstr "ポスト"
 
 msgid "Post comment"
 msgstr "コメントを投稿"
+
+msgid "Post reply"
+msgstr "返信を投稿"
 
 msgid "PR"
 msgstr "PR"
@@ -13400,6 +13415,9 @@ msgstr "返信"
 
 msgid "Reply to thread…"
 msgstr "スレッドに返信…"
+
+msgid "Replying to {replyingTo}"
+msgstr "{replyingTo} に返信"
 
 msgid "repo"
 msgstr "リポジトリ"
@@ -18708,6 +18726,9 @@ msgstr "ワークツリーはディスクから削除され、プロジェクト
 msgid "Would you like to reassign it?"
 msgstr "割り当て直しますか?"
 
+msgid "Wrap lines"
+msgstr "行を折り返す"
+
 msgid "Write a comment"
 msgstr "コメントを書く"
 
@@ -18719,6 +18740,9 @@ msgstr "メモを書いて、エージェントを選びます。メモは、要
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "プロンプトを書いて、スケジュールを選びます。実行のたびにワークスペースが開き、確認や続行ができます。"
+
+msgid "Write a reply"
+msgstr "返信を書く"
 
 msgid "Write a reply…"
 msgstr "返信を入力…"

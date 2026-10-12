@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {# port kapatıldı} other {# port kapatıldı
 msgid "{closedCount} closed"
 msgstr "{closedCount} kapalı"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commit}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{0} kontrolden {completed} tanesi tamamlandı"
@@ -744,6 +747,9 @@ msgstr "{count, plural, other {# adım}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {Bu depodaki # worktree'nin çalışma alanı yok. Çalışma alanı olarak içe aktarılacak.} other {Bu depodaki # worktree'nin çalışma alanı yok. Çalışma alanı olarak içe aktarılacaklar.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {bir commit ekledi} other {# commit ekledi}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {# çalışma alanı oluşturuldu} other {# çalışma alanı oluşturuldu}}"
@@ -3245,6 +3251,9 @@ msgstr "Düzenlemeleri iptal et"
 
 msgid "Cancel plan"
 msgstr "Planı iptal et"
+
+msgid "Cancel reply"
+msgstr "Yanıtı iptal et"
 
 msgid "Canceled"
 msgstr "İptal edildi"
@@ -6073,6 +6082,9 @@ msgstr "Önerileri kapat"
 
 msgid "Dismissed"
 msgstr "Yok sayıldı"
+
+msgid "dismissed their review"
+msgstr "incelemesini geri çekti"
 
 msgid "Display"
 msgstr "Görüntüleme"
@@ -10779,9 +10791,6 @@ msgstr "“{query}” için sonuç yok"
 msgid "No results found."
 msgstr "Sonuç bulunamadı."
 
-msgid "No review body."
-msgstr "İnceleme metni yok."
-
 msgid "No Reviewers Assigned"
 msgstr "İnceleyici atanmadı"
 
@@ -12237,6 +12246,9 @@ msgstr "Sabitlenmiş"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Düz metin"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -12352,6 +12364,9 @@ msgstr "Paylaş"
 
 msgid "Post comment"
 msgstr "Yorum gönder"
+
+msgid "Post reply"
+msgstr "Yanıt gönder"
 
 msgid "PR"
 msgstr "PR"
@@ -13400,6 +13415,9 @@ msgstr "Yanıtla"
 
 msgid "Reply to thread…"
 msgstr "Konuya yanıt verin…"
+
+msgid "Replying to {replyingTo}"
+msgstr "{replyingTo} kullanıcısına yanıt"
 
 msgid "repo"
 msgstr "depo"
@@ -18708,6 +18726,9 @@ msgstr "Worktree'ler diskten kaldırılır; projenin checkout'undaki çalışma 
 msgid "Would you like to reassign it?"
 msgstr "Yeniden atamak ister misiniz?"
 
+msgid "Wrap lines"
+msgstr "Satırları kaydır"
+
 msgid "Write a comment"
 msgstr "Yorum yaz"
 
@@ -18719,6 +18740,9 @@ msgstr "Bir not yazın ve bir ajan seçin. Notunuz, öğenin koduyla ve kırpıl
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Bir istem yazın ve bir zamanlama seçin. Her çalıştırma, inceleyip devam edebileceğiniz bir çalışma alanı açar."
+
+msgid "Write a reply"
+msgstr "Bir yanıt yazın"
 
 msgid "Write a reply…"
 msgstr "Bir yanıt yazın…"

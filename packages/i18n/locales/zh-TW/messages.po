@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {已關閉#個埠} other {已關閉#個埠}}"
 msgid "{closedCount} closed"
 msgstr "{closedCount}項未開啟"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {#個提交} other {#個提交}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{0}項檢查中已完成{completed}項"
@@ -744,6 +747,9 @@ msgstr "{count, plural, other {# 個步驟}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {此儲存庫中有#個worktree沒有對應的工作區，將被匯入為工作區。} other {此儲存庫中有#個worktree沒有對應的工作區，將被匯入為工作區。}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {新增了#個提交} other {新增了#個提交}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {已建立#個工作區} other {已建立#個工作區}}"
@@ -3245,6 +3251,9 @@ msgstr "取消編輯"
 
 msgid "Cancel plan"
 msgstr "取消方案"
+
+msgid "Cancel reply"
+msgstr "取消回覆"
 
 msgid "Canceled"
 msgstr "已取消"
@@ -6073,6 +6082,9 @@ msgstr "忽略建議"
 
 msgid "Dismissed"
 msgstr "已忽略"
+
+msgid "dismissed their review"
+msgstr "撤銷了審查"
 
 msgid "Display"
 msgstr "顯示"
@@ -10779,9 +10791,6 @@ msgstr "沒有「{query}」的結果"
 msgid "No results found."
 msgstr "未找到結果。"
 
-msgid "No review body."
-msgstr "沒有審查內容。"
-
 msgid "No Reviewers Assigned"
 msgstr "未指派審查者"
 
@@ -12237,6 +12246,9 @@ msgstr "已置頂"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "純文字"
+
 msgid "Plan"
 msgstr "計劃"
 
@@ -12352,6 +12364,9 @@ msgstr "釋出"
 
 msgid "Post comment"
 msgstr "發表評論"
+
+msgid "Post reply"
+msgstr "發表回覆"
 
 msgid "PR"
 msgstr "PR"
@@ -13400,6 +13415,9 @@ msgstr "回覆"
 
 msgid "Reply to thread…"
 msgstr "回覆討論串…"
+
+msgid "Replying to {replyingTo}"
+msgstr "回覆 {replyingTo}"
 
 msgid "repo"
 msgstr "儲存庫"
@@ -18708,6 +18726,9 @@ msgstr "worktree 會從磁碟中移除；位於專案簽出上的工作區僅會
 msgid "Would you like to reassign it?"
 msgstr "要重新分配嗎？"
 
+msgid "Wrap lines"
+msgstr "自動換行"
+
 msgid "Write a comment"
 msgstr "撰寫留言"
 
@@ -18719,6 +18740,9 @@ msgstr "寫一則備註並選擇代理程式。備註會連同該元素的程式
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "寫好提示詞並選擇計劃。每次執行都會開啟一個工作區，你可以審閱並繼續。"
+
+msgid "Write a reply"
+msgstr "撰寫回覆"
 
 msgid "Write a reply…"
 msgstr "寫一條回覆…"

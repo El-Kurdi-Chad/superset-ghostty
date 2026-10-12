@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {Zavřen # port} few {Zavřeny # porty} many {
 msgid "{closedCount} closed"
 msgstr "{closedCount} zavřených"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} few {# commity} many {# commitu} other {# commitů}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "Dokončeno {completed} z {0} kontrol"
@@ -744,6 +747,9 @@ msgstr "{count, plural, one {# krok} few {# kroky} many {# kroku} other {# krok�
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree v tomto repozitáři nemá pracovní prostor. Bude importován jako pracovní prostor.} few {# worktree v tomto repozitáři nemají pracovní prostor. Budou importovány jako pracovní prostory.} many {# worktree v tomto repozitáři nemá pracovní prostor. Budou importovány jako pracovní prostory.} other {# worktree v tomto repozitáři nemá pracovní prostor. Budou importovány jako pracovní prostory.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {přidal(a) commit} few {přidal(a) # commity} many {přidal(a) # commitu} other {přidal(a) # commitů}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {Vytvořen # pracovní prostor} few {Vytvořeny # pracovní prostory} many {Vytvořeno # pracovního prostoru} other {Vytvořeno # pracovních prostorů}}"
@@ -3245,6 +3251,9 @@ msgstr "Zrušit úpravy"
 
 msgid "Cancel plan"
 msgstr "Zrušit tarif"
+
+msgid "Cancel reply"
+msgstr "Zrušit odpověď"
 
 msgid "Canceled"
 msgstr "Zrušeno"
@@ -6073,6 +6082,9 @@ msgstr "Skrýt návrhy"
 
 msgid "Dismissed"
 msgstr "Zamítnuto"
+
+msgid "dismissed their review"
+msgstr "zamítl(a) svou recenzi"
 
 msgid "Display"
 msgstr "Zobrazení"
@@ -10779,9 +10791,6 @@ msgstr "Žádné výsledky pro „{query}“"
 msgid "No results found."
 msgstr "Nenalezeny žádné výsledky."
 
-msgid "No review body."
-msgstr "Žádný text revize."
-
 msgid "No Reviewers Assigned"
 msgstr "Nepřiřazeni žádní recenzenti"
 
@@ -12237,6 +12246,9 @@ msgstr "Připnuté"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Prostý text"
+
 msgid "Plan"
 msgstr "Tarif"
 
@@ -12352,6 +12364,9 @@ msgstr "Zveřejnit"
 
 msgid "Post comment"
 msgstr "Odeslat komentář"
+
+msgid "Post reply"
+msgstr "Odeslat odpověď"
 
 msgid "PR"
 msgstr "PR"
@@ -13400,6 +13415,9 @@ msgstr "Odpovědět"
 
 msgid "Reply to thread…"
 msgstr "Odpovědět do vlákna…"
+
+msgid "Replying to {replyingTo}"
+msgstr "Odpověď pro {replyingTo}"
 
 msgid "repo"
 msgstr "repo"
@@ -18708,6 +18726,9 @@ msgstr "Worktree se odstraní z disku; pracovní prostory na checkoutu projektu 
 msgid "Would you like to reassign it?"
 msgstr "Chcete zkratku přiřadit znovu?"
 
+msgid "Wrap lines"
+msgstr "Zalamovat řádky"
+
 msgid "Write a comment"
 msgstr "Napsat komentář"
 
@@ -18719,6 +18740,9 @@ msgstr "Napište poznámku a vyberte agenta. Poznámka dorazí spolu s kódem pr
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Napište prompt a vyberte plán. Každý běh otevře pracovní prostor, který můžete zkontrolovat a v něm pokračovat."
+
+msgid "Write a reply"
+msgstr "Napište odpověď"
 
 msgid "Write a reply…"
 msgstr "Napište odpověď…"

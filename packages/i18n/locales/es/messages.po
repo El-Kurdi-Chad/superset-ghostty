@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {# puerto cerrado} other {# puertos cerrados}}
 msgid "{closedCount} closed"
 msgstr "{closedCount} cerradas"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commits}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} de {0} comprobaciones completadas"
@@ -744,6 +747,9 @@ msgstr "{count, plural, one {# paso} other {# pasos}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree de este repositorio no tiene espacio de trabajo. Se importará como espacio de trabajo.} other {# worktrees de este repositorio no tienen espacio de trabajo. Se importarán como espacios de trabajo.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {añadió un commit} other {añadió # commits}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {# espacio de trabajo creado} other {# espacios de trabajo creados}}"
@@ -3245,6 +3251,9 @@ msgstr "Cancelar las ediciones"
 
 msgid "Cancel plan"
 msgstr "Cancelar el plan"
+
+msgid "Cancel reply"
+msgstr "Cancelar respuesta"
 
 msgid "Canceled"
 msgstr "Cancelado"
@@ -6073,6 +6082,9 @@ msgstr "Descartar las sugerencias"
 
 msgid "Dismissed"
 msgstr "Descartado"
+
+msgid "dismissed their review"
+msgstr "descartó su revisión"
 
 msgid "Display"
 msgstr "Visualización"
@@ -10779,9 +10791,6 @@ msgstr "Sin resultados para “{query}”"
 msgid "No results found."
 msgstr "No se encontraron resultados."
 
-msgid "No review body."
-msgstr "Sin texto de revisión."
-
 msgid "No Reviewers Assigned"
 msgstr "Sin revisores asignados"
 
@@ -12237,6 +12246,9 @@ msgstr "Fijadas"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Texto sin formato"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -12352,6 +12364,9 @@ msgstr "Publicar"
 
 msgid "Post comment"
 msgstr "Publicar comentario"
+
+msgid "Post reply"
+msgstr "Publicar respuesta"
 
 msgid "PR"
 msgstr "PR"
@@ -13400,6 +13415,9 @@ msgstr "Responder"
 
 msgid "Reply to thread…"
 msgstr "Responder al hilo…"
+
+msgid "Replying to {replyingTo}"
+msgstr "Respondiendo a {replyingTo}"
 
 msgid "repo"
 msgstr "repo"
@@ -18708,6 +18726,9 @@ msgstr "Los worktrees se eliminan del disco; los espacios de trabajo en el check
 msgid "Would you like to reassign it?"
 msgstr "¿Quieres reasignarlo?"
 
+msgid "Wrap lines"
+msgstr "Ajustar líneas"
+
 msgid "Write a comment"
 msgstr "Escribir un comentario"
 
@@ -18719,6 +18740,9 @@ msgstr "Escribe una nota y elige un agente. Tu nota llega con el código del ele
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Escribe un prompt y elige una programación. Cada ejecución abre un espacio de trabajo que puedes revisar y continuar."
+
+msgid "Write a reply"
+msgstr "Escribe una respuesta"
 
 msgid "Write a reply…"
 msgstr "Escribe una respuesta…"

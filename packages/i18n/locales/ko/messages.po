@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {포트 #개를 닫았습니다} other {포트
 msgid "{closedCount} closed"
 msgstr "{closedCount}개 닫힘"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {커밋 #개} other {커밋 #개}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "검사 {0}개 중 {completed}개 완료"
@@ -744,6 +747,9 @@ msgstr "{count, plural, other {#단계}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {이 리포지토리의 worktree #개에 워크스페이스가 없습니다. 워크스페이스로 가져옵니다.} other {이 리포지토리의 worktree #개에 워크스페이스가 없습니다. 워크스페이스로 가져옵니다.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {커밋 #개 추가함} other {커밋 #개 추가함}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {워크스페이스 #개를 만들었습니다} other {워크스페이스 #개를 만들었습니다}}"
@@ -3245,6 +3251,9 @@ msgstr "편집 취소"
 
 msgid "Cancel plan"
 msgstr "플랜 해지"
+
+msgid "Cancel reply"
+msgstr "답글 취소"
 
 msgid "Canceled"
 msgstr "취소됨"
@@ -6073,6 +6082,9 @@ msgstr "추천 닫기"
 
 msgid "Dismissed"
 msgstr "무시됨"
+
+msgid "dismissed their review"
+msgstr "리뷰 철회함"
 
 msgid "Display"
 msgstr "표시"
@@ -10779,9 +10791,6 @@ msgstr "“{query}”에 대한 결과가 없습니다"
 msgid "No results found."
 msgstr "결과를 찾을 수 없습니다."
 
-msgid "No review body."
-msgstr "리뷰 본문이 없습니다."
-
 msgid "No Reviewers Assigned"
 msgstr "지정된 리뷰어 없음"
 
@@ -12237,6 +12246,9 @@ msgstr "고정됨"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "일반 텍스트"
+
 msgid "Plan"
 msgstr "계획"
 
@@ -12352,6 +12364,9 @@ msgstr "게시"
 
 msgid "Post comment"
 msgstr "댓글 게시"
+
+msgid "Post reply"
+msgstr "답글 게시"
 
 msgid "PR"
 msgstr "PR"
@@ -13400,6 +13415,9 @@ msgstr "답글"
 
 msgid "Reply to thread…"
 msgstr "스레드에 답글…"
+
+msgid "Replying to {replyingTo}"
+msgstr "{replyingTo}에게 답글"
 
 msgid "repo"
 msgstr "리포"
@@ -18708,6 +18726,9 @@ msgstr "worktree는 디스크에서 제거되며, 프로젝트 체크아웃에 �
 msgid "Would you like to reassign it?"
 msgstr "다시 지정할까요?"
 
+msgid "Wrap lines"
+msgstr "줄 바꿈"
+
 msgid "Write a comment"
 msgstr "댓글 작성"
 
@@ -18719,6 +18740,9 @@ msgstr "메모를 쓰고 에이전트를 고르세요. 메모는 요소의 코�
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "프롬프트를 쓰고 일정을 고르세요. 실행할 때마다 워크스페이스가 열리며, 검토하고 이어서 작업할 수 있습니다."
+
+msgid "Write a reply"
+msgstr "답글 작성"
 
 msgid "Write a reply…"
 msgstr "답글 작성…"
