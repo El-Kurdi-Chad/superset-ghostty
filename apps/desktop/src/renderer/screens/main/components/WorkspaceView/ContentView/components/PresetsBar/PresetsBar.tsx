@@ -152,8 +152,12 @@ export function PresetsBar() {
 	const { openPreset, openPresetInCurrentTerminal } = useTabsWithPresets(
 		workspace?.projectId,
 	);
+	const visiblePresets = useMemo(
+		() => matchedPresets.filter((preset) => isAgentPresetEnabled(preset.name)),
+		[matchedPresets, isAgentPresetEnabled],
+	);
 	const [localPinnedPresetIds, setLocalPinnedPresetIds] = useState<string[]>(
-		() => getPinnedPresetOrder(matchedPresets),
+		() => getPinnedPresetOrder(visiblePresets),
 	);
 	const presetsByName = useMemo(() => {
 		const map = new Map<string, typeof matchedPresets>();
@@ -187,12 +191,13 @@ export function PresetsBar() {
 
 		for (const [index, preset] of matchedPresets.entries()) {
 			if (!isPresetPinnedToBar(preset.pinnedToBar)) continue;
+			if (!isAgentPresetEnabled(preset.name)) continue;
 			if (seenIds.has(preset.id)) continue;
 			orderedPinnedPresets.push({ preset, index });
 		}
 
 		return orderedPinnedPresets;
-	}, [matchedPresets, localPinnedPresetIds]);
+	}, [matchedPresets, localPinnedPresetIds, isAgentPresetEnabled]);
 	const presetIndexById = useMemo(
 		() => new Map(matchedPresets.map((preset, index) => [preset.id, index])),
 		[matchedPresets],
@@ -212,7 +217,7 @@ export function PresetsBar() {
 			template,
 			iconName: template.name,
 		}));
-		const customExisting = matchedPresets
+		const customExisting = visiblePresets
 			.filter(
 				(preset) =>
 					!templateNames.has(preset.name) ||
@@ -226,16 +231,16 @@ export function PresetsBar() {
 				iconName: preset.name,
 			}));
 		return [...fromTemplates, ...customExisting];
-	}, [matchedPresets, presetsByName, quickAddTemplates]);
+	}, [visiblePresets, presetsByName, quickAddTemplates]);
 
 	useEffect(() => {
-		const serverPinnedPresetIds = getPinnedPresetOrder(matchedPresets);
+		const serverPinnedPresetIds = getPinnedPresetOrder(visiblePresets);
 		setLocalPinnedPresetIds((current) =>
 			areStringArraysEqual(current, serverPinnedPresetIds)
 				? current
 				: serverPinnedPresetIds,
 		);
-	}, [matchedPresets]);
+	}, [visiblePresets]);
 
 	const handleOpenPresetDefault = useCallback(
 		(preset: (typeof matchedPresets)[number]) => {
