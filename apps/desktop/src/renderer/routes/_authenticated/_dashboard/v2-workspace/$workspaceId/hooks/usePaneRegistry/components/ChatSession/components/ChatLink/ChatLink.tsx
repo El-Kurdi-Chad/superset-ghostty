@@ -3,6 +3,7 @@ import { cn } from "@superset/ui/utils";
 import { type UseNavigateResult, useNavigate } from "@tanstack/react-router";
 import type { ComponentProps, MouseEvent } from "react";
 import { env } from "renderer/env.renderer";
+import { ChatLinkProvider } from "../../providers/ChatLinkProvider";
 import { useChatPaneActions } from "../../providers/ChatPaneActionsProvider";
 import { unfurlLink } from "../../utils/linkUnfurl";
 import { LOCAL_PATH_PREFIX } from "../../utils/remarkLocalPathLinks";
@@ -95,7 +96,7 @@ export function ChatLink(props: ComponentProps<typeof MarkdownLink>) {
 				if (openLink?.(href, event) || isLocalPath) event.preventDefault();
 			}}
 		>
-			{children}
+			<ChatLinkProvider>{children}</ChatLinkProvider>
 		</MarkdownLink>
 	);
 }

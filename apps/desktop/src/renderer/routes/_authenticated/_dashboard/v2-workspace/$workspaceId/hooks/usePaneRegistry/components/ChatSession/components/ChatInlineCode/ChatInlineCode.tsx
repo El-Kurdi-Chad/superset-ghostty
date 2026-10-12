@@ -2,6 +2,7 @@ import { chatMarkdownComponents } from "@superset/chat-ui/ChatMarkdown";
 import { cn } from "@superset/ui/utils";
 import type { ComponentProps, KeyboardEvent } from "react";
 import { FileIcon } from "renderer/lib/fileIcons";
+import { useIsInsideChatLink } from "../../providers/ChatLinkProvider";
 import { useChatPaneActions } from "../../providers/ChatPaneActionsProvider";
 import { isLocalPathText, pathFileName } from "../../utils/pathText";
 
@@ -13,12 +14,14 @@ const OPENABLE_CLASSNAME =
 
 export function ChatInlineCode(props: ComponentProps<typeof PlainInlineCode>) {
 	const { openLink } = useChatPaneActions();
+	const insideLink = useIsInsideChatLink();
 	const text = typeof props.children === "string" ? props.children.trim() : "";
 	const fileName = pathFileName(text);
 	if (!fileName) return <PlainInlineCode {...props} />;
 
 	const { node: _node, className, children, ...rest } = props;
-	const openable = openLink !== undefined && isLocalPathText(text);
+	const openable =
+		!insideLink && openLink !== undefined && isLocalPathText(text);
 	const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
 		if (event.key !== "Enter" && event.key !== " ") return;
 		event.preventDefault();

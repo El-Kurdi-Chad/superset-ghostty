@@ -5,6 +5,8 @@ import {
 	ChatPaneActionsProvider,
 	type OpenLink,
 } from "../../providers/ChatPaneActionsProvider";
+import { remarkLocalPathLinks } from "../../utils/remarkLocalPathLinks";
+import { ChatLink } from "../ChatLink";
 import { ChatInlineCode } from "./ChatInlineCode";
 
 // File icons resolve against the page URL, and the test DOM starts on about:blank.
@@ -18,7 +20,10 @@ afterEach(cleanup);
 function renderProse(markdown: string, openLink?: OpenLink) {
 	return render(
 		<ChatPaneActionsProvider openLink={openLink}>
-			<ChatMarkdown components={{ inlineCode: ChatInlineCode }}>
+			<ChatMarkdown
+				components={{ inlineCode: ChatInlineCode, a: ChatLink }}
+				remarkPlugins={[remarkLocalPathLinks]}
+			>
 				{markdown}
 			</ChatMarkdown>
 		</ChatPaneActionsProvider>,
@@ -59,4 +64,17 @@ test("a path on the web shows its icon and stays inert", () => {
 	const view = renderProse("`https://example.com/install.sh`", openLink);
 	expect(view.container.querySelector("code img")).not.toBeNull();
 	expect(view.queryByRole("link")).toBeNull();
+});
+
+test("inline code inside a link leaves navigation to its destination", () => {
+	const openLink = mock<OpenLink>(() => true);
+	const view = renderProse("[`app.ts`](src/app.ts:42)", openLink);
+	view.container.addEventListener("click", (event) => event.preventDefault(), {
+		capture: true,
+	});
+	const code = view.container.querySelector("code") as HTMLElement;
+	fireEvent.click(code);
+	expect(openLink.mock.calls.map(([href]) => href)).toEqual(["src/app.ts:42"]);
+	expect(code.getAttribute("role")).toBeNull();
+	expect(code.getAttribute("tabindex")).toBeNull();
 });
