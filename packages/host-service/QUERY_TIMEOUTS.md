@@ -52,6 +52,7 @@ tight and healthy queries time out under load.
 | `git.listBranches`, `git.getBaseBranch`, `git.getPullRequest` | 5s | Cheap reads |
 | `git.getStatus`, `git.getCommitFiles` | 15s | Slow on big working trees |
 | `git.listCommits`, `git.getDiff`, `git.getBranchSyncStatus`, `git.getPullRequestThreads` | 30s | Long history, big diffs, GitHub API |
+| `linkPreview.get` | 20s | A page fetch, then an icon fetch, 7s each |
 
 ## What the timeout does *not* do
 
