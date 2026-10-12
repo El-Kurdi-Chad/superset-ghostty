@@ -26,6 +26,8 @@ import museIcon from "./muse.svg";
 import museWhiteIcon from "./muse-white.svg";
 import opencodeIcon from "./opencode.svg";
 import opencodeWhiteIcon from "./opencode-white.svg";
+import paradevIcon from "./paradev.svg";
+import paradevWhiteIcon from "./paradev-white.svg";
 import piIcon from "./pi.svg";
 import piWhiteIcon from "./pi-white.svg";
 import polygraphIcon from "./polygraph.svg";
@@ -55,7 +57,7 @@ export const PRESET_ICONS: Record<string, PresetIconSet> = {
 	kimi: { light: kimiIcon, dark: kimiWhiteIcon },
 	kiro: { light: kiroIcon, dark: kiroIcon },
 	omp: { light: piIcon, dark: piWhiteIcon },
-	pdev: { light: piIcon, dark: piWhiteIcon },
+	pdev: { light: paradevIcon, dark: paradevWhiteIcon },
 	pi: { light: piIcon, dark: piWhiteIcon },
 	polygraph: { light: polygraphIcon, dark: polygraphWhiteIcon },
 	superset: { light: supersetIcon, dark: supersetIcon },
