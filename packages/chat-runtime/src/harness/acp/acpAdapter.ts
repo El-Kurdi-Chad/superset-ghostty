@@ -793,7 +793,7 @@ export class AcpAdapter implements HarnessAdapter {
 				this.dead = true;
 				this.emitSession({ status: "dead" });
 				this.queue.close();
-				void client.close();
+				this.closeAfterFailure();
 				return;
 			}
 
@@ -826,7 +826,7 @@ export class AcpAdapter implements HarnessAdapter {
 			this.dead = true;
 			this.emitSession({ status: "dead" });
 			this.queue.close();
-			void this.client?.close();
+			this.closeAfterFailure();
 		}
 	}
 
@@ -1840,6 +1840,12 @@ export class AcpAdapter implements HarnessAdapter {
 		this.emitNotice("error", this.withStderr(message));
 		this.emitSession({ status: "dead" });
 		this.queue.close();
+	}
+
+	private closeAfterFailure(): void {
+		this.client
+			?.close()
+			.catch((error) => console.warn("[acp] could not close the agent", error));
 	}
 
 	private withStderr(message: string): string {
