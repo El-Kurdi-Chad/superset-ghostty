@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {Đã đóng # cổng} other {Đã đóng # c�
 msgid "{closedCount} closed"
 msgstr "{closedCount} đã đóng"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commit}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} trong {0} check đã xong"
@@ -727,6 +730,9 @@ msgstr "{count, plural, one {# check thất bại} other {# check thất bại}}
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {# check cần xử lý} other {# check cần xử lý}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {# bình luận, có trả lời mới} other {# bình luận, có trả lời mới}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {# bình luận} other {# bình luận}}"
 
@@ -741,6 +747,9 @@ msgstr "{count, plural, other {# bước}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree trong repository này chưa có workspace. Nó sẽ được nhập thành workspace.} other {# worktree trong repository này chưa có workspace. Chúng sẽ được nhập thành workspace.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {đã thêm một commit} other {đã thêm # commit}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {Đã tạo # workspace} other {Đã tạo # workspace}}"
@@ -964,6 +973,18 @@ msgstr "{noun, select, repository {Hãy chỉ định ít nhất một repo.} ch
 
 msgid "{openCount} open"
 msgstr "{openCount} còn mở"
+
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} có thể thay bạn đọc và thay đổi dữ liệu trong tài khoản {pluginLabel} của bạn, kể cả trong các phiên bản sau của trang này. Trang có thể gửi những gì nó đọc được đến các trang web khác. Chỉ cho phép những trang bạn tin tưởng."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} có thể thay bạn sử dụng {pluginLabel}, kể cả trong các phiên bản sau của trang này. Trang có thể gửi những gì nó đọc được đến các trang web khác. Chỉ cho phép những trang bạn tin tưởng."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} sử dụng {pluginLabel}. Hãy cài đặt để tiếp tục."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} sẽ sử dụng tài khoản này."
 
 msgid "{partialCount} partial"
 msgstr "{partialCount} một phần"
@@ -2123,6 +2144,9 @@ msgstr "Cho phép truy cập từ xa vào thiết bị này qua relay"
 msgid "Allow this action?"
 msgstr "Cho phép thao tác này?"
 
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Cho phép trang này sử dụng {pluginLabel}?"
+
 msgid "Allowed"
 msgstr "Đã cho phép"
 
@@ -3246,6 +3270,9 @@ msgstr "Hủy chỉnh sửa"
 msgid "Cancel plan"
 msgstr "Hủy gói"
 
+msgid "Cancel reply"
+msgstr "Hủy trả lời"
+
 msgid "Canceled"
 msgstr "Đã hủy"
 
@@ -3514,6 +3541,9 @@ msgstr "Check đã qua"
 
 msgid "Checks Skipped"
 msgstr "Check đã bỏ qua"
+
+msgid "Choose a {pluginLabel} account"
+msgstr "Chọn một tài khoản {pluginLabel}"
 
 msgid "Choose a fighter"
 msgstr "Chọn một đấu sĩ"
@@ -4158,6 +4188,9 @@ msgstr "Kết nối"
 msgid "Connect {name}"
 msgstr "Kết nối {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Kết nối {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Kết nối một thiết bị"
 
@@ -4220,6 +4253,9 @@ msgstr "Kết nối Slack để quản lý tác vụ ngay trong hội thoại. N
 
 msgid "Connect this computer"
 msgstr "Kết nối máy tính này"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Kết nối tài khoản {pluginLabel} của bạn, sau đó tải lại trang này."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Kết nối các agent lập trình của bạn với những ứng dụng mà nhóm bạn đang dùng."
@@ -6077,6 +6113,9 @@ msgstr "Bỏ qua gợi ý"
 msgid "Dismissed"
 msgstr "Đã bỏ qua"
 
+msgid "dismissed their review"
+msgstr "đã hủy review của mình"
+
 msgid "Display"
 msgstr "Hiển thị"
 
@@ -6114,6 +6153,9 @@ msgstr "Tài liệu"
 
 msgid "Documentation"
 msgstr "Tài liệu"
+
+msgid "Don't allow"
+msgstr "Không cho phép"
 
 msgid "Don't ask again"
 msgstr "Đừng hỏi lại"
@@ -8586,6 +8628,9 @@ msgstr "Đang kiểm tra {0}"
 msgid "Install"
 msgstr "Cài đặt"
 
+msgid "Install {pluginLabel}?"
+msgstr "Cài đặt {pluginLabel}?"
+
 msgid "Install & restart"
 msgstr "Cài đặt & khởi động lại"
 
@@ -10785,9 +10830,6 @@ msgstr "Không có kết quả cho “{query}”"
 msgid "No results found."
 msgstr "Không tìm thấy kết quả nào."
 
-msgid "No review body."
-msgstr "Không có nội dung review."
-
 msgid "No Reviewers Assigned"
 msgstr "Chưa gán người review"
 
@@ -12243,6 +12285,9 @@ msgstr "Đã ghim"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Văn bản thuần"
+
 msgid "Plan"
 msgstr "Kế hoạch"
 
@@ -12358,6 +12403,9 @@ msgstr "Đăng"
 
 msgid "Post comment"
 msgstr "Đăng bình luận"
+
+msgid "Post reply"
+msgstr "Đăng trả lời"
 
 msgid "PR"
 msgstr "PR"
@@ -13409,6 +13457,9 @@ msgstr "Trả lời"
 
 msgid "Reply to thread…"
 msgstr "Trả lời luồng…"
+
+msgid "Replying to {replyingTo}"
+msgstr "Đang trả lời {replyingTo}"
 
 msgid "repo"
 msgstr "repo"
@@ -17984,6 +18035,9 @@ msgstr "Dùng ứng dụng máy tính để chạy song song nhiều agent lập
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Dùng menu khay Superset > Host Service > Restart, rồi thử lại."
 
+msgid "Use this account"
+msgstr "Dùng tài khoản này"
+
 msgid "Use this folder"
 msgstr "Dùng thư mục này"
 
@@ -18717,6 +18771,9 @@ msgstr "Các worktree bị xóa khỏi ổ đĩa; các workspace trên checkout 
 msgid "Would you like to reassign it?"
 msgstr "Bạn có muốn gán lại không?"
 
+msgid "Wrap lines"
+msgstr "Ngắt dòng"
+
 msgid "Write a comment"
 msgstr "Viết bình luận"
 
@@ -18728,6 +18785,9 @@ msgstr "Viết ghi chú và chọn một agent. Ghi chú của bạn được g�
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Viết một prompt và chọn lịch. Mỗi lượt chạy mở một workspace để bạn xem lại và tiếp tục."
+
+msgid "Write a reply"
+msgstr "Viết câu trả lời"
 
 msgid "Write a reply…"
 msgstr "Viết trả lời…"

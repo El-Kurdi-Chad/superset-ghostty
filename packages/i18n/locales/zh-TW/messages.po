@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {已關閉#個埠} other {已關閉#個埠}}"
 msgid "{closedCount} closed"
 msgstr "{closedCount}項未開啟"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {#個提交} other {#個提交}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{0}項檢查中已完成{completed}項"
@@ -727,6 +730,9 @@ msgstr "{count, plural, one {#項檢查失敗} other {#項檢查失敗}}"
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {#項檢查需要處理} other {#項檢查需要處理}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {#條評論，有新回覆} other {#條評論，有新回覆}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {#條評論} other {#條評論}}"
 
@@ -741,6 +747,9 @@ msgstr "{count, plural, other {# 個步驟}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {此儲存庫中有#個worktree沒有對應的工作區，將被匯入為工作區。} other {此儲存庫中有#個worktree沒有對應的工作區，將被匯入為工作區。}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {新增了#個提交} other {新增了#個提交}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {已建立#個工作區} other {已建立#個工作區}}"
@@ -964,6 +973,18 @@ msgstr "{noun, select, repository {請至少指定一個倉庫。} channel {請�
 
 msgid "{openCount} open"
 msgstr "{openCount}項已開啟"
+
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} 可以以你的身分讀取和變更你的 {pluginLabel} 帳戶中的資料，包括此頁面的未來版本。它可以把讀取的內容傳送到其他網站。只允許你信任的頁面。"
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} 可以以你的身分使用 {pluginLabel}，包括此頁面的未來版本。它可以把讀取的內容傳送到其他網站。只允許你信任的頁面。"
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} 使用 {pluginLabel}。請安裝後繼續。"
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} 將使用此帳戶。"
 
 msgid "{partialCount} partial"
 msgstr "{partialCount}項部分開啟"
@@ -2123,6 +2144,9 @@ msgstr "允許透過中繼遠端存取此裝置"
 msgid "Allow this action?"
 msgstr "允許此操作？"
 
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "允許此頁面使用 {pluginLabel}？"
+
 msgid "Allowed"
 msgstr "已允許"
 
@@ -3246,6 +3270,9 @@ msgstr "取消編輯"
 msgid "Cancel plan"
 msgstr "取消方案"
 
+msgid "Cancel reply"
+msgstr "取消回覆"
+
 msgid "Canceled"
 msgstr "已取消"
 
@@ -3514,6 +3541,9 @@ msgstr "檢查通過"
 
 msgid "Checks Skipped"
 msgstr "檢查已跳過"
+
+msgid "Choose a {pluginLabel} account"
+msgstr "選擇 {pluginLabel} 帳戶"
 
 msgid "Choose a fighter"
 msgstr "選擇一名鬥士"
@@ -4158,6 +4188,9 @@ msgstr "連線"
 msgid "Connect {name}"
 msgstr "連線 {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "連線 {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "連線裝置"
 
@@ -4220,6 +4253,9 @@ msgstr "連線Slack，直接在對話中管理任務。在任意頻道提及機�
 
 msgid "Connect this computer"
 msgstr "連線至這台電腦"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "連線你的 {pluginLabel} 帳戶，然後重新載入此頁面。"
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "把你的程式碼代理程式連接到團隊已在使用的應用程式。"
@@ -6077,6 +6113,9 @@ msgstr "忽略建議"
 msgid "Dismissed"
 msgstr "已忽略"
 
+msgid "dismissed their review"
+msgstr "撤銷了審查"
+
 msgid "Display"
 msgstr "顯示"
 
@@ -6114,6 +6153,9 @@ msgstr "文件"
 
 msgid "Documentation"
 msgstr "文件"
+
+msgid "Don't allow"
+msgstr "不允許"
 
 msgid "Don't ask again"
 msgstr "不再詢問"
@@ -8586,6 +8628,9 @@ msgstr "正在檢查{0}"
 msgid "Install"
 msgstr "安裝"
 
+msgid "Install {pluginLabel}?"
+msgstr "安裝 {pluginLabel}？"
+
 msgid "Install & restart"
 msgstr "安裝並重啟"
 
@@ -10785,9 +10830,6 @@ msgstr "沒有「{query}」的結果"
 msgid "No results found."
 msgstr "未找到結果。"
 
-msgid "No review body."
-msgstr "沒有審查內容。"
-
 msgid "No Reviewers Assigned"
 msgstr "未指派審查者"
 
@@ -12243,6 +12285,9 @@ msgstr "已置頂"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "純文字"
+
 msgid "Plan"
 msgstr "計劃"
 
@@ -12358,6 +12403,9 @@ msgstr "釋出"
 
 msgid "Post comment"
 msgstr "發表評論"
+
+msgid "Post reply"
+msgstr "發表回覆"
 
 msgid "PR"
 msgstr "PR"
@@ -13409,6 +13457,9 @@ msgstr "回覆"
 
 msgid "Reply to thread…"
 msgstr "回覆討論串…"
+
+msgid "Replying to {replyingTo}"
+msgstr "回覆 {replyingTo}"
 
 msgid "repo"
 msgstr "儲存庫"
@@ -17984,6 +18035,9 @@ msgstr "使用桌面應用程式開始並行執行編碼代理程式。"
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "請使用Superset托盤選單 > 主機服務 > 重啟，然後重試。"
 
+msgid "Use this account"
+msgstr "使用此帳戶"
+
 msgid "Use this folder"
 msgstr "使用此資料夾"
 
@@ -18717,6 +18771,9 @@ msgstr "worktree 會從磁碟中移除；位於專案簽出上的工作區僅會
 msgid "Would you like to reassign it?"
 msgstr "要重新分配嗎？"
 
+msgid "Wrap lines"
+msgstr "自動換行"
+
 msgid "Write a comment"
 msgstr "撰寫留言"
 
@@ -18728,6 +18785,9 @@ msgstr "寫一則備註並選擇代理程式。備註會連同該元素的程式
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "寫好提示詞並選擇計劃。每次執行都會開啟一個工作區，你可以審閱並繼續。"
+
+msgid "Write a reply"
+msgstr "撰寫回覆"
 
 msgid "Write a reply…"
 msgstr "寫一條回覆…"

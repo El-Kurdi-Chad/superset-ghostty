@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {# port kapatıldı} other {# port kapatıldı
 msgid "{closedCount} closed"
 msgstr "{closedCount} kapalı"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commit}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{0} kontrolden {completed} tanesi tamamlandı"
@@ -727,6 +730,9 @@ msgstr "{count, plural, one {# kontrol başarısız} other {# kontrol başarıs�
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {# kontrol işlem gerektiriyor} other {# kontrol işlem gerektiriyor}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {# yorum, yeni yanıtlar} other {# yorum, yeni yanıtlar}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {# yorum} other {# yorum}}"
 
@@ -741,6 +747,9 @@ msgstr "{count, plural, other {# adım}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {Bu depodaki # worktree'nin çalışma alanı yok. Çalışma alanı olarak içe aktarılacak.} other {Bu depodaki # worktree'nin çalışma alanı yok. Çalışma alanı olarak içe aktarılacaklar.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {bir commit ekledi} other {# commit ekledi}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {# çalışma alanı oluşturuldu} other {# çalışma alanı oluşturuldu}}"
@@ -964,6 +973,18 @@ msgstr "{noun, select, repository {En az bir depo belirtin.} channel {En az bir 
 
 msgid "{openCount} open"
 msgstr "{openCount} açık"
+
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle}, sizin adınıza {pluginLabel} hesabınızdaki verileri okuyabilir ve değiştirebilir; bu, sayfanın gelecek sürümlerini de kapsar. Okuduklarını başka web sitelerine gönderebilir. Yalnızca güvendiğiniz sayfalara izin verin."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle}, sizin adınıza {pluginLabel} kullanabilir; bu, sayfanın gelecek sürümlerini de kapsar. Okuduklarını başka web sitelerine gönderebilir. Yalnızca güvendiğiniz sayfalara izin verin."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle}, {pluginLabel} kullanıyor. Devam etmek için kurun."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} bu hesabı kullanacak."
 
 msgid "{partialCount} partial"
 msgstr "{partialCount} kısmi"
@@ -2123,6 +2144,9 @@ msgstr "Bu cihaza röle üzerinden uzaktan erişime izin ver"
 msgid "Allow this action?"
 msgstr "Bu işleme izin verilsin mi?"
 
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Bu sayfanın {pluginLabel} kullanmasına izin verilsin mi?"
+
 msgid "Allowed"
 msgstr "İzin verildi"
 
@@ -3246,6 +3270,9 @@ msgstr "Düzenlemeleri iptal et"
 msgid "Cancel plan"
 msgstr "Planı iptal et"
 
+msgid "Cancel reply"
+msgstr "Yanıtı iptal et"
+
 msgid "Canceled"
 msgstr "İptal edildi"
 
@@ -3514,6 +3541,9 @@ msgstr "Kontroller geçti"
 
 msgid "Checks Skipped"
 msgstr "Kontroller atlandı"
+
+msgid "Choose a {pluginLabel} account"
+msgstr "Bir {pluginLabel} hesabı seçin"
 
 msgid "Choose a fighter"
 msgstr "Bir dövüşçü seç"
@@ -4158,6 +4188,9 @@ msgstr "Bağla"
 msgid "Connect {name}"
 msgstr "{name} bağla"
 
+msgid "Connect {pluginLabel}"
+msgstr "{pluginLabel} bağla"
+
 msgid "Connect a device"
 msgstr "Cihaz bağla"
 
@@ -4220,6 +4253,9 @@ msgstr "Görevleri konuşmalardan yönetmek için Slack'i bağlayın. Görev olu
 
 msgid "Connect this computer"
 msgstr "Bu bilgisayarı bağlayın"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "{pluginLabel} hesabınızı bağlayın, ardından bu sayfayı yeniden yükleyin."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Kodlama ajanlarınızı ekibinizin zaten kullandığı uygulamalara bağlayın."
@@ -6077,6 +6113,9 @@ msgstr "Önerileri kapat"
 msgid "Dismissed"
 msgstr "Yok sayıldı"
 
+msgid "dismissed their review"
+msgstr "incelemesini geri çekti"
+
 msgid "Display"
 msgstr "Görüntüleme"
 
@@ -6114,6 +6153,9 @@ msgstr "Belgeler"
 
 msgid "Documentation"
 msgstr "Belgeler"
+
+msgid "Don't allow"
+msgstr "İzin verme"
 
 msgid "Don't ask again"
 msgstr "Bir daha sorma"
@@ -8586,6 +8628,9 @@ msgstr "{0} inceleniyor"
 msgid "Install"
 msgstr "Kur"
 
+msgid "Install {pluginLabel}?"
+msgstr "{pluginLabel} kurulsun mu?"
+
 msgid "Install & restart"
 msgstr "Kur ve yeniden başlat"
 
@@ -10785,9 +10830,6 @@ msgstr "“{query}” için sonuç yok"
 msgid "No results found."
 msgstr "Sonuç bulunamadı."
 
-msgid "No review body."
-msgstr "İnceleme metni yok."
-
 msgid "No Reviewers Assigned"
 msgstr "İnceleyici atanmadı"
 
@@ -12243,6 +12285,9 @@ msgstr "Sabitlenmiş"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Düz metin"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -12358,6 +12403,9 @@ msgstr "Paylaş"
 
 msgid "Post comment"
 msgstr "Yorum gönder"
+
+msgid "Post reply"
+msgstr "Yanıt gönder"
 
 msgid "PR"
 msgstr "PR"
@@ -13409,6 +13457,9 @@ msgstr "Yanıtla"
 
 msgid "Reply to thread…"
 msgstr "Konuya yanıt verin…"
+
+msgid "Replying to {replyingTo}"
+msgstr "{replyingTo} kullanıcısına yanıt"
 
 msgid "repo"
 msgstr "depo"
@@ -17984,6 +18035,9 @@ msgstr "Paralel kodlama ajanları çalıştırmaya başlamak için masaüstü uy
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Superset tepsi menüsünde Host hizmeti > Yeniden başlat yolunu kullanın, sonra yeniden deneyin."
 
+msgid "Use this account"
+msgstr "Bu hesabı kullan"
+
 msgid "Use this folder"
 msgstr "Bu klasörü kullan"
 
@@ -18717,6 +18771,9 @@ msgstr "Worktree'ler diskten kaldırılır; projenin checkout'undaki çalışma 
 msgid "Would you like to reassign it?"
 msgstr "Yeniden atamak ister misiniz?"
 
+msgid "Wrap lines"
+msgstr "Satırları kaydır"
+
 msgid "Write a comment"
 msgstr "Yorum yaz"
 
@@ -18728,6 +18785,9 @@ msgstr "Bir not yazın ve bir ajan seçin. Notunuz, öğenin koduyla ve kırpıl
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Bir istem yazın ve bir zamanlama seçin. Her çalıştırma, inceleyip devam edebileceğiniz bir çalışma alanı açar."
+
+msgid "Write a reply"
+msgstr "Bir yanıt yazın"
 
 msgid "Write a reply…"
 msgstr "Bir yanıt yazın…"

@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {Закрыт # порт} few {Закрыто 
 msgid "{closedCount} closed"
 msgstr "{closedCount} закрыто"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# коммит} few {# коммита} many {# коммитов} other {# коммита}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} из {0} проверок завершено"
@@ -727,6 +730,9 @@ msgstr "{count, plural, one {# проверка не пройдена} few {# п
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {# проверка требует действия} few {# проверки требуют действия} many {# проверок требуют действия} other {# проверки требуют действия}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {# комментарий, новые ответы} few {# комментария, новые ответы} many {# комментариев, новые ответы} other {# комментария, новые ответы}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {# комментарий} few {# комментария} many {# комментариев} other {# комментария}}"
 
@@ -741,6 +747,9 @@ msgstr "{count, plural, one {# шаг} few {# шага} many {# шагов} othe
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree в этом репозитории не имеет рабочей области. Он будет импортирован как рабочая область.} few {# worktree в этом репозитории не имеют рабочих областей. Они будут импортированы как рабочие области.} many {# worktree в этом репозитории не имеют рабочих областей. Они будут импортированы как рабочие области.} other {# worktree в этом репозитории не имеют рабочих областей. Они будут импортированы как рабочие области.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {добавил(а) коммит} few {добавил(а) # коммита} many {добавил(а) # коммитов} other {добавил(а) # коммита}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {Создана # рабочая область} few {Создано # рабочие области} many {Создано # рабочих областей} other {Создано # рабочей области}}"
@@ -964,6 +973,18 @@ msgstr "{noun, select, repository {Укажите хотя бы один реп�
 
 msgid "{openCount} open"
 msgstr "{openCount} открыто"
+
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} может от вашего имени читать и изменять данные в вашем аккаунте {pluginLabel}, в том числе в будущих версиях этой страницы. Прочитанное она может отправить на другие сайты. Разрешайте только страницам, которым доверяете."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} может от вашего имени использовать {pluginLabel}, в том числе в будущих версиях этой страницы. Прочитанное она может отправить на другие сайты. Разрешайте только страницам, которым доверяете."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} использует {pluginLabel}. Установите его, чтобы продолжить."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} будет использовать этот аккаунт."
 
 msgid "{partialCount} partial"
 msgstr "{partialCount} частично"
@@ -2123,6 +2144,9 @@ msgstr "Разрешить удалённый доступ к этому уст�
 msgid "Allow this action?"
 msgstr "Разрешить это действие?"
 
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Разрешить этой странице использовать {pluginLabel}?"
+
 msgid "Allowed"
 msgstr "Разрешено"
 
@@ -3246,6 +3270,9 @@ msgstr "Отменить правки"
 msgid "Cancel plan"
 msgstr "Отменить тариф"
 
+msgid "Cancel reply"
+msgstr "Отменить ответ"
+
 msgid "Canceled"
 msgstr "Отменена"
 
@@ -3514,6 +3541,9 @@ msgstr "Проверки пройдены"
 
 msgid "Checks Skipped"
 msgstr "Проверки пропущены"
+
+msgid "Choose a {pluginLabel} account"
+msgstr "Выберите аккаунт {pluginLabel}"
 
 msgid "Choose a fighter"
 msgstr "Выберите бойца"
@@ -4158,6 +4188,9 @@ msgstr "Подключить"
 msgid "Connect {name}"
 msgstr "Подключить {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Подключить {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Подключите устройство"
 
@@ -4220,6 +4253,9 @@ msgstr "Подключите Slack, чтобы управлять задачам
 
 msgid "Connect this computer"
 msgstr "Подключите этот компьютер"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Подключите аккаунт {pluginLabel}, затем перезагрузите эту страницу."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Подключите своих кодинг-агентов к приложениям, которыми ваша команда уже пользуется."
@@ -6077,6 +6113,9 @@ msgstr "Скрыть подсказки"
 msgid "Dismissed"
 msgstr "Отклонено"
 
+msgid "dismissed their review"
+msgstr "отклонил(а) своё ревью"
+
 msgid "Display"
 msgstr "Отображение"
 
@@ -6114,6 +6153,9 @@ msgstr "Документация"
 
 msgid "Documentation"
 msgstr "Документация"
+
+msgid "Don't allow"
+msgstr "Не разрешать"
 
 msgid "Don't ask again"
 msgstr "Больше не спрашивать"
@@ -8586,6 +8628,9 @@ msgstr "Инспектируем {0}"
 msgid "Install"
 msgstr "Установить"
 
+msgid "Install {pluginLabel}?"
+msgstr "Установить {pluginLabel}?"
+
 msgid "Install & restart"
 msgstr "Установить и перезапустить"
 
@@ -10785,9 +10830,6 @@ msgstr "Ничего не найдено по запросу «{query}»"
 msgid "No results found."
 msgstr "Ничего не найдено."
 
-msgid "No review body."
-msgstr "Нет текста ревью."
-
 msgid "No Reviewers Assigned"
 msgstr "Ревьюеры не назначены"
 
@@ -12243,6 +12285,9 @@ msgstr "Закреплённые"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Простой текст"
+
 msgid "Plan"
 msgstr "План"
 
@@ -12358,6 +12403,9 @@ msgstr "Опубликовать"
 
 msgid "Post comment"
 msgstr "Отправить комментарий"
+
+msgid "Post reply"
+msgstr "Отправить ответ"
 
 msgid "PR"
 msgstr "PR"
@@ -13409,6 +13457,9 @@ msgstr "Ответить"
 
 msgid "Reply to thread…"
 msgstr "Ответить в ветке…"
+
+msgid "Replying to {replyingTo}"
+msgstr "Ответ для {replyingTo}"
 
 msgid "repo"
 msgstr "репозиторий"
@@ -17984,6 +18035,9 @@ msgstr "Используйте десктопное приложение, что
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Откройте меню Superset в трее > Host Service > Restart, затем повторите."
 
+msgid "Use this account"
+msgstr "Использовать этот аккаунт"
+
 msgid "Use this folder"
 msgstr "Использовать эту папку"
 
@@ -18717,6 +18771,9 @@ msgstr "Worktree удаляются с диска; рабочие области
 msgid "Would you like to reassign it?"
 msgstr "Переназначить?"
 
+msgid "Wrap lines"
+msgstr "Переносить строки"
+
 msgid "Write a comment"
 msgstr "Написать комментарий"
 
@@ -18728,6 +18785,9 @@ msgstr "Напишите заметку и выберите агента. Зам
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Напишите промпт и выберите расписание. Каждый запуск открывает рабочую область, которую можно проверить и продолжить."
+
+msgid "Write a reply"
+msgstr "Напишите ответ"
 
 msgid "Write a reply…"
 msgstr "Напишите ответ…"

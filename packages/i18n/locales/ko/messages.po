@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {포트 #개를 닫았습니다} other {포트
 msgid "{closedCount} closed"
 msgstr "{closedCount}개 닫힘"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {커밋 #개} other {커밋 #개}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "검사 {0}개 중 {completed}개 완료"
@@ -727,6 +730,9 @@ msgstr "{count, plural, one {검사 #개 실패} other {검사 #개 실패}}"
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {검사 #개에 조치 필요} other {검사 #개에 조치 필요}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {댓글 #개, 새 답글 있음} other {댓글 #개, 새 답글 있음}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {댓글 #개} other {댓글 #개}}"
 
@@ -741,6 +747,9 @@ msgstr "{count, plural, other {#단계}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {이 리포지토리의 worktree #개에 워크스페이스가 없습니다. 워크스페이스로 가져옵니다.} other {이 리포지토리의 worktree #개에 워크스페이스가 없습니다. 워크스페이스로 가져옵니다.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {커밋 #개 추가함} other {커밋 #개 추가함}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {워크스페이스 #개를 만들었습니다} other {워크스페이스 #개를 만들었습니다}}"
@@ -964,6 +973,18 @@ msgstr "{noun, select, repository {리포지토리를 하나 이상 지정하세
 
 msgid "{openCount} open"
 msgstr "{openCount}개 열림"
+
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle}은(는) 사용자 본인으로서 {pluginLabel} 계정의 데이터를 읽고 변경할 수 있으며, 이 페이지의 향후 버전에도 적용됩니다. 읽은 내용을 다른 웹사이트로 보낼 수 있습니다. 신뢰하는 페이지만 허용하세요."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle}은(는) 사용자 본인으로서 {pluginLabel}을(를) 사용할 수 있으며, 이 페이지의 향후 버전에도 적용됩니다. 읽은 내용을 다른 웹사이트로 보낼 수 있습니다. 신뢰하는 페이지만 허용하세요."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle}에서 {pluginLabel}을(를) 사용합니다. 계속하려면 설치하세요."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle}에서 이 계정을 사용합니다."
 
 msgid "{partialCount} partial"
 msgstr "{partialCount}개 부분 달성"
@@ -2123,6 +2144,9 @@ msgstr "릴레이를 통해 이 기기에 원격 액세스 허용"
 msgid "Allow this action?"
 msgstr "이 작업을 허용할까요?"
 
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "이 페이지에서 {pluginLabel}을(를) 사용하도록 허용할까요?"
+
 msgid "Allowed"
 msgstr "허용됨"
 
@@ -3246,6 +3270,9 @@ msgstr "편집 취소"
 msgid "Cancel plan"
 msgstr "플랜 해지"
 
+msgid "Cancel reply"
+msgstr "답글 취소"
+
 msgid "Canceled"
 msgstr "취소됨"
 
@@ -3514,6 +3541,9 @@ msgstr "검사 통과"
 
 msgid "Checks Skipped"
 msgstr "검사 건너뜀"
+
+msgid "Choose a {pluginLabel} account"
+msgstr "{pluginLabel} 계정 선택"
 
 msgid "Choose a fighter"
 msgstr "파이터 선택"
@@ -4158,6 +4188,9 @@ msgstr "연결"
 msgid "Connect {name}"
 msgstr "{name} 연결"
 
+msgid "Connect {pluginLabel}"
+msgstr "{pluginLabel} 연결"
+
 msgid "Connect a device"
 msgstr "기기 연결"
 
@@ -4220,6 +4253,9 @@ msgstr "Slack을 연결해 대화에서 바로 작업을 관리하세요. 아무
 
 msgid "Connect this computer"
 msgstr "이 컴퓨터에 연결"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "{pluginLabel} 계정을 연결한 다음 이 페이지를 새로 고치세요."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "코딩 에이전트를 팀이 이미 쓰는 앱에 연결하세요."
@@ -6077,6 +6113,9 @@ msgstr "추천 닫기"
 msgid "Dismissed"
 msgstr "무시됨"
 
+msgid "dismissed their review"
+msgstr "리뷰 철회함"
+
 msgid "Display"
 msgstr "표시"
 
@@ -6114,6 +6153,9 @@ msgstr "문서"
 
 msgid "Documentation"
 msgstr "문서"
+
+msgid "Don't allow"
+msgstr "허용 안 함"
 
 msgid "Don't ask again"
 msgstr "다시 묻지 않기"
@@ -8586,6 +8628,9 @@ msgstr "{0} 검사 중"
 msgid "Install"
 msgstr "설치"
 
+msgid "Install {pluginLabel}?"
+msgstr "{pluginLabel}을(를) 설치할까요?"
+
 msgid "Install & restart"
 msgstr "설치 후 재시작"
 
@@ -10785,9 +10830,6 @@ msgstr "“{query}”에 대한 결과가 없습니다"
 msgid "No results found."
 msgstr "결과를 찾을 수 없습니다."
 
-msgid "No review body."
-msgstr "리뷰 본문이 없습니다."
-
 msgid "No Reviewers Assigned"
 msgstr "지정된 리뷰어 없음"
 
@@ -12243,6 +12285,9 @@ msgstr "고정됨"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "일반 텍스트"
+
 msgid "Plan"
 msgstr "계획"
 
@@ -12358,6 +12403,9 @@ msgstr "게시"
 
 msgid "Post comment"
 msgstr "댓글 게시"
+
+msgid "Post reply"
+msgstr "답글 게시"
 
 msgid "PR"
 msgstr "PR"
@@ -13409,6 +13457,9 @@ msgstr "답글"
 
 msgid "Reply to thread…"
 msgstr "스레드에 답글…"
+
+msgid "Replying to {replyingTo}"
+msgstr "{replyingTo}에게 답글"
 
 msgid "repo"
 msgstr "리포"
@@ -17984,6 +18035,9 @@ msgstr "데스크톱 앱에서 병렬 코딩 에이전트를 실행하세요."
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Superset 트레이 메뉴 > Host Service > Restart를 사용한 뒤 다시 시도하세요."
 
+msgid "Use this account"
+msgstr "이 계정 사용"
+
 msgid "Use this folder"
 msgstr "이 폴더 사용"
 
@@ -18717,6 +18771,9 @@ msgstr "worktree는 디스크에서 제거되며, 프로젝트 체크아웃에 �
 msgid "Would you like to reassign it?"
 msgstr "다시 지정할까요?"
 
+msgid "Wrap lines"
+msgstr "줄 바꿈"
+
 msgid "Write a comment"
 msgstr "댓글 작성"
 
@@ -18728,6 +18785,9 @@ msgstr "메모를 쓰고 에이전트를 고르세요. 메모는 요소의 코�
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "프롬프트를 쓰고 일정을 고르세요. 실행할 때마다 워크스페이스가 열리며, 검토하고 이어서 작업할 수 있습니다."
+
+msgid "Write a reply"
+msgstr "답글 작성"
 
 msgid "Write a reply…"
 msgstr "답글 작성…"

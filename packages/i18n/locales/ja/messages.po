@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {#個のポートを閉じました} other {#�
 msgid "{closedCount} closed"
 msgstr "{closedCount}件未通過"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {#件のコミット} other {#件のコミット}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{0}件中{completed}件のチェックが完了"
@@ -727,6 +730,9 @@ msgstr "{count, plural, one {#件のチェックが失敗} other {#件のチェ�
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {#件のチェックが対応待ち} other {#件のチェックが対応待ち}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {#件のコメント、新しい返信あり} other {#件のコメント、新しい返信あり}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {#件のコメント} other {#件のコメント}}"
 
@@ -741,6 +747,9 @@ msgstr "{count, plural, other {#ステップ}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {このリポジトリの#件のワークツリーにワークスペースがありません。ワークスペースとしてインポートされます。} other {このリポジトリの#件のワークツリーにワークスペースがありません。ワークスペースとしてインポートされます。}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {が#件のコミットを追加しました} other {が#件のコミットを追加しました}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {#件のワークスペースを作成しました} other {#件のワークスペースを作成しました}}"
@@ -964,6 +973,18 @@ msgstr "{noun, select, repository {リポジトリを1つ以上指定してく�
 
 msgid "{openCount} open"
 msgstr "{openCount}件通過"
+
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} は、あなたとして {pluginLabel} アカウントのデータを読み取り、変更できます。このページの今後のバージョンも含みます。読み取った内容を他のウェブサイトに送信できます。信頼できるページだけを許可してください。"
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} は、あなたとして {pluginLabel} を使用できます。このページの今後のバージョンも含みます。読み取った内容を他のウェブサイトに送信できます。信頼できるページだけを許可してください。"
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} は {pluginLabel} を使用します。続行するには、インストールしてください。"
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} はこのアカウントを使用します。"
 
 msgid "{partialCount} partial"
 msgstr "{partialCount}件一部通過"
@@ -2123,6 +2144,9 @@ msgstr "リレー経由でこのデバイスへのリモートアクセスを許
 msgid "Allow this action?"
 msgstr "この操作を許可しますか？"
 
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "このページに {pluginLabel} の使用を許可しますか？"
+
 msgid "Allowed"
 msgstr "許可済み"
 
@@ -3246,6 +3270,9 @@ msgstr "編集をキャンセル"
 msgid "Cancel plan"
 msgstr "プランをキャンセル"
 
+msgid "Cancel reply"
+msgstr "返信をキャンセル"
+
 msgid "Canceled"
 msgstr "キャンセル済み"
 
@@ -3514,6 +3541,9 @@ msgstr "チェックが成功しました"
 
 msgid "Checks Skipped"
 msgstr "チェックをスキップ"
+
+msgid "Choose a {pluginLabel} account"
+msgstr "{pluginLabel} アカウントを選択"
 
 msgid "Choose a fighter"
 msgstr "ファイターを選ぶ"
@@ -4158,6 +4188,9 @@ msgstr "接続"
 msgid "Connect {name}"
 msgstr "{name} を接続"
 
+msgid "Connect {pluginLabel}"
+msgstr "{pluginLabel} を接続"
+
 msgid "Connect a device"
 msgstr "デバイスを接続"
 
@@ -4220,6 +4253,9 @@ msgstr "Slackを接続して会話からタスクを管理します。任意の�
 
 msgid "Connect this computer"
 msgstr "このコンピューターに接続"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "{pluginLabel} アカウントを接続してから、このページを再読み込みしてください。"
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "コーディングエージェントを、チームが普段使っているアプリにつなぎます。"
@@ -6077,6 +6113,9 @@ msgstr "提案を閉じる"
 msgid "Dismissed"
 msgstr "却下"
 
+msgid "dismissed their review"
+msgstr "がレビューを取り下げました"
+
 msgid "Display"
 msgstr "表示"
 
@@ -6114,6 +6153,9 @@ msgstr "ドキュメント"
 
 msgid "Documentation"
 msgstr "ドキュメント"
+
+msgid "Don't allow"
+msgstr "許可しない"
 
 msgid "Don't ask again"
 msgstr "今後確認しない"
@@ -8586,6 +8628,9 @@ msgstr "{0}を検査中"
 msgid "Install"
 msgstr "インストール"
 
+msgid "Install {pluginLabel}?"
+msgstr "{pluginLabel} をインストールしますか？"
+
 msgid "Install & restart"
 msgstr "インストールして再起動"
 
@@ -10785,9 +10830,6 @@ msgstr "「{query}」に一致する結果はありません"
 msgid "No results found."
 msgstr "結果が見つかりません。"
 
-msgid "No review body."
-msgstr "レビュー本文はありません。"
-
 msgid "No Reviewers Assigned"
 msgstr "レビュアーの割り当てなし"
 
@@ -12243,6 +12285,9 @@ msgstr "ピン留め済み"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "プレーンテキスト"
+
 msgid "Plan"
 msgstr "計画"
 
@@ -12358,6 +12403,9 @@ msgstr "ポスト"
 
 msgid "Post comment"
 msgstr "コメントを投稿"
+
+msgid "Post reply"
+msgstr "返信を投稿"
 
 msgid "PR"
 msgstr "PR"
@@ -13409,6 +13457,9 @@ msgstr "返信"
 
 msgid "Reply to thread…"
 msgstr "スレッドに返信…"
+
+msgid "Replying to {replyingTo}"
+msgstr "{replyingTo} に返信"
 
 msgid "repo"
 msgstr "リポジトリ"
@@ -17984,6 +18035,9 @@ msgstr "デスクトップアプリで並列コーディングエージェント
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Supersetのトレイメニューから「ホストサービス」>「再起動」を実行してから、再試行してください。"
 
+msgid "Use this account"
+msgstr "このアカウントを使用"
+
 msgid "Use this folder"
 msgstr "このフォルダを使用"
 
@@ -18717,6 +18771,9 @@ msgstr "ワークツリーはディスクから削除され、プロジェクト
 msgid "Would you like to reassign it?"
 msgstr "割り当て直しますか?"
 
+msgid "Wrap lines"
+msgstr "行を折り返す"
+
 msgid "Write a comment"
 msgstr "コメントを書く"
 
@@ -18728,6 +18785,9 @@ msgstr "メモを書いて、エージェントを選びます。メモは、要
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "プロンプトを書いて、スケジュールを選びます。実行のたびにワークスペースが開き、確認や続行ができます。"
+
+msgid "Write a reply"
+msgstr "返信を書く"
 
 msgid "Write a reply…"
 msgstr "返信を入力…"

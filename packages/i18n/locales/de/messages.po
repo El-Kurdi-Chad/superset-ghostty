@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {# Port geschlossen} other {# Ports geschlosse
 msgid "{closedCount} closed"
 msgstr "{closedCount} geschlossen"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# Commit} other {# Commits}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} von {0} Prüfungen abgeschlossen"
@@ -727,6 +730,9 @@ msgstr "{count, plural, one {# Prüfung fehlgeschlagen} other {# Prüfungen fehl
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {# Prüfung braucht Aktion} other {# Prüfungen brauchen Aktion}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {# Kommentar, neue Antworten} other {# Kommentare, neue Antworten}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {# Kommentar} other {# Kommentare}}"
 
@@ -741,6 +747,9 @@ msgstr "{count, plural, one {# Schritt} other {# Schritte}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# Worktree in diesem Repository hat keinen Arbeitsbereich. Er wird als Arbeitsbereich importiert.} other {# Worktrees in diesem Repository haben keinen Arbeitsbereich. Sie werden als Arbeitsbereiche importiert.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {hat einen Commit hinzugefügt} other {hat # Commits hinzugefügt}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {# Arbeitsbereich erstellt} other {# Arbeitsbereiche erstellt}}"
@@ -964,6 +973,18 @@ msgstr "{noun, select, repository {Gib mindestens ein Repository an.} channel {G
 
 msgid "{openCount} open"
 msgstr "{openCount} offen"
+
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} kann in deinem Namen Daten in deinem {pluginLabel}-Konto lesen und ändern, auch in künftigen Versionen dieser Seite. Was die Seite liest, kann sie an andere Websites senden. Erlaube nur Seiten, denen du vertraust."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} kann {pluginLabel} in deinem Namen nutzen, auch in künftigen Versionen dieser Seite. Was die Seite liest, kann sie an andere Websites senden. Erlaube nur Seiten, denen du vertraust."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} nutzt {pluginLabel}. Installiere es, um fortzufahren."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} nutzt dieses Konto."
 
 msgid "{partialCount} partial"
 msgstr "{partialCount} teilweise"
@@ -2123,6 +2144,9 @@ msgstr "Fernzugriff auf dieses Gerät über den Relay erlauben"
 msgid "Allow this action?"
 msgstr "Diese Aktion zulassen?"
 
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Darf diese Seite {pluginLabel} nutzen?"
+
 msgid "Allowed"
 msgstr "Erlaubt"
 
@@ -3246,6 +3270,9 @@ msgstr "Bearbeitung abbrechen"
 msgid "Cancel plan"
 msgstr "Tarif kündigen"
 
+msgid "Cancel reply"
+msgstr "Antwort abbrechen"
+
 msgid "Canceled"
 msgstr "Abgebrochen"
 
@@ -3514,6 +3541,9 @@ msgstr "Prüfungen bestanden"
 
 msgid "Checks Skipped"
 msgstr "Prüfungen übersprungen"
+
+msgid "Choose a {pluginLabel} account"
+msgstr "{pluginLabel}-Konto auswählen"
 
 msgid "Choose a fighter"
 msgstr "Kämpfer auswählen"
@@ -4158,6 +4188,9 @@ msgstr "Verbinden"
 msgid "Connect {name}"
 msgstr "{name} verbinden"
 
+msgid "Connect {pluginLabel}"
+msgstr "{pluginLabel} verbinden"
+
 msgid "Connect a device"
 msgstr "Gerät verbinden"
 
@@ -4220,6 +4253,9 @@ msgstr "Verbinde Slack, um Aufgaben aus Unterhaltungen zu verwalten. Erwähne de
 
 msgid "Connect this computer"
 msgstr "Diesen Computer verbinden"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Verbinde dein {pluginLabel}-Konto und lade diese Seite dann neu."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Verbinde deine Coding-Agenten mit den Apps, die dein Team schon nutzt."
@@ -6077,6 +6113,9 @@ msgstr "Vorschläge ausblenden"
 msgid "Dismissed"
 msgstr "Verworfen"
 
+msgid "dismissed their review"
+msgstr "hat das Review verworfen"
+
 msgid "Display"
 msgstr "Anzeige"
 
@@ -6114,6 +6153,9 @@ msgstr "Doku"
 
 msgid "Documentation"
 msgstr "Dokumentation"
+
+msgid "Don't allow"
+msgstr "Nicht erlauben"
 
 msgid "Don't ask again"
 msgstr "Nicht mehr fragen"
@@ -8586,6 +8628,9 @@ msgstr "{0} wird untersucht"
 msgid "Install"
 msgstr "Installieren"
 
+msgid "Install {pluginLabel}?"
+msgstr "{pluginLabel} installieren?"
+
 msgid "Install & restart"
 msgstr "Installieren & neu starten"
 
@@ -10785,9 +10830,6 @@ msgstr "Keine Ergebnisse für „{query}“"
 msgid "No results found."
 msgstr "Keine Ergebnisse gefunden."
 
-msgid "No review body."
-msgstr "Kein Review-Text."
-
 msgid "No Reviewers Assigned"
 msgstr "Keine Reviewer zugewiesen"
 
@@ -12243,6 +12285,9 @@ msgstr "Angeheftet"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Reiner Text"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -12358,6 +12403,9 @@ msgstr "Posten"
 
 msgid "Post comment"
 msgstr "Kommentar posten"
+
+msgid "Post reply"
+msgstr "Antwort posten"
 
 msgid "PR"
 msgstr "PR"
@@ -13409,6 +13457,9 @@ msgstr "Antworten"
 
 msgid "Reply to thread…"
 msgstr "Auf den Thread antworten…"
+
+msgid "Replying to {replyingTo}"
+msgstr "Antwort an {replyingTo}"
 
 msgid "repo"
 msgstr "Repo"
@@ -17984,6 +18035,9 @@ msgstr "Nutze die Desktop-App, um parallele Coding-Agenten laufen zu lassen."
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Nutze das Superset-Menü in der Menüleiste > Host Service > Restart und versuche es dann erneut."
 
+msgid "Use this account"
+msgstr "Dieses Konto nutzen"
+
 msgid "Use this folder"
 msgstr "Diesen Ordner verwenden"
 
@@ -18717,6 +18771,9 @@ msgstr "Worktrees werden von der Festplatte entfernt; Arbeitsbereiche auf dem Ch
 msgid "Would you like to reassign it?"
 msgstr "Möchtest du es neu zuweisen?"
 
+msgid "Wrap lines"
+msgstr "Zeilen umbrechen"
+
 msgid "Write a comment"
 msgstr "Kommentar schreiben"
 
@@ -18728,6 +18785,9 @@ msgstr "Schreibe eine Notiz und wähle einen Agenten. Deine Notiz kommt mit dem 
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Schreibe einen Prompt und wähle einen Zeitplan. Jede Ausführung öffnet einen Arbeitsbereich, den du prüfen und fortsetzen kannst."
+
+msgid "Write a reply"
+msgstr "Antwort schreiben"
 
 msgid "Write a reply…"
 msgstr "Antwort schreiben…"

@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {# poort gesloten} other {# poorten gesloten}}
 msgid "{closedCount} closed"
 msgstr "{closedCount} gesloten"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commits}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} van {0} checks afgerond"
@@ -727,6 +730,9 @@ msgstr "{count, plural, one {# check mislukt} other {# checks mislukt}}"
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {# check vraagt actie} other {# checks vragen actie}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {# opmerking, nieuwe reacties} other {# opmerkingen, nieuwe reacties}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {# opmerking} other {# opmerkingen}}"
 
@@ -741,6 +747,9 @@ msgstr "{count, plural, one {# stap} other {# stappen}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree in deze repository heeft geen werkruimte. Die wordt als werkruimte geïmporteerd.} other {# worktrees in deze repository hebben geen werkruimte. Ze worden als werkruimtes geïmporteerd.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {heeft een commit toegevoegd} other {heeft # commits toegevoegd}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {# werkruimte aangemaakt} other {# werkruimtes aangemaakt}}"
@@ -964,6 +973,18 @@ msgstr "{noun, select, repository {Geef minstens één repository op.} channel {
 
 msgid "{openCount} open"
 msgstr "{openCount} open"
+
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} kan namens jou gegevens in je {pluginLabel}-account lezen en wijzigen, ook in toekomstige versies van deze pagina. Wat de pagina leest, kan ze naar andere websites sturen. Sta alleen pagina’s toe die je vertrouwt."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} kan {pluginLabel} namens jou gebruiken, ook in toekomstige versies van deze pagina. Wat de pagina leest, kan ze naar andere websites sturen. Sta alleen pagina’s toe die je vertrouwt."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} gebruikt {pluginLabel}. Installeer het om door te gaan."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} gebruikt dit account."
 
 msgid "{partialCount} partial"
 msgstr "{partialCount} gedeeltelijk"
@@ -2123,6 +2144,9 @@ msgstr "Externe toegang tot dit apparaat via de relay toestaan"
 msgid "Allow this action?"
 msgstr "Deze actie toestaan?"
 
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Deze pagina toestaan {pluginLabel} te gebruiken?"
+
 msgid "Allowed"
 msgstr "Toegestaan"
 
@@ -3246,6 +3270,9 @@ msgstr "Bewerkingen annuleren"
 msgid "Cancel plan"
 msgstr "Plan opzeggen"
 
+msgid "Cancel reply"
+msgstr "Antwoord annuleren"
+
 msgid "Canceled"
 msgstr "Geannuleerd"
 
@@ -3514,6 +3541,9 @@ msgstr "Checks geslaagd"
 
 msgid "Checks Skipped"
 msgstr "Checks overgeslagen"
+
+msgid "Choose a {pluginLabel} account"
+msgstr "Kies een {pluginLabel}-account"
 
 msgid "Choose a fighter"
 msgstr "Kies een vechter"
@@ -4158,6 +4188,9 @@ msgstr "Verbinden"
 msgid "Connect {name}"
 msgstr "{name} verbinden"
 
+msgid "Connect {pluginLabel}"
+msgstr "{pluginLabel} verbinden"
+
 msgid "Connect a device"
 msgstr "Apparaat koppelen"
 
@@ -4220,6 +4253,9 @@ msgstr "Verbind Slack om taken vanuit gesprekken te beheren. Vermeld de bot in e
 
 msgid "Connect this computer"
 msgstr "Verbind deze computer"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Verbind je {pluginLabel}-account en laad deze pagina daarna opnieuw."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Verbind je codeeragents met de apps die je team al gebruikt."
@@ -6077,6 +6113,9 @@ msgstr "Suggesties sluiten"
 msgid "Dismissed"
 msgstr "Afgewezen"
 
+msgid "dismissed their review"
+msgstr "heeft de review ingetrokken"
+
 msgid "Display"
 msgstr "Weergave"
 
@@ -6114,6 +6153,9 @@ msgstr "Docs"
 
 msgid "Documentation"
 msgstr "Documentatie"
+
+msgid "Don't allow"
+msgstr "Niet toestaan"
 
 msgid "Don't ask again"
 msgstr "Niet meer vragen"
@@ -8586,6 +8628,9 @@ msgstr "{0} inspecteren"
 msgid "Install"
 msgstr "Installeren"
 
+msgid "Install {pluginLabel}?"
+msgstr "{pluginLabel} installeren?"
+
 msgid "Install & restart"
 msgstr "Installeren en herstarten"
 
@@ -10785,9 +10830,6 @@ msgstr "Geen resultaten voor “{query}”"
 msgid "No results found."
 msgstr "Geen resultaten gevonden."
 
-msgid "No review body."
-msgstr "Geen reviewtekst."
-
 msgid "No Reviewers Assigned"
 msgstr "Geen reviewers toegewezen"
 
@@ -12243,6 +12285,9 @@ msgstr "Vastgezet"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Platte tekst"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -12358,6 +12403,9 @@ msgstr "Posten"
 
 msgid "Post comment"
 msgstr "Opmerking plaatsen"
+
+msgid "Post reply"
+msgstr "Antwoord plaatsen"
 
 msgid "PR"
 msgstr "PR"
@@ -13409,6 +13457,9 @@ msgstr "Antwoorden"
 
 msgid "Reply to thread…"
 msgstr "Reageren op thread…"
+
+msgid "Replying to {replyingTo}"
+msgstr "Antwoord aan {replyingTo}"
 
 msgid "repo"
 msgstr "repo"
@@ -17984,6 +18035,9 @@ msgstr "Gebruik de desktop-app om parallelle coding agents te draaien."
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Gebruik het Superset-menu in de menubalk > Hostservice > Opnieuw starten en probeer het opnieuw."
 
+msgid "Use this account"
+msgstr "Dit account gebruiken"
+
 msgid "Use this folder"
 msgstr "Deze map gebruiken"
 
@@ -18717,6 +18771,9 @@ msgstr "Worktrees worden van de schijf verwijderd; werkruimtes op de checkout va
 msgid "Would you like to reassign it?"
 msgstr "Wil je hem opnieuw toewijzen?"
 
+msgid "Wrap lines"
+msgstr "Regels afbreken"
+
 msgid "Write a comment"
 msgstr "Schrijf een reactie"
 
@@ -18728,6 +18785,9 @@ msgstr "Schrijf een notitie en kies een agent. Je notitie komt aan met de code v
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Schrijf een prompt en kies een schema. Elke run opent een werkruimte die je kunt beoordelen en voortzetten."
+
+msgid "Write a reply"
+msgstr "Schrijf een antwoord"
 
 msgid "Write a reply…"
 msgstr "Schrijf een antwoord…"

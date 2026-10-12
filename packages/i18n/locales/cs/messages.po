@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {Zavřen # port} few {Zavřeny # porty} many {
 msgid "{closedCount} closed"
 msgstr "{closedCount} zavřených"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} few {# commity} many {# commitu} other {# commitů}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "Dokončeno {completed} z {0} kontrol"
@@ -727,6 +730,9 @@ msgstr "{count, plural, one {# kontrola selhala} few {# kontroly selhaly} many {
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {# kontrola vyžaduje akci} few {# kontroly vyžadují akci} many {# kontroly vyžaduje akci} other {# kontrol vyžaduje akci}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {# komentář, nové odpovědi} few {# komentáře, nové odpovědi} many {# komentáře, nové odpovědi} other {# komentářů, nové odpovědi}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {# komentář} few {# komentáře} many {# komentáře} other {# komentářů}}"
 
@@ -741,6 +747,9 @@ msgstr "{count, plural, one {# krok} few {# kroky} many {# kroku} other {# krok�
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree v tomto repozitáři nemá pracovní prostor. Bude importován jako pracovní prostor.} few {# worktree v tomto repozitáři nemají pracovní prostor. Budou importovány jako pracovní prostory.} many {# worktree v tomto repozitáři nemá pracovní prostor. Budou importovány jako pracovní prostory.} other {# worktree v tomto repozitáři nemá pracovní prostor. Budou importovány jako pracovní prostory.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {přidal(a) commit} few {přidal(a) # commity} many {přidal(a) # commitu} other {přidal(a) # commitů}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {Vytvořen # pracovní prostor} few {Vytvořeny # pracovní prostory} many {Vytvořeno # pracovního prostoru} other {Vytvořeno # pracovních prostorů}}"
@@ -964,6 +973,18 @@ msgstr "{noun, select, repository {Zadejte alespoň jeden repozitář.} channel 
 
 msgid "{openCount} open"
 msgstr "{openCount} otevřených"
+
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} může vaším jménem číst a měnit data ve vašem účtu {pluginLabel}, a to i v budoucích verzích této stránky. Co načte, může odeslat na jiné weby. Povolte jen stránky, kterým důvěřujete."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} může vaším jménem používat {pluginLabel}, a to i v budoucích verzích této stránky. Co načte, může odeslat na jiné weby. Povolte jen stránky, kterým důvěřujete."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} používá {pluginLabel}. Pokračujte instalací."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} použije tento účet."
 
 msgid "{partialCount} partial"
 msgstr "{partialCount} částečně"
@@ -2123,6 +2144,9 @@ msgstr "Povolit vzdálený přístup k tomuto zařízení přes relay"
 msgid "Allow this action?"
 msgstr "Povolit tuto akci?"
 
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Povolit této stránce používat {pluginLabel}?"
+
 msgid "Allowed"
 msgstr "Povoleno"
 
@@ -3246,6 +3270,9 @@ msgstr "Zrušit úpravy"
 msgid "Cancel plan"
 msgstr "Zrušit tarif"
 
+msgid "Cancel reply"
+msgstr "Zrušit odpověď"
+
 msgid "Canceled"
 msgstr "Zrušeno"
 
@@ -3514,6 +3541,9 @@ msgstr "Kontroly prošly"
 
 msgid "Checks Skipped"
 msgstr "Kontroly přeskočeny"
+
+msgid "Choose a {pluginLabel} account"
+msgstr "Vyberte účet {pluginLabel}"
 
 msgid "Choose a fighter"
 msgstr "Vyberte bojovníka"
@@ -4158,6 +4188,9 @@ msgstr "Připojit"
 msgid "Connect {name}"
 msgstr "Připojit {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Připojit {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Připojit zařízení"
 
@@ -4220,6 +4253,9 @@ msgstr "Připojte Slack a spravujte úkoly přímo z konverzací. Zmiňte bota v
 
 msgid "Connect this computer"
 msgstr "Připojte tento počítač"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Připojte svůj účet {pluginLabel} a pak tuto stránku znovu načtěte."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Připojte své kódovací agenty k aplikacím, které váš tým už používá."
@@ -6077,6 +6113,9 @@ msgstr "Skrýt návrhy"
 msgid "Dismissed"
 msgstr "Zamítnuto"
 
+msgid "dismissed their review"
+msgstr "zamítl(a) svou recenzi"
+
 msgid "Display"
 msgstr "Zobrazení"
 
@@ -6114,6 +6153,9 @@ msgstr "Dokumentace"
 
 msgid "Documentation"
 msgstr "Dokumentace"
+
+msgid "Don't allow"
+msgstr "Nepovolit"
 
 msgid "Don't ask again"
 msgstr "Příště se neptat"
@@ -8586,6 +8628,9 @@ msgstr "Zkoumám {0}"
 msgid "Install"
 msgstr "Nainstalovat"
 
+msgid "Install {pluginLabel}?"
+msgstr "Nainstalovat {pluginLabel}?"
+
 msgid "Install & restart"
 msgstr "Nainstalovat a restartovat"
 
@@ -10785,9 +10830,6 @@ msgstr "Žádné výsledky pro „{query}“"
 msgid "No results found."
 msgstr "Nenalezeny žádné výsledky."
 
-msgid "No review body."
-msgstr "Žádný text revize."
-
 msgid "No Reviewers Assigned"
 msgstr "Nepřiřazeni žádní recenzenti"
 
@@ -12243,6 +12285,9 @@ msgstr "Připnuté"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Prostý text"
+
 msgid "Plan"
 msgstr "Tarif"
 
@@ -12358,6 +12403,9 @@ msgstr "Zveřejnit"
 
 msgid "Post comment"
 msgstr "Odeslat komentář"
+
+msgid "Post reply"
+msgstr "Odeslat odpověď"
 
 msgid "PR"
 msgstr "PR"
@@ -13409,6 +13457,9 @@ msgstr "Odpovědět"
 
 msgid "Reply to thread…"
 msgstr "Odpovědět do vlákna…"
+
+msgid "Replying to {replyingTo}"
+msgstr "Odpověď pro {replyingTo}"
 
 msgid "repo"
 msgstr "repo"
@@ -17984,6 +18035,9 @@ msgstr "Pro spouštění paralelních kódovacích agentů použijte desktopovou
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Použijte nabídku Superset na liště > Host Service > Restart a zkuste to znovu."
 
+msgid "Use this account"
+msgstr "Použít tento účet"
+
 msgid "Use this folder"
 msgstr "Použít tuto složku"
 
@@ -18717,6 +18771,9 @@ msgstr "Worktree se odstraní z disku; pracovní prostory na checkoutu projektu 
 msgid "Would you like to reassign it?"
 msgstr "Chcete zkratku přiřadit znovu?"
 
+msgid "Wrap lines"
+msgstr "Zalamovat řádky"
+
 msgid "Write a comment"
 msgstr "Napsat komentář"
 
@@ -18728,6 +18785,9 @@ msgstr "Napište poznámku a vyberte agenta. Poznámka dorazí spolu s kódem pr
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Napište prompt a vyberte plán. Každý běh otevře pracovní prostor, který můžete zkontrolovat a v něm pokračovat."
+
+msgid "Write a reply"
+msgstr "Napište odpověď"
 
 msgid "Write a reply…"
 msgstr "Napište odpověď…"

@@ -702,6 +702,9 @@ msgstr "{closedCount, plural, one {Closed # port} other {Closed # ports}}"
 msgid "{closedCount} closed"
 msgstr "{closedCount} closed"
 
+msgid "{commitCount, plural, one {# commit} other {# commits}}"
+msgstr "{commitCount, plural, one {# commit} other {# commits}}"
+
 #. placeholder {0}: relevant.length
 msgid "{completed} of {0} checks complete"
 msgstr "{completed} of {0} checks complete"
@@ -727,6 +730,9 @@ msgstr "{count, plural, one {# Check Failed} other {# Checks Failed}}"
 msgid "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 msgstr "{count, plural, one {# Check Needs Action} other {# Checks Need Action}}"
 
+msgid "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+msgstr "{count, plural, one {# comment, new replies} other {# comments, new replies}}"
+
 msgid "{count, plural, one {# comment} other {# comments}}"
 msgstr "{count, plural, one {# comment} other {# comments}}"
 
@@ -741,6 +747,9 @@ msgstr "{count, plural, one {# step} other {# steps}}"
 
 msgid "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
 msgstr "{count, plural, one {# worktree in this repository has no workspace. It will be imported as a workspace.} other {# worktrees in this repository have no workspace. They will be imported as workspaces.}}"
+
+msgid "{count, plural, one {added a commit} other {added # commits}}"
+msgstr "{count, plural, one {added a commit} other {added # commits}}"
 
 msgid "{count, plural, one {Created # workspace} other {Created # workspaces}}"
 msgstr "{count, plural, one {Created # workspace} other {Created # workspaces}}"
@@ -964,6 +973,18 @@ msgstr "{noun, select, repository {Specify at least one repository.} channel {Sp
 
 msgid "{openCount} open"
 msgstr "{openCount} open"
+
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} uses {pluginLabel}. Install it to continue."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} will use this account."
 
 msgid "{partialCount} partial"
 msgstr "{partialCount} partial"
@@ -2123,6 +2144,9 @@ msgstr "Allow remote access to this device via relay"
 msgid "Allow this action?"
 msgstr "Allow this action?"
 
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Allow this page to use {pluginLabel}?"
+
 msgid "Allowed"
 msgstr "Allowed"
 
@@ -3246,6 +3270,9 @@ msgstr "Cancel edits"
 msgid "Cancel plan"
 msgstr "Cancel plan"
 
+msgid "Cancel reply"
+msgstr "Cancel reply"
+
 msgid "Canceled"
 msgstr "Canceled"
 
@@ -3514,6 +3541,9 @@ msgstr "Checks passed"
 
 msgid "Checks Skipped"
 msgstr "Checks Skipped"
+
+msgid "Choose a {pluginLabel} account"
+msgstr "Choose a {pluginLabel} account"
 
 msgid "Choose a fighter"
 msgstr "Choose a fighter"
@@ -4158,6 +4188,9 @@ msgstr "Connect"
 msgid "Connect {name}"
 msgstr "Connect {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Connect {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Connect a device"
 
@@ -4220,6 +4253,9 @@ msgstr "Connect Slack to manage tasks from conversations. Mention the bot in any
 
 msgid "Connect this computer"
 msgstr "Connect this computer"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Connect your {pluginLabel} account, then reload this page."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Connect your coding agents to the apps your team already uses."
@@ -6077,6 +6113,9 @@ msgstr "Dismiss suggestions"
 msgid "Dismissed"
 msgstr "Dismissed"
 
+msgid "dismissed their review"
+msgstr "dismissed their review"
+
 msgid "Display"
 msgstr "Display"
 
@@ -6114,6 +6153,9 @@ msgstr "Docs"
 
 msgid "Documentation"
 msgstr "Documentation"
+
+msgid "Don't allow"
+msgstr "Don't allow"
 
 msgid "Don't ask again"
 msgstr "Don't ask again"
@@ -8586,6 +8628,9 @@ msgstr "Inspecting {0}"
 msgid "Install"
 msgstr "Install"
 
+msgid "Install {pluginLabel}?"
+msgstr "Install {pluginLabel}?"
+
 msgid "Install & restart"
 msgstr "Install & restart"
 
@@ -10785,9 +10830,6 @@ msgstr "No results for “{query}”"
 msgid "No results found."
 msgstr "No results found."
 
-msgid "No review body."
-msgstr "No review body."
-
 msgid "No Reviewers Assigned"
 msgstr "No Reviewers Assigned"
 
@@ -12243,6 +12285,9 @@ msgstr "Pinned"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Plain text"
+
 msgid "Plan"
 msgstr "Plan"
 
@@ -12358,6 +12403,9 @@ msgstr "Post"
 
 msgid "Post comment"
 msgstr "Post comment"
+
+msgid "Post reply"
+msgstr "Post reply"
 
 msgid "PR"
 msgstr "PR"
@@ -13409,6 +13457,9 @@ msgstr "Reply"
 
 msgid "Reply to thread…"
 msgstr "Reply to thread…"
+
+msgid "Replying to {replyingTo}"
+msgstr "Replying to {replyingTo}"
 
 msgid "repo"
 msgstr "repo"
@@ -17984,6 +18035,9 @@ msgstr "Use the desktop app to start running parallel coding agents."
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Use the Superset tray menu > Host Service > Restart, then retry."
 
+msgid "Use this account"
+msgstr "Use this account"
+
 msgid "Use this folder"
 msgstr "Use this folder"
 
@@ -18717,6 +18771,9 @@ msgstr "Worktrees are removed from disk; workspaces on the project's checkout on
 msgid "Would you like to reassign it?"
 msgstr "Would you like to reassign it?"
 
+msgid "Wrap lines"
+msgstr "Wrap lines"
+
 msgid "Write a comment"
 msgstr "Write a comment"
 
@@ -18728,6 +18785,9 @@ msgstr "Write a note and pick an agent. Your note arrives with the element's cod
 
 msgid "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
 msgstr "Write a prompt and pick a schedule. Each run opens a workspace you can review and continue."
+
+msgid "Write a reply"
+msgstr "Write a reply"
 
 msgid "Write a reply…"
 msgstr "Write a reply…"
