@@ -41,9 +41,13 @@ export function PullRequestCommentCard({
 	const layout = usePullRequestActivityLayout();
 	const requestReply = usePullRequestActivityReply();
 	const [copied, setCopied] = useState(false);
+	const foldable = comment.isResolved || Boolean(comment.isOutdated);
+	const [expanded, setExpanded] = useState(false);
+	const collapsed = foldable && !expanded;
 	const utils = workspaceTrpc.useUtils();
 	const resolve = workspaceTrpc.git.setReviewThreadResolution.useMutation({
-		onSuccess: () => {
+		onSuccess: (_result, input) => {
+			if (input.resolved) setExpanded(false);
 			void utils.git.getPullRequestThreads.invalidate({ workspaceId });
 		},
 		onError: () => {
@@ -56,9 +60,9 @@ export function PullRequestCommentCard({
 		return () => clearTimeout(timer);
 	}, [copied]);
 	const canOpenCode = Boolean(comment.path && onOpenInDiff);
-	// A folded row is itself a button, so the path cannot be one inside it;
-	// the footer's "Open in diff" still opens the file there.
-	const pathOpensDiff = canOpenCode && layout === "card";
+	// A folded row or a collapsed card is itself a button, so the path cannot
+	// be one inside it; the footer's "Open in diff" still opens the file there.
+	const pathOpensDiff = canOpenCode && layout === "card" && !collapsed;
 	const openCode = () => {
 		if (comment.path)
 			onOpenInDiff?.(
@@ -117,6 +121,8 @@ export function PullRequestCommentCard({
 			}
 			createdAt={comment.createdAt}
 			url={comment.url}
+			collapsed={collapsed}
+			onCollapsedChange={foldable ? (value) => setExpanded(!value) : undefined}
 			actions={
 				<>
 					<Button
