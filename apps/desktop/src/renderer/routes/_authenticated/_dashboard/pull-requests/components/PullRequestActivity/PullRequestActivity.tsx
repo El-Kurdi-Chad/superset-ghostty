@@ -2,7 +2,7 @@ import { plural } from "@lingui/core/macro";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { Skeleton } from "@superset/ui/skeleton";
 import { ArrowUpRight, LoaderCircle } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import type { PullRequestDetail } from "../../hooks/usePullRequestDetail";
 import { PullRequestActivityLayoutProvider } from "../../providers/PullRequestActivityLayoutProvider";
 import {
@@ -53,8 +53,7 @@ export function PullRequestActivity({
 	threads,
 }: PullRequestActivityProps) {
 	const { t } = useLingui();
-	const sectionRef = useRef<HTMLElement>(null);
-	const layout = usePullRequestActivityWidthLayout(sectionRef);
+	const { ref: sectionRef, layout } = usePullRequestActivityWidthLayout();
 	const [replyTo, setReplyTo] = useState<PullRequestReplyTarget | null>(null);
 	const items = useMemo(
 		() =>

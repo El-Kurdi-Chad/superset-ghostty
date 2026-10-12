@@ -12328,6 +12328,9 @@ msgstr "Đăng"
 msgid "Post comment"
 msgstr "Đăng bình luận"
 
+msgid "Post reply"
+msgstr "Đăng trả lời"
+
 msgid "PR"
 msgstr "PR"
 
@@ -13376,9 +13379,8 @@ msgstr "Trả lời"
 msgid "Reply to thread…"
 msgstr "Trả lời luồng…"
 
-#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
-msgid "Replying to {0}"
-msgstr "Đang trả lời {0}"
+msgid "Replying to {replyingTo}"
+msgstr "Đang trả lời {replyingTo}"
 
 msgid "repo"
 msgstr "repo"

@@ -12328,6 +12328,9 @@ msgstr "ポスト"
 msgid "Post comment"
 msgstr "コメントを投稿"
 
+msgid "Post reply"
+msgstr "返信を投稿"
+
 msgid "PR"
 msgstr "PR"
 
@@ -13376,9 +13379,8 @@ msgstr "返信"
 msgid "Reply to thread…"
 msgstr "スレッドに返信…"
 
-#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
-msgid "Replying to {0}"
-msgstr "{0} に返信"
+msgid "Replying to {replyingTo}"
+msgstr "{replyingTo} に返信"
 
 msgid "repo"
 msgstr "リポジトリ"

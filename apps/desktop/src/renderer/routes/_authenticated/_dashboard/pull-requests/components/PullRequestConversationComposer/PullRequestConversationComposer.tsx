@@ -32,15 +32,27 @@ export function PullRequestConversationComposer({
 	onCancelReply,
 }: PullRequestConversationComposerProps) {
 	const { t } = useLingui();
-	const [body, setBody] = useState("");
+	// One draft per destination: choosing a thread to reply to must not carry
+	// a half-written conversation comment along, and cancelling the reply
+	// brings that comment back.
+	const [drafts, setDrafts] = useState({ conversation: "", reply: "" });
+	const body = replyTo ? drafts.reply : drafts.conversation;
+	const setBody = (text: string) =>
+		setDrafts((current) =>
+			replyTo
+				? { ...current, reply: text }
+				: { ...current, conversation: text },
+		);
 	const fieldRef = useRef<HTMLTextAreaElement>(null);
 	// mutation.isPending updates on React's schedule, too late to stop a
 	// rapid double Enter from posting twice.
 	const submittingRef = useRef(false);
 	const invalidate = useInvalidatePullRequestDetail(target);
+	const replyCommentId = replyTo?.commentId;
 	useEffect(() => {
-		if (replyTo) fieldRef.current?.focus();
-	}, [replyTo]);
+		setDrafts((current) => ({ ...current, reply: "" }));
+		if (replyCommentId !== undefined) fieldRef.current?.focus();
+	}, [replyCommentId]);
 	const post = useMutation({
 		mutationFn: async (text: string) => {
 			const client = getHostServiceClientByUrl(target.hostUrl);
@@ -87,12 +99,13 @@ export function PullRequestConversationComposer({
 	const placeholder = replyTo
 		? t({ message: "Write a reply" })
 		: t({ message: "Leave a comment" });
+	const replyingTo = replyTo ? pullRequestAuthorLabel(replyTo.author) : null;
 	return (
 		<div className="rounded-xl border border-border/60 bg-background shadow-sm">
-			{replyTo ? (
+			{replyingTo ? (
 				<div className="flex items-center gap-2 px-3 pt-2 text-[11px] text-muted-foreground">
 					<span className="min-w-0 truncate">
-						<Trans>Replying to {pullRequestAuthorLabel(replyTo.author)}</Trans>
+						<Trans>Replying to {replyingTo}</Trans>
 					</span>
 					<button
 						type="button"
@@ -134,7 +147,11 @@ export function PullRequestConversationComposer({
 				<button
 					type="button"
 					disabled={!canSubmit}
-					aria-label={t({ message: "Post comment" })}
+					aria-label={
+						replyTo
+							? t({ message: "Post reply" })
+							: t({ message: "Post comment" })
+					}
 					onClick={submit}
 					className="flex size-7 shrink-0 items-center justify-center rounded-md border border-border/60 bg-muted/60 text-foreground transition-colors hover:bg-muted disabled:opacity-40"
 				>

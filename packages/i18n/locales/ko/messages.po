@@ -12328,6 +12328,9 @@ msgstr "게시"
 msgid "Post comment"
 msgstr "댓글 게시"
 
+msgid "Post reply"
+msgstr "답글 게시"
+
 msgid "PR"
 msgstr "PR"
 
@@ -13376,9 +13379,8 @@ msgstr "답글"
 msgid "Reply to thread…"
 msgstr "스레드에 답글…"
 
-#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
-msgid "Replying to {0}"
-msgstr "{0}에게 답글"
+msgid "Replying to {replyingTo}"
+msgstr "{replyingTo}에게 답글"
 
 msgid "repo"
 msgstr "리포"

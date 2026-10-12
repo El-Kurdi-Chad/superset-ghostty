@@ -134,6 +134,13 @@
 	border-left: 2px solid var(--border);
 	padding: 0.1rem 0 0.1rem 0.8rem;
 	color: var(--muted-foreground);
+	font-style: normal;
+}
+
+/* Bots speak in quotes ("[!NOTE] Currently processing…"); set in italics
+ * they read as an aside. The description keeps GitHub's upright quotes. */
+.pull-request-markdown.pull-request-markdown-comment.default-markdown
+blockquote {
 	font-style: italic;
 }
 
@@ -222,6 +229,14 @@
 	font-weight: 600;
 }
 
+/* Prose breaks anywhere so a cell never forces a scroll, but a code token
+ * (a path, an identifier) must stay whole: it widens its column past the
+ * frame, and the frame scrolls, as GitHub's tables do. */
+.pull-request-markdown.default-markdown td code,
+.pull-request-markdown.default-markdown th code {
+	overflow-wrap: normal;
+}
+
 .pull-request-markdown.default-markdown tr + tr > td {
 	border-top: 1px solid color-mix(in srgb, var(--foreground) 6%, transparent);
 }
@@ -234,12 +249,16 @@
 
 /* GitHub lays images inline, so a badge or icon sits in its sentence; the
  * app's preflight makes every image a block, and the renderer's margins are
- * for a figure on its own line. */
+ * for a figure on its own line. A height the markup asks for is honoured
+ * (the renderer sets it inline); only an unhinted image scales with width. */
 .pull-request-markdown.default-markdown img {
 	display: inline;
 	max-width: 100%;
-	height: auto;
 	margin: 0;
+}
+
+.pull-request-markdown.default-markdown img:not([height]) {
+	height: auto;
 }
 
 /* Bots indent a fold's content with <dl><dd>, which GitHub pads. */

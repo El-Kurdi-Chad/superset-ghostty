@@ -12328,6 +12328,9 @@ msgstr "Paylaş"
 msgid "Post comment"
 msgstr "Yorum gönder"
 
+msgid "Post reply"
+msgstr "Yanıt gönder"
+
 msgid "PR"
 msgstr "PR"
 
@@ -13376,9 +13379,8 @@ msgstr "Yanıtla"
 msgid "Reply to thread…"
 msgstr "Konuya yanıt verin…"
 
-#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
-msgid "Replying to {0}"
-msgstr "{0} kullanıcısına yanıt"
+msgid "Replying to {replyingTo}"
+msgstr "{replyingTo} kullanıcısına yanıt"
 
 msgid "repo"
 msgstr "depo"

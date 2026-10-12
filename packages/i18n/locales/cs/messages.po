@@ -12328,6 +12328,9 @@ msgstr "Zveřejnit"
 msgid "Post comment"
 msgstr "Odeslat komentář"
 
+msgid "Post reply"
+msgstr "Odeslat odpověď"
+
 msgid "PR"
 msgstr "PR"
 
@@ -13376,9 +13379,8 @@ msgstr "Odpovědět"
 msgid "Reply to thread…"
 msgstr "Odpovědět do vlákna…"
 
-#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
-msgid "Replying to {0}"
-msgstr "Odpověď pro {0}"
+msgid "Replying to {replyingTo}"
+msgstr "Odpověď pro {replyingTo}"
 
 msgid "repo"
 msgstr "repo"

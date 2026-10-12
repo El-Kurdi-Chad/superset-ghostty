@@ -1,16 +1,22 @@
-import { type RefObject, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import type { PullRequestActivityLayout } from "../../../../providers/PullRequestActivityLayoutProvider";
 
 /** Below this the rail and its cards give way to folded rows. */
 const CARD_MIN_WIDTH_REM = 30;
 
-export function usePullRequestActivityWidthLayout(
-	sectionRef: RefObject<HTMLElement | null>,
-): PullRequestActivityLayout {
+/**
+ * The layout for the section's measured width. The ref is a callback so a
+ * section that mounts after the first render (an older host answers the
+ * threads later than the detail) is observed from the moment it exists.
+ */
+export function usePullRequestActivityWidthLayout(): {
+	ref: (section: HTMLElement | null) => void;
+	layout: PullRequestActivityLayout;
+} {
+	const [section, setSection] = useState<HTMLElement | null>(null);
 	const [layout, setLayout] = useState<PullRequestActivityLayout>("card");
 
 	useLayoutEffect(() => {
-		const section = sectionRef.current;
 		if (!section) return;
 
 		const update = () => {
@@ -31,7 +37,7 @@ export function usePullRequestActivityWidthLayout(
 		const observer = new ResizeObserver(update);
 		observer.observe(section);
 		return () => observer.disconnect();
-	}, [sectionRef]);
+	}, [section]);
 
-	return layout;
+	return { ref: setSection, layout };
 }

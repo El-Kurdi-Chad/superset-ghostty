@@ -12328,6 +12328,9 @@ msgstr "釋出"
 msgid "Post comment"
 msgstr "發表評論"
 
+msgid "Post reply"
+msgstr "發表回覆"
+
 msgid "PR"
 msgstr "PR"
 
@@ -13376,9 +13379,8 @@ msgstr "回覆"
 msgid "Reply to thread…"
 msgstr "回覆討論串…"
 
-#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
-msgid "Replying to {0}"
-msgstr "回覆 {0}"
+msgid "Replying to {replyingTo}"
+msgstr "回覆 {replyingTo}"
 
 msgid "repo"
 msgstr "儲存庫"

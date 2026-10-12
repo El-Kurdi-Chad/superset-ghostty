@@ -29,9 +29,7 @@ function loadsDirectly(src: string, fromDisk: boolean): boolean {
 export type ImageAlignment = "top" | "middle" | "bottom" | "left" | "right";
 
 /** The HTML `align` attribute as GitHub lays it out: a float with a gutter, or a vertical alignment. */
-function alignmentStyle(
-	align: ImageAlignment | undefined,
-): CSSProperties | undefined {
+function alignmentStyle(align: ImageAlignment | undefined): CSSProperties {
 	switch (align) {
 		case "left":
 			return { float: "left", paddingRight: 20 };
@@ -42,8 +40,27 @@ function alignmentStyle(
 		case "bottom":
 			return { verticalAlign: align };
 		default:
-			return undefined;
+			return {};
 	}
+}
+
+/**
+ * The markup's size hints as inline styles. Stylesheets set images to an
+ * automatic height, which would beat the `height` attribute and render a
+ * height-only badge at its natural size; an inline style beats them.
+ */
+function hintStyle(
+	height: number | string | undefined,
+	align: ImageAlignment | undefined,
+): CSSProperties | undefined {
+	const style = alignmentStyle(align);
+	if (height !== undefined && height !== "") {
+		style.height =
+			typeof height === "string" && /^\d+$/.test(height)
+				? Number(height)
+				: height;
+	}
+	return Object.keys(style).length > 0 ? style : undefined;
 }
 
 interface SafeImageProps {
@@ -87,7 +104,7 @@ export function SafeImage({
 					alt={alt}
 					width={width}
 					height={height}
-					style={alignmentStyle(align)}
+					style={hintStyle(height, align)}
 					className={imageClassName}
 					onError={() => setUndecodableUrl(local.url)}
 				/>
@@ -100,7 +117,7 @@ export function SafeImage({
 				alt={alt}
 				width={width}
 				height={height}
-				style={alignmentStyle(align)}
+				style={hintStyle(height, align)}
 				className={imageClassName}
 			/>
 		);

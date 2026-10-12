@@ -12328,6 +12328,9 @@ msgstr "Opublikuj"
 msgid "Post comment"
 msgstr "Opublikuj komentarz"
 
+msgid "Post reply"
+msgstr "Opublikuj odpowiedź"
+
 msgid "PR"
 msgstr "PR"
 
@@ -13376,9 +13379,8 @@ msgstr "Odpowiedz"
 msgid "Reply to thread…"
 msgstr "Odpowiedz w wątku…"
 
-#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
-msgid "Replying to {0}"
-msgstr "Odpowiedź dla {0}"
+msgid "Replying to {replyingTo}"
+msgstr "Odpowiedź dla {replyingTo}"
 
 msgid "repo"
 msgstr "repo"

@@ -12328,6 +12328,9 @@ msgstr "发布"
 msgid "Post comment"
 msgstr "发表评论"
 
+msgid "Post reply"
+msgstr "发表回复"
+
 msgid "PR"
 msgstr "PR"
 
@@ -13376,9 +13379,8 @@ msgstr "回复"
 msgid "Reply to thread…"
 msgstr "回复讨论串…"
 
-#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
-msgid "Replying to {0}"
-msgstr "回复 {0}"
+msgid "Replying to {replyingTo}"
+msgstr "回复 {replyingTo}"
 
 msgid "repo"
 msgstr "仓库"

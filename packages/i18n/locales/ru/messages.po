@@ -12328,6 +12328,9 @@ msgstr "Опубликовать"
 msgid "Post comment"
 msgstr "Отправить комментарий"
 
+msgid "Post reply"
+msgstr "Отправить ответ"
+
 msgid "PR"
 msgstr "PR"
 
@@ -13376,9 +13379,8 @@ msgstr "Ответить"
 msgid "Reply to thread…"
 msgstr "Ответить в ветке…"
 
-#. placeholder {0}: pullRequestAuthorLabel(replyTo.author)
-msgid "Replying to {0}"
-msgstr "Ответ для {0}"
+msgid "Replying to {replyingTo}"
+msgstr "Ответ для {replyingTo}"
 
 msgid "repo"
 msgstr "репозиторий"
