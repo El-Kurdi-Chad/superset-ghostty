@@ -32,6 +32,38 @@ export const userContentSchema = z.discriminatedUnion("type", [
 ]);
 export type UserContent = z.infer<typeof userContentSchema>;
 
+/**
+ * An image the agent read, captured, or was handed by a tool. Its bytes live
+ * at a worktree-relative path, the same place user uploads go, so an item
+ * carries a reference and never the image itself.
+ */
+export const imageAttachmentSchema = z.looseObject({
+	type: z.literal("image"),
+	path: z.string().min(1),
+	mimeType: z.string(),
+	alt: z.string().optional(),
+	width: z.number().int().positive().optional(),
+	height: z.number().int().positive().optional(),
+});
+export type ImageAttachment = z.infer<typeof imageAttachmentSchema>;
+
+export const unknownAttachmentSchema = z.looseObject({
+	type: z.string().min(1),
+});
+export type UnknownAttachment = z.infer<typeof unknownAttachmentSchema>;
+
+export const itemAttachmentSchema = z.union([
+	imageAttachmentSchema,
+	unknownAttachmentSchema,
+]);
+export type ItemAttachment = ImageAttachment | UnknownAttachment;
+
+export function isImageAttachment(
+	attachment: ItemAttachment,
+): attachment is ImageAttachment {
+	return attachment.type === "image";
+}
+
 export const toolContentSchema = z.discriminatedUnion("type", [
 	z.looseObject({ type: z.literal("text"), text: z.string() }),
 	z.looseObject({
@@ -90,6 +122,7 @@ export const agentMessageSchema = z.looseObject({
 	...itemBaseFields,
 	kind: z.literal("agent_message"),
 	text: z.string(),
+	attachments: z.array(itemAttachmentSchema).optional(),
 });
 export type AgentMessage = z.infer<typeof agentMessageSchema>;
 
@@ -126,6 +159,7 @@ export const toolCallSchema = z.looseObject({
 	rawInput: z.unknown().optional(),
 	rawOutput: z.unknown().optional(),
 	subagent: z.boolean().optional(),
+	attachments: z.array(itemAttachmentSchema).optional(),
 	bodyOmitted: z.boolean().optional(),
 	mcpServer: z
 		.looseObject({
