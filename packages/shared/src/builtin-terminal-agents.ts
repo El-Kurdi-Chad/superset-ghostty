@@ -147,6 +147,16 @@ export const BUILTIN_TERMINAL_AGENTS = [
 		nonInteractiveCommand: "pi --no-tools -p",
 	}),
 	createBuiltinTerminalAgent({
+		id: "pdev",
+		label: "Paradev",
+		description:
+			"Paradev's coding agent, built on Pi, that routes each task to a model through the Paradev router.",
+		command: "pdev",
+		resumeCommand: "pdev --session",
+		forkCommand: "pdev --fork {sessionId}",
+		nonInteractiveCommand: "pdev -p",
+	}),
+	createBuiltinTerminalAgent({
 		id: "copilot",
 		label: "Copilot",
 		description:
