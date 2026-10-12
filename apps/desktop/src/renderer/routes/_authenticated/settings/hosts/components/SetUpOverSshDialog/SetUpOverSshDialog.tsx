@@ -65,9 +65,19 @@ export function SetUpOverSshDialog({
 	};
 
 	return (
-		<Dialog open={open} modal onOpenChange={onOpenChange}>
+		<Dialog
+			open={open}
+			modal
+			onOpenChange={(next) => {
+				if (phase !== "running") onOpenChange(next);
+			}}
+		>
 			<DialogContent
 				className="gap-3 sm:max-w-[752px]"
+				showCloseButton={phase !== "running"}
+				onEscapeKeyDown={(event) => {
+					if (phase === "running") event.preventDefault();
+				}}
 				onInteractOutside={(event) => {
 					if (phase === "running") event.preventDefault();
 				}}
@@ -81,8 +91,8 @@ export function SetUpOverSshDialog({
 					</DialogTitle>
 					<DialogDescription>
 						<Trans>
-							Installs Superset on a machine you can reach with ssh, signs it
-							in, and keeps it running as a service.
+							Installs Superset on a machine you can reach with ssh, signs
+							Superset in to your account, and keeps it running as a service.
 						</Trans>
 					</DialogDescription>
 				</DialogHeader>

@@ -8604,8 +8604,8 @@ msgstr "Installed via"
 msgid "Installing..."
 msgstr "Installing..."
 
-msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
-msgstr "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
+msgid "Installs Superset on a machine you can reach with ssh, signs Superset in to your account, and keeps it running as a service."
+msgstr "Installs Superset on a machine you can reach with ssh, signs Superset in to your account, and keeps it running as a service."
 
 msgid "Instructions"
 msgstr "Instructions"

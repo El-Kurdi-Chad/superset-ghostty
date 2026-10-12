@@ -8604,8 +8604,8 @@ msgstr "설치 경로"
 msgid "Installing..."
 msgstr "설치 중..."
 
-msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
-msgstr "ssh로 접속할 수 있는 머신에 Superset을 설치하고 로그인한 뒤 서비스로 계속 실행합니다."
+msgid "Installs Superset on a machine you can reach with ssh, signs Superset in to your account, and keeps it running as a service."
+msgstr "ssh로 접속할 수 있는 머신에 Superset을 설치하고, Superset을 내 계정으로 로그인시킨 뒤 서비스로 계속 실행합니다."
 
 msgid "Instructions"
 msgstr "지침"

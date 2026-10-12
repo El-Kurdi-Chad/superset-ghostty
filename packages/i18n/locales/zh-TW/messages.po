@@ -8604,8 +8604,8 @@ msgstr "安裝方式"
 msgid "Installing..."
 msgstr "正在安裝..."
 
-msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
-msgstr "在可透過 ssh 連線的機器上安裝 Superset、完成登入，並以服務形式持續執行。"
+msgid "Installs Superset on a machine you can reach with ssh, signs Superset in to your account, and keeps it running as a service."
+msgstr "在可透過 ssh 連線的機器上安裝 Superset，將 Superset 登入你的帳戶，並讓它以服務形式持續執行。"
 
 msgid "Instructions"
 msgstr "說明"

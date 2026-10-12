@@ -8604,8 +8604,8 @@ msgstr "Kurulum yolu"
 msgid "Installing..."
 msgstr "Kuruluyor..."
 
-msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
-msgstr "ssh ile erişebildiğin bir makineye Superset'i kurar, oturum açar ve bir hizmet olarak çalışır durumda tutar."
+msgid "Installs Superset on a machine you can reach with ssh, signs Superset in to your account, and keeps it running as a service."
+msgstr "ssh ile erişebildiğin bir makineye Superset'i kurar, Superset'te hesabınla oturum açar ve Superset'i bir hizmet olarak çalışır durumda tutar."
 
 msgid "Instructions"
 msgstr "Yönergeler"

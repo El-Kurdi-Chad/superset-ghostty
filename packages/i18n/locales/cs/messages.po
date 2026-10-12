@@ -8604,8 +8604,8 @@ msgstr "Nainstalováno přes"
 msgid "Installing..."
 msgstr "Instaluji..."
 
-msgid "Installs Superset on a machine you can reach with ssh, signs it in, and keeps it running as a service."
-msgstr "Nainstaluje Superset na počítač dostupný přes ssh, přihlásí ho a udržuje ho spuštěný jako službu."
+msgid "Installs Superset on a machine you can reach with ssh, signs Superset in to your account, and keeps it running as a service."
+msgstr "Nainstaluje Superset na počítač dostupný přes ssh, přihlásí Superset k vašemu účtu a udržuje Superset spuštěný jako službu."
 
 msgid "Instructions"
 msgstr "Instrukce"
