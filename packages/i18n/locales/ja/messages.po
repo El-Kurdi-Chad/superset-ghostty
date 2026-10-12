@@ -2785,9 +2785,6 @@ msgstr "オートメーションに戻る"
 msgid "Back to billing"
 msgstr "請求に戻る"
 
-msgid "Back to Blog"
-msgstr "ブログに戻る"
-
 msgid "Back to Changelog"
 msgstr "Changelogに戻る"
 

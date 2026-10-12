@@ -2785,9 +2785,6 @@ msgstr "Назад к автоматизациям"
 msgid "Back to billing"
 msgstr "Назад к оплате"
 
-msgid "Back to Blog"
-msgstr "К блогу"
-
 msgid "Back to Changelog"
 msgstr "К changelog"
 

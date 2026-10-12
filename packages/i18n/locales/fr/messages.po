@@ -2785,9 +2785,6 @@ msgstr "Retour aux automatisations"
 msgid "Back to billing"
 msgstr "Retour à la facturation"
 
-msgid "Back to Blog"
-msgstr "Retour au blog"
-
 msgid "Back to Changelog"
 msgstr "Retour au changelog"
 

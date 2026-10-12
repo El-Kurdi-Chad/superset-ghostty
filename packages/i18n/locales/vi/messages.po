@@ -2785,9 +2785,6 @@ msgstr "Quay lại tự động hóa"
 msgid "Back to billing"
 msgstr "Quay lại thanh toán"
 
-msgid "Back to Blog"
-msgstr "Quay lại Blog"
-
 msgid "Back to Changelog"
 msgstr "Quay lại Changelog"
 

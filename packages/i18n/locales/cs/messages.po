@@ -2785,9 +2785,6 @@ msgstr "Zpět na automatizace"
 msgid "Back to billing"
 msgstr "Zpět na fakturaci"
 
-msgid "Back to Blog"
-msgstr "Zpět na blog"
-
 msgid "Back to Changelog"
 msgstr "Zpět na changelog"
 

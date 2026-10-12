@@ -2785,9 +2785,6 @@ msgstr "返回自动化"
 msgid "Back to billing"
 msgstr "返回账单"
 
-msgid "Back to Blog"
-msgstr "返回博客"
-
 msgid "Back to Changelog"
 msgstr "返回更新日志"
 

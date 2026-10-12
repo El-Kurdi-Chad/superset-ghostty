@@ -2785,9 +2785,6 @@ msgstr "Otomasyonlara dön"
 msgid "Back to billing"
 msgstr "Faturalandırmaya dön"
 
-msgid "Back to Blog"
-msgstr "Blog'a dön"
-
 msgid "Back to Changelog"
 msgstr "Değişiklik günlüğüne dön"
 
