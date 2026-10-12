@@ -3730,7 +3730,7 @@ msgid "Close"
 msgstr "关闭"
 
 msgid "Close (Esc)"
-msgstr "关闭 (Esc)"
+msgstr "关闭（Esc）"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -10308,7 +10308,7 @@ msgid "Next"
 msgstr "下一页"
 
 msgid "Next (Enter)"
-msgstr "下一页 (Enter)"
+msgstr "下一个匹配项（Enter）"
 
 msgid "Next branch"
 msgstr "下一个分支"
@@ -12483,7 +12483,7 @@ msgid "Previous"
 msgstr "上一页"
 
 msgid "Previous (Shift+Enter)"
-msgstr "上一页 (Shift+Enter)"
+msgstr "上一个匹配项（Shift+Enter）"
 
 msgid "Previous branch"
 msgstr "上一个分支"

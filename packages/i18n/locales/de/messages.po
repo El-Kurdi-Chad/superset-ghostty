@@ -10308,7 +10308,7 @@ msgid "Next"
 msgstr "Weiter"
 
 msgid "Next (Enter)"
-msgstr "Weiter (Enter)"
+msgstr "Weiter (Eingabetaste)"
 
 msgid "Next branch"
 msgstr "Nächster Branch"
@@ -12483,7 +12483,7 @@ msgid "Previous"
 msgstr "Zurück"
 
 msgid "Previous (Shift+Enter)"
-msgstr "Zurück (Shift+Enter)"
+msgstr "Zurück (Umschalt+Eingabetaste)"
 
 msgid "Previous branch"
 msgstr "Vorheriger Branch"
