@@ -32,11 +32,7 @@ export const userContentSchema = z.discriminatedUnion("type", [
 ]);
 export type UserContent = z.infer<typeof userContentSchema>;
 
-/**
- * An image the agent read, captured, or was handed by a tool. Its bytes live
- * at a worktree-relative path, the same place user uploads go, so an item
- * carries a reference and never the image itself.
- */
+/** `path` is relative to the worktree. An item never carries image bytes. */
 export const imageAttachmentSchema = z.looseObject({
 	type: z.literal("image"),
 	path: z.string().min(1),

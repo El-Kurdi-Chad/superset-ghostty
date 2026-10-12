@@ -1,6 +1,5 @@
 import type { AcpContentBlock } from "../wire";
 
-/** An image an ACP block carries: inline bytes, or a file the agent linked. */
 export type AcpImageSource =
 	| { kind: "bytes"; mimeType: string; bytes: Uint8Array; name?: string }
 	| { kind: "file"; mimeType: string; path: string; name?: string };
@@ -33,15 +32,11 @@ function nameOf(block: AcpContentBlock): string | undefined {
 	return undefined;
 }
 
-/**
- * The image behind a content block, or null when the block is not one this
- * can store: an `image` block with base64 data, or a `resource_link` to a
- * local file whose type (declared, else by extension) is an image.
- */
 export function imageSourceOf(
 	block: AcpContentBlock | undefined,
 ): AcpImageSource | null {
 	if (!block) return null;
+	const name = nameOf(block);
 	if (block.type === "image") {
 		const { data, mimeType } = block as { data?: unknown; mimeType?: unknown };
 		if (typeof data !== "string" || data === "" || !isImageMime(mimeType))
@@ -50,7 +45,7 @@ export function imageSourceOf(
 			kind: "bytes",
 			mimeType,
 			bytes: new Uint8Array(Buffer.from(data, "base64")),
-			...(nameOf(block) ? { name: nameOf(block) } : {}),
+			...(name ? { name } : {}),
 		};
 	}
 	if (block.type === "resource_link") {
@@ -63,7 +58,7 @@ export function imageSourceOf(
 			kind: "file",
 			mimeType: resolvedMime,
 			path,
-			...(nameOf(block) ? { name: nameOf(block) } : {}),
+			...(name ? { name } : {}),
 		};
 	}
 	return null;
@@ -74,9 +69,8 @@ function isImageBlock(value: Record<string, unknown>): boolean {
 }
 
 /**
- * The same value with every inline image payload emptied. A tool result's
- * raw fields can repeat the image the content block carried, in ACP's shape
- * or the model API's, and the journal stores raw fields as they are.
+ * The journal stores raw tool fields as they are, and a tool result can
+ * repeat its image there.
  */
 export function withoutImageData(raw: unknown): unknown {
 	if (Array.isArray(raw)) {

@@ -36,10 +36,10 @@ import {
 } from "./air";
 import {
 	type AcpImageSource,
-	imageDimensions,
 	imageSourceOf,
 	withoutImageData,
 } from "./imageBlocks";
+import { imageDimensions } from "./imageDimensions";
 import type {
 	AcpNotification,
 	AcpServerRequest,
@@ -167,7 +167,7 @@ export type AcpAttachment = {
 	data: string;
 };
 
-/** Where an image the agent sent now lives, relative to the session's cwd. */
+/** `path` is relative to the session cwd. */
 export type AcpStoredImage = { path: string };
 
 const SELECTION_WAIT_MS = 5000;
@@ -179,10 +179,7 @@ export type AcpAdapterOptions = SpawnAcpOptions & {
 	/** How long a prompt waits for mode and option changes the agent has not answered. */
 	selectionWaitMs?: number;
 	resolveAttachment?: (attachmentId: string) => Promise<AcpAttachment | null>;
-	/**
-	 * Keeps an image the agent sent and answers with its path; an item carries
-	 * that path, never the bytes. Without it, images are dropped.
-	 */
+	/** Without it, images the agent sends are dropped. */
 	storeImage?: (image: AcpImageSource, cwd: string) => AcpStoredImage | null;
 	onSpawn?: (pid: number) => void;
 	backgroundDetailIntervalMs?: number;
@@ -1239,10 +1236,6 @@ export class AcpAdapter implements HarnessAdapter {
 		this.emitItem(item, turnId);
 	}
 
-	/**
-	 * What a tool call shows: text, diffs and terminal output as content, and
-	 * the images it sent as attachments, each kept on disk by `storeImage`.
-	 */
 	private toolBody(content: AcpToolCallContent[]): {
 		content: ToolContent[];
 		attachments: ItemAttachment[];

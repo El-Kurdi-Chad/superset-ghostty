@@ -13,9 +13,8 @@ import {
 } from "./items";
 
 /**
- * The item schemas as desktop-v1.37.0 shipped them, frozen: this is what a
- * released client runs against an envelope from a newer host, and it must not
- * follow the live schema or the test proves nothing.
+ * Frozen copy of the schemas in desktop-v1.37.0. Do not import the live
+ * ones: the test must fail when a change breaks a released client.
  */
 const releasedItemBaseFields = {
 	id: z.string().min(1),

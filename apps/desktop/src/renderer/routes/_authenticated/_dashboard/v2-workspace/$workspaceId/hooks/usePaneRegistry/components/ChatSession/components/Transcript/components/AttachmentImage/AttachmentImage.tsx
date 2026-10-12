@@ -7,7 +7,6 @@ import { useChatPaneActions } from "../../../../providers/ChatPaneActionsProvide
 import { LargeImageTile } from "./components/LargeImageTile";
 import { PreviewableImage } from "./components/PreviewableImage";
 
-/** A thumbnail is small; a screenshot over this only opens in the overlay. */
 const MAX_THUMBNAIL_BYTES = 5 * 1024 * 1024;
 const MAX_PREVIEW_BYTES = 25 * 1024 * 1024;
 

@@ -5,10 +5,6 @@ import { useSaveImageToDownloads } from "renderer/routes/_authenticated/hooks/us
 
 type Preview = { src: string; filename: string };
 
-/**
- * A pending image pill opens in the preview overlay from the object URL the
- * composer already shows as its thumbnail; any other pill keeps no click.
- */
 export function useAttachmentPreview(): {
 	onAttachmentClick: (attachment: PromptInputAttachment) => void;
 	overlay: ReactNode;

@@ -1,10 +1,6 @@
 import { useLingui } from "@lingui/react/macro";
 import { ImageIcon } from "lucide-react";
 
-/**
- * Stands in for an image too large to thumbnail: the same box, a glyph and
- * the file name, and the click still opens the overlay.
- */
 export function LargeImageTile({
 	filename,
 	onClick,

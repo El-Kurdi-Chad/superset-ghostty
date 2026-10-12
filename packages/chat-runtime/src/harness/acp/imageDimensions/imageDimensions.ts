@@ -50,11 +50,6 @@ function jpegDimensions(bytes: Uint8Array): ImageDimensions | null {
 	return null;
 }
 
-/**
- * The pixel size read from the file header alone, so no image has to be
- * decoded on the host. Null for a format this does not read or a header too
- * short to trust.
- */
 export function imageDimensions(bytes: Uint8Array): ImageDimensions | null {
 	const dimensions =
 		pngDimensions(bytes) ?? gifDimensions(bytes) ?? jpegDimensions(bytes);

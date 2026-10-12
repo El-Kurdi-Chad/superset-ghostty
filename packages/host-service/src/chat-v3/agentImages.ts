@@ -34,9 +34,7 @@ function stemFor(name: string | undefined): string {
 	const sanitized = name
 		? sanitizeAttachmentFileName(basename(name, extname(name)))
 		: null;
-	return sanitized && sanitized !== "." && sanitized !== ".."
-		? sanitized
-		: "image";
+	return sanitized ?? "image";
 }
 
 function attachmentsDir(cwd: string): string {
@@ -61,11 +59,8 @@ function bytesOf(source: AcpImageSource): Uint8Array | null {
 }
 
 /**
- * Keeps an image the agent sent next to the user's own uploads, under the
- * worktree's attachments directory, and answers with the path an item stores.
- * The name carries a hash of the bytes, so a replayed transcript lands on the
- * file it wrote the first time instead of a copy. A linked file that already
- * lives there is answered as it is.
+ * A session replay sends every image again. The hash in the name makes it
+ * land on the file written the first time.
  */
 export function storeAgentImage(
 	source: AcpImageSource,

@@ -48,7 +48,6 @@ function toolImages(tools: readonly ToolCall[]): ImageAttachment[] {
 	);
 }
 
-/** Under the row, where a collapsed run still shows what its tools saw. */
 function imageRail(tools: readonly ToolCall[]): ReactNode {
 	const images = toolImages(tools);
 	return images.length > 0 ? (
