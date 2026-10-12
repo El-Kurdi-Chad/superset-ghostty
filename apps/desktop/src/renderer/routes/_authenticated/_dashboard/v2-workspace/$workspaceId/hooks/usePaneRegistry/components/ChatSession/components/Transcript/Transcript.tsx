@@ -35,13 +35,19 @@ import {
 } from "../../constants";
 import type { ChatForkTarget } from "../../types";
 import { pageLinkFinder } from "../../utils/pageLinks";
+import { TranscriptFindBar } from "./components/TranscriptFindBar";
 import { TranscriptRowItem } from "./components/TranscriptRowItem";
 import { useLoadOlderOnReach } from "./hooks/useLoadOlderOnReach";
 import { useNearRows } from "./hooks/useNearRows";
 import { useScrollAnchorKey } from "./hooks/useScrollAnchorKey";
 import { useScrollbarGutter } from "./hooks/useScrollbarGutter";
+import { useTranscriptFind } from "./hooks/useTranscriptFind";
 import { lastReplyKeys } from "./utils/lastReplyKeys";
-import { type TranscriptRow, transcriptRows } from "./utils/transcriptRows";
+import {
+	rowMessageId,
+	type TranscriptRow,
+	transcriptRows,
+} from "./utils/transcriptRows";
 
 const findPageLinks = pageLinkFinder(env.NEXT_PUBLIC_WEB_URL);
 const REMEMBER_SIZE_CLASSNAME = "[contain-intrinsic-size:auto_240px]";
@@ -70,6 +76,10 @@ export type TranscriptProps = {
 	canForkToWorktree?: boolean;
 	onRetryPrompt: (clientId: string) => void;
 	onDiscardPrompt: (clientId: string) => void;
+	/** The pane has focus, so ⌘F opens the find bar here. */
+	isActive?: boolean;
+	/** The find bar closed; focus belongs back in the composer. */
+	onCloseFind?: (() => void) | undefined;
 };
 
 function isWork(row: TranscriptRow | undefined): boolean {
@@ -89,17 +99,13 @@ function proseTopPadding(
 	return isWork(previous) ? "pt-1" : "pt-3";
 }
 
-function rowMessageId(row: TranscriptRow): string {
-	if (row.kind === "item") return row.item.id;
-	if (row.kind === "tool_run") return row.items[0]?.id ?? row.key;
-	return row.key;
-}
-
 export function Transcript({
 	approvals,
 	canForkToWorktree,
 	groups,
 	hasOlder,
+	isActive = false,
+	onCloseFind,
 	onDiscardPrompt,
 	onFork,
 	onLoadOlder,
@@ -112,7 +118,6 @@ export function Transcript({
 	const { t } = useLingui();
 	const [viewportRef, scrollbarGutter, viewport] =
 		useScrollbarGutter<HTMLDivElement>();
-	const olderPages = useLoadOlderOnReach({ hasOlder, onLoadOlder });
 	const scroller = useMessageScroller();
 	const scrollerRef = useRef(scroller);
 	scrollerRef.current = scroller;
@@ -226,6 +231,23 @@ export function Transcript({
 		readerScrolledAway,
 	});
 
+	const find = useTranscriptFind({
+		rows,
+		snapshot,
+		viewport,
+		isActive,
+		isEntryCollapsed,
+		onToggleEntry,
+		scrollToMessage: scroller.scrollToMessage,
+		onClose: onCloseFind,
+	});
+	// A search covers the whole conversation, so it pages every turn in.
+	const olderPages = useLoadOlderOnReach({
+		hasOlder,
+		onLoadOlder,
+		eager: find.isOpen,
+	});
+
 	const firstPendingApprovalId = approvals[0]?.id ?? null;
 	useEffect(() => {
 		if (!firstPendingApprovalId || !awayFromEndRef.current) return;
@@ -256,7 +278,12 @@ export function Transcript({
 				onRespond={onRespond}
 				onRetryPrompt={onRetryPrompt}
 				onToggleEntry={onToggleEntry}
-				rendered={recent || scrollAnchor || seenRowKeys.has(row.key)}
+				rendered={
+					recent ||
+					scrollAnchor ||
+					seenRowKeys.has(row.key) ||
+					row.key === find.currentRowKey
+				}
 				row={row}
 				rowRef={observeRow(row.key)}
 				scrollAnchor={scrollAnchor}
@@ -267,6 +294,18 @@ export function Transcript({
 
 	return (
 		<MessageScroller.Root className="relative flex min-h-0 min-w-0 flex-1 flex-col">
+			<TranscriptFindBar
+				currentIndex={find.currentIndex}
+				inputRef={find.inputRef}
+				isOpen={find.isOpen}
+				loading={find.isOpen && hasOlder && !olderPages.failed}
+				matchCount={find.matchCount}
+				onClose={find.close}
+				onNext={find.next}
+				onPrevious={find.previous}
+				onQueryChange={find.setQuery}
+				query={find.query}
+			/>
 			<MessageScroller.Viewport
 				aria-label={t({ message: "Messages" })}
 				className={cn(

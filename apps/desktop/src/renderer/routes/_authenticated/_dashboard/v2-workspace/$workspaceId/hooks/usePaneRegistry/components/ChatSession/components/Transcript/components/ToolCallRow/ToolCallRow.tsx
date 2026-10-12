@@ -101,7 +101,12 @@ export function ToolCallRow({
 				) : bare ? null : (
 					<Icon className="size-3.5 shrink-0 text-foreground/45" />
 				)}
-				<span className="flex min-w-0 items-center gap-1.5">{title}</span>
+				<span
+					className="flex min-w-0 items-center gap-1.5"
+					data-find-item={item.id}
+				>
+					{title}
+				</span>
 				<StatusWord status={item.status} />
 				{hasBody && (
 					<ChevronRight

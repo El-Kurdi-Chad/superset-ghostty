@@ -123,6 +123,7 @@ export function UserMessageRow({
 				>
 					<div
 						className="whitespace-pre-wrap break-words text-sm"
+						data-find-item={item.id}
 						ref={textRef}
 					>
 						{segments.map((segment, index) => {
