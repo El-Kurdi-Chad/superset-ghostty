@@ -43,6 +43,6 @@ export function isLinkedPresetLaunchable(
 	if (!isLinkedPresetVisible(preset.agentId, agents, isAgentPresetEnabled)) {
 		return false;
 	}
-	if (findLinkedAgent(agents, preset.agentId)) return true;
+	if (findLinkedAgent(agents, preset.agentId ?? undefined)) return true;
 	return !runsGatedAgent(preset.commands, isAgentPresetEnabled);
 }
