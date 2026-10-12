@@ -33,20 +33,54 @@ describe("isLinkedPresetVisible", () => {
 });
 
 describe("isLinkedPresetLaunchable", () => {
-	it("holds a UUID link until the agent list resolves while a flag is off", () => {
-		expect(isLinkedPresetLaunchable("uuid-pdev", undefined, flagOff)).toBe(
+	const pdevPreset = { agentId: "uuid-pdev", commands: ["pdev --model x"] };
+	const claudePreset = { agentId: "uuid-claude", commands: ["claude"] };
+
+	it("blocks an unresolved link whose stored command runs a gated agent", () => {
+		expect(isLinkedPresetLaunchable(pdevPreset, undefined, flagOff)).toBe(
 			false,
 		);
-		expect(isLinkedPresetLaunchable("uuid-pdev", undefined, flagOn)).toBe(true);
+		expect(isLinkedPresetLaunchable(pdevPreset, undefined, flagOn)).toBe(true);
 	});
 
-	it("launches presets the agent list or a preset id resolves", () => {
-		expect(isLinkedPresetLaunchable("uuid-claude", agents, flagOff)).toBe(true);
-		expect(isLinkedPresetLaunchable("claude", undefined, flagOff)).toBe(true);
-		expect(isLinkedPresetLaunchable("uuid-pdev", agents, flagOff)).toBe(false);
+	it("launches an unresolved link to an ungated agent", () => {
+		expect(isLinkedPresetLaunchable(claudePreset, undefined, flagOff)).toBe(
+			true,
+		);
 	});
 
-	it("launches a UUID link whose agent was deleted", () => {
-		expect(isLinkedPresetLaunchable("uuid-gone", agents, flagOff)).toBe(true);
+	it("follows the resolved agent once the list loads", () => {
+		expect(isLinkedPresetLaunchable(claudePreset, agents, flagOff)).toBe(true);
+		expect(
+			isLinkedPresetLaunchable(
+				{ agentId: "uuid-pdev", commands: ["claude"] },
+				agents,
+				flagOff,
+			),
+		).toBe(false);
+		expect(
+			isLinkedPresetLaunchable(
+				{ agentId: "pdev", commands: [] },
+				undefined,
+				flagOff,
+			),
+		).toBe(false);
+	});
+
+	it("checks the stored command of a link whose agent was deleted", () => {
+		expect(
+			isLinkedPresetLaunchable(
+				{ agentId: "uuid-gone", commands: ["pdev"] },
+				agents,
+				flagOff,
+			),
+		).toBe(false);
+		expect(
+			isLinkedPresetLaunchable(
+				{ agentId: "uuid-gone", commands: ["claude"] },
+				agents,
+				flagOff,
+			),
+		).toBe(true);
 	});
 });

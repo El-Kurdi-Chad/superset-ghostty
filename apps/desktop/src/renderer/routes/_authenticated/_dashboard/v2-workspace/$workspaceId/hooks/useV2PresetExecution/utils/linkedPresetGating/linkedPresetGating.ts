@@ -20,14 +20,29 @@ export function isLinkedPresetVisible(
 	);
 }
 
+function runsGatedAgent(
+	commands: readonly string[],
+	isAgentPresetEnabled: IsAgentPresetEnabled,
+): boolean {
+	const programs = commands.map((command) => command.trim().split(/\s+/)[0]);
+	return [...AGENT_PRESET_FEATURE_FLAGS.keys()].some((presetId) => {
+		const binary = getPresetById(presetId)?.command;
+		return (
+			!isAgentPresetEnabled(presetId) &&
+			binary !== undefined &&
+			programs.includes(binary)
+		);
+	});
+}
+
 export function isLinkedPresetLaunchable(
-	agentId: string | null | undefined,
+	preset: { agentId?: string | null; commands: readonly string[] },
 	agents: readonly AgentLaunchConfig[] | undefined,
 	isAgentPresetEnabled: IsAgentPresetEnabled,
 ): boolean {
-	if (!isLinkedPresetVisible(agentId, agents, isAgentPresetEnabled)) {
+	if (!isLinkedPresetVisible(preset.agentId, agents, isAgentPresetEnabled)) {
 		return false;
 	}
-	if (!agentId || agents || getPresetById(agentId)) return true;
-	return [...AGENT_PRESET_FEATURE_FLAGS.keys()].every(isAgentPresetEnabled);
+	if (findLinkedAgent(agents, preset.agentId)) return true;
+	return !runsGatedAgent(preset.commands, isAgentPresetEnabled);
 }

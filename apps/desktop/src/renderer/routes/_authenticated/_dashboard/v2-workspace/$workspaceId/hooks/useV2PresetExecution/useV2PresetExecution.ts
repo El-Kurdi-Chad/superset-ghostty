@@ -173,7 +173,7 @@ export function useV2PresetExecution({
 		) => {
 			if (
 				!isLinkedPresetLaunchable(
-					preset.agentId,
+					preset,
 					unfilteredAgents,
 					isAgentPresetEnabled,
 				)
