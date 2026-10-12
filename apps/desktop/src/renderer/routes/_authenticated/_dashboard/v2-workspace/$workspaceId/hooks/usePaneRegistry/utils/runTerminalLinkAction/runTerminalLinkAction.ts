@@ -1,6 +1,7 @@
 import type { WorkspaceStore } from "@superset/panes";
 import { env } from "renderer/env.renderer";
 import type { FolderLinkAction, LinkAction } from "renderer/lib/clickPolicy";
+import { pullRequestRefFromUrl } from "renderer/lib/github/pullRequestRef";
 import { parseSupersetPageUrl } from "renderer/lib/parseSupersetPageUrl";
 import { electronTrpcClient } from "renderer/lib/trpc-client";
 import type { RightPaneLinkTarget } from "renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/providers/RightPaneLinkTargetProvider";
@@ -9,6 +10,7 @@ import type {
 	PaneViewerData,
 } from "renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/types";
 import { openPagePaneInStore } from "renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/utils/openPagePaneInStore";
+import { openPullRequestPaneInStore } from "renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/utils/openPullRequestPaneInStore";
 import { openUrlInRightPane } from "renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/utils/openUrlInRightPane";
 import { openUrlInV2Workspace } from "renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/utils/openUrlInV2Workspace";
 import type { StoreApi } from "zustand/vanilla";
@@ -44,10 +46,15 @@ export function runUrlLinkAction(
 		return;
 	}
 	const pageSlug = parseSupersetPageUrl(url, env.NEXT_PUBLIC_WEB_URL);
+	const pullRequest = pullRequestRefFromUrl(url);
 	if (action === "rightPane" && deps.rightPane) {
 		deps.rightPane.reveal();
 		if (pageSlug) {
 			openPagePaneInStore(deps.rightPane.store, { slug: pageSlug }, "tab");
+			return;
+		}
+		if (pullRequest) {
+			openPullRequestPaneInStore(deps.rightPane.store, pullRequest);
 			return;
 		}
 		openUrlInRightPane(deps.rightPane.store, url);
@@ -59,6 +66,10 @@ export function runUrlLinkAction(
 			{ slug: pageSlug },
 			action === "newTab" ? "tab" : "split",
 		);
+		return;
+	}
+	if (pullRequest) {
+		openPullRequestPaneInStore(deps.store, pullRequest);
 		return;
 	}
 	openUrlInV2Workspace({
