@@ -4,7 +4,7 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { COMPANY } from "@superset/shared/constants";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaApple, FaGithub, FaMobileAlt } from "react-icons/fa";
+import { FaApple, FaGithub } from "react-icons/fa";
 import { DownloadButton } from "../DownloadButton";
 import { WaitlistModal } from "../WaitlistModal";
 import { BoidsBackground } from "./components/BoidsBackground";
@@ -57,24 +57,15 @@ export function HeroSection() {
 				<BoidsBackground />
 				<div className="relative w-full max-w-7xl mx-auto px-6 sm:px-8">
 					<div className="flex flex-col items-center text-center">
-						<Link
-							href={i18n.locale === "en" ? "/mobile" : `/${i18n.locale}/mobile`}
-							className="group mb-6 sm:mb-8 inline-flex max-w-full items-center gap-2 rounded-[2px] border border-border bg-background/80 px-3 py-1.5 text-xs font-mono text-muted-foreground transition-colors hover:text-foreground hover:border-foreground/[0.2]"
-						>
-							<FaMobileAlt
-								aria-hidden="true"
-								className="size-3.5 text-foreground shrink-0"
-							/>
-							<span>
-								<Trans>Superset Mobile is here</Trans>
-							</span>
+						<div className="mb-6 sm:mb-8 inline-flex max-w-full items-center gap-2 rounded-[2px] border border-border bg-background/80 px-3 py-1.5 text-xs font-mono text-muted-foreground">
 							<span
 								aria-hidden="true"
-								className="shrink-0 transition-transform group-hover:translate-x-0.5"
-							>
-								→
+								className="size-1.5 shrink-0 rounded-full bg-brand"
+							/>
+							<span>
+								<Trans>Superset is getting a new name soon.</Trans>
 							</span>
-						</Link>
+						</div>
 						<div className="space-y-4 sm:space-y-6">
 							<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight leading-[1.1] [word-spacing:0.15em] whitespace-pre-line text-foreground relative max-w-6xl mx-auto">
 								{/* Real headline for screen readers and no-JS crawlers; the

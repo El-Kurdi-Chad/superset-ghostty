@@ -16004,9 +16004,6 @@ msgstr "iPhone의 Superset Mobile 코드 diff"
 msgid "Superset mobile gives me the power of my desktop anywhere I go."
 msgstr "Superset 모바일은 어디를 가든 데스크톱의 성능을 사용할 수 있게 해줍니다."
 
-msgid "Superset Mobile is here"
-msgstr "Superset Mobile 출시"
-
 msgid "Superset Mobile is part of Pro"
 msgstr "Superset Mobile은 Pro에 포함되어 있습니다"
 

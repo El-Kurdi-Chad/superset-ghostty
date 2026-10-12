@@ -16004,9 +16004,6 @@ msgstr "Diff кода в Superset Mobile на iPhone"
 msgid "Superset mobile gives me the power of my desktop anywhere I go."
 msgstr "Superset mobile даёт мне мощь моего компьютера, где бы я ни был."
 
-msgid "Superset Mobile is here"
-msgstr "Superset Mobile уже здесь"
-
 msgid "Superset Mobile is part of Pro"
 msgstr "Superset Mobile входит в Pro"
 

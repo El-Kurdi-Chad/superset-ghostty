@@ -16004,9 +16004,6 @@ msgstr "iPhone 上の Superset Mobile のコード差分"
 msgid "Superset mobile gives me the power of my desktop anywhere I go."
 msgstr "Supersetモバイルは、どこにいてもデスクトップの力を使えるようにしてくれます。"
 
-msgid "Superset Mobile is here"
-msgstr "Superset Mobile が登場"
-
 msgid "Superset Mobile is part of Pro"
 msgstr "Superset MobileはProの一部です"
 

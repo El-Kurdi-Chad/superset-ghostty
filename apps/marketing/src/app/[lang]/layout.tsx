@@ -17,7 +17,6 @@ import { CTAButtons } from "./components/CTAButtons";
 import { Footer } from "./components/Footer";
 import { GitHubStarCounter } from "./components/GitHubStarCounter";
 import { Header } from "./components/Header";
-import { NameChangeBanner } from "./components/NameChangeBanner";
 import "../globals.css";
 import { initServerI18n } from "../i18n-server";
 import { Providers } from "../providers";
@@ -159,7 +158,6 @@ export default async function RootLayout({
 			</head>
 			<body className="overscroll-none font-sans">
 				<Providers locale={locale} messages={messages}>
-					<NameChangeBanner />
 					<Header
 						ctaButtons={
 							<Suspense fallback={null}>

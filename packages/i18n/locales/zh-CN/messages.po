@@ -16004,9 +16004,6 @@ msgstr "iPhone 上的 Superset Mobile 代码差异"
 msgid "Superset mobile gives me the power of my desktop anywhere I go."
 msgstr "无论走到哪里，Superset 手机版都让我拥有桌面电脑的能力。"
 
-msgid "Superset Mobile is here"
-msgstr "Superset Mobile 来了"
-
 msgid "Superset Mobile is part of Pro"
 msgstr "Superset Mobile属于专业版"
 
