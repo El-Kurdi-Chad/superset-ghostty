@@ -93,7 +93,6 @@ export class SshSession {
 		];
 	}
 
-	/** Runs a POSIX sh script on the remote and captures its output. */
 	async run(script: string, stdin?: string): Promise<SshResult> {
 		const child = Bun.spawn(this.args(false, script), {
 			stdin: stdin === undefined ? "ignore" : new TextEncoder().encode(stdin),

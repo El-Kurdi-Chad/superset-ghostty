@@ -1,4 +1,3 @@
-/** Wraps text at word boundaries so a narrow terminal does not break words. */
 export function wrapText(text: string, width: number): string {
 	if (width < 20) return text;
 	const lines: string[] = [];

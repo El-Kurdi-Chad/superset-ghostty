@@ -139,7 +139,6 @@ function parseWhoami(
 	}
 }
 
-/** A remote CLI error as one line, without its own "Error:"/"Hint:" labels. */
 function remoteError(output: string): string {
 	return output
 		.split("\n")

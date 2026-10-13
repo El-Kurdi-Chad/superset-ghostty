@@ -1,4 +1,3 @@
-/** What to tell the user after the first ssh connect fails, from ssh's own stderr. */
 export function sshFailureHint(stderr: string, target: string): string {
 	const check = `Check it in a terminal first: ssh ${target}`;
 	if (

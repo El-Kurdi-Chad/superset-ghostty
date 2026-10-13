@@ -1,8 +1,6 @@
-function shellQuote(value: string): string {
-	return `'${value.replaceAll("'", `'"'"'`)}'`;
-}
+import { quoteShellToken } from "renderer/lib/argv";
 
-/** An ssh destination: no spaces, and no leading dash that ssh would read as an option. */
+/** ssh reads a leading dash as an option, not a destination. */
 export function isValidSshTarget(target: string): boolean {
 	return /^[^\s-][^\s]*$/.test(target);
 }
@@ -16,10 +14,10 @@ export function buildHostsAddCommand(
 	target: string,
 	organizationId: string,
 ): string {
-	const org = shellQuote(organizationId);
+	const org = quoteShellToken(organizationId);
 	return [
 		`export SUPERSET_ORGANIZATION_ID=${org}`,
 		`superset auth whoami >/dev/null 2>&1 || superset auth login --organization ${org} || exit 1`,
-		`superset hosts add --org ${org} ${shellQuote(target)}`,
+		`superset hosts add --org ${org} ${quoteShellToken(target)}`,
 	].join("; ");
 }
