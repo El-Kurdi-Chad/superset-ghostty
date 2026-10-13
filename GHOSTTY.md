@@ -9,7 +9,11 @@ The terminal stays Superset's own, inside the pane, with everything it does:
 copy and paste, search, clickable links and file paths, image paste, rich
 input, scrollback, agents, notifications.
 
+![Superset's default terminal next to the same terminal with the Ghostty style](docs/ghostty/before-after.png)
+
 ## How it works
+
+![The two header buttons: switch styles, and open in the Ghostty app](docs/ghostty/buttons.png)
 
 - At startup Superset asks Ghostty for its resolved settings
   (`ghostty +show-config --default`: your config file, your theme and Ghostty's

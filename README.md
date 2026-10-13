@@ -4,6 +4,8 @@
 > · how it works and how to build it: [GHOSTTY.md](GHOSTTY.md).
 > Not affiliated with Superset; same [license](LICENSE.md).
 
+<p align="center"><img src="docs/ghostty/before-after.png" alt="Superset's default terminal next to the same terminal with the Ghostty style" width="900" /></p>
+
 <div align="center">
 
 <img src="apps/desktop/src/resources/build/icons/icon.png" alt="Superset app icon" width="96" height="96" />
