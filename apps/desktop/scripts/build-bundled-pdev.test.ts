@@ -34,6 +34,7 @@ describe("build-bundled-pdev", () => {
 		mkdirSync(path.join(sourceDir, "assets"), { recursive: true });
 		writeFileSync(path.join(sourceDir, "pdev"), "#!/bin/sh\necho 0.1.0\n");
 		writeFileSync(path.join(sourceDir, "assets", "theme.json"), "{}");
+		writeFileSync(path.join(sourceDir, "._pdev"), "macOS metadata");
 	});
 
 	afterEach(() => {
@@ -87,6 +88,7 @@ describe("build-bundled-pdev", () => {
 			"0.1.0",
 		);
 		expect(existsSync(path.join(destDir, "assets", "theme.json"))).toBe(true);
+		expect(existsSync(path.join(destDir, "._pdev"))).toBe(false);
 	});
 
 	it("downloads the release archive and checks its SHA-256", async () => {

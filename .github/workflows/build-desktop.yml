@@ -109,6 +109,7 @@ jobs:
           REALTIME_URL: ${{ secrets.REALTIME_URL }}
           SUPERSET_WORKSPACE_NAME: superset
           TARGET_ARCH: ${{ matrix.arch }}
+          PDEV_BUNDLE_REQUIRED: "1"
         run: bun run compile:app
 
       # electron-builder manages its own signing keychain when CSC_LINK is set,
@@ -323,6 +324,7 @@ jobs:
           REALTIME_URL: ${{ secrets.REALTIME_URL }}
           SUPERSET_WORKSPACE_NAME: superset
           TARGET_ARCH: x64
+          PDEV_BUNDLE_REQUIRED: "1"
         run: bun run compile:app
 
       - name: Build Electron app

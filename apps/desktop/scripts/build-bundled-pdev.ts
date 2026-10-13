@@ -11,7 +11,7 @@ import {
 	writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { dirname, join, resolve } from "node:path";
+import { basename, dirname, join, resolve } from "node:path";
 import { config } from "dotenv";
 
 export const PDEV_VERSION = "0.1.0";
@@ -67,7 +67,10 @@ export function installPdevFolder(
 	}
 	rmSync(destDir, { recursive: true, force: true });
 	mkdirSync(dirname(destDir), { recursive: true });
-	cpSync(sourceDir, destDir, { recursive: true });
+	cpSync(sourceDir, destDir, {
+		recursive: true,
+		filter: (source) => !basename(source).startsWith("._"),
+	});
 	chmodSync(join(destDir, "pdev"), 0o755);
 	writeFileSync(join(destDir, BUNDLED_FROM_FILE), bundledFrom);
 }
