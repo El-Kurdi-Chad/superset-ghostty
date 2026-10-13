@@ -3,7 +3,7 @@ import {
 	parseDiffFromFile,
 	parsePatchFiles,
 } from "@pierre/diffs";
-import { hashString } from "../../../utils/hashString";
+import { hashString } from "renderer/routes/_authenticated/_dashboard/utils/hashString";
 
 export interface PatchGroupFile {
 	path: string;
