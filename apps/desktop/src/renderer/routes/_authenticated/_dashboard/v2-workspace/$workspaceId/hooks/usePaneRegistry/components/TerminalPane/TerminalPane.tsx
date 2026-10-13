@@ -51,6 +51,7 @@ import {
 	runFolderLinkAction,
 	runUrlLinkAction,
 	type TerminalLinkActionDeps,
+	terminalPullRequestLinkAction,
 } from "../../utils/runTerminalLinkAction";
 import {
 	PasteUploadLimitError,
@@ -349,7 +350,9 @@ export function TerminalPane({
 					);
 				},
 				onUrlClick: (event, url) => {
-					const action = getUrlAction(event, url);
+					const action =
+						terminalPullRequestLinkAction(event, url) ??
+						getUrlAction(event, url);
 					if (action === null) {
 						showHint(event.clientX, event.clientY);
 						return;

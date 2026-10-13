@@ -1,6 +1,10 @@
 import type { WorkspaceStore } from "@superset/panes";
 import { env } from "renderer/env.renderer";
-import type { FolderLinkAction, LinkAction } from "renderer/lib/clickPolicy";
+import type {
+	FolderLinkAction,
+	LinkAction,
+	ModifierEvent,
+} from "renderer/lib/clickPolicy";
 import { pullRequestRefFromUrl } from "renderer/lib/github/pullRequestRef";
 import { parseSupersetPageUrl } from "renderer/lib/parseSupersetPageUrl";
 import { electronTrpcClient } from "renderer/lib/trpc-client";
@@ -32,6 +36,15 @@ export interface TerminalLinkActionDeps {
 	/** Worktree root, when known. Outside it, "reveal" degrades to Finder. */
 	worktreePath: string | undefined;
 	rightPane?: RightPaneLinkTarget | null;
+}
+
+export function terminalPullRequestLinkAction(
+	event: ModifierEvent,
+	url: string,
+): LinkAction | null {
+	if (event.metaKey || event.ctrlKey) return null;
+	if (!pullRequestRefFromUrl(url)) return null;
+	return event.shiftKey ? "external" : "pane";
 }
 
 export function runUrlLinkAction(

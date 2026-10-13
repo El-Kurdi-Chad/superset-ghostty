@@ -6,7 +6,10 @@ import {
 } from "@superset/panes";
 import type { StoreApi } from "zustand/vanilla";
 import type { PaneViewerData } from "../../../../types";
-import { runUrlLinkAction } from "./runTerminalLinkAction";
+import {
+	runUrlLinkAction,
+	terminalPullRequestLinkAction,
+} from "./runTerminalLinkAction";
 
 const PR_URL = "https://github.com/superset-sh/superset/pull/8412";
 
@@ -93,5 +96,25 @@ describe("runUrlLinkAction", () => {
 
 		expect(panesOfKind(store, "pull-request")).toHaveLength(0);
 		expect(panesOfKind(store, "browser")).toHaveLength(1);
+	});
+});
+
+describe("terminalPullRequestLinkAction", () => {
+	const click = { metaKey: false, ctrlKey: false, shiftKey: false };
+
+	it("opens the PR pane on plain click and the system browser on shift-click", () => {
+		expect(terminalPullRequestLinkAction(click, PR_URL)).toBe("pane");
+		expect(
+			terminalPullRequestLinkAction({ ...click, shiftKey: true }, PR_URL),
+		).toBe("external");
+	});
+
+	it("leaves cmd-clicks and non-PR URLs to the URL link settings", () => {
+		expect(
+			terminalPullRequestLinkAction({ ...click, metaKey: true }, PR_URL),
+		).toBeNull();
+		expect(
+			terminalPullRequestLinkAction(click, "https://github.com/a/b/issues/1"),
+		).toBeNull();
 	});
 });
