@@ -1,8 +1,9 @@
 import { Trans, useLingui } from "@lingui/react/macro";
 import { toast } from "@superset/ui/sonner";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@superset/ui/tooltip";
+import { useIsFetching, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { LuCheck, LuCopy, LuMaximize2 } from "react-icons/lu";
+import { LuCheck, LuCopy, LuMaximize2, LuRefreshCw } from "react-icons/lu";
 import { useCopyToClipboard } from "renderer/hooks/useCopyToClipboard";
 import { usePullRequestsSplitViewStore } from "renderer/routes/_authenticated/_dashboard/pull-requests/stores/pullRequestsSplitViewStore";
 import type { PullRequestPaneData } from "../../../../../../types";
@@ -17,18 +18,53 @@ export function PullRequestPaneHeaderExtras({
 }: PullRequestPaneHeaderExtrasProps) {
 	const { t } = useLingui();
 	const navigate = useNavigate();
+	const queryClient = useQueryClient();
 	const { copyToClipboard, copied } = useCopyToClipboard();
 	const detail = usePullRequestPaneDetail(data);
+	const isRefreshing = useIsFetching({ queryKey: ["pull-request-detail"] }) > 0;
 	const url =
 		detail.data?.url ??
 		`https://github.com/${data.repoFullName}/pull/${data.number}`;
 	const projectId = detail.projectId;
+	const refresh = () => {
+		void detail.refetch();
+		for (const queryKey of [
+			[["git", "getPullRequest"]],
+			[["git", "getPullRequestThreads"]],
+			["pull-request-diff"],
+			["pull-request-threads"],
+		]) {
+			void queryClient.invalidateQueries({ queryKey });
+		}
+	};
 	const copyLabel = copied
 		? t({ message: "Copied" })
 		: t({ message: "Copy link to pull request" });
 
 	return (
 		<>
+			<Tooltip>
+				<TooltipTrigger asChild>
+					<button
+						type="button"
+						onClick={refresh}
+						disabled={isRefreshing}
+						aria-label={t({ message: "Refresh pull request" })}
+						className="rounded p-1 text-muted-foreground/60 transition-colors hover:text-muted-foreground disabled:pointer-events-none"
+					>
+						<LuRefreshCw
+							className={
+								isRefreshing
+									? "size-3.5 animate-spin motion-reduce:animate-none"
+									: "size-3.5"
+							}
+						/>
+					</button>
+				</TooltipTrigger>
+				<TooltipContent side="bottom">
+					<Trans>Refresh pull request</Trans>
+				</TooltipContent>
+			</Tooltip>
 			<Tooltip>
 				<TooltipTrigger asChild>
 					<button
