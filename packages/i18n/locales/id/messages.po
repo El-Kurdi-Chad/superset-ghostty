@@ -3725,6 +3725,12 @@ msgstr "Klik di sini kalau tidak dialihkan"
 msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "Klik tombol “↑ update” untuk melihat konfirmasi sebelum pembaruan"
 
+msgid "Click the chip to open the issue"
+msgstr "Klik chip untuk membuka issue"
+
+msgid "Click the chip to open the pull request"
+msgstr "Klik chip untuk membuka pull request"
+
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "Klik untuk menyalin ID sesi (lanjutkan dengan `claude --resume <id>`)."
 
@@ -5919,6 +5925,9 @@ msgstr "Terlepas"
 
 msgid "Details"
 msgstr "Detail"
+
+msgid "Details are not available here, but the link still opens."
+msgstr "Detail tidak tersedia di sini, tetapi tautan tetap bisa dibuka."
 
 msgid "Dev"
 msgstr "Dev"
@@ -8821,6 +8830,10 @@ msgstr "Apakah ada paket gratis?"
 msgid "Isolation"
 msgstr "Isolasi"
 
+#. placeholder {0}: link.number
+msgid "Issue #{0}"
+msgstr "Issue #{0}"
+
 msgid "Issue archived"
 msgstr "Issue diarsipkan"
 
@@ -9448,6 +9461,9 @@ msgstr "Memuat file..."
 
 msgid "Loading fonts..."
 msgstr "Memuat font..."
+
+msgid "Loading GitHub details"
+msgstr "Memuat detail GitHub"
 
 msgid "Loading groups…"
 msgstr "Memuat grup…"
@@ -12415,6 +12431,10 @@ msgstr "Kirim balasan"
 
 msgid "PR"
 msgstr "PR"
+
+#. placeholder {0}: link.number
+msgid "PR #{0}"
+msgstr "PR #{0}"
 
 #. placeholder {0}: pullRequest.number
 #. placeholder {1}: i18n._(PR_STATE_LABEL[pullRequest.state])
@@ -17924,6 +17944,10 @@ msgstr "memperbarui prefix branch"
 
 msgid "Updated"
 msgstr "Diperbarui"
+
+#. placeholder {0}: formatRelativeTime(new Date(item.updatedAt))
+msgid "Updated {0}"
+msgstr "Diperbarui {0}"
 
 msgid "Updated {date}"
 msgstr "Diperbarui {date}"

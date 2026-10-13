@@ -3725,6 +3725,12 @@ msgstr "Nhấp vào đây nếu không được chuyển hướng"
 msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "Nhấp vào nút “↑ update” để xem xác nhận trước khi cập nhật"
 
+msgid "Click the chip to open the issue"
+msgstr "Nhấp vào thẻ để mở issue"
+
+msgid "Click the chip to open the pull request"
+msgstr "Nhấp vào thẻ để mở pull request"
+
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "Nhấp để sao chép ID phiên (resume bằng `claude --resume <id>`)."
 
@@ -5919,6 +5925,9 @@ msgstr "Đã tách"
 
 msgid "Details"
 msgstr "Chi tiết"
+
+msgid "Details are not available here, but the link still opens."
+msgstr "Không có chi tiết ở đây, nhưng liên kết vẫn mở được."
 
 msgid "Dev"
 msgstr "Dev"
@@ -8821,6 +8830,10 @@ msgstr "Có gói miễn phí không?"
 msgid "Isolation"
 msgstr "Tách biệt"
 
+#. placeholder {0}: link.number
+msgid "Issue #{0}"
+msgstr "Issue #{0}"
+
 msgid "Issue archived"
 msgstr "Issue được lưu trữ"
 
@@ -9448,6 +9461,9 @@ msgstr "Đang tải tệp..."
 
 msgid "Loading fonts..."
 msgstr "Đang tải font..."
+
+msgid "Loading GitHub details"
+msgstr "Đang tải chi tiết từ GitHub"
 
 msgid "Loading groups…"
 msgstr "Đang tải nhóm…"
@@ -12415,6 +12431,10 @@ msgstr "Đăng trả lời"
 
 msgid "PR"
 msgstr "PR"
+
+#. placeholder {0}: link.number
+msgid "PR #{0}"
+msgstr "PR #{0}"
 
 #. placeholder {0}: pullRequest.number
 #. placeholder {1}: i18n._(PR_STATE_LABEL[pullRequest.state])
@@ -17924,6 +17944,10 @@ msgstr "cập nhật tiền tố nhánh"
 
 msgid "Updated"
 msgstr "Đã cập nhật"
+
+#. placeholder {0}: formatRelativeTime(new Date(item.updatedAt))
+msgid "Updated {0}"
+msgstr "Đã cập nhật {0}"
 
 msgid "Updated {date}"
 msgstr "Cập nhật {date}"

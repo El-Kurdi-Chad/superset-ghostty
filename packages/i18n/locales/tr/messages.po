@@ -3725,6 +3725,12 @@ msgstr "Yönlendirilmediyseniz buraya tıklayın"
 msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "Güncelleme öncesi onayı görmek için “↑ update” düğmesine tıklayın"
 
+msgid "Click the chip to open the issue"
+msgstr "Issue'yu açmak için etikete tıklayın"
+
+msgid "Click the chip to open the pull request"
+msgstr "Pull request'i açmak için etikete tıklayın"
+
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "Oturum kimliğini kopyalamak için tıklayın (`claude --resume <id>` ile sürdürün)."
 
@@ -5919,6 +5925,9 @@ msgstr "Ayrılmış"
 
 msgid "Details"
 msgstr "Ayrıntılar"
+
+msgid "Details are not available here, but the link still opens."
+msgstr "Ayrıntılar burada görüntülenemiyor, ancak bağlantı yine de açılır."
 
 msgid "Dev"
 msgstr "Geliştirme"
@@ -8821,6 +8830,10 @@ msgstr "Ücretsiz plan var mı?"
 msgid "Isolation"
 msgstr "Yalıtım"
 
+#. placeholder {0}: link.number
+msgid "Issue #{0}"
+msgstr "Issue #{0}"
+
 msgid "Issue archived"
 msgstr "Issue arşivlendi"
 
@@ -9448,6 +9461,9 @@ msgstr "Dosyalar yükleniyor..."
 
 msgid "Loading fonts..."
 msgstr "Yazı tipleri yükleniyor..."
+
+msgid "Loading GitHub details"
+msgstr "GitHub ayrıntıları yükleniyor"
 
 msgid "Loading groups…"
 msgstr "Gruplar yükleniyor…"
@@ -12415,6 +12431,10 @@ msgstr "Yanıt gönder"
 
 msgid "PR"
 msgstr "PR"
+
+#. placeholder {0}: link.number
+msgid "PR #{0}"
+msgstr "PR #{0}"
 
 #. placeholder {0}: pullRequest.number
 #. placeholder {1}: i18n._(PR_STATE_LABEL[pullRequest.state])
@@ -17924,6 +17944,10 @@ msgstr "dal ön ekini güncelleme"
 
 msgid "Updated"
 msgstr "Güncellendi"
+
+#. placeholder {0}: formatRelativeTime(new Date(item.updatedAt))
+msgid "Updated {0}"
+msgstr "{0} güncellendi"
 
 msgid "Updated {date}"
 msgstr "Güncelleme: {date}"

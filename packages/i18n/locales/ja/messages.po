@@ -3725,6 +3725,12 @@ msgstr "リダイレクトされない場合はこちらをクリック"
 msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "「↑ update」ボタンをクリックすると更新前の確認が表示されます"
 
+msgid "Click the chip to open the issue"
+msgstr "チップをクリックするとIssueを開きます"
+
+msgid "Click the chip to open the pull request"
+msgstr "チップをクリックするとプルリクエストを開きます"
+
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "クリックでセッションIDをコピーします(`claude --resume <id>`で再開)。"
 
@@ -5919,6 +5925,9 @@ msgstr "切断中"
 
 msgid "Details"
 msgstr "詳細"
+
+msgid "Details are not available here, but the link still opens."
+msgstr "ここでは詳細を表示できませんが、リンクは開けます。"
 
 msgid "Dev"
 msgstr "開発"
@@ -8821,6 +8830,10 @@ msgstr "無料プランはありますか?"
 msgid "Isolation"
 msgstr "分離"
 
+#. placeholder {0}: link.number
+msgid "Issue #{0}"
+msgstr "Issue #{0}"
+
 msgid "Issue archived"
 msgstr "Issueをアーカイブ"
 
@@ -9448,6 +9461,9 @@ msgstr "ファイルを読み込み中..."
 
 msgid "Loading fonts..."
 msgstr "フォントを読み込み中..."
+
+msgid "Loading GitHub details"
+msgstr "GitHubの詳細を読み込み中"
 
 msgid "Loading groups…"
 msgstr "グループを読み込み中…"
@@ -12415,6 +12431,10 @@ msgstr "返信を投稿"
 
 msgid "PR"
 msgstr "PR"
+
+#. placeholder {0}: link.number
+msgid "PR #{0}"
+msgstr "PR #{0}"
 
 #. placeholder {0}: pullRequest.number
 #. placeholder {1}: i18n._(PR_STATE_LABEL[pullRequest.state])
@@ -17924,6 +17944,10 @@ msgstr "ブランチのプレフィックスを更新する"
 
 msgid "Updated"
 msgstr "更新済み"
+
+#. placeholder {0}: formatRelativeTime(new Date(item.updatedAt))
+msgid "Updated {0}"
+msgstr "更新: {0}"
 
 msgid "Updated {date}"
 msgstr "{date}に更新"

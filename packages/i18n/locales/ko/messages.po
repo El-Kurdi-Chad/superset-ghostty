@@ -3725,6 +3725,12 @@ msgstr "이동하지 않으면 여기를 클릭하세요"
 msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "“↑ update” 버튼을 클릭하면 업데이트 전 확인 창이 표시됩니다"
 
+msgid "Click the chip to open the issue"
+msgstr "칩을 클릭하면 이슈가 열립니다"
+
+msgid "Click the chip to open the pull request"
+msgstr "칩을 클릭하면 풀 리퀘스트가 열립니다"
+
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "클릭하면 세션 ID를 복사합니다(`claude --resume <id>`로 이어서 진행)."
 
@@ -5919,6 +5925,9 @@ msgstr "분리됨"
 
 msgid "Details"
 msgstr "세부 정보"
+
+msgid "Details are not available here, but the link still opens."
+msgstr "여기서는 세부 정보를 볼 수 없지만 링크는 열립니다."
 
 msgid "Dev"
 msgstr "개발"
@@ -8821,6 +8830,10 @@ msgstr "무료 플랜이 있나요?"
 msgid "Isolation"
 msgstr "격리"
 
+#. placeholder {0}: link.number
+msgid "Issue #{0}"
+msgstr "이슈 #{0}"
+
 msgid "Issue archived"
 msgstr "이슈 보관됨"
 
@@ -9448,6 +9461,9 @@ msgstr "파일을 불러오는 중..."
 
 msgid "Loading fonts..."
 msgstr "글꼴 불러오는 중..."
+
+msgid "Loading GitHub details"
+msgstr "GitHub 세부 정보 불러오는 중"
 
 msgid "Loading groups…"
 msgstr "그룹 불러오는 중…"
@@ -12415,6 +12431,10 @@ msgstr "답글 게시"
 
 msgid "PR"
 msgstr "PR"
+
+#. placeholder {0}: link.number
+msgid "PR #{0}"
+msgstr "PR #{0}"
 
 #. placeholder {0}: pullRequest.number
 #. placeholder {1}: i18n._(PR_STATE_LABEL[pullRequest.state])
@@ -17924,6 +17944,10 @@ msgstr "브랜치 접두사를 업데이트할"
 
 msgid "Updated"
 msgstr "업데이트됨"
+
+#. placeholder {0}: formatRelativeTime(new Date(item.updatedAt))
+msgid "Updated {0}"
+msgstr "{0} 업데이트됨"
 
 msgid "Updated {date}"
 msgstr "{date} 업데이트"

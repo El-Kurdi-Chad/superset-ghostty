@@ -3725,6 +3725,12 @@ msgstr "Cliquez ici si la redirection n'a pas lieu"
 msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "Cliquez sur le bouton « ↑ update » pour afficher la confirmation avant mise à jour"
 
+msgid "Click the chip to open the issue"
+msgstr "Cliquez sur la pastille pour ouvrir l'issue"
+
+msgid "Click the chip to open the pull request"
+msgstr "Cliquez sur la pastille pour ouvrir la pull request"
+
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "Cliquez pour copier l'ID de session (reprenez avec `claude --resume <id>`)."
 
@@ -5919,6 +5925,9 @@ msgstr "Détachée"
 
 msgid "Details"
 msgstr "Détails"
+
+msgid "Details are not available here, but the link still opens."
+msgstr "Les détails ne sont pas disponibles ici, mais le lien s'ouvre quand même."
 
 msgid "Dev"
 msgstr "Dev"
@@ -8821,6 +8830,10 @@ msgstr "Existe-t-il une offre gratuite ?"
 msgid "Isolation"
 msgstr "Isolation"
 
+#. placeholder {0}: link.number
+msgid "Issue #{0}"
+msgstr "Issue n°{0}"
+
 msgid "Issue archived"
 msgstr "Issue archivée"
 
@@ -9448,6 +9461,9 @@ msgstr "Chargement des fichiers..."
 
 msgid "Loading fonts..."
 msgstr "Chargement des polices..."
+
+msgid "Loading GitHub details"
+msgstr "Chargement des détails GitHub"
 
 msgid "Loading groups…"
 msgstr "Chargement des groupes…"
@@ -12415,6 +12431,10 @@ msgstr "Publier la réponse"
 
 msgid "PR"
 msgstr "PR"
+
+#. placeholder {0}: link.number
+msgid "PR #{0}"
+msgstr "PR n°{0}"
 
 #. placeholder {0}: pullRequest.number
 #. placeholder {1}: i18n._(PR_STATE_LABEL[pullRequest.state])
@@ -17924,6 +17944,10 @@ msgstr "mettre à jour le préfixe de branche"
 
 msgid "Updated"
 msgstr "Mis à jour"
+
+#. placeholder {0}: formatRelativeTime(new Date(item.updatedAt))
+msgid "Updated {0}"
+msgstr "Mis à jour {0}"
 
 msgid "Updated {date}"
 msgstr "Mis à jour le {date}"

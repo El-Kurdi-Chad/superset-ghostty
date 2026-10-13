@@ -3725,6 +3725,12 @@ msgstr "如果没有自动跳转，请点击这里"
 msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "点击“↑ update”按钮查看更新前的确认提示"
 
+msgid "Click the chip to open the issue"
+msgstr "点击标签打开 Issue"
+
+msgid "Click the chip to open the pull request"
+msgstr "点击标签打开拉取请求"
+
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "点击复制会话ID（使用`claude --resume <id>`恢复）。"
 
@@ -5919,6 +5925,9 @@ msgstr "已分离"
 
 msgid "Details"
 msgstr "详情"
+
+msgid "Details are not available here, but the link still opens."
+msgstr "此处无法显示详情，但链接仍可打开。"
 
 msgid "Dev"
 msgstr "开发"
@@ -8821,6 +8830,10 @@ msgstr "有免费方案吗？"
 msgid "Isolation"
 msgstr "隔离"
 
+#. placeholder {0}: link.number
+msgid "Issue #{0}"
+msgstr "Issue #{0}"
+
 msgid "Issue archived"
 msgstr "问题已归档"
 
@@ -9448,6 +9461,9 @@ msgstr "正在加载文件..."
 
 msgid "Loading fonts..."
 msgstr "正在加载字体..."
+
+msgid "Loading GitHub details"
+msgstr "正在加载 GitHub 详情"
 
 msgid "Loading groups…"
 msgstr "正在加载分组…"
@@ -12415,6 +12431,10 @@ msgstr "发表回复"
 
 msgid "PR"
 msgstr "PR"
+
+#. placeholder {0}: link.number
+msgid "PR #{0}"
+msgstr "PR #{0}"
 
 #. placeholder {0}: pullRequest.number
 #. placeholder {1}: i18n._(PR_STATE_LABEL[pullRequest.state])
@@ -17924,6 +17944,10 @@ msgstr "更新分支前缀"
 
 msgid "Updated"
 msgstr "已更新"
+
+#. placeholder {0}: formatRelativeTime(new Date(item.updatedAt))
+msgid "Updated {0}"
+msgstr "更新于{0}"
 
 msgid "Updated {date}"
 msgstr "更新于{date}"
