@@ -690,6 +690,9 @@ msgstr "{actor} đã hủy liên kết không gian làm việc {workspace}"
 msgid "{actual} so far · ~{projected} projected"
 msgstr "{actual} đến hiện tại · dự kiến ~{projected}"
 
+msgid "{agents} sessions resume when you open their workspace."
+msgstr "Các phiên {agents} sẽ tiếp tục khi bạn mở workspace của chúng."
+
 msgid "{behindCount, plural, one {Behind main by # commit, needs rebase} other {Behind main by # commits, needs rebase}}"
 msgstr "{behindCount, plural, one {Chậm hơn main # commit, cần rebase} other {Chậm hơn main # commit, cần rebase}}"
 
@@ -2252,6 +2255,9 @@ msgstr "Thợ lắp ráp ẩn danh"
 msgid "another device"
 msgstr "thiết bị khác"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "Trả lời các câu hỏi trong terminal bên dưới, chẳng hạn mật khẩu."
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "Trả lời câu hỏi này trên máy tính, hoặc bỏ qua."
 
@@ -2607,6 +2613,9 @@ msgstr "Đính kèm cần một host đang trực tuyến"
 msgid "Attempt before checks pass"
 msgstr "Thử trước khi các check qua"
 
+msgid "Attempted changes"
+msgstr "Thay đổi đã thử"
+
 msgid "Attention queue"
 msgstr "Hàng chờ cần chú ý"
 
@@ -2784,9 +2793,6 @@ msgstr "Quay lại tự động hóa"
 
 msgid "Back to billing"
 msgstr "Quay lại thanh toán"
-
-msgid "Back to Blog"
-msgstr "Quay lại Blog"
 
 msgid "Back to Changelog"
 msgstr "Quay lại Changelog"
@@ -3050,8 +3056,8 @@ msgstr "Đưa {companyName} đến với đội của bạn. Liên hệ với ch
 msgid "Bring a link to something you built recently."
 msgstr "Mang theo đường dẫn tới một thứ bạn đã xây dựng gần đây."
 
-msgid "Bring Any Agent."
-msgstr "Mang mọi agent về đây."
+msgid "Bring Any Agent"
+msgstr "Mang mọi agent về đây"
 
 msgid "Bring over your projects"
 msgstr "Nhập các dự án của bạn"
@@ -3365,6 +3371,9 @@ msgstr "Đổi logo tổ chức"
 
 msgid "Change organization slug"
 msgstr "Đổi slug tổ chức"
+
+msgid "Change preview"
+msgstr "Xem trước thay đổi"
 
 msgid "Change priority"
 msgstr "Đổi mức ưu tiên"
@@ -8686,6 +8695,9 @@ msgstr "Cài đặt qua"
 msgid "Installing..."
 msgstr "Đang cài đặt..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs Superset in to your account, and keeps it running as a service."
+msgstr "Cài Superset lên một máy bạn truy cập được bằng ssh, đăng nhập Superset vào tài khoản của bạn và giữ Superset chạy như một dịch vụ."
+
 msgid "Instructions"
 msgstr "Hướng dẫn"
 
@@ -11459,6 +11471,9 @@ msgstr "Mở từ thư mục"
 msgid "Open full screen"
 msgstr "Mở toàn màn hình"
 
+msgid "Open host"
+msgstr "Mở host"
+
 msgid "Open importer"
 msgstr "Mở trình nhập"
 
@@ -11813,8 +11828,8 @@ msgstr "Cam"
 msgid "Orchestrate Parallel Agents"
 msgstr "Điều phối agent song song"
 
-msgid "Orchestrate Them All."
-msgstr "Điều phối tất cả."
+msgid "Orchestrate Them All"
+msgstr "Điều phối tất cả"
 
 msgid "Orchestrated"
 msgstr "Điều phối"
@@ -14096,9 +14111,6 @@ msgstr "Đang chạy trên thiết bị này"
 msgid "Running terminal processes continue, but older output may no longer be available after restarting the app."
 msgstr "Các tiến trình terminal đang chạy vẫn tiếp tục, nhưng kết quả cũ có thể không còn sau khi khởi động lại ứng dụng."
 
-msgid "Running terminals from v1 did not carry over. Each v1 workspace now has new terminals that open in the same folders."
-msgstr "Các terminal đang chạy từ v1 không được chuyển sang. Mỗi workspace v1 giờ có terminal mới mở trong cùng các thư mục."
-
 msgid "Runs a local command on your machine"
 msgstr "Chạy một lệnh cục bộ trên máy bạn"
 
@@ -14824,6 +14836,9 @@ msgstr "Thiết lập"
 msgid "Set up {0}"
 msgstr "Thiết lập {0}"
 
+msgid "Set up a host over SSH"
+msgstr "Thiết lập host qua SSH"
+
 msgid "Set up an automation"
 msgstr "Thiết lập tự động hóa"
 
@@ -14865,6 +14880,9 @@ msgstr "Thiết lập"
 
 msgid "Setup script"
 msgstr "Script thiết lập"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "Quá trình thiết lập đã dừng. Lý do có trong output bên dưới."
 
 msgid "Sexual content"
 msgstr "Nội dung tình dục"
@@ -15519,6 +15537,9 @@ msgstr "Squash và merge"
 msgid "SS"
 msgstr "SS"
 
+msgid "SSH destination"
+msgstr "Đích SSH"
+
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
 
@@ -15977,6 +15998,9 @@ msgstr "Superset được xây dựng ngay trong Superset, nên chúng tôi chí
 msgid "Superset is designed to work with your existing tool, we natively support deep-linking to IDEs like Cursor so you can open your workspaces and files in your IDE."
 msgstr "Superset được thiết kế để làm việc cùng công cụ sẵn có của bạn, chúng tôi hỗ trợ sẵn deep-link tới các IDE như Cursor để bạn mở workspace và tệp ngay trong IDE của mình."
 
+msgid "Superset is getting a new name soon"
+msgstr "Superset sắp có tên mới"
+
 msgid "Superset is open source. If it's helped you today, a GitHub star helps other developers find it."
 msgstr "Superset là mã nguồn mở. Nếu hôm nay nó giúp được bạn, một star trên GitHub sẽ giúp các lập trình viên khác tìm thấy nó."
 
@@ -16012,9 +16036,6 @@ msgstr "Diff mã của Superset Mobile trên iPhone"
 
 msgid "Superset mobile gives me the power of my desktop anywhere I go."
 msgstr "Superset mobile mang sức mạnh của máy tính để bàn đến bất cứ đâu tôi đi."
-
-msgid "Superset Mobile is here"
-msgstr "Superset Mobile đã ra mắt"
 
 msgid "Superset Mobile is part of Pro"
 msgstr "Superset Mobile thuộc gói Pro"
@@ -16066,9 +16087,6 @@ msgstr "Superset đặt skill và công cụ của plugin ở nơi các agent n�
 
 msgid "Superset raised an $11.5M seed round led by Union Square Ventures, with Y Combinator and Paul Graham. TechCrunch named it one of the standout startups from YC Demo Day."
 msgstr "Superset đã gọi được vòng hạt giống 11,5 triệu USD do Union Square Ventures dẫn dắt, cùng Y Combinator và Paul Graham. TechCrunch đã chọn Superset là một trong những startup nổi bật tại YC Demo Day."
-
-msgid "Superset resumes the agent sessions it recorded ({agents}) when you open their workspace."
-msgstr "Superset sẽ tiếp tục các phiên agent đã ghi lại ({agents}) khi bạn mở workspace của chúng."
 
 msgid "Superset runs locally on your developers' machines. We don't store your code or AI conversations, and Superset has completed a SOC 2 Type II audit with an independent auditor. Request the report and review our security documentation at trust.superset.sh."
 msgstr "Superset chạy cục bộ trên máy của lập trình viên. Chúng tôi không lưu code hay hội thoại AI của bạn, và Superset đã hoàn tất kiểm toán SOC 2 Type II với một đơn vị kiểm toán độc lập. Hãy yêu cầu báo cáo và xem tài liệu bảo mật tại trust.superset.sh."
@@ -16679,6 +16697,9 @@ msgstr "Máy chủ không hoạt động trở lại trong vòng mười lăm ph
 msgid "The host hasn't answered."
 msgstr "Host không phản hồi."
 
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "Host đã trực tuyến. Hãy chọn nó khi tạo workspace."
+
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "Host chưa kết nối tới relay của Superset. Nếu đó là thiết bị này, hãy bật \"Cho phép truy cập từ xa vào thiết bị này qua relay\" trong Cài đặt > Truy cập từ xa, rồi thử lại."
 
@@ -17186,6 +17207,9 @@ msgstr "Luồng này không có bình luận nào để trả lời."
 msgid "This thread is not open to agents. A person has to comment on it before an agent can reply."
 msgstr "Luồng này chưa được chuyển cho agent. Ai đó phải chuyển nó từ trang trước."
 
+msgid "This update restarted your terminals once. New ones open in the same folders."
+msgstr "Bản cập nhật này đã khởi động lại terminal của bạn một lần duy nhất. Terminal mới mở trong cùng các thư mục."
+
 msgid "This user runs the host service for this device and can't be removed."
 msgstr "Người dùng này đang chạy dịch vụ host cho thiết bị này nên không thể gỡ."
 
@@ -17295,11 +17319,11 @@ msgstr "Tiêu đề"
 msgid "To"
 msgstr "Đến"
 
-msgid "To get back a different agent conversation, run this in a terminal in its folder:"
-msgstr "Để lấy lại một cuộc trò chuyện agent khác, hãy chạy lệnh này trong terminal ở thư mục của nó:"
+msgid "To resume an agent conversation, run this in its folder:"
+msgstr "Để tiếp tục một cuộc trò chuyện với agent, hãy chạy lệnh này trong thư mục của nó:"
 
-msgid "To get back an agent conversation, run this in a terminal in its folder:"
-msgstr "Để lấy lại cuộc trò chuyện agent, hãy chạy lệnh này trong terminal ở thư mục của nó:"
+msgid "To resume another agent conversation, run this in its folder:"
+msgstr "Để tiếp tục một cuộc trò chuyện khác với agent, hãy chạy lệnh này trong thư mục của nó:"
 
 msgid "Toast (Sonner)"
 msgstr "Toast (Sonner)"
@@ -18088,6 +18112,9 @@ msgstr "Không tìm thấy người dùng"
 
 msgid "user@example.com"
 msgstr "user@example.com"
+
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "user@host, ssh://user@host:2222 hoặc một bí danh trong cấu hình ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Dùng tên nhánh ngẫu nhiên (AI tạo tên bị quá thời gian)"

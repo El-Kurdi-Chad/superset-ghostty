@@ -690,6 +690,9 @@ msgstr "{actor} 님이 워크스페이스 {workspace}의 연결을 해제했습�
 msgid "{actual} so far · ~{projected} projected"
 msgstr "현재 {actual} · 예상 ~{projected}"
 
+msgid "{agents} sessions resume when you open their workspace."
+msgstr "{agents} 세션은 해당 워크스페이스를 열면 재개됩니다."
+
 msgid "{behindCount, plural, one {Behind main by # commit, needs rebase} other {Behind main by # commits, needs rebase}}"
 msgstr "{behindCount, plural, one {main보다 커밋 #개 뒤처짐, 리베이스 필요} other {main보다 커밋 #개 뒤처짐, 리베이스 필요}}"
 
@@ -2252,6 +2255,9 @@ msgstr "익명의 조립공"
 msgid "another device"
 msgstr "다른 기기"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "아래 터미널에서 비밀번호 등 질문에 답하세요."
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "이 질문은 데스크톱에서 답하거나 건너뛰세요."
 
@@ -2607,6 +2613,9 @@ msgstr "첨부하려면 호스트가 온라인이어야 합니다"
 msgid "Attempt before checks pass"
 msgstr "검사 통과 전에 시도"
 
+msgid "Attempted changes"
+msgstr "시도한 변경"
+
 msgid "Attention queue"
 msgstr "확인 대기열"
 
@@ -2784,9 +2793,6 @@ msgstr "자동화로 돌아가기"
 
 msgid "Back to billing"
 msgstr "결제로 돌아가기"
-
-msgid "Back to Blog"
-msgstr "블로그로 돌아가기"
 
 msgid "Back to Changelog"
 msgstr "변경 로그로 돌아가기"
@@ -3050,8 +3056,8 @@ msgstr "{companyName}을 팀에 도입하세요. 엔터프라이즈 플랜과 �
 msgid "Bring a link to something you built recently."
 msgstr "최근에 만든 결과물의 링크를 가져오세요."
 
-msgid "Bring Any Agent."
-msgstr "어떤 에이전트든 데려오세요."
+msgid "Bring Any Agent"
+msgstr "어떤 에이전트든 데려오세요"
 
 msgid "Bring over your projects"
 msgstr "프로젝트 가져오기"
@@ -3365,6 +3371,9 @@ msgstr "조직 로고 변경"
 
 msgid "Change organization slug"
 msgstr "조직 슬러그 변경"
+
+msgid "Change preview"
+msgstr "변경 미리보기"
 
 msgid "Change priority"
 msgstr "우선순위 변경"
@@ -8686,6 +8695,9 @@ msgstr "설치 경로"
 msgid "Installing..."
 msgstr "설치 중..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs Superset in to your account, and keeps it running as a service."
+msgstr "ssh로 접속할 수 있는 머신에 Superset을 설치하고, Superset을 내 계정으로 로그인시킨 뒤 서비스로 계속 실행합니다."
+
 msgid "Instructions"
 msgstr "지침"
 
@@ -11459,6 +11471,9 @@ msgstr "폴더에서 열기"
 msgid "Open full screen"
 msgstr "전체 화면으로 열기"
 
+msgid "Open host"
+msgstr "호스트 열기"
+
 msgid "Open importer"
 msgstr "가져오기 도구 열기"
 
@@ -11813,8 +11828,8 @@ msgstr "주황"
 msgid "Orchestrate Parallel Agents"
 msgstr "병렬 에이전트 오케스트레이션"
 
-msgid "Orchestrate Them All."
-msgstr "모두 오케스트레이션하세요."
+msgid "Orchestrate Them All"
+msgstr "모두 오케스트레이션하세요"
 
 msgid "Orchestrated"
 msgstr "오케스트레이션"
@@ -14096,9 +14111,6 @@ msgstr "이 기기에서 실행 중"
 msgid "Running terminal processes continue, but older output may no longer be available after restarting the app."
 msgstr "실행 중인 터미널 프로세스는 계속되지만, 앱을 다시 시작한 뒤에는 이전 출력을 볼 수 없을 수 있습니다."
 
-msgid "Running terminals from v1 did not carry over. Each v1 workspace now has new terminals that open in the same folders."
-msgstr "v1에서 실행 중이던 터미널은 옮겨지지 않았습니다. 각 v1 워크스페이스에는 이제 같은 폴더에서 열리는 새 터미널이 있습니다."
-
 msgid "Runs a local command on your machine"
 msgstr "내 컴퓨터에서 로컬 명령을 실행합니다"
 
@@ -14824,6 +14836,9 @@ msgstr "설정"
 msgid "Set up {0}"
 msgstr "{0} 설정"
 
+msgid "Set up a host over SSH"
+msgstr "SSH로 호스트 설정"
+
 msgid "Set up an automation"
 msgstr "자동화 설정하기"
 
@@ -14865,6 +14880,9 @@ msgstr "설정"
 
 msgid "Setup script"
 msgstr "설정 스크립트"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "설정이 중지되었습니다. 이유는 아래 출력에 있습니다."
 
 msgid "Sexual content"
 msgstr "성적인 콘텐츠"
@@ -15519,6 +15537,9 @@ msgstr "스쿼시 후 머지"
 msgid "SS"
 msgstr "SS"
 
+msgid "SSH destination"
+msgstr "SSH 대상"
+
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
 
@@ -15977,6 +15998,9 @@ msgstr "Superset은 Superset으로 개발됩니다. 우리가 가장 열심히 �
 msgid "Superset is designed to work with your existing tool, we natively support deep-linking to IDEs like Cursor so you can open your workspaces and files in your IDE."
 msgstr "Superset은 기존 도구와 함께 쓰도록 만들었습니다. Cursor 같은 IDE로의 딥링크를 기본 지원하므로 워크스페이스와 파일을 쓰던 IDE에서 열 수 있습니다."
 
+msgid "Superset is getting a new name soon"
+msgstr "Superset의 이름이 곧 바뀝니다"
+
 msgid "Superset is open source. If it's helped you today, a GitHub star helps other developers find it."
 msgstr "Superset은 오픈 소스입니다. 오늘 도움이 되었다면 GitHub 스타가 다른 개발자들이 Superset을 발견하는 데 도움이 됩니다."
 
@@ -16012,9 +16036,6 @@ msgstr "iPhone의 Superset Mobile 코드 diff"
 
 msgid "Superset mobile gives me the power of my desktop anywhere I go."
 msgstr "Superset 모바일은 어디를 가든 데스크톱의 성능을 사용할 수 있게 해줍니다."
-
-msgid "Superset Mobile is here"
-msgstr "Superset Mobile 출시"
 
 msgid "Superset Mobile is part of Pro"
 msgstr "Superset Mobile은 Pro에 포함되어 있습니다"
@@ -16066,9 +16087,6 @@ msgstr "Superset은 이 에이전트들이 찾는 위치에 플러그인의 스�
 
 msgid "Superset raised an $11.5M seed round led by Union Square Ventures, with Y Combinator and Paul Graham. TechCrunch named it one of the standout startups from YC Demo Day."
 msgstr "Superset은 Union Square Ventures가 리드하고 Y Combinator와 Paul Graham이 참여한 1,150만 달러 규모의 시드 라운드를 유치했습니다. TechCrunch는 Superset을 YC Demo Day의 주목할 만한 스타트업 중 하나로 선정했습니다."
-
-msgid "Superset resumes the agent sessions it recorded ({agents}) when you open their workspace."
-msgstr "Superset이 기록된 에이전트 세션({agents})을 해당 워크스페이스를 열 때 이어서 실행합니다."
 
 msgid "Superset runs locally on your developers' machines. We don't store your code or AI conversations, and Superset has completed a SOC 2 Type II audit with an independent auditor. Request the report and review our security documentation at trust.superset.sh."
 msgstr "Superset은 개발자의 로컬 머신에서 실행됩니다. 코드나 AI 대화를 저장하지 않으며, 독립 감사인과 함께 SOC 2 Type II 감사를 완료했습니다. trust.superset.sh에서 보고서를 요청하고 보안 문서를 확인하세요."
@@ -16679,6 +16697,9 @@ msgstr "호스트가 15분 이내에 다시 연결되지 않았습니다."
 msgid "The host hasn't answered."
 msgstr "호스트가 응답하지 않았습니다."
 
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "호스트가 온라인입니다. 워크스페이스를 만들 때 선택하세요."
+
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "호스트가 Superset 릴레이에 연결되어 있지 않습니다. 이 기기라면 설정 > 원격 액세스에서 \"원격 액세스가 릴레이를 통해 이 기기에 접근하도록 허용\"을 켠 뒤 다시 시도하세요."
 
@@ -17186,6 +17207,9 @@ msgstr "이 스레드에는 답글을 달 코멘트가 없습니다."
 msgid "This thread is not open to agents. A person has to comment on it before an agent can reply."
 msgstr "이 스레드는 아직 에이전트에게 넘겨지지 않았습니다. 먼저 페이지에서 누군가 넘겨야 합니다."
 
+msgid "This update restarted your terminals once. New ones open in the same folders."
+msgstr "이번 업데이트로 터미널이 한 번만 다시 시작되었습니다. 새 터미널은 같은 폴더에서 열립니다."
+
 msgid "This user runs the host service for this device and can't be removed."
 msgstr "이 사용자는 이 기기의 호스트 서비스를 실행 중이므로 제거할 수 없습니다."
 
@@ -17295,11 +17319,11 @@ msgstr "제목"
 msgid "To"
 msgstr "새 위치"
 
-msgid "To get back a different agent conversation, run this in a terminal in its folder:"
-msgstr "다른 에이전트 대화를 되찾으려면 해당 폴더의 터미널에서 다음을 실행하세요:"
+msgid "To resume an agent conversation, run this in its folder:"
+msgstr "에이전트 대화를 재개하려면 해당 폴더에서 다음을 실행하세요:"
 
-msgid "To get back an agent conversation, run this in a terminal in its folder:"
-msgstr "에이전트 대화를 되찾으려면 해당 폴더의 터미널에서 다음을 실행하세요:"
+msgid "To resume another agent conversation, run this in its folder:"
+msgstr "다른 에이전트 대화를 재개하려면 해당 폴더에서 다음을 실행하세요:"
 
 msgid "Toast (Sonner)"
 msgstr "토스트 (Sonner)"
@@ -18088,6 +18112,9 @@ msgstr "사용자를 찾을 수 없습니다"
 
 msgid "user@example.com"
 msgstr "user@example.com"
+
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "user@host, ssh://user@host:2222 또는 ssh 설정 별칭"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "임의의 브랜치 이름을 사용합니다 (AI 생성 시간 초과)"

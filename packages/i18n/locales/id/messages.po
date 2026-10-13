@@ -690,6 +690,9 @@ msgstr "{actor} melepas tautan workspace {workspace}"
 msgid "{actual} so far · ~{projected} projected"
 msgstr "{actual} sejauh ini · ~{projected} diperkirakan"
 
+msgid "{agents} sessions resume when you open their workspace."
+msgstr "Sesi {agents} dilanjutkan saat Anda membuka workspace-nya."
+
 msgid "{behindCount, plural, one {Behind main by # commit, needs rebase} other {Behind main by # commits, needs rebase}}"
 msgstr "{behindCount, plural, one {Tertinggal # commit dari main, perlu rebase} other {Tertinggal # commit dari main, perlu rebase}}"
 
@@ -2252,6 +2255,9 @@ msgstr "Perakit Anonim"
 msgid "another device"
 msgstr "perangkat lain"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "Jawab pertanyaan di terminal di bawah, misalnya kata sandi."
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "Jawab pertanyaan ini di desktop, atau lewati."
 
@@ -2607,6 +2613,9 @@ msgstr "Lampiran memerlukan host yang online"
 msgid "Attempt before checks pass"
 msgstr "Coba sebelum check lulus"
 
+msgid "Attempted changes"
+msgstr "Perubahan yang dicoba"
+
 msgid "Attention queue"
 msgstr "Antrean perhatian"
 
@@ -2784,9 +2793,6 @@ msgstr "Kembali ke otomatisasi"
 
 msgid "Back to billing"
 msgstr "Kembali ke penagihan"
-
-msgid "Back to Blog"
-msgstr "Kembali ke Blog"
 
 msgid "Back to Changelog"
 msgstr "Kembali ke Changelog"
@@ -3050,8 +3056,8 @@ msgstr "Bawa {companyName} ke tim Anda. Hubungi kami untuk mempelajari lebih lan
 msgid "Bring a link to something you built recently."
 msgstr "Bawa tautan ke sesuatu yang baru-baru ini Anda bangun."
 
-msgid "Bring Any Agent."
-msgstr "Bawa Agen Apa Pun."
+msgid "Bring Any Agent"
+msgstr "Bawa Agen Apa Pun"
 
 msgid "Bring over your projects"
 msgstr "Impor proyek Anda"
@@ -3365,6 +3371,9 @@ msgstr "Ganti logo organisasi"
 
 msgid "Change organization slug"
 msgstr "Ubah slug organisasi"
+
+msgid "Change preview"
+msgstr "Pratinjau perubahan"
 
 msgid "Change priority"
 msgstr "Ubah prioritas"
@@ -8686,6 +8695,9 @@ msgstr "Diinstal melalui"
 msgid "Installing..."
 msgstr "Memasang..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs Superset in to your account, and keeps it running as a service."
+msgstr "Memasang Superset di mesin yang bisa Anda jangkau dengan ssh, menghubungkan Superset ke akun Anda, dan menjaga Superset tetap berjalan sebagai layanan."
+
 msgid "Instructions"
 msgstr "Instruksi"
 
@@ -11459,6 +11471,9 @@ msgstr "Buka dari folder"
 msgid "Open full screen"
 msgstr "Buka layar penuh"
 
+msgid "Open host"
+msgstr "Buka host"
+
 msgid "Open importer"
 msgstr "Buka importer"
 
@@ -11813,8 +11828,8 @@ msgstr "Oranye"
 msgid "Orchestrate Parallel Agents"
 msgstr "Orkestrasi Agen Paralel"
 
-msgid "Orchestrate Them All."
-msgstr "Orkestrasi Semuanya."
+msgid "Orchestrate Them All"
+msgstr "Orkestrasi Semuanya"
 
 msgid "Orchestrated"
 msgstr "Terorkestrasi"
@@ -14096,9 +14111,6 @@ msgstr "Berjalan di perangkat ini"
 msgid "Running terminal processes continue, but older output may no longer be available after restarting the app."
 msgstr "Proses terminal yang berjalan tetap lanjut, tapi output lama mungkin tidak tersedia lagi setelah aplikasi dimulai ulang."
 
-msgid "Running terminals from v1 did not carry over. Each v1 workspace now has new terminals that open in the same folders."
-msgstr "Terminal yang berjalan dari v1 tidak ikut dipindahkan. Setiap workspace v1 kini memiliki terminal baru yang terbuka di folder yang sama."
-
 msgid "Runs a local command on your machine"
 msgstr "Menjalankan perintah lokal di mesin Anda"
 
@@ -14824,6 +14836,9 @@ msgstr "Siapkan"
 msgid "Set up {0}"
 msgstr "Siapkan {0}"
 
+msgid "Set up a host over SSH"
+msgstr "Siapkan host lewat SSH"
+
 msgid "Set up an automation"
 msgstr "Siapkan otomatisasi"
 
@@ -14865,6 +14880,9 @@ msgstr "Setup"
 
 msgid "Setup script"
 msgstr "Skrip setup"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "Penyiapan berhenti. Alasannya ada di output di bawah."
 
 msgid "Sexual content"
 msgstr "Konten seksual"
@@ -15519,6 +15537,9 @@ msgstr "Squash dan merge"
 msgid "SS"
 msgstr "SS"
 
+msgid "SSH destination"
+msgstr "Tujuan SSH"
+
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
 
@@ -15977,6 +15998,9 @@ msgstr "Superset dibangun menggunakan Superset, jadi kami sendiri adalah penggun
 msgid "Superset is designed to work with your existing tool, we natively support deep-linking to IDEs like Cursor so you can open your workspaces and files in your IDE."
 msgstr "Superset dirancang untuk bekerja dengan alat yang sudah Anda pakai; kami mendukung deep-link ke IDE seperti Cursor secara native sehingga Anda bisa membuka workspace dan file di IDE Anda."
 
+msgid "Superset is getting a new name soon"
+msgstr "Superset akan segera berganti nama"
+
 msgid "Superset is open source. If it's helped you today, a GitHub star helps other developers find it."
 msgstr "Superset bersifat open source. Kalau hari ini membantu Anda, satu star GitHub membantu developer lain menemukannya."
 
@@ -16012,9 +16036,6 @@ msgstr "Diff kode Superset Mobile di iPhone"
 
 msgid "Superset mobile gives me the power of my desktop anywhere I go."
 msgstr "Superset mobile memberi saya kekuatan desktop ke mana pun saya pergi."
-
-msgid "Superset Mobile is here"
-msgstr "Superset Mobile telah hadir"
 
 msgid "Superset Mobile is part of Pro"
 msgstr "Superset Mobile termasuk dalam Pro"
@@ -16066,9 +16087,6 @@ msgstr "Superset menaruh skill dan tool plugin di tempat agen-agen ini mencariny
 
 msgid "Superset raised an $11.5M seed round led by Union Square Ventures, with Y Combinator and Paul Graham. TechCrunch named it one of the standout startups from YC Demo Day."
 msgstr "Superset meraih pendanaan seed sebesar 11,5 juta dolar AS yang dipimpin oleh Union Square Ventures, bersama Y Combinator dan Paul Graham. TechCrunch menyebutnya sebagai salah satu startup unggulan dari YC Demo Day."
-
-msgid "Superset resumes the agent sessions it recorded ({agents}) when you open their workspace."
-msgstr "Superset melanjutkan sesi agen yang tercatat ({agents}) saat Anda membuka workspace-nya."
 
 msgid "Superset runs locally on your developers' machines. We don't store your code or AI conversations, and Superset has completed a SOC 2 Type II audit with an independent auditor. Request the report and review our security documentation at trust.superset.sh."
 msgstr "Superset berjalan lokal di mesin developer Anda. Kami tidak menyimpan kode atau percakapan AI Anda, dan Superset telah menyelesaikan audit SOC 2 Type II dengan auditor independen. Minta laporannya dan tinjau dokumentasi keamanan kami di trust.superset.sh."
@@ -16679,6 +16697,9 @@ msgstr "Host tidak kembali dalam lima belas menit."
 msgid "The host hasn't answered."
 msgstr "Host tidak merespons."
 
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "Host sudah online. Pilih host ini saat membuat workspace."
+
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "Host tidak terhubung ke relay Superset. Kalau ini perangkatnya, aktifkan \"Izinkan akses jarak jauh ke perangkat ini melalui relay\" di Pengaturan > Akses Jarak Jauh, lalu coba lagi."
 
@@ -17186,6 +17207,9 @@ msgstr "Thread ini tidak punya komentar untuk dibalas."
 msgid "This thread is not open to agents. A person has to comment on it before an agent can reply."
 msgstr "Thread ini belum diserahkan ke agen. Seseorang harus menyerahkannya dari halaman itu dulu."
 
+msgid "This update restarted your terminals once. New ones open in the same folders."
+msgstr "Pembaruan ini memulai ulang terminal Anda satu kali saja. Terminal baru terbuka di folder yang sama."
+
 msgid "This user runs the host service for this device and can't be removed."
 msgstr "Pengguna ini menjalankan layanan host untuk perangkat ini dan tidak bisa dihapus."
 
@@ -17295,11 +17319,11 @@ msgstr "Judul"
 msgid "To"
 msgstr "Ke"
 
-msgid "To get back a different agent conversation, run this in a terminal in its folder:"
-msgstr "Untuk mendapatkan kembali percakapan agen lain, jalankan ini di terminal di foldernya:"
+msgid "To resume an agent conversation, run this in its folder:"
+msgstr "Untuk melanjutkan percakapan agen, jalankan ini di foldernya:"
 
-msgid "To get back an agent conversation, run this in a terminal in its folder:"
-msgstr "Untuk mendapatkan kembali percakapan agen, jalankan ini di terminal di foldernya:"
+msgid "To resume another agent conversation, run this in its folder:"
+msgstr "Untuk melanjutkan percakapan agen lain, jalankan ini di foldernya:"
 
 msgid "Toast (Sonner)"
 msgstr "Toast (Sonner)"
@@ -18088,6 +18112,9 @@ msgstr "Pengguna tidak ditemukan"
 
 msgid "user@example.com"
 msgstr "user@example.com"
+
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "user@host, ssh://user@host:2222, atau alias dari konfigurasi ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Memakai nama branch acak (pembuatan AI kehabisan waktu)"

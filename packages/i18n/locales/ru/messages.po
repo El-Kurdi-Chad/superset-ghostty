@@ -690,6 +690,9 @@ msgstr "{actor} отвязал(а) рабочее пространство {work
 msgid "{actual} so far · ~{projected} projected"
 msgstr "{actual} на данный момент · прогноз ~{projected}"
 
+msgid "{agents} sessions resume when you open their workspace."
+msgstr "Сеансы {agents} возобновятся, когда вы откроете их рабочее пространство."
+
 msgid "{behindCount, plural, one {Behind main by # commit, needs rebase} other {Behind main by # commits, needs rebase}}"
 msgstr "{behindCount, plural, one {Отстаёт от main на # коммит, нужен rebase} few {Отстаёт от main на # коммита, нужен rebase} many {Отстаёт от main на # коммитов, нужен rebase} other {Отстаёт от main на # коммитов, нужен rebase}}"
 
@@ -2252,6 +2255,9 @@ msgstr "Анонимный сборщик"
 msgid "another device"
 msgstr "другое устройство"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "Отвечайте на вопросы в терминале ниже, например введите пароль."
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "Ответьте на этот вопрос на компьютере или пропустите его."
 
@@ -2607,6 +2613,9 @@ msgstr "Для вложений нужен хост в сети"
 msgid "Attempt before checks pass"
 msgstr "Попробовать до прохождения проверок"
 
+msgid "Attempted changes"
+msgstr "Попытка изменений"
+
 msgid "Attention queue"
 msgstr "Очередь внимания"
 
@@ -2784,9 +2793,6 @@ msgstr "Назад к автоматизациям"
 
 msgid "Back to billing"
 msgstr "Назад к оплате"
-
-msgid "Back to Blog"
-msgstr "К блогу"
 
 msgid "Back to Changelog"
 msgstr "К changelog"
@@ -3050,8 +3056,8 @@ msgstr "Подключите {companyName} для своей команды. С�
 msgid "Bring a link to something you built recently."
 msgstr "Принесите ссылку на то, что вы недавно создали."
 
-msgid "Bring Any Agent."
-msgstr "Приводите любого агента."
+msgid "Bring Any Agent"
+msgstr "Приводите любого агента"
 
 msgid "Bring over your projects"
 msgstr "Перенесите проекты"
@@ -3365,6 +3371,9 @@ msgstr "Сменить логотип организации"
 
 msgid "Change organization slug"
 msgstr "Изменить slug организации"
+
+msgid "Change preview"
+msgstr "Предпросмотр изменений"
 
 msgid "Change priority"
 msgstr "Изменить приоритет"
@@ -8686,6 +8695,9 @@ msgstr "Установлено через"
 msgid "Installing..."
 msgstr "Установка..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs Superset in to your account, and keeps it running as a service."
+msgstr "Устанавливает Superset на машину, доступную по ssh, выполняет вход Superset в вашу учётную запись и держит Superset запущенным как службу."
+
 msgid "Instructions"
 msgstr "Инструкции"
 
@@ -11459,6 +11471,9 @@ msgstr "Открыть из папки"
 msgid "Open full screen"
 msgstr "Открыть во весь экран"
 
+msgid "Open host"
+msgstr "Открыть хост"
+
 msgid "Open importer"
 msgstr "Открыть импортёр"
 
@@ -11813,8 +11828,8 @@ msgstr "Оранжевый"
 msgid "Orchestrate Parallel Agents"
 msgstr "Оркестрируйте параллельных агентов"
 
-msgid "Orchestrate Them All."
-msgstr "Оркестрируйте всех."
+msgid "Orchestrate Them All"
+msgstr "Оркестрируйте всех"
 
 msgid "Orchestrated"
 msgstr "С оркестрацией"
@@ -14096,9 +14111,6 @@ msgstr "Работает на этом устройстве"
 msgid "Running terminal processes continue, but older output may no longer be available after restarting the app."
 msgstr "Работающие процессы терминала продолжат работу, но более старый вывод может стать недоступен после перезапуска приложения."
 
-msgid "Running terminals from v1 did not carry over. Each v1 workspace now has new terminals that open in the same folders."
-msgstr "Запущенные терминалы из v1 не перенеслись. В каждом рабочем пространстве v1 теперь новые терминалы, которые открываются в тех же папках."
-
 msgid "Runs a local command on your machine"
 msgstr "Запускает локальную команду на вашей машине"
 
@@ -14824,6 +14836,9 @@ msgstr "Настроить"
 msgid "Set up {0}"
 msgstr "Настроить {0}"
 
+msgid "Set up a host over SSH"
+msgstr "Настроить хост по SSH"
+
 msgid "Set up an automation"
 msgstr "Настройте автоматизацию"
 
@@ -14865,6 +14880,9 @@ msgstr "Установка"
 
 msgid "Setup script"
 msgstr "Скрипт установки"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "Настройка остановлена. Причина указана в выводе ниже."
 
 msgid "Sexual content"
 msgstr "Сексуальный контент"
@@ -15519,6 +15537,9 @@ msgstr "Сжать и объединить"
 msgid "SS"
 msgstr "SS"
 
+msgid "SSH destination"
+msgstr "Адрес SSH"
+
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
 
@@ -15977,6 +15998,9 @@ msgstr "Superset разрабатывается в Superset, поэтому мы
 msgid "Superset is designed to work with your existing tool, we natively support deep-linking to IDEs like Cursor so you can open your workspaces and files in your IDE."
 msgstr "Superset рассчитан на работу с вашим текущим инструментом: мы нативно поддерживаем переход по ссылкам в IDE вроде Cursor, чтобы открывать рабочие области и файлы прямо там."
 
+msgid "Superset is getting a new name soon"
+msgstr "Superset скоро сменит название"
+
 msgid "Superset is open source. If it's helped you today, a GitHub star helps other developers find it."
 msgstr "Superset — проект с открытым исходным кодом. Если он сегодня помог, звезда на GitHub поможет другим разработчикам его найти."
 
@@ -16012,9 +16036,6 @@ msgstr "Diff кода в Superset Mobile на iPhone"
 
 msgid "Superset mobile gives me the power of my desktop anywhere I go."
 msgstr "Superset mobile даёт мне мощь моего компьютера, где бы я ни был."
-
-msgid "Superset Mobile is here"
-msgstr "Superset Mobile уже здесь"
 
 msgid "Superset Mobile is part of Pro"
 msgstr "Superset Mobile входит в Pro"
@@ -16066,9 +16087,6 @@ msgstr "Superset кладёт навыки и инструменты плаги�
 
 msgid "Superset raised an $11.5M seed round led by Union Square Ventures, with Y Combinator and Paul Graham. TechCrunch named it one of the standout startups from YC Demo Day."
 msgstr "Superset привлёк 11,5 млн долларов в посевном раунде под руководством Union Square Ventures при участии Y Combinator и Пола Грэма. TechCrunch назвал Superset одним из самых заметных стартапов YC Demo Day."
-
-msgid "Superset resumes the agent sessions it recorded ({agents}) when you open their workspace."
-msgstr "Superset возобновит записанные сеансы агентов ({agents}), когда вы откроете их рабочее пространство."
 
 msgid "Superset runs locally on your developers' machines. We don't store your code or AI conversations, and Superset has completed a SOC 2 Type II audit with an independent auditor. Request the report and review our security documentation at trust.superset.sh."
 msgstr "Superset работает локально на машинах ваших разработчиков. Мы не храним ваш код и диалоги с AI, а Superset прошёл аудит SOC 2 Type II у независимого аудитора. Запросите отчёт и посмотрите документацию по безопасности на trust.superset.sh."
@@ -16679,6 +16697,9 @@ msgstr "Хост не восстановил работу в течение пя
 msgid "The host hasn't answered."
 msgstr "Хост не ответил."
 
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "Хост в сети. Выберите его при создании рабочей области."
+
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "Хост не подключён к реле Superset. Если это текущее устройство, включите «Разрешить удалённый доступ к этому устройству через реле» в Настройки > Удалённый доступ и повторите."
 
@@ -17186,6 +17207,9 @@ msgstr "В этой ветке нет комментария, на которы�
 msgid "This thread is not open to agents. A person has to comment on it before an agent can reply."
 msgstr "Эта ветка не передана агенту. Сначала кто-то должен передать её со страницы."
 
+msgid "This update restarted your terminals once. New ones open in the same folders."
+msgstr "Это обновление однократно перезапустило ваши терминалы. Новые открываются в тех же папках."
+
 msgid "This user runs the host service for this device and can't be removed."
 msgstr "Этот пользователь запускает службу хоста для этого устройства, его нельзя удалить."
 
@@ -17295,11 +17319,11 @@ msgstr "Название"
 msgid "To"
 msgstr "Куда"
 
-msgid "To get back a different agent conversation, run this in a terminal in its folder:"
-msgstr "Чтобы вернуть другой разговор с агентом, выполните это в терминале в его папке:"
+msgid "To resume an agent conversation, run this in its folder:"
+msgstr "Чтобы возобновить разговор с агентом, выполните это в его папке:"
 
-msgid "To get back an agent conversation, run this in a terminal in its folder:"
-msgstr "Чтобы вернуть разговор с агентом, выполните это в терминале в его папке:"
+msgid "To resume another agent conversation, run this in its folder:"
+msgstr "Чтобы возобновить другой разговор с агентом, выполните это в его папке:"
 
 msgid "Toast (Sonner)"
 msgstr "Тост (Sonner)"
@@ -18088,6 +18112,9 @@ msgstr "Пользователь не найден"
 
 msgid "user@example.com"
 msgstr "user@example.com"
+
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "user@host, ssh://user@host:2222 или псевдоним из конфигурации ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Используется случайное имя ветки (истекло время генерации AI)"

@@ -690,6 +690,9 @@ msgstr "{actor} 取消關聯工作區 {workspace}"
 msgid "{actual} so far · ~{projected} projected"
 msgstr "目前{actual} · 預計約{projected}"
 
+msgid "{agents} sessions resume when you open their workspace."
+msgstr "開啟對應工作區時，{agents} 工作階段會恢復。"
+
 msgid "{behindCount, plural, one {Behind main by # commit, needs rebase} other {Behind main by # commits, needs rebase}}"
 msgstr "{behindCount, plural, one {落後main #個提交，需要變基} other {落後main #個提交，需要變基}}"
 
@@ -2252,6 +2255,9 @@ msgstr "匿名組裝工"
 msgid "another device"
 msgstr "另一臺裝置"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "請在下方終端機中回答問題，例如輸入密碼。"
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "請在桌面版回答此問題，或略過。"
 
@@ -2607,6 +2613,9 @@ msgstr "附件需要主機線上"
 msgid "Attempt before checks pass"
 msgstr "在檢查通過前就嘗試"
 
+msgid "Attempted changes"
+msgstr "嘗試的變更"
+
 msgid "Attention queue"
 msgstr "待處理佇列"
 
@@ -2784,9 +2793,6 @@ msgstr "返回自動化"
 
 msgid "Back to billing"
 msgstr "返回帳單"
-
-msgid "Back to Blog"
-msgstr "返回部落格"
 
 msgid "Back to Changelog"
 msgstr "返回更新日誌"
@@ -3050,8 +3056,8 @@ msgstr "將 {companyName} 引入您的團隊。與我們聯繫以進一步瞭解
 msgid "Bring a link to something you built recently."
 msgstr "請帶上你最近做的作品連結。"
 
-msgid "Bring Any Agent."
-msgstr "帶上任意代理程式。"
+msgid "Bring Any Agent"
+msgstr "帶上任意代理程式"
 
 msgid "Bring over your projects"
 msgstr "遷入專案"
@@ -3365,6 +3371,9 @@ msgstr "更改組織logo"
 
 msgid "Change organization slug"
 msgstr "更改組織slug"
+
+msgid "Change preview"
+msgstr "變更預覽"
 
 msgid "Change priority"
 msgstr "變更優先順序"
@@ -8686,6 +8695,9 @@ msgstr "安裝方式"
 msgid "Installing..."
 msgstr "正在安裝..."
 
+msgid "Installs Superset on a machine you can reach with ssh, signs Superset in to your account, and keeps it running as a service."
+msgstr "在可透過 ssh 連線的機器上安裝 Superset，將 Superset 登入你的帳戶，並讓它以服務形式持續執行。"
+
 msgid "Instructions"
 msgstr "說明"
 
@@ -11459,6 +11471,9 @@ msgstr "從資料夾開啟"
 msgid "Open full screen"
 msgstr "全螢幕開啟"
 
+msgid "Open host"
+msgstr "開啟主機"
+
 msgid "Open importer"
 msgstr "開啟匯入器"
 
@@ -11813,8 +11828,8 @@ msgstr "橙色"
 msgid "Orchestrate Parallel Agents"
 msgstr "編排並行代理程式"
 
-msgid "Orchestrate Them All."
-msgstr "統一編排。"
+msgid "Orchestrate Them All"
+msgstr "統一編排"
 
 msgid "Orchestrated"
 msgstr "編排"
@@ -14096,9 +14111,6 @@ msgstr "在此裝置上執行"
 msgid "Running terminal processes continue, but older output may no longer be available after restarting the app."
 msgstr "執行中的終端處理程序會繼續，但重啟應用後可能無法再看到較早的輸出。"
 
-msgid "Running terminals from v1 did not carry over. Each v1 workspace now has new terminals that open in the same folders."
-msgstr "v1 中正在執行的終端機沒有移轉過來。每個 v1 工作區現在都有在相同資料夾中開啟的新終端機。"
-
 msgid "Runs a local command on your machine"
 msgstr "在你的機器上執行本地命令"
 
@@ -14824,6 +14836,9 @@ msgstr "設定"
 msgid "Set up {0}"
 msgstr "設定 {0}"
 
+msgid "Set up a host over SSH"
+msgstr "透過 SSH 設定主機"
+
 msgid "Set up an automation"
 msgstr "設定自動化"
 
@@ -14865,6 +14880,9 @@ msgstr "初始化"
 
 msgid "Setup script"
 msgstr "設定指令碼"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "設定已停止。原因請見下方輸出。"
 
 msgid "Sexual content"
 msgstr "色情內容"
@@ -15519,6 +15537,9 @@ msgstr "壓縮併合併"
 msgid "SS"
 msgstr "SS"
 
+msgid "SSH destination"
+msgstr "SSH 目的地"
+
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
 
@@ -15977,6 +15998,9 @@ msgstr "Superset 就是在 Superset 中建構的，因此我們自己就是它�
 msgid "Superset is designed to work with your existing tool, we natively support deep-linking to IDEs like Cursor so you can open your workspaces and files in your IDE."
 msgstr "Superset的設計就是配合你現有的工具。我們原生支援深度連結到Cursor這類IDE，你可以直接在自己的IDE裡開啟工作區和檔案。"
 
+msgid "Superset is getting a new name soon"
+msgstr "Superset 即將更名"
+
 msgid "Superset is open source. If it's helped you today, a GitHub star helps other developers find it."
 msgstr "Superset是開源的。如果它今天幫到了你，一個GitHub星標能幫助更多開發者找到它。"
 
@@ -16012,9 +16036,6 @@ msgstr "iPhone 上的 Superset Mobile 程式碼差異"
 
 msgid "Superset mobile gives me the power of my desktop anywhere I go."
 msgstr "無論走到哪裡，Superset 手機版都讓我擁有桌上型電腦的能力。"
-
-msgid "Superset Mobile is here"
-msgstr "Superset Mobile 來了"
 
 msgid "Superset Mobile is part of Pro"
 msgstr "Superset Mobile屬於專業版"
@@ -16066,9 +16087,6 @@ msgstr "Superset 會把外掛的技能和工具放到這些代理程式會查找
 
 msgid "Superset raised an $11.5M seed round led by Union Square Ventures, with Y Combinator and Paul Graham. TechCrunch named it one of the standout startups from YC Demo Day."
 msgstr "Superset 完成了 1,150 萬美元的種子輪募資，由 Union Square Ventures 領投，Y Combinator 與 Paul Graham 參投。TechCrunch 將其評為 YC Demo Day 的傑出新創公司之一。"
-
-msgid "Superset resumes the agent sessions it recorded ({agents}) when you open their workspace."
-msgstr "Superset 會在你開啟對應工作區時恢復它記錄的代理工作階段（{agents}）。"
 
 msgid "Superset runs locally on your developers' machines. We don't store your code or AI conversations, and Superset has completed a SOC 2 Type II audit with an independent auditor. Request the report and review our security documentation at trust.superset.sh."
 msgstr "Superset在你的開發者機器上本地執行。我們不儲存你的程式碼或AI對話，並且Superset已通過獨立審計機構的SOC 2 Type II審計。可在trust.superset.sh索取報告並查閱我們的安全文件。"
@@ -16679,6 +16697,9 @@ msgstr "主機未在十五分鐘內恢復。"
 msgid "The host hasn't answered."
 msgstr "主機未回應。"
 
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "主機已上線。建立工作區時選擇它。"
+
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "該主機沒有連線到Superset中繼。如果就是此裝置，請在「設定>遠端存取」中開啟「允許遠端存取通過中繼存取此裝置」，然後重試。"
 
@@ -17186,6 +17207,9 @@ msgstr "這個討論裡沒有可回覆的評論。"
 msgid "This thread is not open to agents. A person has to comment on it before an agent can reply."
 msgstr "此討論串尚未移交給代理程式。需要有人先從頁面上移交。"
 
+msgid "This update restarted your terminals once. New ones open in the same folders."
+msgstr "此次更新僅重新啟動了一次你的終端機。新的終端機會在相同資料夾中開啟。"
+
 msgid "This user runs the host service for this device and can't be removed."
 msgstr "此使用者在此裝置上執行主機服務，無法被移除。"
 
@@ -17295,11 +17319,11 @@ msgstr "標題"
 msgid "To"
 msgstr "到"
 
-msgid "To get back a different agent conversation, run this in a terminal in its folder:"
-msgstr "要找回另一段代理對話，請在其資料夾的終端機中執行："
+msgid "To resume an agent conversation, run this in its folder:"
+msgstr "若要恢復與代理的對話，請在其資料夾中執行："
 
-msgid "To get back an agent conversation, run this in a terminal in its folder:"
-msgstr "要找回代理對話，請在其資料夾的終端機中執行："
+msgid "To resume another agent conversation, run this in its folder:"
+msgstr "若要恢復其他與代理的對話，請在其資料夾中執行："
 
 msgid "Toast (Sonner)"
 msgstr "Toast（Sonner）"
@@ -18088,6 +18112,9 @@ msgstr "未找到使用者"
 
 msgid "user@example.com"
 msgstr "user@example.com"
+
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "user@host、ssh://user@host:2222 或 ssh 設定中的別名"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "使用隨機分支名（AI生成逾時）"
