@@ -43,7 +43,7 @@ export function PullRequestChecksSummary({
 							message: `${summary.failing} of ${summary.relevantChecks.length} checks failed`,
 						})
 					: t({
-							message: `${summary.pending} of ${summary.relevantChecks.length} checks running`,
+							message: `${summary.passing} of ${summary.relevantChecks.length} checks passed, ${summary.pending} running`,
 						});
 
 	return (

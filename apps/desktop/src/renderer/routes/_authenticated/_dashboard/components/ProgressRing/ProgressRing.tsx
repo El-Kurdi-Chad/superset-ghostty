@@ -30,7 +30,7 @@ export function ProgressRing({
 				opacity={unavailable ? 1 : 0.25}
 				strokeDasharray={unavailable ? "2 2" : undefined}
 			/>
-			{!unavailable && percent > 0 && (
+			{!unavailable && (
 				<circle
 					cx="8"
 					cy="8"
