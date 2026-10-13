@@ -5,6 +5,7 @@ import { useCopyToClipboard } from "renderer/hooks/useCopyToClipboard";
 import { useFileOpenMode } from "renderer/hooks/useFileOpenMode";
 import { useIsAgentPresetEnabled } from "renderer/hooks/useIsAgentPresetEnabled";
 import { useHotkey } from "renderer/hotkeys";
+import { isTerminalPresetEnabled } from "renderer/lib/agent-launch-command";
 import { electronTrpc } from "renderer/lib/electron-trpc";
 import { electronTrpcClient as trpcClient } from "renderer/lib/trpc-client";
 import { usePresets } from "renderer/react-query/presets";
@@ -204,7 +205,8 @@ function WorkspacePage() {
 	const openTabWithPreset = useCallback(
 		(presetIndex: number) => {
 			const preset = presets[presetIndex];
-			if (preset && !isAgentPresetEnabled(preset.name)) return;
+			if (preset && !isTerminalPresetEnabled(preset, isAgentPresetEnabled))
+				return;
 			if (preset) {
 				openPreset(workspaceId, preset, { target: "active-tab" });
 			} else {

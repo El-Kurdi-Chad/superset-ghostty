@@ -23,6 +23,7 @@ import {
 } from "renderer/assets/app-icons/preset-icons";
 import { HotkeyMenuShortcut } from "renderer/components/HotkeyMenuShortcut";
 import { useIsAgentPresetEnabled } from "renderer/hooks/useIsAgentPresetEnabled";
+import { isTerminalPresetEnabled } from "renderer/lib/agent-launch-command";
 import { electronTrpc } from "renderer/lib/electron-trpc";
 import { usePresets } from "renderer/react-query/presets";
 import { WorkspaceRunButton } from "renderer/routes/_authenticated/_dashboard/components/TopBar/components/WorkspaceRunButton";
@@ -153,7 +154,10 @@ export function PresetsBar() {
 		workspace?.projectId,
 	);
 	const visiblePresets = useMemo(
-		() => matchedPresets.filter((preset) => isAgentPresetEnabled(preset.name)),
+		() =>
+			matchedPresets.filter((preset) =>
+				isTerminalPresetEnabled(preset, isAgentPresetEnabled),
+			),
 		[matchedPresets, isAgentPresetEnabled],
 	);
 	const [localPinnedPresetIds, setLocalPinnedPresetIds] = useState<string[]>(
@@ -191,7 +195,7 @@ export function PresetsBar() {
 
 		for (const [index, preset] of matchedPresets.entries()) {
 			if (!isPresetPinnedToBar(preset.pinnedToBar)) continue;
-			if (!isAgentPresetEnabled(preset.name)) continue;
+			if (!isTerminalPresetEnabled(preset, isAgentPresetEnabled)) continue;
 			if (seenIds.has(preset.id)) continue;
 			orderedPinnedPresets.push({ preset, index });
 		}

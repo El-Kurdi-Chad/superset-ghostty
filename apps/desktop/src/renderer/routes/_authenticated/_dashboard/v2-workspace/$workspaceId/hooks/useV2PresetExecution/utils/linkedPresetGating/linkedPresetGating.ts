@@ -1,10 +1,7 @@
 import {
-	AGENT_PRESET_FEATURE_FLAGS,
-	getPresetById,
-} from "@superset/shared/host-agent-presets";
-import {
 	type AgentLaunchConfig,
 	findLinkedAgent,
+	runsGatedAgent,
 } from "renderer/lib/agent-launch-command";
 
 type IsAgentPresetEnabled = (presetId: string) => boolean;
@@ -18,21 +15,6 @@ export function isLinkedPresetVisible(
 	return isAgentPresetEnabled(
 		findLinkedAgent(agents, agentId)?.presetId ?? agentId,
 	);
-}
-
-function runsGatedAgent(
-	commands: readonly string[],
-	isAgentPresetEnabled: IsAgentPresetEnabled,
-): boolean {
-	const programs = commands.map((command) => command.trim().split(/\s+/)[0]);
-	return [...AGENT_PRESET_FEATURE_FLAGS.keys()].some((presetId) => {
-		const binary = getPresetById(presetId)?.command;
-		return (
-			!isAgentPresetEnabled(presetId) &&
-			binary !== undefined &&
-			programs.includes(binary)
-		);
-	});
 }
 
 export function isLinkedPresetLaunchable(
