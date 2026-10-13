@@ -57,7 +57,10 @@ function isPrereleaseBuild(): boolean {
 }
 
 const IS_PRERELEASE = isPrereleaseBuild();
-const IS_AUTO_UPDATE_PLATFORM = PLATFORM.IS_MAC || PLATFORM.IS_LINUX;
+// Ghostty fork: upstream's update feed would replace this build with the
+// official one (and drop Ghostty mode), so updates are off. Rebuild from the
+// fork to upgrade.
+const IS_AUTO_UPDATE_PLATFORM = false;
 
 // Use explicit feed URLs to ensure we always fetch platform-specific manifests
 // (for example latest-mac.yml and latest-linux.yml) from the correct release.
@@ -273,7 +276,8 @@ export function checkForUpdatesInteractive(): void {
 			title: i18n._(msg({ message: "Updates" })),
 			message: i18n._(
 				msg({
-					message: "Auto-updates are only available on macOS and Linux.",
+					message:
+						"Auto-updates are off in the Ghostty build. Rebuild it from the fork to upgrade.",
 				}),
 			),
 		});

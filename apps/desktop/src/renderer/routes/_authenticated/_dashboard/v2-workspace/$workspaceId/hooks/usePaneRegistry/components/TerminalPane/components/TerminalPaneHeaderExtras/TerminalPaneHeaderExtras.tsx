@@ -5,6 +5,7 @@ import { SquarePen } from "lucide-react";
 import { useHotkeyDisplay } from "renderer/hotkeys";
 import type { SubagentPaneData } from "../../../../../../types";
 import { AccountUsage } from "../../../AccountUsage";
+import { GhosttyModeToggle } from "../../GhosttyTerminalPane";
 import {
 	terminalRichInputOpenStore,
 	useTerminalRichInputOpen,
@@ -78,6 +79,7 @@ export function TerminalPaneHeaderExtras({
 				terminalId={terminalId}
 			/>
 			<TerminalIdCopyMenu workspaceId={workspaceId} terminalId={terminalId} />
+			<GhosttyModeToggle workspaceId={workspaceId} />
 			<TerminalSessionHandoffMenu
 				workspaceId={workspaceId}
 				terminalId={terminalId}

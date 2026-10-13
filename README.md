@@ -1,3 +1,8 @@
+> [!NOTE]
+> **Unofficial fork: Superset × Ghostty.** Terminals open in [Ghostty](https://ghostty.org)
+> instead of the built-in terminal. What changed and how to build it: [GHOSTTY.md](GHOSTTY.md).
+> Not affiliated with Superset; same [license](LICENSE.md).
+
 <div align="center">
 
 <img src="apps/desktop/src/resources/build/icons/icon.png" alt="Superset app icon" width="96" height="96" />

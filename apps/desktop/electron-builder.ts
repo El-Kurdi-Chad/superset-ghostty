@@ -54,6 +54,8 @@ const config: Configuration = {
 		"**/resources/sounds/**/*",
 		// Tray icon must be unpacked so Electron Tray can load it
 		"**/resources/tray/**/*",
+		// Ghostty runs the attach client with this app's binary in node mode
+		"**/resources/ghostty/**/*",
 	],
 
 	// Extra resources placed outside asar archive (accessible via process.resourcesPath)
