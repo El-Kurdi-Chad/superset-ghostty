@@ -95,8 +95,7 @@ export function BlogAuthor({ author }: BlogAuthorProps) {
 					if (openedFromHover.current) event.preventDefault();
 				}}
 				onCloseAutoFocus={(event) => {
-					event.preventDefault();
-					if (!openedFromHover.current) triggerRef.current?.focus();
+					if (openedFromHover.current) event.preventDefault();
 				}}
 				onEscapeKeyDown={() => triggerRef.current?.focus()}
 				onPointerEnter={cancelClose}
