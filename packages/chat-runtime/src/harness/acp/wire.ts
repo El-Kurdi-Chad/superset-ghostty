@@ -14,6 +14,11 @@ export const acpTextContentSchema = z.looseObject({
 export const acpContentBlockSchema = z.looseObject({
 	type: z.string(),
 	text: z.string().optional(),
+	data: z.string().optional(),
+	mimeType: z.string().optional(),
+	uri: z.string().optional(),
+	name: z.string().optional(),
+	title: z.string().optional(),
 });
 export type AcpContentBlock = z.infer<typeof acpContentBlockSchema>;
 
@@ -138,6 +143,10 @@ export const acpAvailableCommandsUpdateSchema = z.looseObject({
 			description: z.string().optional(),
 			input: z
 				.looseObject({ hint: z.string().optional() })
+				.nullable()
+				.optional(),
+			_meta: z
+				.looseObject({ command_category: z.unknown().optional() })
 				.nullable()
 				.optional(),
 		}),

@@ -1,4 +1,4 @@
-import type { Decision, Item } from "@superset/chat/protocol";
+import type { AvailableCommand, Decision, Item } from "@superset/chat/protocol";
 import { isKnownItem } from "@superset/chat/protocol";
 import { memo } from "react";
 import type { ChatForkTarget } from "../../../../../../types";
@@ -11,6 +11,7 @@ import { ReasoningRow } from "../../../ReasoningRow";
 import { ToolCallRow } from "../../../ToolCallRow";
 import { UnknownItemRow } from "../../../UnknownItemRow";
 import { type PendingPrompt, UserMessageRow } from "../../../UserMessageRow";
+import { RailStep } from "../RailStep";
 
 export type ItemRowProps = {
 	item: Item;
@@ -18,6 +19,7 @@ export type ItemRowProps = {
 	afterTarget?: boolean;
 	text: string;
 	harness: string | undefined;
+	commands?: ReadonlyMap<string, AvailableCommand> | undefined;
 	pending?: PendingPrompt | undefined;
 	onRespond: (approvalId: string, decision: Decision) => void;
 	onFork?: ((target: ChatForkTarget) => void) | undefined;
@@ -30,6 +32,7 @@ export const ItemRow = memo(function ItemRow({
 	afterTarget = false,
 	approvalTarget,
 	canForkToWorktree,
+	commands,
 	lastReply = false,
 	harness,
 	item,
@@ -44,7 +47,14 @@ export const ItemRow = memo(function ItemRow({
 	}
 	switch (item.kind) {
 		case "user_message":
-			return <UserMessageRow harness={harness} item={item} pending={pending} />;
+			return (
+				<UserMessageRow
+					commands={commands}
+					harness={harness}
+					item={item}
+					pending={pending}
+				/>
+			);
 		case "agent_message":
 			return (
 				<AgentMessageRow
@@ -59,7 +69,11 @@ export const ItemRow = memo(function ItemRow({
 		case "reasoning":
 			return <ReasoningRow item={item} text={text} />;
 		case "tool_call":
-			return <ToolCallRow item={item} />;
+			return (
+				<RailStep>
+					<ToolCallRow item={item} />
+				</RailStep>
+			);
 		case "plan":
 			return <PlanRow item={item} />;
 		case "approval_request":

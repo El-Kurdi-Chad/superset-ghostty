@@ -40,6 +40,7 @@ import { useLoadOlderOnReach } from "./hooks/useLoadOlderOnReach";
 import { useNearRows } from "./hooks/useNearRows";
 import { useScrollAnchorKey } from "./hooks/useScrollAnchorKey";
 import { useScrollbarGutter } from "./hooks/useScrollbarGutter";
+import { copySourceText } from "./utils/copySourceText";
 import { lastReplyKeys } from "./utils/lastReplyKeys";
 import { type TranscriptRow, transcriptRows } from "./utils/transcriptRows";
 
@@ -194,7 +195,27 @@ export function Transcript({
 		[groups, outbox, pendingApprovalTargets, commandsInApprovals],
 	);
 
+	useEffect(() => {
+		const opened = rows.filter(
+			(row) =>
+				row.kind === "tool_run" &&
+				!row.defaultCollapsed &&
+				!entryOverrides.has(row.key),
+		);
+		if (opened.length === 0) return;
+		setEntryOverrides((previous) => {
+			const next = new Map(previous);
+			for (const row of opened) next.set(row.key, false);
+			return next;
+		});
+	}, [rows, entryOverrides]);
+
 	const lastReplies = useMemo(() => lastReplyKeys(rows), [rows]);
+	const availableCommands = snapshot.session?.availableCommands;
+	const commands = useMemo(
+		() => new Map(availableCommands?.map((command) => [command.name, command])),
+		[availableCommands],
+	);
 	const { seenRowKeys, observeRow } = useNearRows(
 		rows,
 		viewport,
@@ -226,6 +247,7 @@ export function Transcript({
 					"px-4 pb-1",
 					proseTopPadding(row, rows[index - 1]),
 				)}
+				commands={commands}
 				isEntryCollapsed={isEntryCollapsed}
 				key={row.key}
 				lastReply={lastReplies.has(row.key)}
@@ -252,6 +274,7 @@ export function Transcript({
 					"min-h-0 flex-1 overflow-y-auto [scrollbar-gutter:stable_both-edges]",
 					CHAT_SCROLLER_GUTTER_CLASSNAME,
 				)}
+				onCopy={copySourceText}
 				onKeyDown={onViewportKeyDown}
 				onPointerDown={onViewportPointerDown}
 				onTouchMove={markReaderScroll}

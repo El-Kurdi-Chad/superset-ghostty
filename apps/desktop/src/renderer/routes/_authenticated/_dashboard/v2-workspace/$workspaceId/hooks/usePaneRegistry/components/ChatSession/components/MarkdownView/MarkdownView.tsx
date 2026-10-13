@@ -7,6 +7,7 @@ import { memo, type ReactNode, useMemo } from "react";
 import { env } from "renderer/env.renderer";
 import { CHAT_MARKDOWN_COMPONENTS, CHAT_REMARK_PLUGINS } from "../../constants";
 import { pageLinkFinder } from "../../utils/pageLinks";
+import { CODE_CARD_CLASSNAME } from "../ChatCodeBlock";
 import { PageLinkCard } from "../PageLinkCard";
 import { pageLinksByBlock } from "./utils/pageLinksByBlock";
 import { planMarkdown } from "./utils/planMarkdown";
@@ -85,7 +86,10 @@ export function MarkdownView({
 		blocks.push(
 			plan.tailFenceOpen ? (
 				<pre
-					className="overflow-hidden whitespace-pre-wrap break-words rounded-lg border border-border/60 bg-background px-3 py-2 font-mono text-xs"
+					className={cn(
+						"overflow-x-auto whitespace-pre px-3 py-2 font-mono text-xs",
+						CODE_CARD_CLASSNAME,
+					)}
 					key={`fence:${tailKey}`}
 				>
 					{plan.tail}

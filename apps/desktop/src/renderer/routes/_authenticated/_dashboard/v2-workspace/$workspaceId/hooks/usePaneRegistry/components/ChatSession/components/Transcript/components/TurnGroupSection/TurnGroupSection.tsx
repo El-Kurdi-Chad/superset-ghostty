@@ -2,15 +2,20 @@ import type { OutboxEntry, SessionSnapshot } from "@superset/chat/core";
 import { displayText } from "@superset/chat/core";
 import type {
 	ApprovalRequest,
+	AvailableCommand,
 	Decision,
+	ImageAttachment,
 	Item,
+	ToolCall,
 	UserMessage,
 } from "@superset/chat/protocol";
+import { isImageAttachment } from "@superset/chat/protocol";
 import type { ReactNode } from "react";
 import type { ChatForkTarget } from "../../../../types";
 import type { PageLink } from "../../../../utils/pageLinks";
 import { PageLinkCard } from "../../../PageLinkCard";
 import type { TranscriptRow } from "../../utils/transcriptRows";
+import { AttachmentRail } from "../AttachmentRail";
 import { ItemRow } from "./components/ItemRow";
 import { ToolRunRow } from "./components/ToolRunRow";
 import { TurnStatusRow } from "./components/TurnStatusRow";
@@ -37,6 +42,19 @@ function pageCards(pages: readonly PageLink[] | undefined): ReactNode {
 	));
 }
 
+function toolImages(tools: readonly ToolCall[]): ImageAttachment[] {
+	return tools.flatMap((tool) =>
+		(tool.attachments ?? []).filter(isImageAttachment),
+	);
+}
+
+function imageRail(tools: readonly ToolCall[]): ReactNode {
+	const images = toolImages(tools);
+	return images.length > 0 ? (
+		<AttachmentRail className="mt-1 mb-2 pl-5" images={images} />
+	) : null;
+}
+
 function approvalTarget(
 	snapshot: SessionSnapshot,
 	item: Item,
@@ -57,6 +75,7 @@ export type TurnGroupSectionProps = {
 	onDiscardPrompt: (clientId: string) => void;
 	onFork?: ((target: ChatForkTarget) => void) | undefined;
 	canForkToWorktree?: boolean;
+	commands?: ReadonlyMap<string, AvailableCommand> | undefined;
 };
 
 /**
@@ -67,6 +86,7 @@ export type TurnGroupSectionProps = {
  */
 export function TurnGroupSection({
 	canForkToWorktree,
+	commands,
 	lastReply,
 	isEntryCollapsed,
 	onDiscardPrompt,
@@ -93,6 +113,7 @@ export function TurnGroupSection({
 						afterTarget={row.afterTarget}
 						approvalTarget={approvalTarget(snapshot, row.item)}
 						canForkToWorktree={canForkToWorktree}
+						commands={commands}
 						lastReply={lastReply}
 						harness={harness}
 						item={row.item}
@@ -101,12 +122,14 @@ export function TurnGroupSection({
 						pagesShownEarlier={row.pagesShownEarlier}
 						text={displayText(snapshot, row.item.id)}
 					/>
+					{row.item.kind === "tool_call" && imageRail([row.item as ToolCall])}
 					{pageCards(row.pages)}
 				</>
 			);
 		case "outbox":
 			return (
 				<ItemRow
+					commands={commands}
 					harness={harness}
 					item={outboxMessage(row.entry)}
 					onRespond={onRespond}
@@ -127,6 +150,7 @@ export function TurnGroupSection({
 						onToggle={onToggleEntry}
 						rowKey={row.key}
 					/>
+					{imageRail(row.items)}
 					{pageCards(row.pages)}
 				</>
 			);

@@ -1,3 +1,4 @@
+import { stripLocation } from "../pathText";
 import { parseSupersetAppLink } from "../supersetAppLink";
 
 export type LinkUnfurl = {
@@ -29,7 +30,7 @@ const SERVICE_HOSTS: [RegExp, string][] = [
 	[/(^|\.)supabase\.(com|co)$/, "supabase"],
 ];
 
-const FILE_EXTENSION = /\.([a-z0-9]{1,8})$/i;
+const FILE_EXTENSION = /[^.]\.((?=\d*[a-z])[a-z0-9]{1,8})$/i;
 const WEB_PAGE_EXTENSIONS = new Set([
 	"html",
 	"htm",
@@ -103,14 +104,15 @@ const service: LinkUnfurler = ({ url }) => {
 };
 
 const file: LinkUnfurler = ({ href, url, isLocalPath }) => {
-	const path = isLocalPath ? href : url ? url.pathname : null;
+	const path = isLocalPath ? stripLocation(href) : url ? url.pathname : null;
 	if (!path) return null;
 	const fileName = lastSegment(isLocalPath ? path : decodePath(path));
 	const extension = fileName.match(FILE_EXTENSION)?.[1]?.toLowerCase();
 	if (!extension || (!isLocalPath && WEB_PAGE_EXTENSIONS.has(extension))) {
 		return null;
 	}
-	return { icon: { kind: "file", fileName }, label: fileName };
+	const location = isLocalPath ? href.slice(path.length) : "";
+	return { icon: { kind: "file", fileName }, label: fileName + location };
 };
 
 const UNFURLERS: LinkUnfurler[] = [

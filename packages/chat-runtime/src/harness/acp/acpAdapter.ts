@@ -1,9 +1,11 @@
 import { randomUUID } from "node:crypto";
 import type {
 	ApprovalRequest,
+	AvailableCommand,
 	Decision,
 	FormField,
 	Item,
+	ItemAttachment,
 	Plan,
 	SessionConfigOption,
 	SessionState,
@@ -32,6 +34,12 @@ import {
 	isSubagentControlCall,
 	isTerminalAirState,
 } from "./air";
+import {
+	type AcpImageSource,
+	imageSourceOf,
+	withoutImageData,
+} from "./imageBlocks";
+import { imageDimensions } from "./imageDimensions";
 import type {
 	AcpNotification,
 	AcpServerRequest,
@@ -39,7 +47,7 @@ import type {
 	AcpTransportHandlers,
 	SpawnAcpOptions,
 } from "./rpcClient";
-import { AcpRpcClient, spawnAcpTransport } from "./rpcClient";
+import { AcpRpcClient, AcpRpcError, spawnAcpTransport } from "./rpcClient";
 import type { AcpConfigSelectOption, AcpElicitationProperty } from "./wire";
 import {
 	ACP_STEERING_METHOD,
@@ -90,6 +98,12 @@ const TOOL_KIND_BY_ACP: Record<string, ToolKind> = {
 	switch_mode: "other",
 	other: "other",
 };
+
+function commandCategory(
+	category: unknown,
+): Pick<AvailableCommand, "category"> {
+	return category === "native" || category === "mcp" ? { category } : {};
+}
 
 function toolKind(kind: string | undefined): ToolKind {
 	return (kind && TOOL_KIND_BY_ACP[kind]) || "other";
@@ -153,7 +167,29 @@ export type AcpAttachment = {
 	data: string;
 };
 
+/** `path` is relative to the session cwd. */
+export type AcpStoredImage = { path: string };
+
+export type AcpImageStoreContext = {
+	sessionId: string;
+	referenceId: string;
+	replaying: boolean;
+};
+
 const SELECTION_WAIT_MS = 5000;
+const STARTUP_TIMEOUT_MS = 120_000;
+const REQUEST_TIMEOUT_MS = 30_000;
+const STDERR_TAIL_CHARS = 4000;
+
+function sessionMissing(error: unknown): boolean {
+	return (
+		error instanceof AcpRpcError &&
+		(error.code === -32002 ||
+			/unknown sessionid|session not found|no conversation found|no rollout found/i.test(
+				error.message,
+			))
+	);
+}
 
 export type AcpAdapterOptions = SpawnAcpOptions & {
 	launch?: () => Promise<Pick<SpawnAcpOptions, "command" | "args" | "env">>;
@@ -161,7 +197,15 @@ export type AcpAdapterOptions = SpawnAcpOptions & {
 	defaultModeId?: string;
 	/** How long a prompt waits for mode and option changes the agent has not answered. */
 	selectionWaitMs?: number;
+	startupTimeoutMs?: number;
+	requestTimeoutMs?: number;
 	resolveAttachment?: (attachmentId: string) => Promise<AcpAttachment | null>;
+	/** Without it, images the agent sends are dropped. */
+	storeImage?: (
+		image: AcpImageSource,
+		cwd: string,
+		context?: AcpImageStoreContext,
+	) => AcpStoredImage | null;
 	onSpawn?: (pid: number) => void;
 	backgroundDetailIntervalMs?: number;
 	now?: () => number;
@@ -178,6 +222,7 @@ type OpenText = {
 	/** v2's message identity; v1 chunks carry none and group by kind and turn. */
 	messageId: string | null;
 	text: string;
+	attachments: ItemAttachment[];
 	turnId: string;
 	startedAtMs: number;
 };
@@ -324,13 +369,18 @@ export class AcpAdapter implements HarnessAdapter {
 	 */
 	private readonly messages = new Map<
 		string,
-		{ text: string; startedAtMs: number }
+		{ text: string; attachments: ItemAttachment[]; startedAtMs: number }
 	>();
 	private readonly subagents = new Map<
 		string,
 		{ item: ToolCall; turnId: string }
 	>();
 	private readonly finishedSubagents = new Set<string>();
+	/**
+	 * The adapter drops a task's updates once the subagent that started it
+	 * finishes, so the task ends with its subagent.
+	 */
+	private readonly subagentTasks = new Map<string, Set<string>>();
 	private readonly backgroundTasks: BackgroundTasks;
 	/** Start of each named v2 plan, so a revision keeps its place in the order. */
 	private readonly planItems = new Map<string, number>();
@@ -356,8 +406,11 @@ export class AcpAdapter implements HarnessAdapter {
 	private readonly selectionsInFlight = new Set<Promise<void>>();
 	private configOptions: SessionConfigOption[] = [];
 	private replaying = false;
+	private unkeyedImageSequence = 0;
 	private queuedPrompts: UserContent[][] = [];
 	private disposed = false;
+	private dead = false;
+	private stderrTail = "";
 
 	constructor(private readonly options: AcpAdapterOptions) {
 		this.backgroundTasks = new BackgroundTasks(
@@ -423,6 +476,9 @@ export class AcpAdapter implements HarnessAdapter {
 		if (!this.client || !this.sessionId) return;
 		if (this.currentTurn?.status !== "running") return;
 		this.client.notify("session/cancel", { sessionId: this.sessionId });
+		if (this.cancelPendingApprovals(this.currentTurn.id)) {
+			this.emitSession({ status: "running" });
+		}
 	}
 
 	respondToApproval(approvalId: string, decision: Decision): void {
@@ -468,16 +524,21 @@ export class AcpAdapter implements HarnessAdapter {
 		// and `config_option_update` is what told us which one.
 		const pending =
 			this.negotiatedVersion >= 2 && this.modeConfigId
-				? this.client.request("session/set_config_option", {
-						sessionId: this.sessionId,
-						configId: this.modeConfigId,
-						type: "id",
-						value: modeId,
-					})
-				: this.client.request("session/set_mode", {
-						sessionId: this.sessionId,
-						modeId,
-					});
+				? this.client.request(
+						"session/set_config_option",
+						{
+							sessionId: this.sessionId,
+							configId: this.modeConfigId,
+							type: "id",
+							value: modeId,
+						},
+						this.requestTimeoutMs(),
+					)
+				: this.client.request(
+						"session/set_mode",
+						{ sessionId: this.sessionId, modeId },
+						this.requestTimeoutMs(),
+					);
 		this.trackSelection(pending);
 		void pending.catch((error: Error) => {
 			if (previous && this.modeId === modeId) {
@@ -532,12 +593,16 @@ export class AcpAdapter implements HarnessAdapter {
 			configOptions: this.configOptions,
 			...(configId === this.modeConfigId ? { modeId: value } : {}),
 		});
-		const request = client.request("session/set_config_option", {
-			sessionId,
-			configId,
-			value,
-			...(this.negotiatedVersion >= 2 ? { type: "id" } : {}),
-		});
+		const request = client.request(
+			"session/set_config_option",
+			{
+				sessionId,
+				configId,
+				value,
+				...(this.negotiatedVersion >= 2 ? { type: "id" } : {}),
+			},
+			this.requestTimeoutMs(),
+		);
 		this.trackSelection(request);
 		request
 			.then((response) => this.handleConfigOptions(response))
@@ -554,10 +619,11 @@ export class AcpAdapter implements HarnessAdapter {
 	async stopBackgroundTask(taskId: string): Promise<boolean> {
 		if (!this.client || !this.sessionId) return false;
 		if (!this.backgroundTasks.canStop(taskId)) return false;
-		const response = await this.client.request(AIR_ASYNC_TASK_STOP_METHOD, {
-			sessionId: this.sessionId,
-			asyncTaskId: taskId,
-		});
+		const response = await this.client.request(
+			AIR_ASYNC_TASK_STOP_METHOD,
+			{ sessionId: this.sessionId, asyncTaskId: taskId },
+			this.requestTimeoutMs(),
+		);
 		return (response as { stopped?: unknown } | null)?.stopped === true;
 	}
 
@@ -569,11 +635,11 @@ export class AcpAdapter implements HarnessAdapter {
 	async fork(): Promise<string | null> {
 		if (!this.client || !this.sessionId) return null;
 		if (!this.supportsSessionCapability("fork")) return null;
-		const response = await this.client.request("session/fork", {
-			sessionId: this.sessionId,
-			cwd: this.cwd,
-			mcpServers: [],
-		});
+		const response = await this.client.request(
+			"session/fork",
+			{ sessionId: this.sessionId, cwd: this.cwd, mcpServers: [] },
+			this.requestTimeoutMs(),
+		);
 		const parsed = acpNewSessionResponseSchema.safeParse(response);
 		return parsed.success ? parsed.data.sessionId : null;
 	}
@@ -617,7 +683,9 @@ export class AcpAdapter implements HarnessAdapter {
 				},
 				onNotification: (notification) => this.handleNotification(notification),
 				onServerRequest: (request) => this.handleServerRequest(request),
-				onStderr: () => undefined,
+				onStderr: (chunk) => {
+					this.stderrTail = (this.stderrTail + chunk).slice(-STDERR_TAIL_CHARS);
+				},
 				onDispatchError: (error, method) =>
 					this.emitNotice(
 						"error",
@@ -627,24 +695,30 @@ export class AcpAdapter implements HarnessAdapter {
 			});
 			this.client = client;
 
-			const initialized = await client.request("initialize", {
-				protocolVersion: LATEST_PROTOCOL_VERSION,
-				// v2 requires `info` and renamed `clientCapabilities` to
-				// `capabilities`, so both names go out and one request serves either
-				// side of the bump.
-				info: CLIENT_INFO,
-				// v2 moved fs and terminal out of client capabilities entirely.
-				// Without form elicitation, claude-agent-acp drops AskUserQuestion.
-				capabilities: { elicitation: { form: {} }, _meta: AIR_CLIENT_META },
-				// Do not advertise fs/terminal: the agent falls back to its own
-				// Read/Edit/Bash tools, which run headless in the workspace.
-				clientCapabilities: {
-					fs: { readTextFile: false, writeTextFile: false },
-					terminal: false,
-					elicitation: { form: {} },
-					_meta: AIR_CLIENT_META,
+			const startupTimeoutMs =
+				this.options.startupTimeoutMs ?? STARTUP_TIMEOUT_MS;
+			const initialized = await client.request(
+				"initialize",
+				{
+					protocolVersion: LATEST_PROTOCOL_VERSION,
+					// v2 requires `info` and renamed `clientCapabilities` to
+					// `capabilities`, so both names go out and one request serves either
+					// side of the bump.
+					info: CLIENT_INFO,
+					// v2 moved fs and terminal out of client capabilities entirely.
+					// Without form elicitation, claude-agent-acp drops AskUserQuestion.
+					capabilities: { elicitation: { form: {} }, _meta: AIR_CLIENT_META },
+					// Do not advertise fs/terminal: the agent falls back to its own
+					// Read/Edit/Bash tools, which run headless in the workspace.
+					clientCapabilities: {
+						fs: { readTextFile: false, writeTextFile: false },
+						terminal: false,
+						elicitation: { form: {} },
+						_meta: AIR_CLIENT_META,
+					},
 				},
-			});
+				startupTimeoutMs,
+			);
 
 			const negotiated = acpInitializeResponseSchema.safeParse(initialized);
 			if (negotiated.success) {
@@ -664,28 +738,35 @@ export class AcpAdapter implements HarnessAdapter {
 				this.replaying = true;
 				this.loadingSessionId = startOptions.resume.harnessSessionId;
 				try {
-					response = await client.request("session/load", {
-						sessionId: startOptions.resume.harnessSessionId,
-						cwd: startOptions.cwd,
-						mcpServers: [],
-					});
+					response = await client.request(
+						"session/load",
+						{
+							sessionId: startOptions.resume.harnessSessionId,
+							cwd: startOptions.cwd,
+							mcpServers: [],
+						},
+						startupTimeoutMs,
+					);
 					resumed = true;
 				} catch (loadError) {
-					// An agent that was started but never prompted has a session id and
-					// no transcript behind it, so loading one answers "not found".
-					// There is no conversation to lose in that case, and none to
-					// recover in the other, so opening a new session is the only thing
-					// left to do either way — do it, and say so quietly rather than
-					// handing back an error the reader cannot act on.
+					// A session that was started but never prompted has no transcript,
+					// so the agent answers "not found". Any other failure keeps the
+					// conversation, and a new session would hide it from the agent.
+					if (!sessionMissing(loadError)) {
+						throw new Error(
+							`Could not reopen this conversation. ${(loadError as Error).message}`,
+						);
+					}
 					this.emitNotice(
 						"info",
 						"No earlier conversation to open, so this is a new one.",
 					);
 					console.warn("[acp] session/load failed", loadError);
-					response = await client.request("session/new", {
-						cwd: startOptions.cwd,
-						mcpServers: [],
-					});
+					response = await client.request(
+						"session/new",
+						{ cwd: startOptions.cwd, mcpServers: [] },
+						startupTimeoutMs,
+					);
 				} finally {
 					this.replaying = false;
 					this.loadingSessionId = null;
@@ -694,10 +775,11 @@ export class AcpAdapter implements HarnessAdapter {
 					this.flushOpenText();
 				}
 			} else {
-				response = await client.request("session/new", {
-					cwd: startOptions.cwd,
-					mcpServers: [],
-				});
+				response = await client.request(
+					"session/new",
+					{ cwd: startOptions.cwd, mcpServers: [] },
+					startupTimeoutMs,
+				);
 			}
 
 			// session/load returns null after replaying history via session/update.
@@ -708,8 +790,10 @@ export class AcpAdapter implements HarnessAdapter {
 
 			if (!this.sessionId) {
 				this.emitNotice("error", "acp agent returned no session id");
+				this.dead = true;
 				this.emitSession({ status: "dead" });
 				this.queue.close();
+				this.closeAfterFailure();
 				return;
 			}
 
@@ -738,9 +822,11 @@ export class AcpAdapter implements HarnessAdapter {
 			const queued = this.queuedPrompts.splice(0, this.queuedPrompts.length);
 			for (const content of queued) await this.runTurn(content);
 		} catch (error) {
-			this.emitNotice("error", this.authAwareMessage(error));
+			this.emitNotice("error", this.withStderr(this.authAwareMessage(error)));
+			this.dead = true;
 			this.emitSession({ status: "dead" });
 			this.queue.close();
+			this.closeAfterFailure();
 		}
 	}
 
@@ -827,7 +913,7 @@ export class AcpAdapter implements HarnessAdapter {
 
 		switch (variant) {
 			case "async_task_spawned":
-				this.handleAsyncTaskSpawned(outer.data.update);
+				this.handleAsyncTaskSpawned(outer.data.sessionId, outer.data.update);
 				return;
 			case "async_task_progress":
 				this.handleAsyncTaskProgress(outer.data.update);
@@ -963,6 +1049,7 @@ export class AcpAdapter implements HarnessAdapter {
 					name: command.name,
 					...(command.description ? { description: command.description } : {}),
 					...(command.input?.hint ? { hint: command.input.hint } : {}),
+					...commandCategory(command._meta?.command_category),
 				})),
 		});
 	}
@@ -978,6 +1065,17 @@ export class AcpAdapter implements HarnessAdapter {
 		turnId: string,
 		messageId: string | null = null,
 	): void {
+		if (kind === "agent_message" && content && content.type !== "text") {
+			const attachment = this.attachmentOf(
+				content,
+				messageId ? `message:${messageId}` : undefined,
+			);
+			if (!attachment) return;
+			const open = this.openMessage(kind, turnId, messageId);
+			open.attachments.push(attachment);
+			this.emitItem(this.textItem(open, "open"), turnId);
+			return;
+		}
 		const chunk = content?.type === "text" ? (content.text ?? "") : "";
 		if (!chunk) return;
 		const open = this.openMessage(kind, turnId, messageId);
@@ -1018,6 +1116,7 @@ export class AcpAdapter implements HarnessAdapter {
 			kind,
 			messageId,
 			text: flushed?.text ?? "",
+			attachments: [...(flushed?.attachments ?? [])],
 			turnId,
 			startedAtMs: flushed?.startedAtMs ?? this.nextStartMs(),
 		};
@@ -1042,8 +1141,16 @@ export class AcpAdapter implements HarnessAdapter {
 		const parsed = acpMessageSchema.safeParse(raw);
 		if (!parsed.success) return;
 		const open = this.openMessage(kind, turnId, parsed.data.messageId);
-		if (parsed.data.content !== undefined)
+		if (parsed.data.content !== undefined) {
 			open.text = messageText(parsed.data.content ?? []);
+			open.attachments =
+				kind === "agent_message"
+					? this.attachmentsOf(
+							parsed.data.content ?? [],
+							`message:${parsed.data.messageId}`,
+						)
+					: [];
+		}
 		this.flushOpenText();
 	}
 
@@ -1054,6 +1161,7 @@ export class AcpAdapter implements HarnessAdapter {
 		if (open.messageId)
 			this.messages.set(open.messageId, {
 				text: open.text,
+				attachments: open.attachments,
 				startedAtMs: open.startedAtMs,
 			});
 		this.emitItem(this.textItem(open, "flushed"), open.turnId);
@@ -1067,7 +1175,14 @@ export class AcpAdapter implements HarnessAdapter {
 		};
 		switch (open.kind) {
 			case "agent_message":
-				return { ...base, kind: "agent_message", text: open.text };
+				return {
+					...base,
+					kind: "agent_message",
+					text: open.text,
+					...(open.attachments.length > 0
+						? { attachments: open.attachments }
+						: {}),
+				};
 			case "user_message":
 				return {
 					...base,
@@ -1094,18 +1209,24 @@ export class AcpAdapter implements HarnessAdapter {
 			return;
 		// Patch semantics in both versions: an omitted field leaves the stored
 		// value alone, and v2 added null to clear it.
-		const content =
+		const body =
 			update.content === undefined
-				? (prior?.content ?? [])
-				: this.toToolContent(update.content ?? []);
+				? null
+				: this.toolBody(update.content ?? [], update.toolCallId);
+		const content = body ? body.content : (prior?.content ?? []);
+		const attachments = body ? body.attachments : (prior?.attachments ?? []);
 		const locations =
 			update.locations === undefined
 				? prior?.locations
 				: (update.locations ?? undefined);
 		const rawInput =
-			update.rawInput === undefined ? prior?.rawInput : update.rawInput;
+			update.rawInput === undefined
+				? prior?.rawInput
+				: withoutImageData(update.rawInput);
 		const rawOutput =
-			update.rawOutput === undefined ? prior?.rawOutput : update.rawOutput;
+			update.rawOutput === undefined
+				? prior?.rawOutput
+				: withoutImageData(update.rawOutput);
 		const claudeCode = update._meta?.claudeCode;
 		const mcpMatch = claudeCode?.toolName?.match(/^mcp__(.+?)__(.+)$/);
 		const mcpSource = claudeCode?.mcpServer?.source ?? prior?.mcpServer?.source;
@@ -1133,6 +1254,7 @@ export class AcpAdapter implements HarnessAdapter {
 				? toolStatus(update.status)
 				: (prior?.status ?? "running"),
 			content,
+			...(attachments.length > 0 ? { attachments } : {}),
 			...(locations?.length ? { locations } : {}),
 			startedAtMs: prior?.startedAtMs ?? this.nextStartMs(),
 			...(toolCallSettled(update.status)
@@ -1159,6 +1281,8 @@ export class AcpAdapter implements HarnessAdapter {
 		this.flushOpenText();
 		const { toolCallId, content } = parsed.data;
 		const prior = this.toolCalls.get(toolCallId);
+		const body = this.toolBody([content], toolCallId);
+		const attachments = [...(prior?.attachments ?? []), ...body.attachments];
 		const item: ToolCall = {
 			id: toolCallId,
 			kind: "tool_call",
@@ -1166,7 +1290,8 @@ export class AcpAdapter implements HarnessAdapter {
 			toolKind: prior?.toolKind ?? "other",
 			toolName: prior?.toolName ?? "tool",
 			status: prior?.status ?? "running",
-			content: [...(prior?.content ?? []), ...this.toToolContent([content])],
+			content: [...(prior?.content ?? []), ...body.content],
+			...(attachments.length > 0 ? { attachments } : {}),
 			...(prior?.locations?.length ? { locations: prior.locations } : {}),
 			startedAtMs: prior?.startedAtMs ?? this.nextStartMs(),
 			...(prior?.completedAtMs !== undefined
@@ -1180,11 +1305,24 @@ export class AcpAdapter implements HarnessAdapter {
 		this.emitItem(item, turnId);
 	}
 
-	private toToolContent(content: AcpToolCallContent[]): ToolContent[] {
+	private toolBody(
+		content: AcpToolCallContent[],
+		toolCallId: string,
+	): {
+		content: ToolContent[];
+		attachments: ItemAttachment[];
+	} {
 		const mapped: ToolContent[] = [];
+		const attachments: ItemAttachment[] = [];
 		for (const entry of content) {
 			if (entry.type === "content" && entry.content?.type === "text") {
 				mapped.push({ type: "text", text: entry.content.text ?? "" });
+			} else if (entry.type === "content") {
+				const attachment = this.attachmentOf(
+					entry.content,
+					`tool:${toolCallId}`,
+				);
+				if (attachment) attachments.push(attachment);
 			} else if (
 				entry.type === "diff" &&
 				entry.path &&
@@ -1210,7 +1348,50 @@ export class AcpAdapter implements HarnessAdapter {
 				mapped.push({ type: "text", text: `[terminal ${entry.terminalId}]` });
 			}
 		}
-		return mapped;
+		return { content: mapped, attachments };
+	}
+
+	private attachmentsOf(
+		content: readonly AcpContentBlock[],
+		referenceId: string,
+	): ItemAttachment[] {
+		return content.flatMap((block) => {
+			const attachment = this.attachmentOf(block, referenceId);
+			return attachment ? [attachment] : [];
+		});
+	}
+
+	private attachmentOf(
+		block: AcpContentBlock | undefined,
+		referenceId?: string,
+	): ItemAttachment | null {
+		const source = imageSourceOf(block);
+		if (!source) return null;
+		const sessionId = this.sessionId ?? this.loadingSessionId;
+		const context =
+			source.kind === "file" && sessionId
+				? {
+						sessionId,
+						referenceId: referenceId ?? `image:${this.unkeyedImageSequence++}`,
+						replaying: this.replaying,
+					}
+				: undefined;
+		let stored: AcpStoredImage | null = null;
+		try {
+			stored = this.options.storeImage?.(source, this.cwd, context) ?? null;
+		} catch (error) {
+			console.warn("[acp] could not keep an image the agent sent", error);
+		}
+		if (!stored) return null;
+		const dimensions =
+			source.kind === "bytes" ? imageDimensions(source.bytes) : null;
+		return {
+			type: "image",
+			path: stored.path,
+			mimeType: source.mimeType,
+			...(source.name ? { alt: source.name } : {}),
+			...(dimensions ?? {}),
+		};
 	}
 
 	private handlePlan(raw: unknown, turnId: string): void {
@@ -1333,6 +1514,9 @@ export class AcpAdapter implements HarnessAdapter {
 		this.subagents.delete(sessionId);
 		this.finishedSubagents.add(sessionId);
 		this.backgroundTasks.end(run.item.id);
+		for (const taskId of this.subagentTasks.get(sessionId) ?? [])
+			this.backgroundTasks.end(taskId);
+		this.subagentTasks.delete(sessionId);
 		this.emitItem(
 			{
 				...run.item,
@@ -1355,10 +1539,15 @@ export class AcpAdapter implements HarnessAdapter {
 		this.backgroundTasks.update(run.item.id, { detail: update.data.title });
 	}
 
-	private handleAsyncTaskSpawned(raw: unknown): void {
+	private handleAsyncTaskSpawned(sessionId: string, raw: unknown): void {
 		const parsed = airAsyncTaskSpawnedSchema.safeParse(raw);
 		if (!parsed.success) return;
 		const { asyncTaskId, name, description, canStop } = parsed.data;
+		if (this.finishedSubagents.has(sessionId)) return;
+		if (this.subagents.has(sessionId)) {
+			const tasks = this.subagentTasks.get(sessionId) ?? new Set<string>();
+			this.subagentTasks.set(sessionId, tasks.add(asyncTaskId));
+		}
 		this.backgroundTasks.start({
 			id: asyncTaskId,
 			kind: "process",
@@ -1630,20 +1819,49 @@ export class AcpAdapter implements HarnessAdapter {
 	}
 
 	private handleExit(code: number | null): void {
-		if (this.disposed) return;
+		if (this.disposed || this.dead) return;
+		this.dead = true;
 		this.stalePendingApprovals();
 		for (const sessionId of [...this.subagents.keys()]) {
 			this.finishSubagent(sessionId, "failed");
 		}
 		this.backgroundTasks.clear();
-		this.emitNotice("error", `acp agent exited (code ${code ?? "null"})`);
+		const message = `acp agent exited (code ${code ?? "null"})`;
+		if (this.stderrTail) console.warn(`[acp] ${message}\n${this.stderrTail}`);
+		if (this.currentTurn?.status === "running") {
+			this.flushOpenText();
+			this.emitTurn({
+				...this.currentTurn,
+				status: "failed",
+				error: { message },
+				completedAtMs: this.now(),
+			});
+		}
+		this.emitNotice("error", this.withStderr(message));
 		this.emitSession({ status: "dead" });
 		this.queue.close();
 	}
 
-	private cancelPendingApprovals(turnId: string): void {
+	private closeAfterFailure(): void {
+		this.client
+			?.close()
+			.catch((error) => console.warn("[acp] could not close the agent", error));
+	}
+
+	private withStderr(message: string): string {
+		const tail = this.stderrTail.trim();
+		return tail ? `${message}\n\n${tail}` : message;
+	}
+
+	private requestTimeoutMs(): number {
+		return this.options.requestTimeoutMs ?? REQUEST_TIMEOUT_MS;
+	}
+
+	private cancelPendingApprovals(turnId: string): boolean {
+		let cancelled = false;
 		for (const [approvalId, pending] of [...this.pendingApprovals]) {
 			if (pending.turnId !== turnId) continue;
+			cancelled = true;
 			this.pendingApprovals.delete(approvalId);
 			this.client?.respond(
 				pending.requestId,
@@ -1654,6 +1872,7 @@ export class AcpAdapter implements HarnessAdapter {
 				pending.turnId,
 			);
 		}
+		return cancelled;
 	}
 
 	private dropCancelledRequest(params: unknown): void {

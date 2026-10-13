@@ -2,6 +2,7 @@ import { db, dbWs } from "@superset/db/client";
 import {
 	attachments,
 	files,
+	pageCommentReads,
 	pageComments,
 	pageCommentThreads,
 	pages,
@@ -12,7 +13,7 @@ import {
 } from "@superset/db/schema";
 import { fileOriginalKey } from "@superset/shared/usercontent";
 import { TRPCError, type TRPCRouterRecord } from "@trpc/server";
-import { and, asc, eq, inArray, isNotNull, isNull, or } from "drizzle-orm";
+import { and, asc, eq, inArray, isNotNull, isNull, or, sql } from "drizzle-orm";
 import { reapOrphanFiles } from "../../lib/files";
 import { presignedPutUrl } from "../../lib/r2";
 import { protectedProcedure, userError } from "../../trpc";
@@ -37,6 +38,7 @@ import {
 	editPageCommentSchema,
 	listOrganizationPageCommentsSchema,
 	listPageCommentsSchema,
+	markReadPageCommentsSchema,
 	replyPageCommentSchema,
 	resolvePageCommentThreadSchema,
 } from "./schema";
@@ -178,6 +180,30 @@ export const pageCommentRouter = {
 					),
 				),
 			);
+		}),
+
+	markRead: protectedProcedure
+		.input(markReadPageCommentsSchema)
+		.mutation(async ({ ctx, input }) => {
+			const organizationId = await requireActiveOrgMembership(ctx);
+			const userId = ctx.session.user.id;
+			await loadReadablePage({ pageId: input.pageId, organizationId, userId });
+
+			const now = new Date();
+			const seenThrough =
+				input.seenThrough && input.seenThrough < now ? input.seenThrough : now;
+			await db
+				.insert(pageCommentReads)
+				.values({ userId, pageId: input.pageId, lastSeenAt: seenThrough })
+				.onConflictDoUpdate({
+					target: [pageCommentReads.userId, pageCommentReads.pageId],
+					// Two calls can land out of order; the watermark only moves forward.
+					set: {
+						lastSeenAt: sql`greatest(${pageCommentReads.lastSeenAt}, excluded.last_seen_at)`,
+					},
+				});
+
+			return { pageId: input.pageId };
 		}),
 
 	/**
