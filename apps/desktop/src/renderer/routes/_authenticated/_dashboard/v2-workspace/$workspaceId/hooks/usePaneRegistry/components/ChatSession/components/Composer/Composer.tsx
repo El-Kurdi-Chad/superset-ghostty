@@ -2,6 +2,8 @@ import { useLingui } from "@lingui/react/macro";
 import type {
 	AvailableCommand,
 	SessionConfigOption,
+	UsageLimit,
+	UsageLimitAction,
 	UserContent,
 	UserMessage,
 } from "@superset/chat/protocol";
@@ -38,6 +40,10 @@ import { elementsForChips } from "../../utils/messageElements";
 import { type AgentSwitcher, ModelPicker } from "./components/ModelPicker";
 import { ModePicker, type SessionMode } from "./components/ModePicker";
 import { QueuedPrompts } from "./components/QueuedPrompts";
+import {
+	type SwitchableAgent,
+	UsageLimitNotice,
+} from "./components/UsageLimitNotice";
 import { useAttachmentPreview } from "./hooks/useAttachmentPreview";
 import {
 	takeRecoveredDraftText,
@@ -70,6 +76,14 @@ export type ComposerProps = {
 		remove: (itemId: string) => Promise<void>;
 		resume: () => Promise<void>;
 		steer: (itemId: string) => Promise<void>;
+	};
+	usageLimit?: {
+		limit: UsageLimit;
+		respond: (action: UsageLimitAction) => unknown;
+		modelLabel?: string | undefined;
+		agent?: SwitchableAgent | undefined;
+		hostUrl?: string | null | undefined;
+		onSwitchAccount?: (() => void) | undefined;
 	};
 };
 
@@ -114,6 +128,7 @@ export const Composer = memo(function Composer({
 	onSend,
 	placeholder,
 	promptQueue,
+	usageLimit,
 	workspaceId,
 }: ComposerProps) {
 	const { t } = useLingui();
@@ -333,6 +348,18 @@ export const Composer = memo(function Composer({
 			className={cn(CHAT_GUTTER_CLASSNAME, "pt-1 pb-5")}
 			onKeyDownCapture={focusQueue}
 		>
+			{usageLimit && (
+				<div className={CHAT_COLUMN_CLASSNAME}>
+					<UsageLimitNotice
+						agent={usageLimit.agent}
+						hostUrl={usageLimit.hostUrl}
+						limit={usageLimit.limit}
+						modelLabel={usageLimit.modelLabel}
+						onRespond={usageLimit.respond}
+						onSwitchAccount={usageLimit.onSwitchAccount}
+					/>
+				</div>
+			)}
 			{promptQueue && (
 				<div className={CHAT_COLUMN_CLASSNAME}>
 					<QueuedPrompts

@@ -527,6 +527,7 @@ export function AcpChatPane({
 			canForkToWorktree={canForkToWorktree}
 			isActive={isActive}
 			onFork={fork}
+			onRestart={recover}
 			openFile={onOpenFile}
 			openPage={onOpenPage}
 			openLink={onOpenLink}
