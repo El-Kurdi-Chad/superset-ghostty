@@ -697,7 +697,9 @@ function resolveHoverLabel(
 		shiftKey: hovered.shift,
 	};
 	if (hovered.info.kind === "url") {
-		const action = getUrlAction(event, hovered.info.url);
+		const action =
+			terminalPullRequestLinkAction(event, hovered.info.url) ??
+			getUrlAction(event, hovered.info.url);
 		return action ? actionLabel(action, "url") : null;
 	}
 	if (hovered.info.isDirectory) {

@@ -13,6 +13,13 @@ export function pullRequestRefFromUrl(url: string): PullRequestRef | null {
 	return { repoFullName: match[1], number: Number(match[2]) };
 }
 
+const BARE_PULL_REQUEST_URL =
+	/^https:\/\/github\.com\/[^/]+\/[^/]+\/pull\/\d+\/?(?:\?[^#]*)?$/;
+
+export function pullRequestRefFromBareUrl(url: string): PullRequestRef | null {
+	return BARE_PULL_REQUEST_URL.test(url) ? pullRequestRefFromUrl(url) : null;
+}
+
 export function isSamePullRequest(
 	left: PullRequestRef,
 	right: PullRequestRef,

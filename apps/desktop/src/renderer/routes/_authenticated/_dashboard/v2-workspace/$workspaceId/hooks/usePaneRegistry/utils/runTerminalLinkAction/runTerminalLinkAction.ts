@@ -5,7 +5,7 @@ import type {
 	LinkAction,
 	ModifierEvent,
 } from "renderer/lib/clickPolicy";
-import { pullRequestRefFromUrl } from "renderer/lib/github/pullRequestRef";
+import { pullRequestRefFromBareUrl } from "renderer/lib/github/pullRequestRef";
 import { parseSupersetPageUrl } from "renderer/lib/parseSupersetPageUrl";
 import { electronTrpcClient } from "renderer/lib/trpc-client";
 import type { RightPaneLinkTarget } from "renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/providers/RightPaneLinkTargetProvider";
@@ -43,7 +43,7 @@ export function terminalPullRequestLinkAction(
 	url: string,
 ): LinkAction | null {
 	if (event.metaKey || event.ctrlKey) return null;
-	if (!pullRequestRefFromUrl(url)) return null;
+	if (!pullRequestRefFromBareUrl(url)) return null;
 	return event.shiftKey ? "external" : "pane";
 }
 
@@ -59,7 +59,7 @@ export function runUrlLinkAction(
 		return;
 	}
 	const pageSlug = parseSupersetPageUrl(url, env.NEXT_PUBLIC_WEB_URL);
-	const pullRequest = pullRequestRefFromUrl(url);
+	const pullRequest = pullRequestRefFromBareUrl(url);
 	if (action === "rightPane" && deps.rightPane) {
 		deps.rightPane.reveal();
 		if (pageSlug) {
@@ -82,7 +82,11 @@ export function runUrlLinkAction(
 		return;
 	}
 	if (pullRequest) {
-		openPullRequestPaneInStore(deps.store, pullRequest);
+		openPullRequestPaneInStore(
+			deps.store,
+			pullRequest,
+			action === "newTab" ? "tab" : "split",
+		);
 		return;
 	}
 	openUrlInV2Workspace({

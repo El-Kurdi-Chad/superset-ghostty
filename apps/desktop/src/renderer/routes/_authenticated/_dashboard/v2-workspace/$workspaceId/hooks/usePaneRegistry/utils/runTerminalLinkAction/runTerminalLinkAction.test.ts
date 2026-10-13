@@ -83,6 +83,41 @@ describe("runUrlLinkAction", () => {
 		expect(panesOfKind(rightStore, "pull-request")).toHaveLength(1);
 	});
 
+	it("gives a new tab to a PR opened with the new-tab action", () => {
+		const store = createWorkspaceStore<PaneViewerData>({
+			initialState: workspaceState(),
+		});
+
+		runUrlLinkAction({ store }, PR_URL, "newTab");
+
+		const tabs = store.getState().tabs;
+		expect(tabs).toHaveLength(2);
+		expect(Object.values(tabs[1]?.panes ?? {})[0]?.kind).toBe("pull-request");
+	});
+
+	it("keeps PR comment, file and commit links in the browser", () => {
+		for (const url of [
+			`${PR_URL}#discussion_r123`,
+			`${PR_URL}/files`,
+			`${PR_URL}/commits/abc123`,
+		]) {
+			const store = createWorkspaceStore<PaneViewerData>({
+				initialState: workspaceState(),
+			});
+
+			runUrlLinkAction({ store }, url, "pane");
+
+			expect(panesOfKind(store, "pull-request")).toHaveLength(0);
+			expect(panesOfKind(store, "browser")).toHaveLength(1);
+			expect(
+				terminalPullRequestLinkAction(
+					{ metaKey: false, ctrlKey: false, shiftKey: false },
+					url,
+				),
+			).toBeNull();
+		}
+	});
+
 	it("still opens other GitHub URLs in a browser pane", () => {
 		const store = createWorkspaceStore<PaneViewerData>({
 			initialState: workspaceState(),
