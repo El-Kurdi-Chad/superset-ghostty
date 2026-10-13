@@ -5,7 +5,7 @@ export function sshFailureHint(stderr: string, target: string): string {
 			stderr,
 		)
 	) {
-		return `The server's host key does not match the one you trusted before. If the machine was rebuilt, remove the old key with ssh-keygen -R and try again. ${check}`;
+		return `The server's host key does not match the one you trusted before. If the machine was rebuilt, run the ssh-keygen -R command ssh printed above, then try again. ${check}`;
 	}
 	if (/Could not resolve hostname/i.test(stderr)) {
 		return `The host name does not resolve. Check the spelling, or that you are on its network or VPN. ${check}`;
