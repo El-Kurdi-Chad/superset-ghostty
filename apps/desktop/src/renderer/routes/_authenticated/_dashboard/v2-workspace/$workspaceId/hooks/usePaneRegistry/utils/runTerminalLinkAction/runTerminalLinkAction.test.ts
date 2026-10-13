@@ -100,6 +100,7 @@ describe("runUrlLinkAction", () => {
 			`${PR_URL}#discussion_r123`,
 			`${PR_URL}/files`,
 			`${PR_URL}/commits/abc123`,
+			"https://github.com/a/b?next=/pull/123",
 		]) {
 			const store = createWorkspaceStore<PaneViewerData>({
 				initialState: workspaceState(),
