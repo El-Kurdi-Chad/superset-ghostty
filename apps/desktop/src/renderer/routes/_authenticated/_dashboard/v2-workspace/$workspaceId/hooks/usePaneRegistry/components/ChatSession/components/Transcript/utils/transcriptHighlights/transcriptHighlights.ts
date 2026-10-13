@@ -69,7 +69,9 @@ function textRuns(root: Element): TextRun[] {
 		const text = node as Text;
 		const parent = text.parentElement;
 		if (!text.data || !parent) continue;
-		if (parent.closest("[hidden], [aria-hidden='true']")) continue;
+		if (parent.closest("[hidden], [aria-hidden='true'], [data-find-skip]")) {
+			continue;
+		}
 		const block = blockOf(parent, root);
 		let run = runs.at(-1);
 		if (!run || run.block !== block) {
