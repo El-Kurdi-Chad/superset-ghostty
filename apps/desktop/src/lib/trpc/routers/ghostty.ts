@@ -1,10 +1,16 @@
-import { getGhosttyStatus, openTerminalInGhostty } from "main/lib/ghostty";
+import {
+	getGhosttyAppearance,
+	getGhosttyStatus,
+	openTerminalInGhostty,
+} from "main/lib/ghostty";
 import { z } from "zod";
 import { publicProcedure, router } from "..";
 
 export const createGhosttyRouter = () =>
 	router({
 		status: publicProcedure.query(() => getGhosttyStatus()),
+
+		appearance: publicProcedure.query(() => getGhosttyAppearance()),
 
 		openTerminal: publicProcedure
 			.input(

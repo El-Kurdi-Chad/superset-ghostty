@@ -1,7 +1,8 @@
 /**
- * Open Superset terminal sessions in Ghostty instead of the built-in xterm pane.
+ * Ghostty integration: the user's Ghostty look for Superset's terminals, and
+ * "Open in the Ghostty app" for a session.
  *
- * Each session gets a Ghostty tab running `superset-ghostty-attach.mjs`, which
+ * An opened session gets a Ghostty tab running `superset-ghostty-attach.mjs`, which
  * attaches to the session over the local host-service WebSocket exactly like
  * the pane does. The PTY stays owned by Superset; Ghostty is only the screen.
  * Tabs are driven through Ghostty's AppleScript API (Ghostty >= 1.3, macOS).
@@ -16,10 +17,14 @@ import { SUPERSET_HOME_DIR } from "main/lib/app-environment";
 import {
 	appleScriptString,
 	findLocalHostDir,
+	type GhosttyAppearance,
 	isAtLeast,
+	parseGhosttyConfig,
 	readBundleVersion,
 	shellQuote,
 } from "./helpers";
+
+export type { GhosttyAppearance };
 
 const MIN_GHOSTTY_VERSION = [1, 3, 0];
 const ID_PATTERN = /^[A-Za-z0-9-]{1,64}$/;
@@ -50,6 +55,23 @@ export function getGhosttyStatus(): GhosttyStatus {
 		};
 	}
 	return { available: true, version };
+}
+
+/**
+ * The user's Ghostty font, colors and cursor, resolved by Ghostty itself
+ * (config file, theme and defaults), or null when Ghostty isn't installed.
+ */
+export function getGhosttyAppearance(): Promise<GhosttyAppearance | null> {
+	const appPath = process.platform === "darwin" ? findGhosttyApp() : null;
+	if (!appPath) return Promise.resolve(null);
+	return new Promise((resolve) => {
+		execFile(
+			join(appPath, "Contents/MacOS/ghostty"),
+			["+show-config", "--default"],
+			{ timeout: 5_000, maxBuffer: 4 * 1024 * 1024 },
+			(error, stdout) => resolve(error ? null : parseGhosttyConfig(stdout)),
+		);
+	});
 }
 
 function attachClientPath(): string {

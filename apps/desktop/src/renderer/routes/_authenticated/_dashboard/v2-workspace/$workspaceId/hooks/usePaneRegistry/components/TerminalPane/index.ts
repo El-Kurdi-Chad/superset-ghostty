@@ -1,1 +1,1 @@
-export { TerminalPane } from "./GhosttyTerminalPane";
+export { TerminalPane } from "./TerminalPane";

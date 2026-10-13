@@ -6,6 +6,7 @@ import {
 	appleScriptString,
 	findLocalHostDir,
 	isAtLeast,
+	parseGhosttyConfig,
 	shellQuote,
 } from "./helpers";
 
@@ -54,6 +55,57 @@ describe("findLocalHostDir", () => {
 		expect(findLocalHostDir(join(root, "nope"), "ws://127.0.0.1:48036")).toBe(
 			null,
 		);
+	});
+});
+
+describe("parseGhosttyConfig", () => {
+	const sample = [
+		"font-family = ",
+		'font-family = "Berkeley Mono"',
+		"font-family = Symbols Nerd Font",
+		"font-family = evil; } body { color: red",
+		"font-size = 14.5",
+		"background = #282c34",
+		"foreground = #ffffff",
+		"cursor-color = cell-foreground",
+		"selection-background = #3e4451",
+		"palette = 0=#1d1f21",
+		"palette = 9=#d54e53",
+		"palette = 200=#000000",
+		"cursor-style = block_hollow",
+		"cursor-style-blink = ",
+		"macos-option-as-alt = left",
+		"keybind = super+c=copy_to_clipboard",
+	].join("\n");
+
+	test("keeps fonts, size, colors and cursor settings", () => {
+		const appearance = parseGhosttyConfig(sample);
+		expect(appearance.fontFamilies).toEqual([
+			"Berkeley Mono",
+			"Symbols Nerd Font",
+		]);
+		expect(appearance.fontSize).toBe(14.5);
+		expect(appearance.theme).toEqual({
+			background: "#282c34",
+			foreground: "#ffffff",
+			selectionBackground: "#3e4451",
+			black: "#1d1f21",
+			brightRed: "#d54e53",
+		});
+		expect(appearance.cursorStyle).toBe("block");
+		expect(appearance.cursorBlink).toBe(null);
+		expect(appearance.optionAsAlt).toBe(true);
+	});
+
+	test("defaults when the output is empty", () => {
+		expect(parseGhosttyConfig("")).toEqual({
+			fontFamilies: [],
+			fontSize: null,
+			cursorStyle: null,
+			cursorBlink: null,
+			optionAsAlt: false,
+			theme: {},
+		});
 	});
 });
 

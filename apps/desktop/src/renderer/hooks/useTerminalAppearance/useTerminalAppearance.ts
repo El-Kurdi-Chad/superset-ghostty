@@ -6,6 +6,10 @@ import {
 	resolveTerminalAppearance,
 	type TerminalAppearance,
 } from "renderer/lib/terminal/appearance";
+import {
+	applyGhosttyAppearance,
+	useGhosttyMode,
+} from "renderer/lib/terminal/appearance/ghostty";
 import { detectInstalledNerdFontFamilies } from "renderer/lib/terminal/appearance/installed-nerd-fonts";
 import { electronTrpcClient } from "renderer/lib/trpc-client";
 import { useTerminalTheme } from "renderer/stores/theme";
@@ -28,8 +32,23 @@ export function useTerminalAppearance(): TerminalAppearance {
 		staleTime: Number.POSITIVE_INFINITY,
 	});
 
+	const ghosttyMode = useGhosttyMode();
+	const { data: ghostty } = useQuery({
+		queryKey: ["ghostty-appearance"],
+		queryFn: () => electronTrpcClient.ghostty.appearance.query(),
+		staleTime: 30_000,
+		enabled: ghosttyMode,
+	});
+
 	return useMemo(() => {
 		const theme = terminalTheme ?? fallbackTheme;
-		return resolveTerminalAppearance(theme, fontSettings, installedIconFonts);
-	}, [terminalTheme, fontSettings, installedIconFonts]);
+		const appearance = resolveTerminalAppearance(
+			theme,
+			fontSettings,
+			installedIconFonts,
+		);
+		return ghosttyMode && ghostty
+			? applyGhosttyAppearance(appearance, ghostty)
+			: appearance;
+	}, [terminalTheme, fontSettings, installedIconFonts, ghosttyMode, ghostty]);
 }
