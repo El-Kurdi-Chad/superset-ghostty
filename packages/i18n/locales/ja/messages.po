@@ -3904,6 +3904,10 @@ msgstr "ワークスペースを閉じる"
 msgid "Closed"
 msgstr "クローズ済み"
 
+msgctxt "pull request or issue state"
+msgid "Closed"
+msgstr "クローズ済み"
+
 msgid "Closing these ports will end the processes using them."
 msgstr "これらのポートを閉じると、使用中のプロセスが終了します。"
 
@@ -6254,6 +6258,10 @@ msgstr "ダウンロード中..."
 msgid "Downloads"
 msgstr "ダウンロード"
 
+msgid "Draft"
+msgstr "ドラフト"
+
+msgctxt "pull request state"
 msgid "Draft"
 msgstr "ドラフト"
 
@@ -8830,6 +8838,9 @@ msgstr "無料プランはありますか?"
 msgid "Isolation"
 msgstr "分離"
 
+msgid "Issue"
+msgstr "Issue"
+
 #. placeholder {0}: link.number
 msgid "Issue #{0}"
 msgstr "Issue #{0}"
@@ -9878,6 +9889,10 @@ msgstr "マージ状態"
 msgid "Merge status unknown"
 msgstr "マージ状態は不明です"
 
+msgid "Merged"
+msgstr "マージ済み"
+
+msgctxt "pull request state"
 msgid "Merged"
 msgstr "マージ済み"
 
@@ -11366,6 +11381,10 @@ msgstr "開く"
 
 msgid "Open"
 msgstr "開く"
+
+msgctxt "pull request or issue state"
+msgid "Open"
+msgstr "オープン"
 
 msgctxt "status"
 msgid "Open"

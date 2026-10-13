@@ -3726,10 +3726,10 @@ msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "点击“↑ update”按钮查看更新前的确认提示"
 
 msgid "Click the chip to open the issue"
-msgstr "点击标签打开 Issue"
+msgstr "点击打开议题"
 
 msgid "Click the chip to open the pull request"
-msgstr "点击标签打开拉取请求"
+msgstr "点击打开拉取请求"
 
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "点击复制会话ID（使用`claude --resume <id>`恢复）。"
@@ -3901,6 +3901,10 @@ msgstr "关闭工作区"
 msgid "Close Workspace"
 msgstr "关闭工作区"
 
+msgid "Closed"
+msgstr "已关闭"
+
+msgctxt "pull request or issue state"
 msgid "Closed"
 msgstr "已关闭"
 
@@ -6254,6 +6258,10 @@ msgstr "正在下载..."
 msgid "Downloads"
 msgstr "下载"
 
+msgid "Draft"
+msgstr "草稿"
+
+msgctxt "pull request state"
 msgid "Draft"
 msgstr "草稿"
 
@@ -8830,9 +8838,12 @@ msgstr "有免费方案吗？"
 msgid "Isolation"
 msgstr "隔离"
 
+msgid "Issue"
+msgstr "议题"
+
 #. placeholder {0}: link.number
 msgid "Issue #{0}"
-msgstr "Issue #{0}"
+msgstr "议题 #{0}"
 
 msgid "Issue archived"
 msgstr "问题已归档"
@@ -9878,6 +9889,10 @@ msgstr "合并状态"
 msgid "Merge status unknown"
 msgstr "合并状态未知"
 
+msgid "Merged"
+msgstr "已合并"
+
+msgctxt "pull request state"
 msgid "Merged"
 msgstr "已合并"
 
@@ -11366,6 +11381,10 @@ msgstr "打开"
 
 msgid "Open"
 msgstr "打开"
+
+msgctxt "pull request or issue state"
+msgid "Open"
+msgstr "开放"
 
 msgctxt "status"
 msgid "Open"

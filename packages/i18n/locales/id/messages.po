@@ -3904,6 +3904,10 @@ msgstr "Tutup Workspace"
 msgid "Closed"
 msgstr "Ditutup"
 
+msgctxt "pull request or issue state"
+msgid "Closed"
+msgstr "Ditutup"
+
 msgid "Closing these ports will end the processes using them."
 msgstr "Menutup port ini akan menghentikan proses yang memakainya."
 
@@ -6254,6 +6258,10 @@ msgstr "Mengunduh..."
 msgid "Downloads"
 msgstr "Unduhan"
 
+msgid "Draft"
+msgstr "Draf"
+
+msgctxt "pull request state"
 msgid "Draft"
 msgstr "Draf"
 
@@ -8830,6 +8838,9 @@ msgstr "Apakah ada paket gratis?"
 msgid "Isolation"
 msgstr "Isolasi"
 
+msgid "Issue"
+msgstr "Issue"
+
 #. placeholder {0}: link.number
 msgid "Issue #{0}"
 msgstr "Issue #{0}"
@@ -9878,6 +9889,10 @@ msgstr "Status merge"
 msgid "Merge status unknown"
 msgstr "Status merge tidak diketahui"
 
+msgid "Merged"
+msgstr "Di-merge"
+
+msgctxt "pull request state"
 msgid "Merged"
 msgstr "Di-merge"
 
@@ -11366,6 +11381,10 @@ msgstr "buka"
 
 msgid "Open"
 msgstr "Buka"
+
+msgctxt "pull request or issue state"
+msgid "Open"
+msgstr "Terbuka"
 
 msgctxt "status"
 msgid "Open"

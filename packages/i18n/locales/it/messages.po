@@ -3904,6 +3904,10 @@ msgstr "Chiudi workspace"
 msgid "Closed"
 msgstr "Chiusa"
 
+msgctxt "pull request or issue state"
+msgid "Closed"
+msgstr "Chiusa"
+
 msgid "Closing these ports will end the processes using them."
 msgstr "Chiudendo queste porte terminerai i processi che le usano."
 
@@ -6254,6 +6258,10 @@ msgstr "Download..."
 msgid "Downloads"
 msgstr "Download"
 
+msgid "Draft"
+msgstr "Bozza"
+
+msgctxt "pull request state"
 msgid "Draft"
 msgstr "Bozza"
 
@@ -8830,6 +8838,9 @@ msgstr "Esiste un piano gratuito?"
 msgid "Isolation"
 msgstr "Isolamento"
 
+msgid "Issue"
+msgstr "Issue"
+
 #. placeholder {0}: link.number
 msgid "Issue #{0}"
 msgstr "Issue #{0}"
@@ -9878,6 +9889,10 @@ msgstr "Stato del merge"
 msgid "Merge status unknown"
 msgstr "Stato del merge sconosciuto"
 
+msgid "Merged"
+msgstr "Unita"
+
+msgctxt "pull request state"
 msgid "Merged"
 msgstr "Unita"
 
@@ -11366,6 +11381,10 @@ msgstr "apri"
 
 msgid "Open"
 msgstr "Apri"
+
+msgctxt "pull request or issue state"
+msgid "Open"
+msgstr "Aperta"
 
 msgctxt "status"
 msgid "Open"
@@ -17947,7 +17966,7 @@ msgstr "Aggiornato"
 
 #. placeholder {0}: formatRelativeTime(new Date(item.updatedAt))
 msgid "Updated {0}"
-msgstr "Aggiornato {0}"
+msgstr "Ultimo aggiornamento {0}"
 
 msgid "Updated {date}"
 msgstr "Aggiornato il {date}"

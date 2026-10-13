@@ -3904,6 +3904,10 @@ msgstr "Werkruimte sluiten"
 msgid "Closed"
 msgstr "Gesloten"
 
+msgctxt "pull request or issue state"
+msgid "Closed"
+msgstr "Gesloten"
+
 msgid "Closing these ports will end the processes using them."
 msgstr "Als je deze poorten sluit, worden de processen die ze gebruiken beëindigd."
 
@@ -6254,6 +6258,10 @@ msgstr "Downloaden..."
 msgid "Downloads"
 msgstr "Downloads"
 
+msgid "Draft"
+msgstr "Draft"
+
+msgctxt "pull request state"
 msgid "Draft"
 msgstr "Draft"
 
@@ -8830,6 +8838,9 @@ msgstr "Is er een gratis plan?"
 msgid "Isolation"
 msgstr "Isolatie"
 
+msgid "Issue"
+msgstr "Issue"
+
 #. placeholder {0}: link.number
 msgid "Issue #{0}"
 msgstr "Issue #{0}"
@@ -9878,6 +9889,10 @@ msgstr "Mergestatus"
 msgid "Merge status unknown"
 msgstr "Mergestatus onbekend"
 
+msgid "Merged"
+msgstr "Gemerged"
+
+msgctxt "pull request state"
 msgid "Merged"
 msgstr "Gemerged"
 
@@ -11366,6 +11381,10 @@ msgstr "openen"
 
 msgid "Open"
 msgstr "Openen"
+
+msgctxt "pull request or issue state"
+msgid "Open"
+msgstr "Open"
 
 msgctxt "status"
 msgid "Open"

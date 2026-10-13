@@ -3904,6 +3904,10 @@ msgstr "Fechar área de trabalho"
 msgid "Closed"
 msgstr "Fechado"
 
+msgctxt "pull request or issue state"
+msgid "Closed"
+msgstr "Fechado"
+
 msgid "Closing these ports will end the processes using them."
 msgstr "Fechar estas portas vai encerrar os processos que as usam."
 
@@ -6254,6 +6258,10 @@ msgstr "Baixando..."
 msgid "Downloads"
 msgstr "Downloads"
 
+msgid "Draft"
+msgstr "Rascunho"
+
+msgctxt "pull request state"
 msgid "Draft"
 msgstr "Rascunho"
 
@@ -8830,6 +8838,9 @@ msgstr "Existe um plano gratuito?"
 msgid "Isolation"
 msgstr "Isolamento"
 
+msgid "Issue"
+msgstr "Issue"
+
 #. placeholder {0}: link.number
 msgid "Issue #{0}"
 msgstr "Issue #{0}"
@@ -9878,6 +9889,10 @@ msgstr "Status do merge"
 msgid "Merge status unknown"
 msgstr "Status do merge desconhecido"
 
+msgid "Merged"
+msgstr "Mesclado"
+
+msgctxt "pull request state"
 msgid "Merged"
 msgstr "Mesclado"
 
@@ -11366,6 +11381,10 @@ msgstr "abrir"
 
 msgid "Open"
 msgstr "Abrir"
+
+msgctxt "pull request or issue state"
+msgid "Open"
+msgstr "Aberto"
 
 msgctxt "status"
 msgid "Open"

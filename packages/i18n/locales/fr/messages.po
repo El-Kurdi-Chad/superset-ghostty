@@ -3904,6 +3904,10 @@ msgstr "Fermer l'espace de travail"
 msgid "Closed"
 msgstr "Fermée"
 
+msgctxt "pull request or issue state"
+msgid "Closed"
+msgstr "Fermée"
+
 msgid "Closing these ports will end the processes using them."
 msgstr "Fermer ces ports mettra fin aux processus qui les utilisent."
 
@@ -6254,6 +6258,10 @@ msgstr "Téléchargement..."
 msgid "Downloads"
 msgstr "Téléchargements"
 
+msgid "Draft"
+msgstr "Brouillon"
+
+msgctxt "pull request state"
 msgid "Draft"
 msgstr "Brouillon"
 
@@ -8830,6 +8838,9 @@ msgstr "Existe-t-il une offre gratuite ?"
 msgid "Isolation"
 msgstr "Isolation"
 
+msgid "Issue"
+msgstr "Issue"
+
 #. placeholder {0}: link.number
 msgid "Issue #{0}"
 msgstr "Issue n°{0}"
@@ -9878,6 +9889,10 @@ msgstr "Statut de fusion"
 msgid "Merge status unknown"
 msgstr "Statut de fusion inconnu"
 
+msgid "Merged"
+msgstr "Fusionnée"
+
+msgctxt "pull request state"
 msgid "Merged"
 msgstr "Fusionnée"
 
@@ -11366,6 +11381,10 @@ msgstr "ouvrir"
 
 msgid "Open"
 msgstr "Ouvrir"
+
+msgctxt "pull request or issue state"
+msgid "Open"
+msgstr "Ouverte"
 
 msgctxt "status"
 msgid "Open"

@@ -3904,6 +3904,10 @@ msgstr "Đóng workspace"
 msgid "Closed"
 msgstr "Đã đóng"
 
+msgctxt "pull request or issue state"
+msgid "Closed"
+msgstr "Đã đóng"
+
 msgid "Closing these ports will end the processes using them."
 msgstr "Đóng các cổng này sẽ kết thúc những tiến trình đang dùng chúng."
 
@@ -6254,6 +6258,10 @@ msgstr "Đang tải xuống..."
 msgid "Downloads"
 msgstr "Tải xuống"
 
+msgid "Draft"
+msgstr "Nháp"
+
+msgctxt "pull request state"
 msgid "Draft"
 msgstr "Nháp"
 
@@ -8830,6 +8838,9 @@ msgstr "Có gói miễn phí không?"
 msgid "Isolation"
 msgstr "Tách biệt"
 
+msgid "Issue"
+msgstr "Issue"
+
 #. placeholder {0}: link.number
 msgid "Issue #{0}"
 msgstr "Issue #{0}"
@@ -9878,6 +9889,10 @@ msgstr "Trạng thái merge"
 msgid "Merge status unknown"
 msgstr "Trạng thái merge không xác định"
 
+msgid "Merged"
+msgstr "Đã merge"
+
+msgctxt "pull request state"
 msgid "Merged"
 msgstr "Đã merge"
 
@@ -11366,6 +11381,10 @@ msgstr "mở"
 
 msgid "Open"
 msgstr "Mở"
+
+msgctxt "pull request or issue state"
+msgid "Open"
+msgstr "Đang mở"
 
 msgctxt "status"
 msgid "Open"

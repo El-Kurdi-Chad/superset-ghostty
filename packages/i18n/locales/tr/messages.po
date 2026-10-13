@@ -3904,6 +3904,10 @@ msgstr "Çalışma alanını kapat"
 msgid "Closed"
 msgstr "Kapalı"
 
+msgctxt "pull request or issue state"
+msgid "Closed"
+msgstr "Kapalı"
+
 msgid "Closing these ports will end the processes using them."
 msgstr "Bu portları kapatmak, onları kullanan süreçleri sonlandırır."
 
@@ -6254,6 +6258,10 @@ msgstr "İndiriliyor..."
 msgid "Downloads"
 msgstr "İndirilenler"
 
+msgid "Draft"
+msgstr "Taslak"
+
+msgctxt "pull request state"
 msgid "Draft"
 msgstr "Taslak"
 
@@ -8830,6 +8838,9 @@ msgstr "Ücretsiz plan var mı?"
 msgid "Isolation"
 msgstr "Yalıtım"
 
+msgid "Issue"
+msgstr "Issue"
+
 #. placeholder {0}: link.number
 msgid "Issue #{0}"
 msgstr "Issue #{0}"
@@ -9878,6 +9889,10 @@ msgstr "Birleştirme durumu"
 msgid "Merge status unknown"
 msgstr "Birleştirme durumu bilinmiyor"
 
+msgid "Merged"
+msgstr "Birleştirildi"
+
+msgctxt "pull request state"
 msgid "Merged"
 msgstr "Birleştirildi"
 
@@ -11366,6 +11381,10 @@ msgstr "aç"
 
 msgid "Open"
 msgstr "Aç"
+
+msgctxt "pull request or issue state"
+msgid "Open"
+msgstr "Açık"
 
 msgctxt "status"
 msgid "Open"

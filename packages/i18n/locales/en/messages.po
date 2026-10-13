@@ -3904,6 +3904,10 @@ msgstr "Close Workspace"
 msgid "Closed"
 msgstr "Closed"
 
+msgctxt "pull request or issue state"
+msgid "Closed"
+msgstr "Closed"
+
 msgid "Closing these ports will end the processes using them."
 msgstr "Closing these ports will end the processes using them."
 
@@ -6254,6 +6258,10 @@ msgstr "Downloading..."
 msgid "Downloads"
 msgstr "Downloads"
 
+msgid "Draft"
+msgstr "Draft"
+
+msgctxt "pull request state"
 msgid "Draft"
 msgstr "Draft"
 
@@ -8830,6 +8838,9 @@ msgstr "Is there a free plan?"
 msgid "Isolation"
 msgstr "Isolation"
 
+msgid "Issue"
+msgstr "Issue"
+
 #. placeholder {0}: link.number
 msgid "Issue #{0}"
 msgstr "Issue #{0}"
@@ -9878,6 +9889,10 @@ msgstr "Merge status"
 msgid "Merge status unknown"
 msgstr "Merge status unknown"
 
+msgid "Merged"
+msgstr "Merged"
+
+msgctxt "pull request state"
 msgid "Merged"
 msgstr "Merged"
 
@@ -11364,6 +11379,10 @@ msgstr "Only you can see this page"
 msgid "open"
 msgstr "open"
 
+msgid "Open"
+msgstr "Open"
+
+msgctxt "pull request or issue state"
 msgid "Open"
 msgstr "Open"
 
