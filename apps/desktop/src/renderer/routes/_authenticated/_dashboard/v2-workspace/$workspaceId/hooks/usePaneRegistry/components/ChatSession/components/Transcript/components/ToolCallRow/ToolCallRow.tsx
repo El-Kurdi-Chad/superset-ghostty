@@ -13,15 +13,22 @@ import { useMemo, useState } from "react";
 import { PluginIcon } from "renderer/components/PluginIcon";
 import { usePluginMentionOptions } from "renderer/hooks/usePluginMentionOptions";
 import { fileChangeOf } from "../../utils/fileChange";
+import {
+	toolCallCommand,
+	toolCallIntent,
+	unwrapShellCommand,
+} from "../../utils/shellIntent";
 import { ToolContentList } from "../ToolContentList";
 import { FileChangeTitle } from "./components/FileChangeTitle";
+import { ShellIntentTitle } from "./components/ShellIntentTitle";
 import { StatusWord } from "./components/StatusWord";
 
 const TITLE_SWEEP_SECONDS = 1.6;
 
 /**
  * One line per call on a rail of steps: what the agent did, a command in
- * mono, a file as a chip that previews its edit. A running call turns a
+ * mono, a file as a chip that previews its edit, a shell command that only
+ * read or searched as that read or search. A running call turns a
  * dashed ring and sweeps its title; a settled one recedes. The line opens
  * what the call produced: a button under the whole row toggles it, so the
  * chip can be a button of its own without one inside the other.
@@ -33,6 +40,10 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 	const running = item.status === "running";
 	const command = item.toolKind === "execute";
 	const change = useMemo(() => fileChangeOf(item), [item]);
+	const intent = useMemo(
+		() => (change ? null : toolCallIntent(item)),
+		[change, item],
+	);
 	const installedPlugins = usePluginMentionOptions();
 	const mcpServer = item.mcpServer;
 	const plugin = mcpServer
@@ -50,6 +61,8 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 				running={running}
 			/>
 		);
+	} else if (intent) {
+		title = <ShellIntentTitle intent={intent} running={running} />;
 	} else {
 		// The translator names a command "Terminal" until the command itself
 		// arrives a beat later; "Running" says more in the meantime.
@@ -57,13 +70,18 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 			!item.title ||
 			item.title.startsWith("mcp__") ||
 			item.title === `${mcpServer?.tool} (${mcpServer?.name})`;
+		const shell = command ? toolCallCommand(item) : null;
+		const titleIsCommand = shell === null || item.title.endsWith(shell);
 		const label =
 			plugin && mcpServer && rawMcpTitle
 				? mcpServer.tool
 				: running && command && item.title === "Terminal"
 					? t({ message: "Running" })
-					: item.title;
-		const face = command ? "font-mono text-[13px]" : undefined;
+					: shell && titleIsCommand
+						? item.title.slice(0, -shell.length) + unwrapShellCommand(shell)
+						: item.title;
+		const face =
+			command && titleIsCommand ? "font-mono text-[13px]" : undefined;
 		title = running ? (
 			<span className="min-w-0 truncate">
 				<ShimmerLabel
