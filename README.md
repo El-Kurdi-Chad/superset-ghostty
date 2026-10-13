@@ -1,6 +1,7 @@
 > [!NOTE]
 > **Unofficial fork: Superset × Ghostty.** Terminals open in [Ghostty](https://ghostty.org)
-> instead of the built-in terminal. What changed and how to build it: [GHOSTTY.md](GHOSTTY.md).
+> instead of the built-in terminal. **[Download the macOS app](https://github.com/El-Kurdi-Chad/superset-ghostty/releases/latest)**
+> · how it works and how to build it: [GHOSTTY.md](GHOSTTY.md).
 > Not affiliated with Superset; same [license](LICENSE.md).
 
 <div align="center">
