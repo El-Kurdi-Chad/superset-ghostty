@@ -15,6 +15,7 @@ import {
 	extractPdevTarball,
 	isBundled,
 	main,
+	PDEV_VERSION,
 	pdevAssetName,
 } from "./build-bundled-pdev";
 
@@ -93,7 +94,7 @@ describe("build-bundled-pdev", () => {
 
 	it("downloads the release archive and checks its SHA-256", async () => {
 		const bytes = readFileSync(packSource());
-		const assetName = "pdev-0.1.0-linux-x64.tar.gz";
+		const assetName = `pdev-${PDEV_VERSION}-linux-x64.tar.gz`;
 		const sha256 = createHash("sha256").update(bytes).digest("hex");
 		const requested: string[] = [];
 		const fetcher = (async (url: string) => {
@@ -111,13 +112,13 @@ describe("build-bundled-pdev", () => {
 		);
 
 		expect(requested).toEqual([
-			`https://github.com/superset-sh/pdev/releases/download/v0.1.0/${assetName}`,
+			`https://github.com/superset-sh/pdev/releases/download/v${PDEV_VERSION}/${assetName}`,
 		]);
 		expect(isBundled(destDir, `${assetName} sha256:${sha256}`)).toBe(true);
 	});
 
 	it("downloads again when a cached bundle was not verified with the pinned SHA-256", async () => {
-		const assetName = "pdev-0.1.0-linux-x64.tar.gz";
+		const assetName = `pdev-${PDEV_VERSION}-linux-x64.tar.gz`;
 		const bytes = readFileSync(packSource());
 		const sha256 = createHash("sha256").update(bytes).digest("hex");
 		await extractPdevTarball(packSource(), destDir, assetName);
@@ -138,7 +139,9 @@ describe("build-bundled-pdev", () => {
 		const env = { TARGET_PLATFORM: "linux", TARGET_ARCH: "x64" };
 		const fetcher = (async () =>
 			new Response("tampered")) as unknown as typeof fetch;
-		const checksums = { "pdev-0.1.0-linux-x64.tar.gz": "0".repeat(64) };
+		const checksums = {
+			[`pdev-${PDEV_VERSION}-linux-x64.tar.gz`]: "0".repeat(64),
+		};
 
 		await main(env, destDir, fetcher, checksums);
 		expect(existsSync(destDir)).toBe(false);
