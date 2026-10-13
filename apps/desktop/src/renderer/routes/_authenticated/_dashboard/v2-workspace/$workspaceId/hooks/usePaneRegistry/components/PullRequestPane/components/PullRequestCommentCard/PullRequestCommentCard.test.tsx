@@ -116,6 +116,24 @@ describe("review cards", () => {
 		fireEvent.click(body);
 		expect(onOpenInDiff).not.toHaveBeenCalled();
 	});
+	test("an expanded card folds again when its thread becomes resolved elsewhere", () => {
+		const resolved = { ...comment, threadId: "T1", isResolved: true };
+		const client = workspaceTrpc.createClient({ links: [] });
+		const queryClient = new QueryClient();
+		const card = (next: typeof resolved) => (
+			<workspaceTrpc.Provider client={client} queryClient={queryClient}>
+				<PullRequestCommentCard workspaceId="ws" comment={next} />
+			</workspaceTrpc.Provider>
+		);
+		const view = render(card(resolved));
+		fireEvent.click(view.getByRole("button", { name: /Expand/ }));
+		const rerender = (next: typeof resolved) => view.rerender(card(next));
+		rerender({ ...resolved, isResolved: false });
+		expect(view.getByText(/Keep the/)).toBeTruthy();
+		rerender(resolved);
+		expect(view.queryByText(/Keep the/)).toBeNull();
+		expect(view.getByRole("button", { name: /Expand/ })).toBeTruthy();
+	});
 	test("Reply hands the thread to the composer, or opens GitHub when nothing can take it", () => {
 		const requestReply = mock((_target: { commentId: number }) => {});
 		const inline = renderCard({ comment }, requestReply);

@@ -88,7 +88,7 @@ export function PullRequestActivityCard({
 		);
 	}
 	const line = (
-		<div className="flex min-h-6 min-w-0 flex-1 items-center gap-x-2 [&>*+*]:before:me-2 [&>*+*]:before:text-muted-foreground [&>*+*]:before:content-['·']">
+		<span className="flex min-h-6 min-w-0 flex-1 items-center gap-x-2 [&>*+*]:before:me-2 [&>*+*]:before:text-muted-foreground [&>*+*]:before:content-['·']">
 			<span
 				className="min-w-0 max-w-[50%] shrink truncate font-medium text-foreground"
 				title={author?.name ?? undefined}
@@ -111,7 +111,7 @@ export function PullRequestActivityCard({
 					{time.relative}
 				</time>
 			) : null}
-		</div>
+		</span>
 	);
 	return (
 		<article
