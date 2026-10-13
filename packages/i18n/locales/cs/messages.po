@@ -690,6 +690,9 @@ msgstr "{actor} zrušil(a) propojení pracovního prostoru {workspace}"
 msgid "{actual} so far · ~{projected} projected"
 msgstr "zatím {actual} · odhad ~{projected}"
 
+msgid "{agents} sessions resume when you open their workspace."
+msgstr "Relace {agents} se obnoví, když otevřete jejich pracovní prostor."
+
 msgid "{behindCount, plural, one {Behind main by # commit, needs rebase} other {Behind main by # commits, needs rebase}}"
 msgstr "{behindCount, plural, one {Zaostává za main o # commit, je potřeba rebase} few {Zaostává za main o # commity, je potřeba rebase} many {Zaostává za main o # commitu, je potřeba rebase} other {Zaostává za main o # commitů, je potřeba rebase}}"
 
@@ -807,6 +810,9 @@ msgstr "{count} hostitelů používá starší službu hostitele než tato aplik
 
 msgid "{count}/day"
 msgstr "{count}/den"
+
+msgid "{current} of {total}"
+msgstr "{current} z {total}"
 
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} z {totalBranches}"
@@ -970,6 +976,18 @@ msgstr "{noun, select, repository {Zadejte alespoň jeden repozitář.} channel 
 
 msgid "{openCount} open"
 msgstr "{openCount} otevřených"
+
+msgid "{pageTitle} can read and change data in your {pluginLabel} account as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} může vaším jménem číst a měnit data ve vašem účtu {pluginLabel}, a to i v budoucích verzích této stránky. Co načte, může odeslat na jiné weby. Povolte jen stránky, kterým důvěřujete."
+
+msgid "{pageTitle} can use {pluginLabel} as you, including in future versions of this page. It can send what it reads to other websites. Only allow pages you trust."
+msgstr "{pageTitle} může vaším jménem používat {pluginLabel}, a to i v budoucích verzích této stránky. Co načte, může odeslat na jiné weby. Povolte jen stránky, kterým důvěřujete."
+
+msgid "{pageTitle} uses {pluginLabel}. Install it to continue."
+msgstr "{pageTitle} používá {pluginLabel}. Pokračujte instalací."
+
+msgid "{pageTitle} will use this account."
+msgstr "{pageTitle} použije tento účet."
 
 msgid "{partialCount} partial"
 msgstr "{partialCount} částečně"
@@ -2129,6 +2147,9 @@ msgstr "Povolit vzdálený přístup k tomuto zařízení přes relay"
 msgid "Allow this action?"
 msgstr "Povolit tuto akci?"
 
+msgid "Allow this page to use {pluginLabel}?"
+msgstr "Povolit této stránce používat {pluginLabel}?"
+
 msgid "Allowed"
 msgstr "Povoleno"
 
@@ -2233,6 +2254,9 @@ msgstr "Anonymní montér"
 
 msgid "another device"
 msgstr "jiné zařízení"
+
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "Odpovězte na dotazy v terminálu níže, například heslo."
 
 msgid "Answer this question on desktop, or skip it."
 msgstr "Odpovězte na tuto otázku na počítači, nebo ji přeskočte."
@@ -2589,6 +2613,9 @@ msgstr "Přílohy vyžadují hosta online"
 msgid "Attempt before checks pass"
 msgstr "Zkusit ještě před dokončením kontrol"
 
+msgid "Attempted changes"
+msgstr "Pokus o změny"
+
 msgid "Attention queue"
 msgstr "Fronta pozornosti"
 
@@ -2766,9 +2793,6 @@ msgstr "Zpět na automatizace"
 
 msgid "Back to billing"
 msgstr "Zpět na fakturaci"
-
-msgid "Back to Blog"
-msgstr "Zpět na blog"
 
 msgid "Back to Changelog"
 msgstr "Zpět na changelog"
@@ -3032,8 +3056,8 @@ msgstr "Přineste {companyName} svému týmu. Ozvěte se nám a zjistěte více 
 msgid "Bring a link to something you built recently."
 msgstr "Přineste odkaz na něco, co jste nedávno vytvořili."
 
-msgid "Bring Any Agent."
-msgstr "Přiveďte jakéhokoli agenta."
+msgid "Bring Any Agent"
+msgstr "Přiveďte jakéhokoli agenta"
 
 msgid "Bring over your projects"
 msgstr "Převeďte své projekty"
@@ -3345,6 +3369,9 @@ msgstr "Změnit logo organizace"
 msgid "Change organization slug"
 msgstr "Změnit slug organizace"
 
+msgid "Change preview"
+msgstr "Náhled změn"
+
 msgid "Change priority"
 msgstr "Změnit prioritu"
 
@@ -3520,6 +3547,9 @@ msgstr "Kontroly prošly"
 
 msgid "Checks Skipped"
 msgstr "Kontroly přeskočeny"
+
+msgid "Choose a {pluginLabel} account"
+msgstr "Vyberte účet {pluginLabel}"
 
 msgid "Choose a fighter"
 msgstr "Vyberte bojovníka"
@@ -3734,6 +3764,9 @@ msgstr "Klonuji…"
 
 msgid "Close"
 msgstr "Zavřít"
+
+msgid "Close (Esc)"
+msgstr "Zavřít (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -4161,6 +4194,9 @@ msgstr "Připojit"
 msgid "Connect {name}"
 msgstr "Připojit {name}"
 
+msgid "Connect {pluginLabel}"
+msgstr "Připojit {pluginLabel}"
+
 msgid "Connect a device"
 msgstr "Připojit zařízení"
 
@@ -4223,6 +4259,9 @@ msgstr "Připojte Slack a spravujte úkoly přímo z konverzací. Zmiňte bota v
 
 msgid "Connect this computer"
 msgstr "Připojte tento počítač"
+
+msgid "Connect your {pluginLabel} account, then reload this page."
+msgstr "Připojte svůj účet {pluginLabel} a pak tuto stránku znovu načtěte."
 
 msgid "Connect your coding agents to the apps your team already uses."
 msgstr "Připojte své kódovací agenty k aplikacím, které váš tým už používá."
@@ -6120,6 +6159,9 @@ msgstr "Dokumentace"
 
 msgid "Documentation"
 msgstr "Dokumentace"
+
+msgid "Don't allow"
+msgstr "Nepovolit"
 
 msgid "Don't ask again"
 msgstr "Příště se neptat"
@@ -8592,6 +8634,9 @@ msgstr "Zkoumám {0}"
 msgid "Install"
 msgstr "Nainstalovat"
 
+msgid "Install {pluginLabel}?"
+msgstr "Nainstalovat {pluginLabel}?"
+
 msgid "Install & restart"
 msgstr "Nainstalovat a restartovat"
 
@@ -8646,6 +8691,9 @@ msgstr "Nainstalováno přes"
 
 msgid "Installing..."
 msgstr "Instaluji..."
+
+msgid "Installs Superset on a machine you can reach with ssh, signs Superset in to your account, and keeps it running as a service."
+msgstr "Nainstaluje Superset na počítač dostupný přes ssh, přihlásí Superset k vašemu účtu a udržuje Superset spuštěný jako službu."
 
 msgid "Instructions"
 msgstr "Instrukce"
@@ -10313,6 +10361,9 @@ msgstr "Novinky, aktualizace a postřehy od týmu Superset o paralelních kódov
 msgid "Next"
 msgstr "Další"
 
+msgid "Next (Enter)"
+msgstr "Další (Enter)"
+
 msgid "Next branch"
 msgstr "Další větev"
 
@@ -11417,6 +11468,9 @@ msgstr "Otevřít ze složky"
 msgid "Open full screen"
 msgstr "Otevřít na celou obrazovku"
 
+msgid "Open host"
+msgstr "Otevřít host"
+
 msgid "Open importer"
 msgstr "Otevřít import"
 
@@ -11771,8 +11825,8 @@ msgstr "Oranžová"
 msgid "Orchestrate Parallel Agents"
 msgstr "Řiďte paralelní agenty"
 
-msgid "Orchestrate Them All."
-msgstr "Řiďte je všechny."
+msgid "Orchestrate Them All"
+msgstr "Řiďte je všechny"
 
 msgid "Orchestrated"
 msgstr "Orchestrovaný"
@@ -12243,6 +12297,9 @@ msgstr "Připnuté"
 msgid "PK"
 msgstr "PK"
 
+msgid "Plain text"
+msgstr "Prostý text"
+
 msgid "Plan"
 msgstr "Tarif"
 
@@ -12484,6 +12541,9 @@ msgstr "Náhled: připomínka hvězdičky na GitHubu"
 
 msgid "Previous"
 msgstr "Předchozí"
+
+msgid "Previous (Shift+Enter)"
+msgstr "Předchozí (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "Předchozí větev"
@@ -14045,9 +14105,6 @@ msgstr "Běží na tomto zařízení"
 msgid "Running terminal processes continue, but older output may no longer be available after restarting the app."
 msgstr "Běžící procesy v terminálu poběží dál, ale starší výstup po restartu aplikace už nemusí být k dispozici."
 
-msgid "Running terminals from v1 did not carry over. Each v1 workspace now has new terminals that open in the same folders."
-msgstr "Běžící terminály z v1 se nepřenesly. Každý pracovní prostor z v1 má nyní nové terminály, které se otevírají ve stejných složkách."
-
 msgid "Runs a local command on your machine"
 msgstr "Spouští lokální příkaz na vašem počítači"
 
@@ -14773,6 +14830,9 @@ msgstr "Nastavit"
 msgid "Set up {0}"
 msgstr "Nastavit {0}"
 
+msgid "Set up a host over SSH"
+msgstr "Nastavit host přes SSH"
+
 msgid "Set up an automation"
 msgstr "Nastavte automatizaci"
 
@@ -14814,6 +14874,9 @@ msgstr "Setup"
 
 msgid "Setup script"
 msgstr "Setup skript"
+
+msgid "Setup stopped. The reason is in the output below."
+msgstr "Nastavení se zastavilo. Důvod je ve výstupu níže."
 
 msgid "Sexual content"
 msgstr "Sexuální obsah"
@@ -15468,6 +15531,9 @@ msgstr "Squash a sloučit"
 msgid "SS"
 msgstr "SS"
 
+msgid "SSH destination"
+msgstr "Cíl SSH"
+
 msgid "SSO/SAML"
 msgstr "SSO/SAML"
 
@@ -15926,6 +15992,9 @@ msgstr "Superset vyvíjíme v Superset, takže jsme sami jeho největšími uži
 msgid "Superset is designed to work with your existing tool, we natively support deep-linking to IDEs like Cursor so you can open your workspaces and files in your IDE."
 msgstr "Superset je navržený tak, aby fungoval s vaším stávajícím nástrojem. Nativně podporujeme hluboké odkazy do IDE, jako je Cursor, takže si pracovní prostory a soubory otevřete ve svém IDE."
 
+msgid "Superset is getting a new name soon"
+msgstr "Superset brzy dostane nový název"
+
 msgid "Superset is open source. If it's helped you today, a GitHub star helps other developers find it."
 msgstr "Superset je open source. Pokud vám dnes pomohl, hvězda na GitHubu pomůže dalším vývojářům ho najít."
 
@@ -15961,9 +16030,6 @@ msgstr "Diff kódu v Superset Mobile na iPhonu"
 
 msgid "Superset mobile gives me the power of my desktop anywhere I go."
 msgstr "Superset mobile mi dává výkon mého počítače, ať jsem kdekoli."
-
-msgid "Superset Mobile is here"
-msgstr "Superset Mobile je tady"
 
 msgid "Superset Mobile is part of Pro"
 msgstr "Superset Mobile je součástí tarifu Pro"
@@ -16015,9 +16081,6 @@ msgstr "Superset umístí skills a nástroje pluginů tam, kde je tito agenti hl
 
 msgid "Superset raised an $11.5M seed round led by Union Square Ventures, with Y Combinator and Paul Graham. TechCrunch named it one of the standout startups from YC Demo Day."
 msgstr "Superset získal 11,5 milionu dolarů v seed kole, které vedl fond Union Square Ventures za účasti Y Combinatoru a Paula Grahama. TechCrunch ho zařadil mezi nejvýraznější startupy YC Demo Day."
-
-msgid "Superset resumes the agent sessions it recorded ({agents}) when you open their workspace."
-msgstr "Superset obnoví zaznamenané relace agentů ({agents}), když otevřete jejich pracovní prostor."
 
 msgid "Superset runs locally on your developers' machines. We don't store your code or AI conversations, and Superset has completed a SOC 2 Type II audit with an independent auditor. Request the report and review our security documentation at trust.superset.sh."
 msgstr "Superset běží lokálně na počítačích vašich vývojářů. Neukládáme váš kód ani konverzace s AI a Superset prošel auditem SOC 2 Type II u nezávislého auditora. Vyžádejte si zprávu a projděte si dokumentaci k bezpečnosti na trust.superset.sh."
@@ -16628,6 +16691,9 @@ msgstr "Hostitel se neobnovil do patnácti minut."
 msgid "The host hasn't answered."
 msgstr "Host neodpověděl."
 
+msgid "The host is online. Pick it when you create a workspace."
+msgstr "Host je online. Vyberte ho při vytváření pracovního prostoru."
+
 msgid "The host isn't connected to the Superset relay. If it's this device, turn on \"Allow remote access to this device via relay\" in Settings > Remote Access, then try again."
 msgstr "Host není připojený k Superset relay. Pokud jde o toto zařízení, zapněte „Povolit vzdálený přístup k tomuto zařízení přes relay“ v Nastavení > Vzdálený přístup a zkuste to znovu."
 
@@ -17135,6 +17201,9 @@ msgstr "V tomto vlákně není komentář, na který by šlo odpovědět."
 msgid "This thread is not open to agents. A person has to comment on it before an agent can reply."
 msgstr "Toto vlákno nebylo předáno agentovi. Nejprve ho někdo musí ze stránky předat."
 
+msgid "This update restarted your terminals once. New ones open in the same folders."
+msgstr "Tato aktualizace jednorázově restartovala vaše terminály. Nové se otevírají ve stejných složkách."
+
 msgid "This user runs the host service for this device and can't be removed."
 msgstr "Tento uživatel provozuje host service pro toto zařízení a nelze ho odebrat."
 
@@ -17244,11 +17313,11 @@ msgstr "Název"
 msgid "To"
 msgstr "Do"
 
-msgid "To get back a different agent conversation, run this in a terminal in its folder:"
-msgstr "Chcete-li získat zpět jinou konverzaci s agentem, spusťte toto v terminálu v její složce:"
+msgid "To resume an agent conversation, run this in its folder:"
+msgstr "Chcete-li obnovit konverzaci s agentem, spusťte toto v její složce:"
 
-msgid "To get back an agent conversation, run this in a terminal in its folder:"
-msgstr "Chcete-li získat zpět konverzaci s agentem, spusťte toto v terminálu v její složce:"
+msgid "To resume another agent conversation, run this in its folder:"
+msgstr "Chcete-li obnovit jinou konverzaci s agentem, spusťte toto v její složce:"
 
 msgid "Toast (Sonner)"
 msgstr "Toast (Sonner)"
@@ -17984,6 +18053,9 @@ msgstr "Pro spouštění paralelních kódovacích agentů použijte desktopovou
 msgid "Use the Superset tray menu > Host Service > Restart, then retry."
 msgstr "Použijte nabídku Superset na liště > Host Service > Restart a zkuste to znovu."
 
+msgid "Use this account"
+msgstr "Použít tento účet"
+
 msgid "Use this folder"
 msgstr "Použít tuto složku"
 
@@ -18034,6 +18106,9 @@ msgstr "Uživatel nenalezen"
 
 msgid "user@example.com"
 msgstr "uzivatel@example.com"
+
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "uživatel@host, ssh://uživatel@host:2222 nebo alias z konfigurace ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Použije se náhodný název větve (generování přes AI vypršelo)"
@@ -18716,6 +18791,9 @@ msgstr "Worktree se odstraní z disku; pracovní prostory na checkoutu projektu 
 
 msgid "Would you like to reassign it?"
 msgstr "Chcete zkratku přiřadit znovu?"
+
+msgid "Wrap lines"
+msgstr "Zalamovat řádky"
 
 msgid "Write a comment"
 msgstr "Napsat komentář"
