@@ -28,7 +28,7 @@ import {
 } from "renderer/lib/pierreTree";
 import type { AgentTarget } from "renderer/routes/_authenticated/_dashboard/components/AgentSessionPicker";
 import { WorkItemDetailState } from "renderer/routes/_authenticated/_dashboard/components/WorkItemDetailState";
-import { hashString } from "renderer/routes/_authenticated/_dashboard/utils/hashString";
+import { buildContentKey } from "renderer/routes/_authenticated/_dashboard/utils/buildContentKey";
 import { useDiffCardCodeViewTheme } from "renderer/routes/_authenticated/_dashboard/v2-workspace/$workspaceId/hooks/usePaneRegistry/components/DiffPane/hooks/useDiffCodeViewTheme";
 import { DiffFileCollapseButton } from "renderer/screens/main/components/DiffFileCollapseButton";
 import { DiffFileHeaderName } from "renderer/screens/main/components/DiffFileHeaderName";
@@ -157,14 +157,14 @@ function parseFileDiffs(diff: PullRequestDiff): ParsedFileDiff[] {
 			additions += hunk.additionLines;
 			deletions += hunk.deletionLines;
 		}
-		const contentKey = hashString(JSON.stringify(fileDiff)).toString(36);
+		const contentKey = buildContentKey(fileDiff.name, JSON.stringify(fileDiff));
 		return {
 			item: {
 				id: `${fileDiff.name}-${index}`,
 				type: "diff",
 				// Pierre keys its render cache on cacheKey and falls back to the
 				// file name, which would keep showing a file's old content.
-				fileDiff: { ...fileDiff, cacheKey: `${fileDiff.name}:${contentKey}` },
+				fileDiff: { ...fileDiff, cacheKey: contentKey },
 			},
 			contentKey,
 			path: fileDiff.name,
@@ -283,7 +283,6 @@ export function PullRequestCodeTab({
 			}),
 		staleTime: 30_000,
 		gcTime: 10 * 60_000,
-		refetchOnWindowFocus: false,
 	});
 
 	const threadsQueryKey = [

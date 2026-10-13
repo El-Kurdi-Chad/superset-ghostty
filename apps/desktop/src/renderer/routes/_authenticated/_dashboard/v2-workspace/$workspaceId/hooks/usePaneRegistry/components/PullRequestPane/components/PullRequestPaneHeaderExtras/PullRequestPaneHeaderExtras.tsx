@@ -5,7 +5,9 @@ import { useIsFetching, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { LuCheck, LuCopy, LuMaximize2, LuRefreshCw } from "react-icons/lu";
 import { useCopyToClipboard } from "renderer/hooks/useCopyToClipboard";
+import { pullRequestDetailQueryKey } from "renderer/routes/_authenticated/_dashboard/pull-requests/hooks/usePullRequestDetail";
 import { usePullRequestsSplitViewStore } from "renderer/routes/_authenticated/_dashboard/pull-requests/stores/pullRequestsSplitViewStore";
+import { useWorkspace } from "renderer/routes/_authenticated/_dashboard/v2-workspace/providers/WorkspaceProvider";
 import type { PullRequestPaneData } from "../../../../../../types";
 import { usePullRequestPaneDetail } from "../../hooks/usePullRequestPaneDetail";
 
@@ -21,7 +23,15 @@ export function PullRequestPaneHeaderExtras({
 	const queryClient = useQueryClient();
 	const { copyToClipboard, copied } = useCopyToClipboard();
 	const detail = usePullRequestPaneDetail(data);
-	const isRefreshing = useIsFetching({ queryKey: ["pull-request-detail"] }) > 0;
+	const { hostUrl } = useWorkspace();
+	const isRefreshing =
+		useIsFetching({
+			queryKey: pullRequestDetailQueryKey({
+				projectId: detail.projectId,
+				hostUrl,
+				prNumber: data.number,
+			}),
+		}) > 0;
 	const url =
 		detail.data?.url ??
 		`https://github.com/${data.repoFullName}/pull/${data.number}`;
@@ -31,11 +41,17 @@ export function PullRequestPaneHeaderExtras({
 		for (const queryKey of [
 			[["git", "getPullRequest"]],
 			[["git", "getPullRequestThreads"]],
-			["pull-request-diff"],
-			["pull-request-threads"],
 		]) {
 			void queryClient.invalidateQueries({ queryKey });
 		}
+		void queryClient.invalidateQueries({
+			predicate: ({ queryKey }) =>
+				(queryKey[0] === "pull-request-diff" &&
+					queryKey.includes(data.repoFullName) &&
+					queryKey.includes(data.number)) ||
+				(queryKey[0] === "pull-request-threads" &&
+					queryKey.includes(data.number)),
+		});
 	};
 	const copyLabel = copied
 		? t({ message: "Copied" })

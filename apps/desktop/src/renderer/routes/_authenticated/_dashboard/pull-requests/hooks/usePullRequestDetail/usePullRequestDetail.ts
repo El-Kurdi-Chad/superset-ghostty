@@ -68,7 +68,7 @@ interface PullRequestDetailKey {
 	prNumber: number | null;
 }
 
-function pullRequestDetailQueryKey({
+export function pullRequestDetailQueryKey({
 	projectId,
 	hostUrl,
 	prNumber,
