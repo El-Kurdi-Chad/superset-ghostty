@@ -28,6 +28,21 @@ input, scrollback, agents, notifications.
 
 Without Ghostty installed, terminals keep Superset's style.
 
+## Is it Ghostty?
+
+No. It's Superset's terminal (xterm.js) wearing your Ghostty look. For the
+real Ghostty, use the ↗ button. The everyday shortcuts match Ghostty's
+defaults on macOS:
+
+| | Ghostty | Here |
+|---|---|---|
+| Copy, paste, select all | ⌘C ⌘V ⌘A | same |
+| Clear, find | ⌘K ⌘F | same |
+| New tab, split right/down, close | ⌘T ⌘D ⌘⇧D ⌘W | same |
+| Text size | ⌘= ⌘- ⌘0 | same (zooms the whole app) |
+| Jump to prompt, zoom split, screen to file | ⌘↑ ⌘⇧↵ ⌘⇧J | not available |
+| Your own `keybind =` lines | yes | not read |
+
 ## Rather keep the official app?
 
 This fork has no auto-update. If you want Superset's updates, keep the
