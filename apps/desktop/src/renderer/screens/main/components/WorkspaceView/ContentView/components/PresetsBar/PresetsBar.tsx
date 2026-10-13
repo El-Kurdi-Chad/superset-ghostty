@@ -189,6 +189,7 @@ export function PresetsBar() {
 			const item = presetById.get(presetId);
 			if (!item) continue;
 			if (!isPresetPinnedToBar(item.preset.pinnedToBar)) continue;
+			if (!isTerminalPresetEnabled(item.preset, isAgentPresetEnabled)) continue;
 			orderedPinnedPresets.push(item);
 			seenIds.add(presetId);
 		}
