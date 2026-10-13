@@ -1,17 +1,26 @@
-interface UsageProgressRingProps {
-	usedPercent?: number;
+import { cn } from "@superset/ui/utils";
+
+interface ProgressRingProps {
+	percent?: number;
 	unavailable?: boolean;
+	className?: string;
 }
 
-export function UsageProgressRing({
-	usedPercent = 0,
+export function ProgressRing({
+	percent: rawPercent = 0,
 	unavailable = false,
-}: UsageProgressRingProps) {
-	const percent = Number.isFinite(usedPercent)
-		? Math.min(100, Math.max(0, usedPercent))
+	className,
+}: ProgressRingProps) {
+	const percent = Number.isFinite(rawPercent)
+		? Math.min(100, Math.max(0, rawPercent))
 		: 0;
 	return (
-		<svg aria-hidden="true" viewBox="0 0 16 16" className="size-4" fill="none">
+		<svg
+			aria-hidden="true"
+			viewBox="0 0 16 16"
+			className={cn("size-4 shrink-0", className)}
+			fill="none"
+		>
 			<circle
 				cx="8"
 				cy="8"
@@ -31,6 +40,7 @@ export function UsageProgressRing({
 					pathLength="100"
 					strokeDasharray={`${percent} 100`}
 					transform="rotate(-90 8 8)"
+					className="transition-[stroke-dasharray] duration-500 ease-out motion-reduce:transition-none"
 				/>
 			)}
 		</svg>
