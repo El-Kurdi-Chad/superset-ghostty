@@ -105,7 +105,7 @@ function closeOwnTab() {
 		"/bin/sh",
 		[
 			"-c",
-			'sleep 0.3; osascript -e "tell application \\"Ghostty\\" to perform action \\"close_surface\\" on terminal id \\"$1\\""',
+			'sleep 0.3; osascript -e "tell application \\"Ghostty\\" to close terminal id \\"$1\\""',
 			"sh",
 			ghosttyId,
 		],

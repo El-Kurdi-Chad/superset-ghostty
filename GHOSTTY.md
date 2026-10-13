@@ -40,20 +40,31 @@ Optional, in `~/.config/ghostty/config`: `confirm-close-surface = false`, so
 closing a Superset tab in Ghostty doesn't ask for confirmation (closing it only
 detaches; the session keeps running in Superset).
 
-## Build and install
+## Install
+
+1. Download `Superset-<version>-arm64.dmg` from
+   [Releases](https://github.com/El-Kurdi-Chad/superset-ghostty/releases)
+   (Apple Silicon).
+2. Quit Superset, then drag the app from the DMG into Applications. It
+   replaces the official app and keeps your workspaces and sign-in.
+3. The app is not notarized, so macOS blocks the first launch. Run
+   `xattr -cr /Applications/Superset.app`, or right-click the app → Open.
+4. Create a terminal. When macOS asks whether Superset may control Ghostty,
+   click OK.
+
+Auto-update is off in this fork (the official update would replace it).
+Download the next release to upgrade, or reinstall the official app to go back.
+
+## Build from source
 
 ```bash
-git clone https://github.com/<this fork>.git superset-ghostty
+git clone https://github.com/El-Kurdi-Chad/superset-ghostty.git
 cd superset-ghostty
 bun install
 cd apps/desktop
 bun run build
 open release/mac-arm64/Superset.app
 ```
-
-The build is not signed with Superset's certificate. Auto-update is turned off
-in this fork (the official update would replace it); pull and rebuild to
-upgrade.
 
 ## What changed
 

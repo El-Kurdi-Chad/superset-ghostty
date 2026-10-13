@@ -157,9 +157,11 @@ export async function openTerminalInGhostty(
 	const known = registry[input.terminalId];
 	if (known && (await ghosttyTerminalExists(known))) {
 		if (!input.focus) return { status: "already-open" };
-		await runAppleScript(
-			`tell application "Ghostty" to focus terminal id ${appleScriptString(known)}`,
-		);
+		await runAppleScript(`
+tell application "Ghostty"
+	focus terminal id ${appleScriptString(known)}
+	activate
+end tell`);
 		return { status: "focused" };
 	}
 
