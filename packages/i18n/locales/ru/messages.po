@@ -811,6 +811,9 @@ msgstr "{count} хостов работают на более старой ве�
 msgid "{count}/day"
 msgstr "{count}/день"
 
+msgid "{current} of {total}"
+msgstr "{current} из {total}"
+
 msgid "{currentPage} of {totalBranches}"
 msgstr "{currentPage} из {totalBranches}"
 
@@ -3726,10 +3729,10 @@ msgid "Click the “↑ update” pill to see the pre-update confirm"
 msgstr "Нажмите «↑ update», чтобы увидеть подтверждение перед обновлением"
 
 msgid "Click the chip to open the issue"
-msgstr "Нажмите на метку, чтобы открыть issue"
+msgstr "Нажмите на чип, чтобы открыть задачу"
 
 msgid "Click the chip to open the pull request"
-msgstr "Нажмите на метку, чтобы открыть pull request"
+msgstr "Нажмите на чип, чтобы открыть пул-реквест"
 
 msgid "Click to copy the session ID (resume with `claude --resume <id>`)."
 msgstr "Нажмите, чтобы скопировать ID сессии (возобновление: `claude --resume <id>`)."
@@ -3770,6 +3773,9 @@ msgstr "Клонирование…"
 
 msgid "Close"
 msgstr "Закрыть"
+
+msgid "Close (Esc)"
+msgstr "Закрыть (Esc)"
 
 #. placeholder {0}: row.title
 msgid "Close {0}"
@@ -3903,6 +3909,10 @@ msgstr "Закрыть рабочую область"
 
 msgid "Closed"
 msgstr "Закрыт"
+
+msgctxt "pull request or issue state"
+msgid "Closed"
+msgstr "Закрыто"
 
 msgid "Closing these ports will end the processes using them."
 msgstr "Закрытие этих портов завершит использующие их процессы."
@@ -6254,6 +6264,10 @@ msgstr "Загрузка..."
 msgid "Downloads"
 msgstr "Загрузки"
 
+msgid "Draft"
+msgstr "Черновик"
+
+msgctxt "pull request state"
 msgid "Draft"
 msgstr "Черновик"
 
@@ -8842,9 +8856,12 @@ msgstr "Есть ли бесплатный тариф?"
 msgid "Isolation"
 msgstr "Изоляция"
 
+msgid "Issue"
+msgstr "Задача"
+
 #. placeholder {0}: link.number
 msgid "Issue #{0}"
-msgstr "Issue #{0}"
+msgstr "Задача #{0}"
 
 msgid "Issue archived"
 msgstr "Задача архивирована"
@@ -9901,6 +9918,10 @@ msgstr "Статус слияния неизвестен"
 msgid "Merged"
 msgstr "Объединён"
 
+msgctxt "pull request state"
+msgid "Merged"
+msgstr "Объединено"
+
 #. placeholder {0}: mergedBy.login
 msgid "Merged by {0}"
 msgstr "Объединил {0}"
@@ -10393,6 +10414,9 @@ msgstr "Новости, обновления и заметки команды Su
 
 msgid "Next"
 msgstr "Далее"
+
+msgid "Next (Enter)"
+msgstr "Далее (Enter)"
 
 msgid "Next branch"
 msgstr "Следующая ветка"
@@ -11386,6 +11410,10 @@ msgstr "открыть"
 
 msgid "Open"
 msgstr "Открыть"
+
+msgctxt "pull request or issue state"
+msgid "Open"
+msgstr "Открыто"
 
 msgctxt "status"
 msgid "Open"
@@ -12575,6 +12603,9 @@ msgstr "Предпросмотр: напоминание о звезде на Gi
 
 msgid "Previous"
 msgstr "Назад"
+
+msgid "Previous (Shift+Enter)"
+msgstr "Назад (Shift+Enter)"
 
 msgid "Previous branch"
 msgstr "Предыдущая ветка"
