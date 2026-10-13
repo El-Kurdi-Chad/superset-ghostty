@@ -24,6 +24,20 @@ input, scrollback, agents, notifications.
 
 Without Ghostty installed, terminals keep Superset's style.
 
+## Rather keep the official app?
+
+This fork has no auto-update. If you want Superset's updates, keep the
+official app and give it your Ghostty colors as a theme:
+
+```bash
+curl -fsSLO https://raw.githubusercontent.com/El-Kurdi-Chad/superset-ghostty/ghostty-terminals/scripts/ghostty-superset-theme.mjs
+node ghostty-superset-theme.mjs > ghostty-theme.json
+```
+
+Then Superset → Settings → Appearance → Import, and pick **Ghostty**. Set the
+terminal font in the same settings if your Ghostty font isn't JetBrains Mono
+13. The theme is a snapshot: run it again after changing Ghostty's colors.
+
 ## Install
 
 1. Download `Superset-<version>-arm64.dmg` from
