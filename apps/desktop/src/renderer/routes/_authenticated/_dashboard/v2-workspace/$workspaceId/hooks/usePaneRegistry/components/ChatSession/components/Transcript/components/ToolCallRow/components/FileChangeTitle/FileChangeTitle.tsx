@@ -49,7 +49,7 @@ export function FileChangeTitle({
 				) : (
 					verb
 				)}
-			</span>
+			</span>{" "}
 			{diff ? (
 				<FileChangePreview
 					change={change}
@@ -69,7 +69,10 @@ export function FileChangeTitle({
 				</span>
 			)}
 			{stats && !running && (
-				<span className="shrink-0 whitespace-nowrap font-mono text-xs tabular-nums">
+				<span
+					className="shrink-0 whitespace-nowrap font-mono text-xs tabular-nums"
+					data-find-skip
+				>
 					<DiffStatText
 						additions={stats.additions}
 						deletions={stats.deletions}
