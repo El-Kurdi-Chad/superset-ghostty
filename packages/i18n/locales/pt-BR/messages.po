@@ -2212,6 +2212,9 @@ msgstr "Montador Anônimo"
 msgid "another device"
 msgstr "outro dispositivo"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "Responda às perguntas no terminal abaixo, como uma senha."
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "Responda esta pergunta no desktop ou pule-a."
 
@@ -11380,6 +11383,9 @@ msgstr "Abrir de uma pasta"
 msgid "Open full screen"
 msgstr "Abrir em tela cheia"
 
+msgid "Open host"
+msgstr "Abrir host"
+
 msgid "Open importer"
 msgstr "Abrir o importador"
 
@@ -17992,8 +17998,8 @@ msgstr "Usuário não encontrado"
 msgid "user@example.com"
 msgstr "usuario@exemplo.com"
 
-msgid "user@host or an ssh config alias"
-msgstr "usuário@host ou um alias da configuração do ssh"
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "usuário@host, ssh://usuário@host:2222 ou um alias da configuração do ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Usando nome de branch aleatório (a geração por IA expirou)"

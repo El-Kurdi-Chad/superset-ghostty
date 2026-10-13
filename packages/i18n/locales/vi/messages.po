@@ -2212,6 +2212,9 @@ msgstr "Thợ lắp ráp ẩn danh"
 msgid "another device"
 msgstr "thiết bị khác"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "Trả lời các câu hỏi trong terminal bên dưới, chẳng hạn mật khẩu."
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "Trả lời câu hỏi này trên máy tính, hoặc bỏ qua."
 
@@ -11380,6 +11383,9 @@ msgstr "Mở từ thư mục"
 msgid "Open full screen"
 msgstr "Mở toàn màn hình"
 
+msgid "Open host"
+msgstr "Mở host"
+
 msgid "Open importer"
 msgstr "Mở trình nhập"
 
@@ -17992,8 +17998,8 @@ msgstr "Không tìm thấy người dùng"
 msgid "user@example.com"
 msgstr "user@example.com"
 
-msgid "user@host or an ssh config alias"
-msgstr "user@host hoặc một bí danh trong cấu hình ssh"
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "user@host, ssh://user@host:2222 hoặc một bí danh trong cấu hình ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Dùng tên nhánh ngẫu nhiên (AI tạo tên bị quá thời gian)"

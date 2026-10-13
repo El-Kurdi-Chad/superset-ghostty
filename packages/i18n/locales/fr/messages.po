@@ -2212,6 +2212,9 @@ msgstr "Assembleur anonyme"
 msgid "another device"
 msgstr "un autre appareil"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "Répondez aux questions dans le terminal ci-dessous, comme un mot de passe."
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "Répondez à cette question sur ordinateur, ou passez-la."
 
@@ -11380,6 +11383,9 @@ msgstr "Ouvrir depuis un dossier"
 msgid "Open full screen"
 msgstr "Ouvrir en plein écran"
 
+msgid "Open host"
+msgstr "Ouvrir l'hôte"
+
 msgid "Open importer"
 msgstr "Ouvrir l'importateur"
 
@@ -17992,8 +17998,8 @@ msgstr "Utilisateur introuvable"
 msgid "user@example.com"
 msgstr "utilisateur@exemple.com"
 
-msgid "user@host or an ssh config alias"
-msgstr "user@hôte ou un alias de configuration ssh"
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "user@hôte, ssh://user@hôte:2222 ou un alias de configuration ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Utilisation d'un nom de branche aléatoire (délai de génération IA dépassé)"

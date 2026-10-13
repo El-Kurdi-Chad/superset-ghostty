@@ -2212,6 +2212,9 @@ msgstr "匿名の組立工"
 msgid "another device"
 msgstr "別のデバイス"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "パスワードなど、下のターミナルでの質問に答えてください。"
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "この質問はデスクトップで回答するか、スキップしてください。"
 
@@ -11380,6 +11383,9 @@ msgstr "フォルダから開く"
 msgid "Open full screen"
 msgstr "全画面で開く"
 
+msgid "Open host"
+msgstr "ホストを開く"
+
 msgid "Open importer"
 msgstr "インポーターを開く"
 
@@ -17992,8 +17998,8 @@ msgstr "ユーザーが見つかりません"
 msgid "user@example.com"
 msgstr "user@example.com"
 
-msgid "user@host or an ssh config alias"
-msgstr "user@host または ssh config のエイリアス"
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "user@host、ssh://user@host:2222、または ssh config のエイリアス"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "ランダムなブランチ名を使用します(AI生成がタイムアウトしました)"

@@ -2212,6 +2212,9 @@ msgstr "Anonieme Assembleur"
 msgid "another device"
 msgstr "een ander apparaat"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "Beantwoord vragen in de terminal hieronder, zoals een wachtwoord."
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "Beantwoord deze vraag op desktop, of sla hem over."
 
@@ -11380,6 +11383,9 @@ msgstr "Openen vanuit map"
 msgid "Open full screen"
 msgstr "Openen op volledig scherm"
 
+msgid "Open host"
+msgstr "Host openen"
+
 msgid "Open importer"
 msgstr "Importer openen"
 
@@ -17992,8 +17998,8 @@ msgstr "Gebruiker niet gevonden"
 msgid "user@example.com"
 msgstr "gebruiker@voorbeeld.com"
 
-msgid "user@host or an ssh config alias"
-msgstr "gebruiker@host of een alias uit je ssh-configuratie"
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "gebruiker@host, ssh://gebruiker@host:2222 of een alias uit je ssh-configuratie"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Willekeurige branchnaam gebruikt (AI-generatie duurde te lang)"

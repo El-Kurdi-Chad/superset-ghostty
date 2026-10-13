@@ -2212,6 +2212,9 @@ msgstr "Ensamblador anónimo"
 msgid "another device"
 msgstr "otro dispositivo"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "Responde las preguntas en la terminal de abajo, como una contraseña."
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "Responde esta pregunta en el escritorio u omítela."
 
@@ -11380,6 +11383,9 @@ msgstr "Abrir desde una carpeta"
 msgid "Open full screen"
 msgstr "Abrir en pantalla completa"
 
+msgid "Open host"
+msgstr "Abrir host"
+
 msgid "Open importer"
 msgstr "Abrir el importador"
 
@@ -17992,8 +17998,8 @@ msgstr "Usuario no encontrado"
 msgid "user@example.com"
 msgstr "usuario@ejemplo.com"
 
-msgid "user@host or an ssh config alias"
-msgstr "usuario@host o un alias de la configuración de ssh"
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "usuario@host, ssh://usuario@host:2222 o un alias de la configuración de ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Se usará un nombre de rama aleatorio (la generación por IA agotó el tiempo)"

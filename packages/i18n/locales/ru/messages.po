@@ -2212,6 +2212,9 @@ msgstr "Анонимный сборщик"
 msgid "another device"
 msgstr "другое устройство"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "Отвечайте на вопросы в терминале ниже, например введите пароль."
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "Ответьте на этот вопрос на компьютере или пропустите его."
 
@@ -11380,6 +11383,9 @@ msgstr "Открыть из папки"
 msgid "Open full screen"
 msgstr "Открыть во весь экран"
 
+msgid "Open host"
+msgstr "Открыть хост"
+
 msgid "Open importer"
 msgstr "Открыть импортёр"
 
@@ -17992,8 +17998,8 @@ msgstr "Пользователь не найден"
 msgid "user@example.com"
 msgstr "user@example.com"
 
-msgid "user@host or an ssh config alias"
-msgstr "user@host или псевдоним из конфигурации ssh"
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "user@host, ssh://user@host:2222 или псевдоним из конфигурации ssh"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "Используется случайное имя ветки (истекло время генерации AI)"

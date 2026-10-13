@@ -2212,6 +2212,9 @@ msgstr "익명의 조립공"
 msgid "another device"
 msgstr "다른 기기"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "아래 터미널에서 비밀번호 등 질문에 답하세요."
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "이 질문은 데스크톱에서 답하거나 건너뛰세요."
 
@@ -11380,6 +11383,9 @@ msgstr "폴더에서 열기"
 msgid "Open full screen"
 msgstr "전체 화면으로 열기"
 
+msgid "Open host"
+msgstr "호스트 열기"
+
 msgid "Open importer"
 msgstr "가져오기 도구 열기"
 
@@ -17992,8 +17998,8 @@ msgstr "사용자를 찾을 수 없습니다"
 msgid "user@example.com"
 msgstr "user@example.com"
 
-msgid "user@host or an ssh config alias"
-msgstr "user@host 또는 ssh 설정 별칭"
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "user@host, ssh://user@host:2222 또는 ssh 설정 별칭"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "임의의 브랜치 이름을 사용합니다 (AI 생성 시간 초과)"

@@ -8,8 +8,10 @@ import {
 	DialogTitle,
 } from "@superset/ui/dialog";
 import { Input } from "@superset/ui/input";
+import { Spinner } from "@superset/ui/spinner";
 import { cn } from "@superset/ui/utils";
-import { useEffect, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import { LuCheck, LuTriangleAlert } from "react-icons/lu";
 import { useActiveOrganizationId } from "renderer/hooks/useActiveOrganizationId";
 import { cloudTrpc } from "renderer/lib/cloud-trpc";
@@ -18,6 +20,7 @@ import {
 	buildHostsAddCommand,
 	isValidSshTarget,
 } from "./utils/buildHostsAddCommand";
+import { parseOnlineHostId } from "./utils/parseOnlineHostId";
 
 type Phase = "form" | "running" | "success" | "failed";
 
@@ -31,6 +34,7 @@ export function SetUpOverSshDialog({
 	onOpenChange,
 }: SetUpOverSshDialogProps) {
 	const { t } = useLingui();
+	const navigate = useNavigate();
 	const organizationId = useActiveOrganizationId();
 	const cloudUtils = cloudTrpc.useUtils();
 	const [phase, setPhase] = useState<Phase>("form");
@@ -38,16 +42,25 @@ export function SetUpOverSshDialog({
 	const [run, setRun] = useState<{ command: string; attempt: number } | null>(
 		null,
 	);
+	const [hostId, setHostId] = useState<string | null>(null);
+	const outputRef = useRef("");
+	const terminalBoxRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		if (open) setPhase("form");
+		if (open) {
+			setPhase("form");
+			setRun(null);
+		}
 	}, [open]);
 
 	const trimmed = target.trim();
 	const canStart = isValidSshTarget(trimmed) && organizationId !== null;
+	const running = phase === "running";
 
 	const start = () => {
-		if (!canStart) return;
+		if (!canStart || running) return;
+		outputRef.current = "";
+		setHostId(null);
 		setRun((prev) => ({
 			command: buildHostsAddCommand(trimmed, organizationId),
 			attempt: (prev?.attempt ?? 0) + 1,
@@ -55,12 +68,32 @@ export function SetUpOverSshDialog({
 		setPhase("running");
 	};
 
+	const cancel = () => {
+		setRun(null);
+		setPhase("form");
+	};
+
+	const focusTerminal = () => {
+		terminalBoxRef.current
+			?.querySelector<HTMLTextAreaElement>(".xterm-helper-textarea")
+			?.focus();
+	};
+
 	const handleExit = (exitCode: number | null) => {
 		if (exitCode === 0) {
+			setHostId(parseOnlineHostId(outputRef.current));
 			setPhase("success");
 			void cloudUtils.host.roster.invalidate();
 		} else {
 			setPhase("failed");
+		}
+	};
+
+	const openHost = async () => {
+		await cloudUtils.host.roster.invalidate();
+		onOpenChange(false);
+		if (hostId) {
+			navigate({ to: "/settings/hosts/$hostId", params: { hostId } });
 		}
 	};
 
@@ -69,20 +102,20 @@ export function SetUpOverSshDialog({
 			open={open}
 			modal
 			onOpenChange={(next) => {
-				if (phase !== "running") onOpenChange(next);
+				if (!running) onOpenChange(next);
 			}}
 		>
 			<DialogContent
 				className="gap-3 sm:max-w-[752px]"
-				showCloseButton={phase !== "running"}
+				showCloseButton={!running}
 				onEscapeKeyDown={(event) => {
-					if (phase === "running") event.preventDefault();
+					if (running) event.preventDefault();
 				}}
 				onInteractOutside={(event) => {
-					if (phase === "running") event.preventDefault();
+					if (running) event.preventDefault();
 				}}
 				onFocusOutside={(event) => {
-					if (phase === "running") event.preventDefault();
+					if (running) event.preventDefault();
 				}}
 			>
 				<DialogHeader>
@@ -107,30 +140,54 @@ export function SetUpOverSshDialog({
 						autoFocus
 						value={target}
 						onChange={(event) => setTarget(event.target.value)}
-						placeholder={t({ message: "user@host or an ssh config alias" })}
+						placeholder={t({
+							message:
+								"user@host, ssh://user@host:2222, or an ssh config alias",
+						})}
 						aria-label={t({ message: "SSH destination" })}
-						disabled={phase === "running"}
+						disabled={running || phase === "success"}
 						className="font-mono"
 					/>
-					<Button type="submit" disabled={!canStart || phase === "running"}>
-						{phase === "failed" ? <Trans>Retry</Trans> : <Trans>Set up</Trans>}
-					</Button>
+					{running ? (
+						<Button
+							key="cancel"
+							type="button"
+							variant="outline"
+							onClick={(event) => {
+								event.preventDefault();
+								cancel();
+							}}
+						>
+							<Trans>Cancel</Trans>
+						</Button>
+					) : phase === "success" ? (
+						<Button key="open-host" type="button" onClick={openHost}>
+							<Trans>Open host</Trans>
+						</Button>
+					) : (
+						<Button key="submit" type="submit" disabled={!canStart}>
+							{phase === "failed" ? (
+								<Trans>Retry</Trans>
+							) : (
+								<Trans>Set up</Trans>
+							)}
+						</Button>
+					)}
 				</form>
+				{running && (
+					<div className="flex min-h-11 items-center gap-2.5 rounded-md bg-muted/40 px-3.5 text-sm text-muted-foreground">
+						<Spinner className="size-3.5 shrink-0" />
+						<Trans>
+							Answer any questions in the terminal below, such as a password.
+						</Trans>
+					</div>
+				)}
 				{phase === "success" && (
 					<div className="flex min-h-11 items-center gap-2.5 rounded-md border bg-muted/40 px-3.5 text-sm">
 						<LuCheck className="size-3.5 shrink-0 text-emerald-500" />
 						<Trans>
 							The host is online. Pick it when you create a workspace.
 						</Trans>
-						<Button
-							type="button"
-							size="sm"
-							variant="outline"
-							className="ml-auto"
-							onClick={() => onOpenChange(false)}
-						>
-							<Trans>Done</Trans>
-						</Button>
 					</div>
 				)}
 				{phase === "failed" && (
@@ -141,8 +198,9 @@ export function SetUpOverSshDialog({
 				)}
 				{phase !== "form" && run && (
 					<div
+						ref={terminalBoxRef}
 						className={cn(
-							"h-[280px] w-full overflow-hidden rounded-lg border bg-[#151110] p-3",
+							"h-[340px] w-full overflow-hidden rounded-lg border bg-[#151110] p-3",
 							phase === "failed" && "opacity-80",
 						)}
 					>
@@ -150,6 +208,10 @@ export function SetUpOverSshDialog({
 							key={run.attempt}
 							command={run.command}
 							onExit={handleExit}
+							onOutput={(data) => {
+								outputRef.current = (outputRef.current + data).slice(-8192);
+							}}
+							onWriterReady={() => requestAnimationFrame(focusTerminal)}
 						/>
 					</div>
 				)}

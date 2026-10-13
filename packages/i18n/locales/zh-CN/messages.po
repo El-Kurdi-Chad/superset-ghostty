@@ -2212,6 +2212,9 @@ msgstr "匿名装配工"
 msgid "another device"
 msgstr "另一台设备"
 
+msgid "Answer any questions in the terminal below, such as a password."
+msgstr "请在下方终端中回答提问，例如输入密码。"
+
 msgid "Answer this question on desktop, or skip it."
 msgstr "请在桌面端回答此问题，或跳过。"
 
@@ -11380,6 +11383,9 @@ msgstr "从文件夹打开"
 msgid "Open full screen"
 msgstr "全屏打开"
 
+msgid "Open host"
+msgstr "打开主机"
+
 msgid "Open importer"
 msgstr "打开导入器"
 
@@ -17992,8 +17998,8 @@ msgstr "未找到用户"
 msgid "user@example.com"
 msgstr "user@example.com"
 
-msgid "user@host or an ssh config alias"
-msgstr "user@host 或 ssh 配置中的别名"
+msgid "user@host, ssh://user@host:2222, or an ssh config alias"
+msgstr "user@host、ssh://user@host:2222 或 ssh 配置中的别名"
 
 msgid "Using random branch name (AI generation timed out)"
 msgstr "使用随机分支名（AI生成超时）"
